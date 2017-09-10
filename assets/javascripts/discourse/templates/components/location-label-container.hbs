@@ -1,0 +1,12 @@
+<div class="location-label" title="{{i18n 'location.label.title'}}">
+  {{d-icon 'map-marker'}}
+  {{location-format topic.location}}
+</div>
+{{#if hasGeoLocation}}
+  <div class="location-topic-map">
+    {{d-button action="showMap" label='location.show_map'}}
+    {{#if showMap}}
+      {{map-component topic=topic}}
+    {{/if}}
+  </div>
+{{/if}}

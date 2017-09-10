@@ -1,0 +1,42 @@
+en:
+  js:
+    category:
+      enable_location: "Allow locations to be added to topics in this category"
+    composer:
+      location:
+        btn: "Add Location"
+        title: "Add a Location"
+    location:
+      name:
+        title: "Name (optional)"
+        desc: "e.g. P. Sherman Dentist"
+      street:
+        title: "Number and Street"
+        desc: "e.g. 42 Wallaby Way"
+      postalcode:
+        title: "Postal Code (Zip)"
+        desc: "e.g. 2548"
+      city:
+        title: "City, Town or Village"
+        desc: "e.g. Sydney"
+      query:
+        title: "Location"
+      country_code:
+        title: "Country"
+        placeholder: "Select a Country"
+      geo:
+        desc: "e.g. 42 Wallaby Way, Sydney. Locations provided by {{provider}}"
+        btn:
+          label: "Find Location"
+        results: "Map Locations"
+        no_results: "No results. Please double check the spelling and postal code."
+      label:
+        add: "Add a Location"
+        title: "Show Location Details"
+        geo:
+          title: "Map Location"
+          empty: "No map location added"
+      show_map: "Show Map"
+    filters:
+      map:
+        title: "Map"

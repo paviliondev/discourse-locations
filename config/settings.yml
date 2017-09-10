@@ -1,0 +1,45 @@
+plugins:
+  location_geocoding:
+    client: true
+    type: enum
+    default: 'optional'
+    choices:
+     - none
+     - optional
+     - required
+  location_input_fields:
+    client: true
+    type: list
+    default: 'street|postalcode|city|countrycode'
+    choices:
+      - street
+      - postalcode
+      - city
+      - countrycode
+  location_input_fields_enabled:
+    client: true
+    default: false
+  location_geocoding_provider:
+    default: 'nominatim'
+    client: true
+    type: 'enum'
+    choices:
+      - nominatim
+      - mapzen
+      - location_iq
+      - opencagedata
+      - mapbox
+      - mapquest
+  location_geocoding_api_key:
+    default: ''
+  location_geocoding_timeout:
+    default: 3
+  location_map_tile_layer:
+    default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+    client: true
+  location_map_subdomains:
+    default: "abcd"
+    client: true
+  location_map_attribution:
+    default: "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, &copy; <a href='http://cartodb.com/attributions'>CartoDB</a>"
+    client: true
