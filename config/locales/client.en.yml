@@ -21,11 +21,12 @@ en:
         desc: "e.g. Sydney"
       query:
         title: "Location"
+        desc: "e.g. 42 Wallaby Way, Sydney."
       country_code:
         title: "Country"
         placeholder: "Select a Country"
       geo:
-        desc: "e.g. 42 Wallaby Way, Sydney. Locations provided by {{provider}}"
+        desc: "Map locations provided by {{provider}}"
         btn:
           label: "Find Location"
         results: "Map Locations"

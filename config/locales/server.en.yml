@@ -1,8 +1,8 @@
 en:
   site_settings:
-    location_geocoding: "Match user entered location with map location"
     location_input_fields: "Location input fields"
     location_input_fields_enabled: "Enable location input fields"
+    location_geocoding: "Whether locations should be geocoded (mapped). If off, locations are stored as strings."
     location_geocoding_api_key: "Geocoding API key"
     location_geocoding_provider: "Geocoding provider (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>provider details</a>). If the provider
                                   requires an api key enter it below before selecting the provider."

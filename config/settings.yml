@@ -1,12 +1,7 @@
 plugins:
-  location_geocoding:
+  location_input_fields_enabled:
     client: true
-    type: enum
-    default: 'optional'
-    choices:
-     - none
-     - optional
-     - required
+    default: false
   location_input_fields:
     client: true
     type: list
@@ -16,9 +11,14 @@ plugins:
       - postalcode
       - city
       - countrycode
-  location_input_fields_enabled:
+  location_geocoding:
     client: true
-    default: false
+    type: enum
+    default: 'optional'
+    choices:
+     - none
+     - optional
+     - required
   location_geocoding_provider:
     default: 'nominatim'
     client: true

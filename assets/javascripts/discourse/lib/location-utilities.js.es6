@@ -20,19 +20,17 @@ let geoLocationSearch = (request, placeSearch) => {
   });
 }
 
-let geoLocationFormat = function(geoLocation, attrs = {}) {
-  if (!geoLocation) { return; }
+let geoLocationFormat = function(geoLocation, displayAttrs = {}) {
+  if (!geoLocation) return;
   let display = '';
 
-  if (Object.keys(attrs).length > 0 && attrs.constructor === Object) {
-    let attrs = ['house_number', 'road', 'town', 'city', 'state', 'countrycode', 'postalcode'];
-    let address = geoLocation.address;
-    attrs.forEach(function(p) {
-      if (address[p]) {
+  if (Object.keys(displayAttrs).length > 0 && displayAttrs.constructor === Object) {
+    displayAttrs.forEach(function(a) {
+      if (geoLocation[a]) {
         if (display.length > 0) {
           display += ', ';
         }
-        display += address[p];
+        display += geoLocation[a];
       }
     })
   } else {
@@ -43,12 +41,16 @@ let geoLocationFormat = function(geoLocation, attrs = {}) {
 }
 
 let locationFormat = function(location) {
-  if (!location) return;
+  if (!location) return '';
 
-  let display = location.name;
+  let display = '';
+
+  if (location.name) {
+    display += location.name + ", ";
+  };
 
   if (Discourse.SiteSettings.location_input_fields_enabled) {
-    let attrs = ['street', 'city', 'postalcode'];
+    let attrs = Discourse.SiteSettings.location_input_fields.split('|');
 
     attrs.forEach(function(p) {
       if (location[p]) {
@@ -58,13 +60,11 @@ let locationFormat = function(location) {
 
         display += location[p];
       }
-    })
+    });
   } else if (location.geo_location) {
-    if (location.name) {
-      display += ", "
-    };
-
     display += geoLocationFormat(location.geo_location);
+  } else if (location.raw) {
+    display += location.raw;
   }
 
   return display;

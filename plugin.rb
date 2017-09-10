@@ -18,6 +18,10 @@ Discourse.anonymous_filters.push(:map)
 gem 'geocoder', '1.4.4'
 
 after_initialize do
+
+  Category.register_custom_field_type('location_enabled', :boolean)
+  add_to_serializer(:basic_category, :location_enabled) {object.custom_fields["location_enabled"]}
+
   Topic.register_custom_field_type('location', :json)
   Topic.register_custom_field_type('has_geo_location', :boolean)
 
@@ -43,9 +47,6 @@ after_initialize do
     end
   end
 
-  Category.register_custom_field_type('location_enabled', :boolean)
-  add_to_serializer(:basic_category, :location_enabled) {object.custom_fields["location_enabled"]}
-
   DiscourseEvent.on(:post_created) do |post, opts, user|
     location = opts[:location]
     if post.is_first_post? && location
@@ -65,8 +66,6 @@ after_initialize do
   end
 
   Locations::Engine.routes.draw do
-    post "set-location" => "topic#set_location"
-    delete "remove-location" => "topic#remove_location"
     get "search" => "geo#search"
     get "country_codes" => "geo#country_codes"
   end
@@ -76,7 +75,6 @@ after_initialize do
   end
 
   load File.expand_path('../controllers/geocode.rb', __FILE__)
-  load File.expand_path('../controllers/topic.rb', __FILE__)
   load File.expand_path('../serializers/geocode.rb', __FILE__)
   load File.expand_path('../lib/geocode.rb', __FILE__)
 

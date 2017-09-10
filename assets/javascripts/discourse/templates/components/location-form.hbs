@@ -40,9 +40,18 @@
   <div class="control-group">
     <label class='control-label'>{{i18n 'location.query.title'}}</label>
     <div class="controls">
-      {{location-selector location=geoLocation class="input-xxlarge location-selector"}}
+      {{#if showGeoLocation}}
+        {{location-selector location=geoLocation class="input-xxlarge location-selector"}}
+      {{else}}
+        {{input type="text" value=rawLocation class="input-xxlarge input-location"}}
+      {{/if}}
     </div>
-    <div class='instructions'>{{{i18n 'location.geo.desc' provider=providerDetails}}}</div>
+    <div class='instructions'>
+      {{i18n 'location.query.desc'}}
+      {{#if showGeoLocation}}
+        {{{i18n 'location.geo.desc' provider=providerDetails}}}
+      {{/if}}
+    </div>
   </div>
 {{/if}}
 {{#if showGeoLocation}}
@@ -65,7 +74,7 @@
           {{/if}}
         </ul>
       </div>
-      <div class='location-form-instructions'>{{{i18n 'location.geo.desc'}}}</div>
+      <div class='location-form-instructions'>{{{i18n 'location.geo.desc' provider=providerDetails}}}</div>
     {{/if}}
   {{/if}}
 {{/if}}
