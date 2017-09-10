@@ -19,25 +19,22 @@ en:
       city:
         title: "City, Town or Village"
         desc: "e.g. Sydney"
-      query:
-        title: "Location"
-        desc: "e.g. 42 Wallaby Way, Sydney."
       country_code:
         title: "Country"
         placeholder: "Select a Country"
+      query:
+        title: "Address"
+        desc: "e.g. 42 Wallaby Way, Sydney."
       geo:
-        desc: "Map locations provided by {{provider}}"
+        desc: "Addresses provided by {{provider}}"
         btn:
-          label: "Find Location"
-        results: "Map Locations"
+          label: "Find Address"
+        results: "Addresses"
         no_results: "No results. Please double check the spelling and postal code."
+        show_map: "Show Map"
       label:
         add: "Add a Location"
         title: "Show Location Details"
-        geo:
-          title: "Map Location"
-          empty: "No map location added"
-      show_map: "Show Map"
     filters:
       map:
         title: "Map"
