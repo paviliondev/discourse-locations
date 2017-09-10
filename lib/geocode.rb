@@ -15,7 +15,7 @@ class Locations::Geocode
     )
 
     ## test to see that the provider requirements are met
-    perform("46 Money Street")
+    perform("1600 Pennsylvania Avenue Northwest, Washington, D.C")
   end
 
   def self.perform(query, params = {})
