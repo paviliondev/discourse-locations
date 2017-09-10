@@ -37,16 +37,24 @@ let generateMap = function(category, clickable) {
     attributionControl: false
   }).fitWorld();
 
-  L.tileLayer(Discourse.SiteSettings.location_map_tile_layer, {
+  let options = {
     attribution: Discourse.SiteSettings.location_map_attribution,
-    subdomains: Discourse.SiteSettings.location_map_subdomains,
     maxZoom: 19
-  }).addTo(map)
+  }
+
+  const subdomains = Discourse.SiteSettings.location_map_tile_layer_subdomains;
+  if (subdomains) {
+    options['subdomains'] = subdomains;
+  }
+
+  L.tileLayer(Discourse.SiteSettings.location_map_tile_layer, options).addTo(map);
 
   L.Icon.Default.imagePath = '/plugins/discourse-locations/leaflet/images/';
+
   L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
   let attribution = L.control.attribution({ position: 'bottomright', prefix: ''});
+  
   let geojson = getGeoJson(category, clickable);
   geojson.addTo(map);
 

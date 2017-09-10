@@ -24,12 +24,12 @@ plugins:
     client: true
     type: 'enum'
     choices:
-      - nominatim
-      - mapzen
       - location_iq
-      - opencagedata
       - mapbox
       - mapquest
+      - mapzen
+      - nominatim
+      - opencagedata
   location_geocoding_api_key:
     default: ''
   location_geocoding_timeout:
@@ -37,8 +37,8 @@ plugins:
   location_map_tile_layer:
     default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
     client: true
-  location_map_subdomains:
-    default: "abcd"
+  location_map_tile_layer_subdomains:
+    default: ""
     client: true
   location_map_attribution:
     default: "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, &copy; <a href='http://cartodb.com/attributions'>CartoDB</a>"
