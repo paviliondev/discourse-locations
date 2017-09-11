@@ -8,7 +8,7 @@ class Locations::Geocode
       :lookup => provider,
       :api_key => api_key,
       :timeout => timeout,
-      :cache => Redis.new,
+      :cache => $redis,
       :cache_prefix => "geocode",
       :always_raise => :all,
       :use_https => true
