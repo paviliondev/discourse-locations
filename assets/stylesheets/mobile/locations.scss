@@ -1,0 +1,19 @@
+#reply-control .location-label-container {
+  padding: 3px 0 0;
+
+  button.btn {
+    padding: 4px 6px;
+    max-width: 80vw;
+    text-align: left;
+    vertical-align: top;
+
+    &.no-text {
+      margin: 0;
+      position: relative;
+    }
+  }
+}
+
+.composer-controls-location.show-control {
+  margin-right: 0;
+}

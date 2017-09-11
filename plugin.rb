@@ -3,7 +3,8 @@
 # version: 0.1
 # authors: Angus McLeod
 
-register_asset 'stylesheets/locations.scss'
+register_asset 'stylesheets/common/locations.scss'
+register_asset 'stylesheets/mobile/locations.scss', :mobile
 register_asset 'lib/leaflet/leaflet.css'
 register_asset 'lib/leaflet/leaflet.js'
 register_asset 'lib/leaflet/leaflet.markercluster.js'

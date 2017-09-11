@@ -46,7 +46,7 @@ let locationFormat = function(location) {
   let display = '';
 
   if (location.name) {
-    display += location.name + ", ";
+    display += location.name;
   };
 
   if (Discourse.SiteSettings.location_input_fields_enabled) {
@@ -54,7 +54,7 @@ let locationFormat = function(location) {
 
     attrs.forEach(function(p) {
       if (location[p]) {
-        if (display.length > 0) {
+        if (display.length > 0 || location.name) {
           display += ', ';
         }
 
@@ -62,8 +62,10 @@ let locationFormat = function(location) {
       }
     });
   } else if (location.geo_location) {
+    if (location.name) display += ', ';
     display += geoLocationFormat(location.geo_location);
   } else if (location.raw) {
+    if (location.name) display += ', ';
     display += location.raw;
   }
 

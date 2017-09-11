@@ -81,6 +81,11 @@ input.input-location, div.input-location {
 .location-label-container {
   margin-right: 5px;
   padding: 5px 0;
+
+  .add-location {
+    border: 1px solid dark-light-diff($primary, $secondary, 90%, -60%);
+    text-align: left;
+  }
 }
 
 .location-label {
