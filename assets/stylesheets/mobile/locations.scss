@@ -1,9 +1,9 @@
-#reply-control .show-control {
+#reply-control .composer-controls-location {
   display: none;
 }
 
-#reply-control .location-label-container {
-  margin: 0;
+#reply-control .location-label {
+  margin-left: 4px;
   padding: 0;
 }
 
@@ -22,7 +22,7 @@
   input#reply-title {
     width: initial;
     flex: 1 1 auto;
-    margin-right: 5px;
+    margin-right: 0;
   }
 }
 
@@ -33,4 +33,8 @@
     width: 100%;
     box-sizing: border-box;
   }
+}
+
+.location-selector+.autocomplete {
+  width: 90%;
 }

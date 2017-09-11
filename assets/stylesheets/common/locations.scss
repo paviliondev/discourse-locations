@@ -80,12 +80,6 @@ input.input-location, div.input-location {
 
 .composer-controls-location.show-control {
   display: inline-block;
-  margin-right: 5px;
-}
-
-.location-label-container {
-  margin-right: 5px;
-  padding: 5px 0;
 }
 
 .add-location {
@@ -93,18 +87,23 @@ input.input-location, div.input-location {
   text-align: left;
 }
 
-.location-label {
-  padding: 6px 12px;
-  line-height: 18px;
-  display: inline-block;
-  background: dark-light-diff($primary, $secondary, 90%, -65%);
+.location-details .location-label-container {
+  margin-right: 5px;
+  padding: 5px 0;
 
-  .fa {
-    margin-right: 7px;
+  .location-label {
+    padding: 6px 12px;
+    line-height: 18px;
+    display: inline-block;
+    background: dark-light-diff($primary, $secondary, 90%, -65%);
+
+    .fa {
+      margin-right: 7px;
+    }
   }
 }
 
-.composer-fields-outlet .location-label-container .btn:not(:hover) {
+.composer-controls-location .location-label .btn:not(:hover) {
   background: $secondary;
 }
 
