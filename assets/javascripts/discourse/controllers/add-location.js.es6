@@ -40,6 +40,20 @@ export default Ember.Controller.extend({
   },
 
   actions: {
+    clear() {
+      this.setProperties({
+        'name': null,
+        'street': null,
+        'postalcode': null,
+        'city': null,
+        'countrycode': null,
+        'geoLocation': null,
+        'rawLocation': null,
+        'model.location': null
+      });
+      $('.location-form .ac-wrap .item a.remove').click();
+    },
+
     submit() {
       if (this.get('submitDisabled')) return;
 

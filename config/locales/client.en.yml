@@ -35,6 +35,7 @@ en:
       label:
         add: "Add a Location"
         title: "Show Location Details"
+      clear: "Clear"
     filters:
       map:
         title: "Map"

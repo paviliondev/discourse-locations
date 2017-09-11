@@ -43,6 +43,11 @@
   }
 }
 
+.add-location + .modal-footer .clear {
+  float: right;
+  margin: 5px 10px;
+}
+
 input.input-location, div.input-location {
   overflow: auto;
   max-height: 150px;
