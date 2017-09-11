@@ -2,6 +2,8 @@ class Locations::GeoController < ::ApplicationController
   def search
     params.require(:request)
 
+    RateLimiter.new(current_user, "geocode_search", 6, 1.minute).performed!
+
     query = params[:request]['query']
 
     results = Locations::Geocode.perform(query)
