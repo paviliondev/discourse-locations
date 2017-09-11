@@ -38,3 +38,4 @@ en:
     filters:
       map:
         title: "Map"
+        help: "Mark topics with locations in this category on a map."
