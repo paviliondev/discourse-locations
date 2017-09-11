@@ -1,6 +1,6 @@
 {{#if location}}
-  {{d-button class="add-location" title='location.label.add' action="showAddLocation" translatedLabel=(location-format location) icon="map-marker"}}
+  {{d-button class=valueClasses title='location.label.add' action="showAddLocation" translatedLabel=valueLabel icon="map-marker"}}
   {{d-button icon="times" action="removeLocation" class="remove"}}
 {{else}}
-  {{d-button class="add-location" label='composer.location.btn' action='showAddLocation' icon="map-marker"}}
+  {{d-button class="add-location" label=addLabel action='showAddLocation' icon="map-marker"}}
 {{/if}}

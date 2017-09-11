@@ -1,19 +1,38 @@
+#reply-control .show-control {
+  display: none;
+}
+
 #reply-control .location-label-container {
-  padding: 3px 0 0;
+  margin: 0;
+  padding: 0;
+}
 
-  button.btn {
-    padding: 4px 6px;
-    max-width: 80vw;
-    text-align: left;
-    vertical-align: top;
+#reply-control button.add-location.no-text {
+  position: relative;
+  margin: 7px 0 0 0;
 
-    &.no-text {
-      margin: 0;
-      position: relative;
-    }
+  &:not(.btn-primary) {
+    background: $secondary;
   }
 }
 
-.composer-controls-location.show-control {
-  margin-right: 0;
+
+
+#reply-control .contents .title-input {
+  display: flex;
+
+  input#reply-title {
+    width: initial;
+    flex: 1 1 auto;
+    margin-right: 5px;
+  }
+}
+
+.add-location .control-group {
+  width: 100%;
+
+  .input-location.input-xxlarge {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
