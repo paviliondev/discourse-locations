@@ -39,19 +39,23 @@ export default Ember.Controller.extend({
     }
   },
 
+  clearModal() {
+    this.setProperties({
+      name: null,
+      street: null,
+      postalcode: null,
+      city: null,
+      countrycode: null,
+      geoLocation: null,
+      rawLocation: null,
+    });
+    $('.location-form .ac-wrap .item a.remove').click();
+  },
+
   actions: {
     clear() {
-      this.setProperties({
-        'name': null,
-        'street': null,
-        'postalcode': null,
-        'city': null,
-        'countrycode': null,
-        'geoLocation': null,
-        'rawLocation': null,
-        'model.location': null
-      });
-      $('.location-form .ac-wrap .item a.remove').click();
+      this.clearModal();
+      this.set('model.location', null);
     },
 
     submit() {
@@ -79,6 +83,7 @@ export default Ember.Controller.extend({
       if (name) location['name'] = name;
 
       this.set('model.location', location);
+      this.clearModal();
       this.send('closeModal');
     }
   }
