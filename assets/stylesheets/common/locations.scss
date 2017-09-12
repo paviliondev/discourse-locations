@@ -90,14 +90,34 @@ input.input-location, div.input-location {
 .location-details {
   position: relative;
   margin-top: 7px;
-}
 
-.location-details .location-label {
-  line-height: 18px;
-  display: inline-block;
+  .location-label-container {
+    display: flex;
+    align-items: center;
 
-  .fa {
-    margin-right: 3px;
+    .location-label {
+      line-height: 18px;
+      display: inline-block;
+    }
+
+    .location-topic-map {
+      white-space: nowrap;
+      position: relative;
+      display: inline-block;
+      margin-left: 8px;
+
+      .fa {
+        margin-right: 3px;
+      }
+
+      .map-component {
+        position: absolute;
+        z-index: 9999;
+        top: initial;
+        bottom: -253px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+      }
+    }
   }
 }
 
@@ -313,12 +333,11 @@ input.input-location, div.input-location {
 
     .leaflet-control-attribution {
       margin-right: 34px;
-      margin-bottom: 3px;
+      margin-bottom: 5px;
       border-radius: 4px;
-      height: 25px;
-      font-size: 1em;
-      line-height: 25px;
-      padding: 0 10px;
+      height: 20px;
+      font-size: 0.9em;
+      line-height: 20px;
     }
 
     .leaflet-map-pane {
@@ -371,6 +390,8 @@ input.input-location, div.input-location {
       width: 30px;
       height: 30px;
       line-height: 28px;
+      bottom: 20px;
+      right: 60px;
     }
 
     .search, .hide-search {
@@ -417,22 +438,5 @@ input.input-location, div.input-location {
       height: 28px;
       line-height: 26px
     }
-  }
-}
-
-.location-details .map-component {
-  position: absolute;
-  z-index: 9999;
-  top: initial;
-  bottom: -253px;
-}
-
-.location-topic-map {
-  position: relative;
-  display: inline-block;
-  margin-left: 4px;
-
-  .map-component {
-    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
   }
 }

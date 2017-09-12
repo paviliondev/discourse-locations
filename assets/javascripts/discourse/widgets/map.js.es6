@@ -159,7 +159,7 @@ export default createWidget('map', {
       })));
     }
 
-    if (!attrs.hideControls) {
+    if (attrs.showControls) {
       if (state.showInput) {
         contents.push(
           this.attach('map-search', {category}),

@@ -57,7 +57,7 @@ export default {
       buildList(category, args) {
         let items = this._super(category, args);
 
-        if (category && category.location_enabled) {
+        if (category && category.location_enabled && Discourse.SiteSettings.location_category_map_filter) {
           items.push(Discourse.NavItem.fromText('map', args));
         }
 
@@ -70,7 +70,7 @@ export default {
       availableViews(category) {
         let views = this._super(...arguments);
 
-        if (category.get('location_enabled')) {
+        if (category.get('location_enabled') && Discourse.SiteSettings.location_category_map_filter) {
           views.push(
             {name: I18n.t('filters.map.title'), value: 'map'}
           )
@@ -89,6 +89,13 @@ export default {
     mapRoutes.forEach(function(route){
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
+        afterModel(model, transition) {
+          if (!Discourse.SiteSettings.location_category_map_filter) {
+            this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}`);
+          }
+          return this._super(...arguments);
+        },
+
         renderTemplate(controller, model) {
           this.render('navigation/category', { outlet: 'navigation-bar' });
           this.render("discovery/map", { outlet: "list-container", controller: 'discovery/topics' });
@@ -106,8 +113,8 @@ export default {
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
         afterModel(model, transition) {
-          if (this.filter(model.category) == 'map') {
-            return this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}/l/${this.filter(model.category)}`)
+          if (this.filter(model.category) == 'map' && Discourse.SiteSettings.location_category_map_filter) {
+            return this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);
           } else {
             return this._super(...arguments);
           }

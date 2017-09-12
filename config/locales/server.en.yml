@@ -10,6 +10,7 @@ en:
     location_map_tile_layer: "Map tile layer uri (<a href='https://leaflet-extras.github.io/leaflet-providers/preview/'>examples</a>)"
     location_map_tile_layer_subdomains: "Map tile layer subdomains"
     location_map_attribution: "Map attribution"
+    location_category_map_filter: "Add map filter to categories in which locations are enabled."
 
   location:
     errors:
