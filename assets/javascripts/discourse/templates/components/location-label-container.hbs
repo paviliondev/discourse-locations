@@ -4,7 +4,7 @@
 </div>
 {{#if hasGeoLocation}}
   <div class="location-topic-map">
-    {{d-button action="showMap" label='location.geo.show_map'}}
+    {{d-button action="showMap" label=showMapLabel icon='map-o'}}
     {{#if showMap}}
       {{map-component topic=topic}}
     {{/if}}

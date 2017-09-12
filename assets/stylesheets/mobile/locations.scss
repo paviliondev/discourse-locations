@@ -38,3 +38,16 @@
 .location-selector+.autocomplete {
   width: 90%;
 }
+
+.location-details .map-component {
+  width: calc(100vw - 20px);
+}
+
+.location-details .location-label-container {
+  display: flex;
+
+  .location-label {
+    flex: 1 1 auto;
+    margin-right: 5px;
+  }
+}

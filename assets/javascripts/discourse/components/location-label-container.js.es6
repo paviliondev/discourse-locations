@@ -19,6 +19,11 @@ export default Ember.Component.extend({
     }
   },
 
+  @computed()
+  showMapLabel() {
+    return this.site.isMobileDevice ? '' : 'location.geo.show_map';
+  },
+
   actions: {
     showMap() {
       this.toggleProperty('showMap')
