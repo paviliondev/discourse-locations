@@ -52,6 +52,7 @@
 
 .location-details .location-label-container {
   display: flex;
+  align-items: center;
   margin-right: initial;
 
   .location-label {
@@ -59,6 +60,10 @@
   }
 
   .location-topic-map {
-    position: initial;
+
+    .fa {
+      margin: 0;
+      min-width: 15px;
+    }
   }
 }

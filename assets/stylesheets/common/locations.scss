@@ -87,19 +87,17 @@ input.input-location, div.input-location {
   text-align: left;
 }
 
-.location-details .location-label-container {
-  margin-right: 5px;
-  padding: 5px 0;
+.location-details {
+  position: relative;
+  margin-top: 7px;
+}
 
-  .location-label {
-    padding: 6px 12px;
-    line-height: 18px;
-    display: inline-block;
-    background: dark-light-diff($primary, $secondary, 90%, -65%);
+.location-details .location-label {
+  line-height: 18px;
+  display: inline-block;
 
-    .fa {
-      margin-right: 7px;
-    }
+  .fa {
+    margin-right: 3px;
   }
 }
 
@@ -422,20 +420,17 @@ input.input-location, div.input-location {
   }
 }
 
-.location-details {
-  position: relative;
-
-  .map-component {
-    position: absolute;
-    z-index: 9999;
-    top: initial;
-    bottom: -253px;
-  }
+.location-details .map-component {
+  position: absolute;
+  z-index: 9999;
+  top: initial;
+  bottom: -253px;
 }
 
 .location-topic-map {
   position: relative;
   display: inline-block;
+  margin-left: 4px;
 
   .map-component {
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);

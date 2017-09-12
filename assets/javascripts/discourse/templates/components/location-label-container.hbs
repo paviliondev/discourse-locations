@@ -4,7 +4,7 @@
 </div>
 {{#if hasGeoLocation}}
   <div class="location-topic-map">
-    <button {{action "showMap"}} class='btn btn-default'>
+    <button {{action "showMap"}} class='btn btn-small btn-default'>
       {{d-icon 'map-o'}}
       {{#unless site.mobileView}}
         {{i18n 'location.geo.show_map'}}
