@@ -14,19 +14,14 @@ export default Ember.Component.extend({
   },
 
   outsideClick(e) {
-    if (!this.isDestroying && !$(e.target).closest('.location-details .map-component').length) {
+    if (!this.isDestroying && !$(e.target).closest('.location-topic-map').length) {
       this.set('showMap', false);
     }
   },
 
-  @computed()
-  showMapLabel() {
-    return this.site.isMobileDevice ? '' : 'location.geo.show_map';
-  },
-
   actions: {
     showMap() {
-      this.toggleProperty('showMap')
+      this.toggleProperty('showMap');
     }
   }
 })

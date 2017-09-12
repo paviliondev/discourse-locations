@@ -4,7 +4,12 @@
 </div>
 {{#if hasGeoLocation}}
   <div class="location-topic-map">
-    {{d-button action="showMap" label=showMapLabel icon='map-o'}}
+    <button {{action "showMap"}} class='btn btn-default'>
+      {{d-icon 'map-o'}}
+      {{#unless site.mobileView}}
+        {{i18n 'add_to_calendar.label'}}
+      {{/unless}}
+    </button>
     {{#if showMap}}
       {{map-component topic=topic}}
     {{/if}}
