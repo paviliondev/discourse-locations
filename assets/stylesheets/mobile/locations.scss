@@ -39,6 +39,11 @@
   width: 90%;
 }
 
+.map-component .map.expanded {
+  top: 56px;
+  height: calc(100vh - 56px);
+}
+
 .location-details .map-component {
   width: calc(100vw - 20px);
   right: 0;
@@ -51,5 +56,9 @@
 
   .location-label {
     margin-right: 5px;
+  }
+
+  .location-topic-map {
+    position: initial;
   }
 }

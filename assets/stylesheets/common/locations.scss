@@ -428,7 +428,8 @@ input.input-location, div.input-location {
   .map-component {
     position: absolute;
     z-index: 9999;
-    top: 33px;
+    top: initial;
+    bottom: -253px;
   }
 }
 
