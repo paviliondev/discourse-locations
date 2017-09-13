@@ -16,8 +16,9 @@ export default {
         if (!topicFirstPost) return false;
 
         const topicTypes = Discourse.SiteSettings.composer_topic_types;
-        if (topicTypes && topicTypes.split('|').indexOf(currentType) > -1
-            && currentType !== 'rating') return true;
+        if (topicTypes && topicTypes.split('|').indexOf(currentType) > -1 && currentType == 'event') {
+          return true;
+        }
 
         return categoryEnabled;
       },
@@ -34,6 +35,14 @@ export default {
       @observes('composer.location')
       resizeWhenLocationAdded: function() {
         this.resize();
+      },
+
+      @observes('composer.showLocationControls')
+      applyLocationInlineClass() {
+        Ember.run.scheduleOnce('afterRender', this, () => {
+          $('.composer-controls-location').toggleClass('show-control', this.get('composer.showLocationControls'));
+          this.resize();
+        })
       }
     })
 
