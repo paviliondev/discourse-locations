@@ -12,31 +12,30 @@ export default Ember.Controller.extend({
   geoLocation: null,
   rawLocation: null,
 
+  setup() {
+    const location = this.get('model.location');
+
+    if (location) {
+      this.setProperties({
+        name: location.name,
+        street: location.street,
+        postalcode: location.postalcode,
+        city: location.city,
+        countrycode: location.countrycode,
+        geoLocation: location.geo_location,
+        rawLocation: location.raw,
+      })
+    }
+  },
+
   @computed()
   inputFields() {
     return this.siteSettings.location_input_fields.split('|');
   },
 
-  @computed('name', 'street', 'postalcode', 'city', 'countrycode', 'geoLocation', 'rawLocation')
-  submitDisabled(name, street, postalcode, city, countrycode, geoLocation, rawLocation) {
-    if (this.siteSettings.location_geocoding === 'required' && !geoLocation) return true;
-
-    if (this.siteSettings.location_input_fields_enabled) {
-      const inputFields = this.get('inputFields');
-      let disabled = false;
-
-      inputFields.forEach((f) => {
-        let field = this.get(f);
-        if (!field || field.length < 2) {
-          disabled = true;
-        }
-      })
-
-      return disabled;
-
-    } else {
-      return !name && !geoLocation && !rawLocation;
-    }
+  @computed('geoLocation')
+  submitDisabled(geoLocation) {
+    return this.siteSettings.location_geocoding === 'required' && !geoLocation;
   },
 
   clearModal() {
@@ -55,15 +54,16 @@ export default Ember.Controller.extend({
   actions: {
     clear() {
       this.clearModal();
-      this.set('model.location', null);
+      this.get('model.update')(null);
     },
 
     submit() {
       if (this.get('submitDisabled')) return;
 
+      let location = {};
+
       const geocodingEnabled = this.siteSettings.location_geocoding !== 'none';
       const inputFieldsEnabled = this.siteSettings.location_input_fields_enabled;
-      let location = {};
 
       if (!geocodingEnabled && !inputFieldsEnabled) {
         location['raw'] = this.get('rawLocation');
@@ -82,7 +82,17 @@ export default Ember.Controller.extend({
       let name = this.get('name');
       if (name) location['name'] = name;
 
-      this.set('model.location', location);
+      Object.keys(location).forEach((k) => {
+        if (location[k] == null || location[k] == '' || location[k] == {}) {
+          delete location[k]
+        }
+      });
+
+      if (Object.keys(location).length == 0) {
+        location = null;
+      }
+
+      this.get('model.update')(location);
       this.clearModal();
       this.send('closeModal');
     }

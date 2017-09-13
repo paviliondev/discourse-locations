@@ -36,6 +36,7 @@ en:
         add: "Add a Location"
         title: "Show Location Details"
       clear: "Clear"
+      done: "Done"
     filters:
       map:
         title: "Map"

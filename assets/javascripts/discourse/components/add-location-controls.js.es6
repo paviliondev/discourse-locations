@@ -35,14 +35,11 @@ export default Ember.Component.extend({
     showAddLocation() {
       let controller = showModal('add-location', { model: {
         location: this.get('location'),
-        categoryId: this.get('categoryId')
-      }})
+        categoryId: this.get('categoryId'),
+        update: (location) => this.set('location', location)
+      }});
 
-      controller.addObserver('model.location', this, (controller, property) => {
-        if (this._state == 'destroying') { return }
-
-        this.set('location', controller.get('model.location'))
-      })
+      controller.setup();
     },
 
     removeLocation() {
