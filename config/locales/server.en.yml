@@ -11,6 +11,7 @@ en:
     location_map_tile_layer_subdomains: "Map tile layer subdomains"
     location_map_attribution: "Map attribution"
     location_category_map_filter: "Add map filter to categories in which locations are enabled."
+    location_topic_map: "Show a button to toggle a mini map of location next to topic location labels"
 
   location:
     errors:

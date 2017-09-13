@@ -46,3 +46,6 @@ plugins:
   location_category_map_filter:
     default: true
     client: true
+  location_topic_map:
+    default: true
+    client: true
