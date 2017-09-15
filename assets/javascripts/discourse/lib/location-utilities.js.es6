@@ -12,7 +12,7 @@ let geoLocationSearch = (request, placeSearch) => {
   if (!request) return;
 
   if (placeSearch) {
-    return ajax('/location/place_search', { data: { request }});
+    return ajax('/place/search', { data: { request }});
   }
 
   return new Ember.RSVP.Promise(function(resolve) {
@@ -20,12 +20,12 @@ let geoLocationSearch = (request, placeSearch) => {
   });
 }
 
-let geoLocationFormat = function(geoLocation, displayAttrs = {}) {
+let geoLocationFormat = function(geoLocation, params = {}) {
   if (!geoLocation) return;
   let display = '';
 
-  if (Object.keys(displayAttrs).length > 0 && displayAttrs.constructor === Object) {
-    displayAttrs.forEach(function(a) {
+  if (params['displayAttrs'] && params['displayAttrs'].length > 0) {
+    params['displayAttrs'].forEach(function(a) {
       if (geoLocation[a]) {
         if (display.length > 0) {
           display += ', ';

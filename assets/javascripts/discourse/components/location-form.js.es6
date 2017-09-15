@@ -41,7 +41,7 @@ export default Ember.Component.extend({
 
   @computed()
   showInputFields() {
-    return this.siteSettings.location_input_fields_enabled;
+    return this.get('inputFieldsEnabled') || this.siteSettings.location_input_fields_enabled;
   },
 
   @computed()
@@ -58,10 +58,10 @@ export default Ember.Component.extend({
     Object.keys(props).forEach((p) => {
       if (props[p] && props[p].length > 2) {
         query += `${props[p]}`
-      }
 
-      if (p !== 'city') {
-        query += ', '
+        if (p !== 'city') {
+          query += ', '
+        }
       }
     });
 
@@ -108,7 +108,7 @@ export default Ember.Component.extend({
 
     locationSearch() {
       const request = this.buildRequest();
-      if (!request) return;
+      if (!request.query && !request.countrycode) return;
 
       const placeSearch = this.get('placeSearch');
       this.setProperties({
@@ -120,7 +120,7 @@ export default Ember.Component.extend({
       geoLocationSearch(request, placeSearch).then((data) => {
         if (this._state == 'destroying') { return }
 
-        this.get('geoLocationOptions').setObjects(data);
+        this.get('geoLocationOptions').setObjects(data.locations);
 
         if (this.get('geoLocation')) {
           this.send('updateGeoLocation', this.get('geoLocation'));

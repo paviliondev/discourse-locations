@@ -112,7 +112,7 @@ export default {
       })
     })
 
-    var categoryRoutes = [
+    const categoryRoutes = [
       'category',
       'parentCategory',
       'categoryNone'

@@ -18,7 +18,7 @@ class Locations::Geocode
     perform("10 Downing Street")
   end
 
-  def self.perform(query, params = {})
-    Geocoder.search(query, params)
+  def self.perform(query, options = {})
+    Geocoder.search(query, options)
   end
 end
