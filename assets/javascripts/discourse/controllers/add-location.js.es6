@@ -1,4 +1,3 @@
-import Category from 'discourse/models/category';
 import { default as computed } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend({
@@ -24,7 +23,7 @@ export default Ember.Controller.extend({
         countrycode: location.countrycode,
         geoLocation: location.geo_location,
         rawLocation: location.raw,
-      })
+      });
     }
   },
 
@@ -83,12 +82,12 @@ export default Ember.Controller.extend({
       if (name) location['name'] = name;
 
       Object.keys(location).forEach((k) => {
-        if (location[k] == null || location[k] == '' || location[k] == {}) {
-          delete location[k]
+        if (location[k] == null || location[k] === '' || location[k] === {}) {
+          delete location[k];
         }
       });
 
-      if (Object.keys(location).length == 0) {
+      if (Object.keys(location).length === 0) {
         location = null;
       }
 

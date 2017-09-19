@@ -1,7 +1,6 @@
-import { default as computed, on, observes } from 'ember-addons/ember-computed-decorators';
+import { default as computed, on } from 'ember-addons/ember-computed-decorators';
 import { geoLocationSearch } from '../lib/location-utilities';
 import { providerDetails } from '../lib/map-utilities';
-import { queryRegistry } from 'discourse/widgets/widget';
 import { ajax } from 'discourse/lib/ajax';
 
 export default Ember.Component.extend({
@@ -17,7 +16,7 @@ export default Ember.Component.extend({
 
     inputFields.forEach((f) => {
       this.set(`show${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`, true);
-    })
+    });
 
     if (this.get('searchOnInit') && this.get("showInputFields")) {
       this.send('locationSearch');
@@ -25,8 +24,8 @@ export default Ember.Component.extend({
 
     if (inputFields.indexOf('countrycode') > -1) {
       ajax('/location/country_codes').then((result) => {
-        this.set('countries', result.country_codes)
-      })
+        this.set('countries', result.country_codes);
+      });
     }
 
     if (this.siteSettings.location_geocoding === 'required') {
@@ -57,10 +56,10 @@ export default Ember.Component.extend({
     let query = '';
     Object.keys(props).forEach((p) => {
       if (props[p] && props[p].length > 2) {
-        query += `${props[p]}`
+        query += `${props[p]}`;
 
         if (p !== 'city') {
-          query += ', '
+          query += ', ';
         }
       }
     });
@@ -81,7 +80,7 @@ export default Ember.Component.extend({
       if (!this.get(f)) {
         disabled = true;
       }
-    })
+    });
     return disabled;
   },
 
@@ -96,9 +95,9 @@ export default Ember.Component.extend({
       geoLocation['zoomTo'] = true;
       this.set('geoLocation', geoLocation);
       const options = this.get('geoLocationOptions');
-      options.forEach((o, i) => {
+      options.forEach((o) => {
         Ember.set(o, 'selected', o['place_id'] === geoLocation['place_id']);
-      })
+      });
     },
 
     clearSearch() {
@@ -118,7 +117,7 @@ export default Ember.Component.extend({
       });
 
       geoLocationSearch(request, placeSearch).then((data) => {
-        if (this._state == 'destroying') { return }
+        if (this._state === 'destroying') { return; }
 
         this.get('geoLocationOptions').setObjects(data.locations);
 
@@ -127,7 +126,7 @@ export default Ember.Component.extend({
         }
 
         this.set('loadingLocations', false);
-      })
+      });
     }
   }
-})
+});

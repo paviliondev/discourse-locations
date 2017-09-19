@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Locations::GeoSerializer < ApplicationSerializer
   attributes :lat, :lon, :address, :city, :state, :postalcode, :countrycode
 

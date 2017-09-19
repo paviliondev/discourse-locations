@@ -1,5 +1,4 @@
 import { createWidget } from 'discourse/widgets/widget';
-import { getOwner } from 'discourse-common/lib/get-owner';
 import { h } from 'virtual-dom';
 import RawHtml from 'discourse/widgets/raw-html';
 import { avatarImg } from 'discourse/widgets/post';
@@ -10,14 +9,14 @@ export default createWidget('map', {
   tagName: 'div.map',
   buildKey: () => 'map',
 
-  defaultState(attrs) {
+  defaultState() {
     return {
       mapToggle: 'expand',
       expanded: false,
       showAttribution: false,
       runSetup: true,
       showInput: false
-    }
+    };
   },
 
   addMarkers() {
@@ -31,7 +30,7 @@ export default createWidget('map', {
       let marker = {
         lat: topic.location.geo_location.lat,
         lon: topic.location.geo_location.lon,
-      }
+      };
       rawMarkers.push(marker);
     }
 
@@ -45,9 +44,9 @@ export default createWidget('map', {
               title: t.fancy_title
             },
             onClick: () => DiscourseURL.routeTo("t/" + t.slug)
-          })
+          });
         }
-      })
+      });
     }
 
     if (geoLocations) {
@@ -55,8 +54,8 @@ export default createWidget('map', {
         rawMarkers.push({
           lat: g.lat,
           lon: g.lon
-        })
-      })
+        });
+      });
     }
 
     let markers = null;
@@ -83,10 +82,10 @@ export default createWidget('map', {
     const attribution = this.state.mapObjs.attribution;
 
     if (!this.state.showAttribution) {
-      map.addControl(attribution)
+      map.addControl(attribution);
     } else {
       if ($('.map .leaflet-control-attribution').is(':visible')) {
-        map.removeControl(attribution)
+        map.removeControl(attribution);
       }
     }
 
@@ -97,17 +96,13 @@ export default createWidget('map', {
     this.state.showInput = !this.state.showInput;
   },
 
-  toggleExpand(category) {
+  toggleExpand() {
     const map = this.state.mapObjs.map,
-          $map = $('.map'),
-          $attribution = $('.map .leaflet-control-attribution');
+          $map = $('.map');
 
     $map.toggleClass('expanded');
 
     if ($map.hasClass('expanded')) {
-      if ($attribution.is(':hidden')) {
-        map.addControl(attributionControl)
-      }
       this.state.mapToggle = "compress";
       this.state.expanded = true;
     } else {
@@ -138,7 +133,7 @@ export default createWidget('map', {
 
       Ember.run.scheduleOnce('afterRender', this, () => {
         this.setupMap(category);
-      })
+      });
 
       // triggered in sidebar-container component in layouts plugin
       this.appEvents.on('sidebars:rerender', () => {
@@ -168,7 +163,7 @@ export default createWidget('map', {
             action: 'toggleInput',
             icon: 'times'
           })
-        )
+        );
       } else if (category) {
         contents.push(
           this.attach('link', {
@@ -204,4 +199,4 @@ export default createWidget('map', {
 
     return contents;
   }
-})
+});

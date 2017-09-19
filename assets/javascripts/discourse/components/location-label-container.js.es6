@@ -1,5 +1,4 @@
 import { default as computed } from 'ember-addons/ember-computed-decorators';
-import DiscourseURL from 'discourse/lib/url';
 
 export default Ember.Component.extend({
   classNames: ['location-label-container'],
@@ -10,11 +9,11 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
-    Ember.$(document).on('click', Ember.run.bind(this, this.outsideClick))
+    Ember.$(document).on('click', Ember.run.bind(this, this.outsideClick));
   },
 
   willDestroyElement() {
-    Ember.$(document).off('click', Ember.run.bind(this, this.outsideClick))
+    Ember.$(document).off('click', Ember.run.bind(this, this.outsideClick));
   },
 
   outsideClick(e) {
@@ -28,4 +27,4 @@ export default Ember.Component.extend({
       this.toggleProperty('showMap');
     }
   }
-})
+});

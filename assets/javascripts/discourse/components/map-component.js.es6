@@ -39,6 +39,6 @@ export default MountWidget.extend({
   scheduleSetup() {
     Ember.run.scheduleOnce('afterRender', () => {
       this.appEvents.trigger('dom:clean');
-    })
+    });
   }
-})
+});

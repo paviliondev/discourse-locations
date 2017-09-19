@@ -4,19 +4,18 @@ import Topic from 'discourse/models/topic';
 import TopicController from 'discourse/controllers/topic';
 import NavItem from 'discourse/models/nav-item';
 import EditCategorySettings from 'discourse/components/edit-category-settings';
-import { default as computed, observes, on } from 'ember-addons/ember-computed-decorators';
-import loadScript from 'discourse/lib/load-script';
+import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
 export default {
   name: 'location-edits',
   initialize(container) {
     Composer.reopen({
-      @computed('currentType', 'category.location_enabled', 'topicFirstPost')
-      showLocationControls(currentType, categoryEnabled, topicFirstPost) {
+      @computed('subtype', 'category.location_enabled', 'topicFirstPost')
+      showLocationControls(subtype, categoryEnabled, topicFirstPost) {
         if (!topicFirstPost) return false;
 
         const topicTypes = Discourse.SiteSettings.composer_topic_types;
-        if (topicTypes && topicTypes.split('|').indexOf(currentType) > -1 && currentType == 'event') {
+        if (topicTypes && topicTypes.split('|').indexOf(subtype) > -1 && subtype === 'event') {
           return true;
         }
 
@@ -26,10 +25,11 @@ export default {
       clearState() {
         this._super(...arguments);
         this.set('location', null);
-      },
-    })
+      }
+    });
 
-    Composer.serializeOnCreate('location', 'location');
+    Composer.serializeOnCreate('location');
+    Composer.serializeToTopic('location', 'topic.location');
 
     ComposerBody.reopen({
       @observes('composer.location')
@@ -42,9 +42,9 @@ export default {
         Ember.run.scheduleOnce('afterRender', this, () => {
           $('.composer-controls-location').toggleClass('show-control', this.get('composer.showLocationControls'));
           this.resize();
-        })
+        });
       }
-    })
+    });
 
     const subtypeShowLocation = ['event', 'question', 'general'];
     Topic.reopen({
@@ -52,7 +52,7 @@ export default {
       showLocationControls(subtype, categoryEnabled) {
         return subtypeShowLocation.indexOf(subtype) > -1 || categoryEnabled;
       }
-    })
+    });
 
     // necessary because topic-title plugin outlet only recieves model
     TopicController.reopen({
@@ -60,7 +60,7 @@ export default {
       setEditingTopicOnModel() {
         this.set('model.editingTopic', this.get('editingTopic'));
       }
-    })
+    });
 
     NavItem.reopenClass({
       buildList(category, args) {
@@ -72,7 +72,7 @@ export default {
 
         return items;
       }
-    })
+    });
 
     EditCategorySettings.reopen({
       @computed('category')
@@ -82,12 +82,12 @@ export default {
         if (category.get('location_enabled') && Discourse.SiteSettings.location_category_map_filter) {
           views.push(
             {name: I18n.t('filters.map.title'), value: 'map'}
-          )
+          );
         }
 
         return views;
       },
-    })
+    });
 
     const mapRoutes = [
       `MapCategory`,
@@ -98,19 +98,19 @@ export default {
     mapRoutes.forEach(function(route){
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
-        afterModel(model, transition) {
+        afterModel(model) {
           if (!Discourse.SiteSettings.location_category_map_filter) {
             this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}`);
           }
           return this._super(...arguments);
         },
 
-        renderTemplate(controller, model) {
+        renderTemplate() {
           this.render('navigation/category', { outlet: 'navigation-bar' });
           this.render("discovery/map", { outlet: "list-container", controller: 'discovery/topics' });
         }
-      })
-    })
+      });
+    });
 
     const categoryRoutes = [
       'category',
@@ -121,14 +121,14 @@ export default {
     categoryRoutes.forEach(function(route){
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
-        afterModel(model, transition) {
-          if (this.filter(model.category) == 'map' && Discourse.SiteSettings.location_category_map_filter) {
+        afterModel(model) {
+          if (this.filter(model.category) === 'map' && Discourse.SiteSettings.location_category_map_filter) {
             return this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);
           } else {
             return this._super(...arguments);
           }
         }
-      })
-    })
+      });
+    });
   }
-}
+};

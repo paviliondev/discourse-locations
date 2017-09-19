@@ -18,7 +18,7 @@ let geoLocationSearch = (request, placeSearch) => {
   return new Ember.RSVP.Promise(function(resolve) {
     debouncedLocationSearch(request, function(r) { resolve(r); });
   });
-}
+};
 
 let geoLocationFormat = function(geoLocation, params = {}) {
   if (!geoLocation) return;
@@ -32,13 +32,13 @@ let geoLocationFormat = function(geoLocation, params = {}) {
         }
         display += geoLocation[a];
       }
-    })
+    });
   } else {
     display = geoLocation.address;
   }
 
   return display;
-}
+};
 
 let locationFormat = function(location) {
   if (!location) return '';
@@ -70,6 +70,6 @@ let locationFormat = function(location) {
   }
 
   return display;
-}
+};
 
-export { geoLocationSearch, geoLocationFormat, locationFormat }
+export { geoLocationSearch, geoLocationFormat, locationFormat };

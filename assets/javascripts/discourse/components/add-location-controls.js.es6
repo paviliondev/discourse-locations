@@ -1,4 +1,3 @@
-import { getOwner } from 'discourse-common/lib/get-owner';
 import showModal from 'discourse/lib/show-modal';
 import { locationFormat } from '../lib/location-utilities';
 import { default as computed } from 'ember-addons/ember-computed-decorators';
@@ -46,4 +45,4 @@ export default Ember.Component.extend({
       this.set('location', null);
     }
   }
-})
+});

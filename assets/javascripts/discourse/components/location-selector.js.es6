@@ -14,7 +14,6 @@ export default TextField.extend({
 
     let val = '';
     if (location) {
-      var defaultLocation = location;
       val = location;
     }
 
