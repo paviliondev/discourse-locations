@@ -40,7 +40,7 @@ export default {
       @observes('composer.showLocationControls')
       applyLocationInlineClass() {
         Ember.run.scheduleOnce('afterRender', this, () => {
-          $('.composer-controls-location').toggleClass('show-control', this.get('composer.showLocationControls'));
+          $('.composer-controls-location').toggleClass('show-control', Boolean(this.get('composer.showLocationControls')));
           this.resize();
         });
       }
