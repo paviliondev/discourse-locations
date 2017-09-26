@@ -15,7 +15,7 @@ describe ::Locations::GeoController do
         .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: '', headers: {})
 
-      xhr :get, :search, request: '10 Downing Street'
+      get :search, params: { request: '10 Downing Street' }, format: :json
       expect(response).to be_success
     end
 
@@ -24,18 +24,18 @@ describe ::Locations::GeoController do
       RateLimiter.clear_all!
 
       6.times do
-        xhr :get, :search, request: '10 Downing Street'
+        get :search, params: { request: '10 Downing Street' }, format: :json
         expect(response).to be_success
       end
 
-      xhr :get, :search, request: '10 Downing Street'
+      get :search, params: { request: '10 Downing Street' }, format: :json
       expect(response).not_to be_success
     end
   end
 
   describe 'country_codes' do
     it 'works' do
-      xhr :get, :country_codes
+      get :country_codes, format: :json
       expect(response).to be_success
       json = ::JSON.parse(response.body)
       expect(json['country_codes'][0]['code']).to eq('af')
