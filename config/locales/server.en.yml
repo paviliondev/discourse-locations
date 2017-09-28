@@ -12,7 +12,12 @@ en:
     location_map_attribution: "Map attribution"
     location_category_map_filter: "Add map filter to categories in which locations are enabled."
     location_topic_map: "Show a button to toggle a mini map of location next to topic location labels"
-
   location:
     errors:
-      no_api_key: "No api key set for that provider."
+      socket: "Your request failed. Please check your internet connection. If the problem persists, contact your site administrator."
+      timeout: "Your request timed out. Please wait 5 seconds and try again. If the problem persists, contact your site administrator."
+      request_denied: "Your request was denied. If the problem persists, contact your site administrator."
+      request_invalid: "Your request was invalid. If the problem persists, contact your site administrator."
+      query_limit: "Geocoding provider query limit reached. Please contact your site administrator."
+      api_key: "Geocoding provider api key invalid. Please contact your site administrator."
+      service_unavailable: "Geocoding provider service unavailable. Please contact your site administrator."

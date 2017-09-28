@@ -37,6 +37,8 @@ en:
         title: "Show Location Details"
       clear: "Clear"
       done: "Done"
+      errors:
+        search: "There was a problem looking up that address. Please wait 5 seconds and try again."
     filters:
       map:
         title: "Map"

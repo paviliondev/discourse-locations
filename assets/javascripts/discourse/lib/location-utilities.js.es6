@@ -3,6 +3,15 @@ import { ajax } from 'discourse/lib/ajax';
 function locationSearch(request, resultsFn) {
   ajax('/location/search', { data: { request }}).then(function (r) {
     resultsFn(r);
+  }).catch(function (e) {
+    let message = I18n.t('location.errors.search');
+
+    if (e.jqXHR && e.jqXHR.responseText) {
+      const responseText = e.jqXHR.responseText;
+      message = responseText.substring(responseText.indexOf('>') + 1, responseText.indexOf('plugins'));
+    };
+
+    resultsFn({ error: true, message });
   });
 }
 
@@ -15,8 +24,14 @@ let geoLocationSearch = (request, placeSearch) => {
     return ajax('/place/search', { data: { request }});
   }
 
-  return new Ember.RSVP.Promise(function(resolve) {
-    debouncedLocationSearch(request, function(r) { resolve(r); });
+  return new Ember.RSVP.Promise(function(resolve, reject) {
+    debouncedLocationSearch(request, function(r) {
+      if (r.error) {
+        reject(r.message);
+      } else {
+        resolve(r);
+      };
+    });
   });
 };
 

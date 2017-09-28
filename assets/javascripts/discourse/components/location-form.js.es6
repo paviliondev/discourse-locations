@@ -126,7 +126,13 @@ export default Ember.Component.extend({
         }
 
         this.set('loadingLocations', false);
+      }).catch((error) => {
+        this.send('searchError', error);
       });
+    },
+
+    searchError(error) {
+      this.sendAction('searchError', error);
     }
   }
 });

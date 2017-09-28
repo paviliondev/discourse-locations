@@ -41,7 +41,7 @@
     <label class='control-label'>{{i18n 'location.query.title'}}</label>
     <div class="controls">
       {{#if showGeoLocation}}
-        {{location-selector location=geoLocation class="input-xxlarge location-selector"}}
+        {{location-selector location=geoLocation class="input-xxlarge location-selector" searchError='searchError'}}
       {{else}}
         {{input type="text" value=rawLocation class="input-xxlarge input-location"}}
       {{/if}}

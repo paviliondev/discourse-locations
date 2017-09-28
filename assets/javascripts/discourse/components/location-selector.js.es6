@@ -25,6 +25,8 @@ export default TextField.extend({
       dataSource: function(term) {
         let results = geoLocationSearch({
           query: term
+        }).catch((e) => {
+          self.sendAction('searchError', e);
         });
 
         return results;

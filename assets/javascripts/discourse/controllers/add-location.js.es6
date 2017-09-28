@@ -1,6 +1,7 @@
 import { default as computed } from 'ember-addons/ember-computed-decorators';
+import ModalFunctionality from 'discourse/mixins/modal-functionality';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(ModalFunctionality, {
   title: 'composer.location.title',
   searchOnInit: false,
   name: null,
@@ -94,6 +95,10 @@ export default Ember.Controller.extend({
       this.get('model.update')(location);
       this.clearModal();
       this.send('closeModal');
+    },
+
+    searchError(error) {
+      this.flash(error, 'error');
     }
   }
 
