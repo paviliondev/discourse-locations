@@ -42,10 +42,12 @@ after_initialize do
 
   PostRevisor.class_eval do
     track_topic_field(:location) do |tc, location|
-      new_location = location && location.length >= 2 ? location : '{}'
-      tc.record_change('location', tc.topic.custom_fields['location'], new_location)
-      tc.topic.custom_fields['location'] = new_location
-      tc.topic.custom_fields['has_geo_location'] = !!new_location['geo_location']
+      if !location.blank?
+        new_location = location.to_unsafe_hash
+        tc.record_change('location', tc.topic.custom_fields['location'], new_location)
+        tc.topic.custom_fields['location'] = new_location
+        tc.topic.custom_fields['has_geo_location'] = !!new_location['geo_location']
+      end
     end
   end
 
