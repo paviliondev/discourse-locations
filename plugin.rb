@@ -30,7 +30,7 @@ after_initialize do
   add_to_serializer(:topic_view, :location) { object.topic.custom_fields['location'] }
   add_to_serializer(:topic_view, :include_location?) do
     location = object.topic.custom_fields['location']
-    location && location.length >= 2
+    location && location.length >= 1
   end
 
   TopicList.preloaded_custom_fields << 'location' if TopicList.respond_to? :preloaded_custom_fields
