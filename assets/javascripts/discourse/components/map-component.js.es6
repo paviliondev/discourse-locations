@@ -12,9 +12,8 @@ export default MountWidget.extend({
       'topic',
       'geoLocations',
       'clickable',
-      'hideTitle',
-      'hideControls',
       'topicList',
+      'categorySearch',
       'showAvatar'
     );
 

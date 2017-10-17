@@ -22,7 +22,13 @@ export default Ember.Component.extend({
 
   @computed('location')
   valueLabel(location) {
-    return this.site.isMobileDevice ? '' : locationFormat(location);
+    let opts = {};
+
+    if (Discourse.SiteSettings.location_input_fields_enabled) {
+      opts['attrs'] = Discourse.SiteSettings.location_input_fields.split('|');
+    };
+
+    return this.site.isMobileDevice ? '' : locationFormat(location, opts);
   },
 
   @computed()

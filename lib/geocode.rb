@@ -41,4 +41,17 @@ class Locations::Geocode
       raise GeocoderError.new I18n.t('location.errors.service_unavailable')
     end
   end
+
+  def self.sorted_validators
+    @sorted_validators ||= []
+  end
+
+  def self.validators
+    sorted_validators.map { |h| { context: h[:context], block: h[:block] } }
+  end
+
+  def self.add_validator(priority = 0, context, &block)
+    sorted_validators << { priority: priority, context: context, block: block }
+    @sorted_validators.sort_by! { |h| -h[:priority] }
+  end
 end

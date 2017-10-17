@@ -10,16 +10,19 @@ export default {
   name: 'location-edits',
   initialize(container) {
     Composer.reopen({
-      @computed('subtype', 'category.location_enabled', 'topicFirstPost')
-      showLocationControls(subtype, categoryEnabled, topicFirstPost) {
+      @computed('subtype', 'categoryId', 'topicFirstPost')
+      showLocationControls(subtype, categoryId, topicFirstPost) {
         if (!topicFirstPost) return false;
 
         const topicTypes = Discourse.SiteSettings.composer_topic_types;
         if (topicTypes && topicTypes.split('|').indexOf(subtype) > -1 && subtype === 'event') {
           return true;
-        }
+        };
 
-        return categoryEnabled;
+        if (categoryId) {
+          const category = this.site.categories.findBy('id', categoryId);
+          return category.location_enabled;
+        }
       },
 
       clearState() {

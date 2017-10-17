@@ -1,7 +1,10 @@
-import { ajax } from 'discourse/lib/ajax';
+import { ajax } from './ajax';
 
 function locationSearch(request, resultsFn) {
-  ajax('/location/search', { data: { request }}).then(function (r) {
+  ajax({
+    url: '/location/search',
+    data: { request }
+  }).then(function (r) {
     resultsFn(r);
   }).catch(function (e) {
     let message = I18n.t('location.errors.search');
@@ -21,7 +24,10 @@ let geoLocationSearch = (request, placeSearch) => {
   if (!request) return;
 
   if (placeSearch) {
-    return ajax('/place/search', { data: { request }});
+    return ajax({
+      url: '/place/search',
+      data: { request }
+    });
   }
 
   return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -55,7 +61,7 @@ let geoLocationFormat = function(geoLocation, params = {}) {
   return display;
 };
 
-let locationFormat = function(location) {
+let locationFormat = function(location, opts = {}) {
   if (!location) return '';
 
   let display = '';
@@ -64,10 +70,8 @@ let locationFormat = function(location) {
     display += location.name;
   };
 
-  if (Discourse.SiteSettings.location_input_fields_enabled) {
-    let attrs = Discourse.SiteSettings.location_input_fields.split('|');
-
-    attrs.forEach(function(p) {
+  if (opts['attrs']) {
+    opts['attrs'].forEach(function(p) {
       if (location[p]) {
         if (display.length > 0 || location.name) {
           display += ', ';

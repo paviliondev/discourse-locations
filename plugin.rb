@@ -21,6 +21,11 @@ Discourse.anonymous_filters.push(:map)
 gem 'geocoder', '1.4.4'
 
 after_initialize do
+
+  if ::CustomWizard
+    CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets'])
+  end
+
   Category.register_custom_field_type('location_enabled', :boolean)
   add_to_serializer(:basic_category, :location_enabled) { object.custom_fields['location_enabled'] }
 
@@ -69,6 +74,7 @@ after_initialize do
   Locations::Engine.routes.draw do
     get 'search' => 'geo#search'
     get 'country_codes' => 'geo#country_codes'
+    get 'validate' => 'geo#validate'
   end
 
   Discourse::Application.routes.append do

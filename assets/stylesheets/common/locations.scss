@@ -51,10 +51,11 @@ input.input-location, div.input-location {
   overflow: auto;
   max-height: 150px;
   background-color: $secondary;
-  border: 1px solid $primary-low;
+  border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
   min-height: 24px;
   display: block;
   box-shadow: none;
+  box-sizing: initial;
 }
 
 .input-location .select2-choice {
@@ -297,6 +298,10 @@ input.input-location, div.input-location {
     line-height: 24px;
     padding: 0;
     border-radius: 4px;
+
+    .fa {
+      margin-right: 0;
+    }
   }
 
   .map-expand {
