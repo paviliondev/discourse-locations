@@ -8,7 +8,7 @@ class Locations::GeoController < ::ApplicationController
 
     query = params[:request]['query']
 
-    results = Locations::Geocode.perform(query)
+    results = Locations::Geocode.perform(query, language: current_user.effective_locale)
 
     render_serialized(results, Locations::GeoSerializer)
   end
