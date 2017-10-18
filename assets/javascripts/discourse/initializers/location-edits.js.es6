@@ -4,11 +4,37 @@ import Topic from 'discourse/models/topic';
 import TopicController from 'discourse/controllers/topic';
 import NavItem from 'discourse/models/nav-item';
 import EditCategorySettings from 'discourse/components/edit-category-settings';
+import TopicStatus from 'discourse/raw-views/topic-status';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
 export default {
   name: 'location-edits',
   initialize(container) {
+
+    TopicStatus.reopen({
+      @computed
+      statuses() {
+        const topic = this.get("topic");
+        const category = this.get('parent.parentView.category');
+        let results = this._super(...arguments);
+
+        if ((Discourse.SiteSettings.location_topic_status_icon ||
+            (category && category.get('location_topic_status'))) &&
+            topic.get('location')) {
+          const url = topic.get('url');
+          results.push({
+            icon: 'map-marker',
+            title: I18n.t(`topic_statuses.location.help`),
+            href: url,
+            openTag: 'a href',
+            closeTag: 'a'
+          });
+        }
+
+        return results;
+      }
+    });
+
     Composer.reopen({
       @computed('subtype', 'category.location_enabled', 'topicFirstPost')
       showLocationControls(subtype, categoryEnabled, topicFirstPost) {

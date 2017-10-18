@@ -36,10 +36,10 @@ export default createWidget('map', {
 
     if (topicList) {
       topicList.forEach((t) => {
-        if (t.geo_location) {
+        if (t.location && t.location.geo_location) {
           rawMarkers.push({
-            lat: t.geo_location.lat,
-            lon: t.geo_location.lon,
+            lat: t.location.geo_location.lat,
+            lon: t.location.geo_location.lon,
             options: {
               title: t.fancy_title
             },

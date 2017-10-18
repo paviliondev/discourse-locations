@@ -1,7 +1,7 @@
 ru:
   js:
     category:
-      enable_location: "Разрешить адреса для тем в этом разделе"
+      location_enabled: "Разрешить адреса для тем в этом разделе"
     composer:
       location:
         btn: "Добавить адрес"

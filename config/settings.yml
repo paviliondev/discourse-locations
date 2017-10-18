@@ -49,3 +49,6 @@ plugins:
   location_topic_map:
     default: true
     client: true
+  location_topic_status_icon:
+    default: false
+    client: true
