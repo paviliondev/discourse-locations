@@ -50,7 +50,7 @@ after_initialize do
   end
 
   DiscourseEvent.on(:post_created) do |post, opts, _user|
-    location = opts[:location]
+    location = opts[:location].is_a?(String) ? ::JSON.parse(opts[:location]) : opts[:location]
     if post.is_first_post? && location
       topic = Topic.find(post.topic_id)
       topic.custom_fields['location'] = location
