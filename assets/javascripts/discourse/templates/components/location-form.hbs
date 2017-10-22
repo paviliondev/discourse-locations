@@ -31,7 +31,13 @@
       <label class="control-label">{{i18n 'location.country_code.title'}}</label>
       <div class="controls">
         {{#if countries}}
-          {{combo-box valueAttribute="code" nameProperty="name" content=countries value=countrycode none="location.country_code.placeholder" class="input-location"}}
+          {{combo-box valueAttribute="code"
+                      nameProperty="name"
+                      content=countries
+                      value=countrycode
+                      none="location.country_code.placeholder"
+                      class="input-location"
+                      filterable=true}}
         {{/if}}
       </div>
     </div>
@@ -56,7 +62,9 @@
 {{/if}}
 {{#if showGeoLocation}}
   {{#if showInputFields}}
-    {{d-button class='btn-default location-search' label='location.geo.btn.label' action='locationSearch' disabled=searchDisabled}}
+    <button class='btn btn-default wizard-btn location-search' {{action 'locationSearch'}} disabled={{searchDisabled}}>
+      {{i18n 'location.geo.btn.label'}}
+    </button>
     {{#if showLocationResults}}
       <div class='p-list-box'>
         <div class="p-text small">{{i18n 'location.geo.results'}}</div>

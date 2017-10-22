@@ -1,7 +1,9 @@
 import { default as computed, on } from 'ember-addons/ember-computed-decorators';
 import { geoLocationSearch } from '../lib/location-utilities';
 import { providerDetails } from '../lib/map-utilities';
-import { ajax } from 'discourse/lib/ajax';
+import { ajax } from '../lib/ajax';
+
+const GLOBAL = typeof Discourse === 'undefined' ? Wizard : Discourse;
 
 export default Ember.Component.extend({
   geoLocationOptions: Ember.A(),
@@ -23,29 +25,32 @@ export default Ember.Component.extend({
     }
 
     if (inputFields.indexOf('countrycode') > -1) {
-      ajax('/location/country_codes').then((result) => {
+      ajax({
+        url: '/location/country_codes',
+        type: 'GET',
+      }).then((result) => {
         this.set('countries', result.country_codes);
       });
     }
 
-    if (this.siteSettings.location_geocoding === 'required') {
+    if (GLOBAL['SiteSettings'].location_geocoding === 'required') {
       this.set('showLocationResults', true);
     }
   },
 
   @computed()
   showGeoLocation() {
-    return this.siteSettings.location_geocoding !== 'none';
+    return GLOBAL['SiteSettings'].location_geocoding !== 'none';
   },
 
   @computed()
   showInputFields() {
-    return this.get('inputFieldsEnabled') || this.siteSettings.location_input_fields_enabled;
+    return this.get('inputFieldsEnabled') || GLOBAL['SiteSettings'].location_input_fields_enabled;
   },
 
   @computed()
   providerDetails() {
-    const provider = this.siteSettings.location_geocoding_provider;
+    const provider = GLOBAL['SiteSettings'].location_geocoding_provider;
     return providerDetails[provider];
   },
 
@@ -86,7 +91,7 @@ export default Ember.Component.extend({
 
   @computed()
   searchLabel() {
-    const locationGeocoding = this.siteSettings.location_geocoding;
+    const locationGeocoding = GLOBAL['SiteSettings'].location_geocoding;
     return I18n.t(`location.geo.btn.${locationGeocoding}`);
   },
 

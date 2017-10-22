@@ -45,6 +45,8 @@ en:
       map:
         title: "Map"
         help: "Mark topics with locations in this category on a map."
+    map:
+      search_placeholder: "Search"
 
     topic_statuses:
       location:

@@ -15,7 +15,7 @@ export default createWidget('map', {
       expanded: false,
       showAttribution: false,
       runSetup: true,
-      showInput: false
+      showSearch: false
     };
   },
 
@@ -92,8 +92,8 @@ export default createWidget('map', {
     this.state.showAttribution = !this.state.showAttribution;
   },
 
-  toggleInput() {
-    this.state.showInput = !this.state.showInput;
+  toggleSearch() {
+    this.state.showSearch = !this.state.showSearch;
   },
 
   toggleExpand() {
@@ -138,7 +138,7 @@ export default createWidget('map', {
       // triggered in sidebar-container component in layouts plugin
       this.appEvents.on('sidebars:rerender', () => {
         state.runSetup = true;
-        state.showInput = false;
+        state.showSearch = false;
       });
     }
 
@@ -154,22 +154,22 @@ export default createWidget('map', {
       })));
     }
 
-    if (attrs.showControls) {
-      if (state.showInput) {
+    if (attrs.categorySearch) {
+      if (state.showSearch) {
         contents.push(
           this.attach('map-search', {category}),
           this.attach('button', {
             className: 'btn btn-map hide-search',
-            action: 'toggleInput',
+            action: 'toggleSearch',
             icon: 'times'
           })
         );
-      } else if (category) {
+      } else {
         contents.push(
           this.attach('link', {
-            action: 'toggleInput',
-            rawLabel: category.name,
-            className: 'btn search'
+            className: 'btn btn-map search',
+            action: 'toggleSearch',
+            icon: 'search'
           })
         );
       }
