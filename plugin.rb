@@ -22,7 +22,7 @@ gem 'geocoder', '1.4.4'
 
 after_initialize do
 
-  if defined?(CustomWizard) == 'constant' && CustomWizard.class == Class
+  if defined?(CustomWizard) == 'constant' && CustomWizard.class == Module
     CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets'])
   end
 
