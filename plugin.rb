@@ -27,7 +27,9 @@ after_initialize do
   end
 
   Category.register_custom_field_type('location_enabled', :boolean)
+  Category.register_custom_field_type('location_topic_status', :boolean)
   add_to_serializer(:basic_category, :location_enabled) { object.custom_fields['location_enabled'] }
+  add_to_serializer(:basic_category, :location_topic_status) { object.custom_fields['location_topic_status'] }
 
   Topic.register_custom_field_type('location', :json)
   Topic.register_custom_field_type('has_geo_location', :boolean)
@@ -36,9 +38,8 @@ after_initialize do
   add_to_serializer(:topic_view, :include_location?) { object.topic.custom_fields['location'].present? }
 
   TopicList.preloaded_custom_fields << 'location' if TopicList.respond_to? :preloaded_custom_fields
-  TopicList.preloaded_custom_fields << 'has_geo_location' if TopicList.respond_to? :preloaded_custom_fields
-  add_to_serializer(:topic_list_item, :geo_location) { object.custom_fields['location']['geo_location'] }
-  add_to_serializer(:topic_list_item, :include_geo_location?) { object.custom_fields['has_geo_location'] }
+  add_to_serializer(:topic_list_item, :location) { object.custom_fields['location'] }
+  add_to_serializer(:topic_list_item, :include_location?) { object.custom_fields['location'].present? }
 
   PostRevisor.track_topic_field(:location)
 
@@ -54,7 +55,7 @@ after_initialize do
   end
 
   DiscourseEvent.on(:post_created) do |post, opts, _user|
-    location = opts[:location]
+    location = opts[:location].is_a?(String) ? ::JSON.parse(opts[:location]) : opts[:location]
     if post.is_first_post? && location
       topic = Topic.find(post.topic_id)
       topic.custom_fields['location'] = location

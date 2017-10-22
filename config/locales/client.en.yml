@@ -1,7 +1,8 @@
 en:
   js:
     category:
-      enable_location: "Allow locations to be added to topics in this category"
+      location_enabled: "Allow locations to be added to topics in this category"
+      location_topic_status: "Enable location topic status icons for topic lists in this category."
     composer:
       location:
         btn: "Add Location"
@@ -39,9 +40,14 @@ en:
       done: "Done"
       errors:
         search: "There was a problem looking up that address. Please wait 5 seconds and try again."
+
     filters:
       map:
         title: "Map"
         help: "Mark topics with locations in this category on a map."
     map:
       search_placeholder: "Search"
+
+    topic_statuses:
+      location:
+        help: "This topic has a location."

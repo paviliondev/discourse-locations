@@ -438,3 +438,7 @@ input.input-location, div.input-location {
     }
   }
 }
+
+.topic-list-icons {
+  .d-icon-map-marker { color: dark-light-choose($primary-medium, $secondary-medium); }
+}

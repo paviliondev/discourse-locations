@@ -5,6 +5,7 @@ require 'rails_helper'
 describe ::Locations::GeoController do
   routes { ::Locations::Engine.routes }
 
+  let!(:user) { log_in(:user) }
   let(:category) { Fabricate(:category, custom_fields: { location_enabled: true }) }
 
   describe 'search' do
