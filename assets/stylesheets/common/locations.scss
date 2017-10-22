@@ -21,10 +21,6 @@
     margin-right: 20px;
     margin-bottom: 0;
 
-    .controls input {
-      margin-bottom: 5px;
-    }
-
     .instructions {
       color: #919191;
       margin-bottom: 10px;
@@ -48,12 +44,10 @@
 }
 
 input.input-location, div.input-location {
-  overflow: auto;
   max-height: 150px;
   background-color: $secondary;
   border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
   min-height: 24px;
-  display: block;
   box-shadow: none;
   box-sizing: initial;
 }
