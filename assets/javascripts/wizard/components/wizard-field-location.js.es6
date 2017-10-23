@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   inputFields: ['city', 'countrycode'],
   includeGeoLocation: true,
   layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
+  context: Ember.computed.alias('wizard.id'),
 
   @on('init')
   setup() {
@@ -69,7 +70,7 @@ export default Ember.Component.extend({
       type: 'GET',
       data: {
         geo_location: geoLocation,
-        context: this.get('wizard.id')
+        context: this.get('context')
       }
     }).then((result) => {
       const field = this.get('field');

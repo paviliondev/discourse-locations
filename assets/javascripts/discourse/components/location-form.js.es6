@@ -1,6 +1,5 @@
 import { default as computed, on } from 'ember-addons/ember-computed-decorators';
-import { geoLocationSearch } from '../lib/location-utilities';
-import { providerDetails } from '../lib/map-utilities';
+import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
 import { ajax } from '../lib/ajax';
 
 const GLOBAL = typeof Discourse === 'undefined' ? Wizard : Discourse;
@@ -11,6 +10,7 @@ export default Ember.Component.extend({
   inputFields:['street', 'postalcode', 'city', 'countrycode'],
   countries: null,
   hasSearched: false,
+  context: null,
 
   @on('init')
   setup() {
@@ -48,15 +48,13 @@ export default Ember.Component.extend({
     return this.get('inputFieldsEnabled') || GLOBAL['SiteSettings'].location_input_fields_enabled;
   },
 
-  @computed()
-  providerDetails() {
-    const provider = GLOBAL['SiteSettings'].location_geocoding_provider;
-    return providerDetails[provider];
+  @computed('provider')
+  providerDetails(provider) {
+    return providerDetails[provider || GLOBAL['SiteSettings'].location_geocoding_provider];
   },
 
-  buildRequest() {
+  buildStructuredRequest() {
     const props = this.getProperties('street', 'postalcode', 'city');
-    const countrycode = this.get('countrycode');
 
     let query = '';
     Object.keys(props).forEach((p) => {
@@ -71,7 +69,14 @@ export default Ember.Component.extend({
 
     if (query.length < 2) return false;
 
-    return { query, countrycode };
+    let request = { query };
+
+    const countrycode = this.get('countrycode');
+    const context = this.get('context');
+    if (countrycode) request['countrycode'] = countrycode;
+    if (context) request['context'] = context;
+
+    return request;
   },
 
   keyDown(e) {
@@ -96,12 +101,12 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    updateGeoLocation(geoLocation) {
-      geoLocation['zoomTo'] = true;
-      this.set('geoLocation', geoLocation);
+    updateGeoLocation(gl) {
+      gl['zoomTo'] = true;
+      this.set('geoLocation', gl);
       const options = this.get('geoLocationOptions');
       options.forEach((o) => {
-        Ember.set(o, 'selected', o['place_id'] === geoLocation['place_id']);
+        Ember.set(o, 'selected', o['address'] === gl['address']);
       });
     },
 
@@ -111,20 +116,24 @@ export default Ember.Component.extend({
     },
 
     locationSearch() {
-      const request = this.buildRequest();
+      const request = this.buildStructuredRequest();
       if (!request.query && !request.countrycode) return;
 
-      const placeSearch = this.get('placeSearch');
       this.setProperties({
         'showLocationResults': true,
         'loadingLocations': true,
         'hasSearched': true
       });
 
-      geoLocationSearch(request, placeSearch).then((data) => {
+      geoLocationSearch(request).then((result) => {
         if (this._state === 'destroying') { return; }
 
-        this.get('geoLocationOptions').setObjects(data);
+        this.setProperties({
+          provider: result.provider,
+          showProvider: true
+        });
+
+        this.get('geoLocationOptions').setObjects(result.locations);
 
         if (this.get('geoLocation')) {
           this.send('updateGeoLocation', this.get('geoLocation'));

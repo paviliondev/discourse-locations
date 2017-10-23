@@ -1,7 +1,11 @@
 <div class='autocomplete'>
   <ul>
     {{#each options as |o|}}
-      <li class="location-form-result">{{o.address}}</li>
+      {{#if o.provider}}
+        <label>{{{i18n 'location.geo.desc' provider=o.provider}}}</label>
+      {{else}}
+        <li class="location-form-result">{{o.address}}</li>
+      {{/if}}
     {{/each}}
   </ul>
 </div>

@@ -20,15 +20,8 @@ function locationSearch(request, resultsFn) {
 
 var debouncedLocationSearch = _.debounce(locationSearch, 400);
 
-let geoLocationSearch = (request, placeSearch) => {
+let geoLocationSearch = (request) => {
   if (!request) return;
-
-  if (placeSearch) {
-    return ajax({
-      url: '/place/search',
-      data: { request }
-    });
-  }
 
   return new Ember.RSVP.Promise(function(resolve, reject) {
     debouncedLocationSearch(request, function(r) {
@@ -91,4 +84,13 @@ let locationFormat = function(location, opts = {}) {
   return display;
 };
 
-export { geoLocationSearch, geoLocationFormat, locationFormat };
+let providerDetails = {
+  nominatim: `<a href='https://www.openstreetmap.org' target='_blank'>OpenStreetMap</a>`,
+  mapzen: `<a href='https://mapzen.com/' target='_blank'>Mapzen</a>`,
+  location_iq: `<a href='https://locationiq.org/' target='_blank'>LocationIQ</a>`,
+  opencagedata: `<a href='https://opencagedata.com' target='_blank'>OpenCage Data</a>`,
+  mapbox: `<a href='https://www.mapbox.com/' target='_blank'>Mapbox</a>`,
+  mapquest: `<a href='https://developer.mapquest.com' target='_blank'>Mapquest</a>`
+};
+
+export { geoLocationSearch, geoLocationFormat, locationFormat, providerDetails };

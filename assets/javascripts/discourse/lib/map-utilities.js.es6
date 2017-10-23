@@ -127,13 +127,4 @@ var addMarkersToMap = function(rawMarkers, map) {
   return markers;
 };
 
-let providerDetails = {
-  nominatim: `<a href='https://www.openstreetmap.org' target='_blank'>OpenStreetMap</a>`,
-  mapzen: `<a href='https://mapzen.com/' target='_blank'>Mapzen</a>`,
-  location_iq: `<a href='https://locationiq.org/' target='_blank'>LocationIQ</a>`,
-  opencagedata: `<a href='https://opencagedata.com' target='_blank'>OpenCage Data</a>`,
-  mapbox: `<a href='https://www.mapbox.com/' target='_blank'>Mapbox</a>`,
-  mapquest: `<a href='https://developer.mapquest.com' target='_blank'>Mapquest</a>`
-};
-
-export { generateMap, setupMap, addMarkersToMap, providerDetails };
+export { generateMap, setupMap, addMarkersToMap };

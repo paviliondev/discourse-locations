@@ -14,6 +14,17 @@
   }
 }
 
+.location-form-instructions {
+  color: #919191;
+  margin: 5px 0;
+  font-size: 80%;
+  line-height: 1.4em;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
 .location-form, .add-location {
   .control-group {
     display: inline-block;
@@ -21,10 +32,7 @@
     margin-right: 20px;
 
     .instructions {
-      color: #919191;
-      margin: 5px 0;
-      font-size: 80%;
-      line-height: 1.4em;
+      @extend .location-form-instructions;
     }
   }
 
@@ -61,10 +69,15 @@ input.input-location, div.input-location {
 }
 
 .location-selector + .autocomplete {
-  width: 530px;
+  width: inherit;
 
   li {
     padding: 10px;
+  }
+
+  label {
+    @extend .location-form-instructions;
+    padding: 0 5px;
   }
 }
 
@@ -148,23 +161,20 @@ input.input-location, div.input-location {
 .location-form-result {
   cursor: pointer;
   background-color: $secondary;
+  display: flex;
 
   &:hover, &.selected {
     background-color: $tertiary;
     color: white;
   }
 
+  label {
+    flex: 1 1 auto;
+  }
+
   i {
     margin-right: 5px;
   }
-}
-
-.location-form-instructions {
-  color: #919191;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  font-size: 80%;
-  line-height: 1.4em;
 }
 
 .location-form-map {

@@ -47,16 +47,16 @@
     <label class='control-label'>{{i18n 'location.query.title'}}</label>
     <div class="controls">
       {{#if showGeoLocation}}
-        {{location-selector location=geoLocation class="input-xxlarge location-selector" searchError='searchError'}}
+        {{location-selector location=geoLocation
+                            class="input-xxlarge location-selector"
+                            searchError='searchError'
+                            context=context}}
       {{else}}
         {{input type="text" value=rawLocation class="input-xxlarge input-location"}}
       {{/if}}
     </div>
     <div class='instructions'>
       {{i18n 'location.query.desc'}}
-      {{#if showGeoLocation}}
-        {{{i18n 'location.geo.desc' provider=providerDetails}}}
-      {{/if}}
     </div>
   </div>
 {{/if}}
@@ -74,7 +74,7 @@
               {{loading-spinner size="small"}}
             {{else}}
               {{#each geoLocationOptions as |l|}}
-                {{geo-location-result updateGeoLocation="updateGeoLocation" location=l placeSearch=placeSearch}}
+                {{geo-location-result updateGeoLocation="updateGeoLocation" location=l}}
               {{else}}
                 <li class='no-results'>{{i18n 'location.geo.no_results'}}</li>
               {{/each}}
@@ -82,7 +82,9 @@
           {{/if}}
         </ul>
       </div>
-      <div class='location-form-instructions'>{{{i18n 'location.geo.desc' provider=providerDetails}}}</div>
+      {{#if showProvider}}
+        <div class='location-form-instructions'>{{{i18n 'location.geo.desc' provider=providerDetails}}}</div>
+      {{/if}}
     {{/if}}
   {{/if}}
 {{/if}}

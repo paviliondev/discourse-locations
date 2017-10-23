@@ -22,6 +22,49 @@ class Locations::Geocode
     perform('10 Downing Street')
   end
 
+  def self.search(user, request)
+    query = request['query']
+    countrycode = request['countrycode']
+    context = request['context']
+    options = { language: user.effective_locale }
+
+    custom_options.each do |block|
+      if updated_options = block.call(options, context)
+        options = updated_options
+      end
+    end
+
+    provider = options[:lookup] || Geocoder.config[:lookup]
+
+    if countrycode
+      country_key = nil
+
+      # note: Mapquest does not support country code request resrictions
+      case provider
+      when :nominatim, :location_iq
+        country_key = 'countrycodes'
+      when :mapzen
+        country_key = 'boundary.country'
+      when :mapbox
+        country_key = 'country'
+      when :opencagedata
+        country_key = 'countrycode'
+      end
+
+      options[:params] = { country_key.to_sym => countrycode } if country_key
+    end
+
+    locations = perform(query, options)
+
+    filters.each do |filter|
+      if filtered_locations = filter[:block].call(locations, context)
+        locations = filtered_locations
+      end
+    end
+
+    { locations: locations, provider: provider }
+  end
+
   def self.perform(query, options = {})
     begin
       Geocoder.search(query, options)
@@ -47,11 +90,32 @@ class Locations::Geocode
   end
 
   def self.validators
-    sorted_validators.map { |h| { context: h[:context], block: h[:block] } }
+    sorted_validators.map { |h| { block: h[:block] } }
   end
 
-  def self.add_validator(priority = 0, context, &block)
-    sorted_validators << { priority: priority, context: context, block: block }
+  def self.add_validator(priority = 0, &block)
+    sorted_validators << { priority: priority, block: block }
     @sorted_validators.sort_by! { |h| -h[:priority] }
+  end
+
+  def self.sorted_filters
+    @sorted_filters ||= []
+  end
+
+  def self.filters
+    sorted_filters.map { |h| { block: h[:block] } }
+  end
+
+  def self.add_filter(priority = 0, &block)
+    sorted_filters << { priority: priority, block: block }
+    @sorted_filters.sort_by! { |h| -h[:priority] }
+  end
+
+  def self.custom_options
+    @custom_options ||= []
+  end
+
+  def self.add_options(&block)
+    custom_options << block
   end
 end

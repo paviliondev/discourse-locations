@@ -82,9 +82,9 @@ after_initialize do
     mount ::Locations::Engine, at: 'location'
   end
 
-  load File.expand_path('../controllers/geocode.rb', __FILE__)
-  load File.expand_path('../serializers/geocode.rb', __FILE__)
+  load File.expand_path('../serializers/geo_location.rb', __FILE__)
   load File.expand_path('../lib/geocode.rb', __FILE__)
+  load File.expand_path('../controllers/geocode.rb', __FILE__)
 
   unless Rails.env.test?
     begin

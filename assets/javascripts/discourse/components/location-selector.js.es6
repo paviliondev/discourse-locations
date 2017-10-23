@@ -1,11 +1,14 @@
 import TextField from 'discourse/components/text-field';
-import { geoLocationSearch } from '../lib/location-utilities';
+import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
 import { findRawTemplate } from 'discourse/lib/raw-templates';
+
+const GLOBAL = typeof Discourse === 'undefined' ? Wizard : Discourse;
 
 export default TextField.extend({
   autocorrect: false,
   autocapitalize: false,
-  name: 'location-selector',
+  classNames: 'location-selector',
+  context: null,
 
   didInsertElement() {
     this._super();
@@ -23,13 +26,20 @@ export default TextField.extend({
       updateData: false,
 
       dataSource: function(term) {
-        let results = geoLocationSearch({
-          query: term
+        let request = { query: term };
+
+        const context = self.get('context');
+        if (context) request['context'] = context;
+
+        return geoLocationSearch(request).then((r) => {
+          const defaultProvider = GLOBAL['SiteSettings'].location_geocoding_provider;
+          r.locations.push({
+            provider: providerDetails[r.provider || defaultProvider]
+          });
+          return r.locations;
         }).catch((e) => {
           self.sendAction('searchError', e);
         });
-
-        return results;
       },
 
       transformComplete: function(l) {
