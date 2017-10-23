@@ -33,7 +33,7 @@ class Locations::Geocode
       raise GeocoderError.new I18n.t('location.errors.query_limit')
     rescue Geocoder::RequestDenied
       raise GeocoderError.new I18n.t('location.errors.request_denied')
-    rescue Geocoder::RequestInvalid
+    rescue Geocoder::InvalidRequest
       raise GeocoderError.new I18n.t('location.errors.request_invalid')
     rescue Geocoder::InvalidApiKey
       raise GeocoderError.new I18n.t('location.errors.api_key')
