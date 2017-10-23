@@ -7,8 +7,29 @@ class Locations::GeoController < ::ApplicationController
     RateLimiter.new(current_user, 'geocode_search', 6, 1.minute).performed!
 
     query = params[:request]['query']
+    countrycode = params[:request]['countrycode']
+    options = { language: current_user.effective_locale }
 
-    results = Locations::Geocode.perform(query, language: current_user.effective_locale)
+    if countrycode
+      provider = Geocoder.config[:lookup].to_s
+      country_key = nil
+
+      # note: Mapquest does not support country code request resrictions
+      case provider
+      when 'nominatim', 'location_iq'
+        country_key = 'countrycodes'
+      when 'mapzen'
+        country_key = 'boundary.country'
+      when 'mapbox'
+        country_key = 'country'
+      when 'opencagedata'
+        country_key = 'countrycode'
+      end
+
+      options[:params] = { country_key.to_sym => countrycode } if country_key
+    end
+
+    results = Locations::Geocode.perform(query, options)
 
     render_serialized(results, Locations::GeoSerializer)
   end
@@ -27,7 +48,7 @@ class Locations::GeoController < ::ApplicationController
   def validate
     params.require(:geo_location)
     params.permit(:context)
-    
+
     messages = []
     geo_location = params[:geo_location]
 

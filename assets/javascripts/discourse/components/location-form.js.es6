@@ -124,7 +124,7 @@ export default Ember.Component.extend({
       geoLocationSearch(request, placeSearch).then((data) => {
         if (this._state === 'destroying') { return; }
 
-        this.get('geoLocationOptions').setObjects(data.locations);
+        this.get('geoLocationOptions').setObjects(data);
 
         if (this.get('geoLocation')) {
           this.send('updateGeoLocation', this.get('geoLocation'));
