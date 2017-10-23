@@ -1,0 +1,24 @@
+en:
+  site_settings:
+    location_input_fields: "Location input fields"
+    location_input_fields_enabled: "Enable location input fields"
+    location_geocoding: "Whether locations should be geocoded (mapped). If off, locations are stored as strings."
+    location_geocoding_api_key: "Geocoding API key"
+    location_geocoding_provider: "Geocoding provider (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>provider details</a>). If the provider
+                                  requires an api key enter it below before selecting the provider."
+    location_geocoding_timeout: "Geocoding timeout"
+    location_map_tile_layer: "Map tile layer uri (<a href='https://leaflet-extras.github.io/leaflet-providers/preview/'>examples</a>)"
+    location_map_tile_layer_subdomains: "Map tile layer subdomains"
+    location_map_attribution: "Map attribution"
+    location_category_map_filter: "Add map filter to categories in which locations are enabled."
+    location_topic_map: "Show a button to toggle a mini map of location next to topic location labels"
+    location_topic_status_icon: "Enable location topic status icons in all topic lists."
+  location:
+    errors:
+      socket: "Your request failed. Please check your internet connection. If the problem persists, contact your site administrator."
+      timeout: "Your request timed out. Please wait 5 seconds and try again. If the problem persists, contact your site administrator."
+      request_denied: "Your request was denied. If the problem persists, contact your site administrator."
+      request_invalid: "Your request was invalid. If the problem persists, contact your site administrator."
+      query_limit: "Geocoding provider query limit reached. Please contact your site administrator."
+      api_key: "Geocoding provider api key invalid. Please contact your site administrator."
+      service_unavailable: "Geocoding provider service unavailable. Please contact your site administrator."
