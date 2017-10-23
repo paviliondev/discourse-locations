@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   countries: null,
   hasSearched: false,
   context: null,
+  showProvider: false,
 
   @on('init')
   setup() {
@@ -122,16 +123,18 @@ export default Ember.Component.extend({
       this.setProperties({
         'showLocationResults': true,
         'loadingLocations': true,
-        'hasSearched': true
+        'hasSearched': true,
+        'showProvider': false
       });
 
       geoLocationSearch(request).then((result) => {
         if (this._state === 'destroying') { return; }
 
-        this.setProperties({
-          provider: result.provider,
-          showProvider: true
-        });
+        if (result.provider) {
+          this.set('provider', result.provider);
+        }
+
+        this.set('showProvider', result.locations.length > 0);
 
         this.get('geoLocationOptions').setObjects(result.locations);
 
