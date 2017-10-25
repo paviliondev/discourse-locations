@@ -5,6 +5,7 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
              :countrycode,
              :city,
              :state,
+             :country,
              :postalcode,
              :boundingbox,
              :type,
@@ -40,6 +41,14 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
 
   def include_state?
     object.respond_to?(:state)
+  end
+
+  def country
+    object.country
+  end
+
+  def include_country?
+    object.respond_to?(:country)
   end
 
   def postalcode
