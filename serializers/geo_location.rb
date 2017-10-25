@@ -71,6 +71,6 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
   end
 
   def include_name?
-    object.reqpond_to?(:name)
+    object.respond_to?(:name)
   end
 end
