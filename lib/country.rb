@@ -1,5 +1,5 @@
 class Locations::Country
-  def code_map
+  def self.code_map
     raw_codes = YAML.safe_load(File.read(File.join(Rails.root, 'plugins', 'discourse-locations', 'config', 'country_codes.yml')))
     formatted_codes = []
 

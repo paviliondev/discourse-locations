@@ -83,6 +83,7 @@ after_initialize do
   end
 
   load File.expand_path('../serializers/geo_location.rb', __FILE__)
+  load File.expand_path('../lib/country.rb', __FILE__)
   load File.expand_path('../lib/geocode.rb', __FILE__)
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
