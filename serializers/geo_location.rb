@@ -7,7 +7,8 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
              :state,
              :postalcode,
              :boundingbox,
-             :type
+             :type,
+             :name
 
   def lat
     object.latitude
@@ -63,5 +64,13 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
 
   def include_type?
     object.respond_to?(:type)
+  end
+
+  def name
+    object.name
+  end
+
+  def include_name?
+    object.reqpond_to?(:name)
   end
 end
