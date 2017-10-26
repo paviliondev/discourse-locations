@@ -1,0 +1,53 @@
+gl:
+  js:
+    category:
+      location_enabled: "Permitir engadir lugares nesta categoría"
+      location_topic_status: "Activar iconos de estado de lugares para listas de temas nesta categoría."
+    composer:
+      location:
+        btn: "Add Location"
+        title: "Engadir un lugar"
+    location:
+      name:
+        title: "Nome (opcional)"
+        desc: "P.ex. Manolanxo Teixido. Dentista"
+      street:
+        title: "Número e rúa ou lugar"
+        desc: "P.ex. Lugar da Pedra s/n"
+      postalcode:
+        title: "Código Postal"
+        desc: "P.ex. 15365"
+      city:
+        title: "Vila ou Cidade"
+        desc: "P.ex. Cariño"
+      country_code:
+        title: "País"
+        placeholder: "Selecciona un país"
+      query:
+        title: "Enderezo"
+        desc: "P.ex. Ronda de Outeiro 496. A Coruña"
+      geo:
+        desc: "Enderezos proporcionados por {{provider}}"
+        btn:
+          label: "Procurar enderezo"
+        results: "Enderezos"
+        no_results: "Sen resultados. Por favor, comproba que o nome e o código postal sexan correctos."
+        show_map: "Amosar Mapa"
+      label:
+        add: "Engadir o lugar"
+        title: "Amosar os detalles do lugar"
+      clear: "Limpar"
+      done: "Feito"
+      errors:
+        search: "Houbo un problema tentando procurar o enderezo. Por favor espere 5 segundos e ténteo de novo."
+
+    filters:
+      map:
+        title: "Mapa"
+        help: "Marcar os temas con lugares desta categoría nun mapa."
+    map:
+      search_placeholder: "Procurar"
+
+    topic_statuses:
+      location:
+        help: "Este tema ten un lugar."
