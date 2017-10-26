@@ -5,7 +5,7 @@ gl:
       location_topic_status: "Activar iconos de estado de lugares para listas de temas nesta categoría."
     composer:
       location:
-        btn: "Add Location"
+        btn: "Engadir lugar"
         title: "Engadir un lugar"
     location:
       name:
