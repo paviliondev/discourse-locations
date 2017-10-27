@@ -251,7 +251,6 @@ input.input-location, div.input-location {
 
 .map {
   height: 100%;
-  width: 100%;
   position: relative;
   border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
 
@@ -382,7 +381,7 @@ input.input-location, div.input-location {
     position: fixed !important;
     height: calc(100vh - 65px);
     width: 100vw;
-    top: 65px;
+    top: 63px;
     left: 0;
     border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
     box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.4);
@@ -450,5 +449,5 @@ input.input-location, div.input-location {
 }
 
 .topic-list-icons {
-  .d-icon-map-marker { color: dark-light-choose($primary-medium, $secondary-medium); }
+  .d-icon-map-marker { color: dark-light-choose($primary, $secondary); }
 }
