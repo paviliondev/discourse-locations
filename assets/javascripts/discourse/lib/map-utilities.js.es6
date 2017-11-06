@@ -9,24 +9,6 @@ let mapStyle = function(feature, highlight) {
   };
 };
 
-let getGeoJson = function(category, clickable) {
-  let geojson = L.geoJson(false, {
-    style: mapStyle,
-    clickable
-  });
-
-  if (category) {
-    const categories = Discourse.Category.list();
-    for (let i = 0; i < categories.length; i++) {
-      if (categories[i].has_geojson) {
-        geojson.addData(JSON.parse(categories[i].geojson));
-      }
-    }
-  }
-
-  return geojson;
-};
-
 let generateMap = function(category, clickable) {
   let element = document.createElement('div');
 
@@ -53,37 +35,15 @@ let generateMap = function(category, clickable) {
 
   let attribution = L.control.attribution({ position: 'bottomright', prefix: ''});
 
-  let geojson = getGeoJson(category, clickable);
-  geojson.addTo(map);
-
-  return { element, map, geojson, attribution };
+  return { element, map, attribution };
 };
 
-let setupMap = function(map, geojson, category, markers) {
+let setupMap = function(map, markers, boundingbox) {
 
-  if (geojson) {
-    if (category) {
-      let slug = category.slug,
-          parentSlug = category.parentCategory ? category.parentCategory.slug : null;
-
-      geojson.eachLayer(function (layer) {
-        if (layer.feature.slug === slug) {
-          let style = mapStyle(layer.feature, true);
-          layer.setStyle(style);
-          map.fitBounds(layer.getBounds());
-        } else if (layer.feature.slug === parentSlug) {
-          layer.setStyle({
-            fillOpacity: 0
-          });
-        } else {
-          geojson.resetStyle(layer);
-        }
-      });
-    } else {
-      geojson.eachLayer(function (layer) {
-        geojson.resetStyle(layer);
-      });
-    }
+  if (boundingbox) {
+    let b = boundingbox;
+    // fitBounds needs: south lat, west lon, north lat, east lon
+    map.fitBounds([[b[0], b[2]],[b[1], b[3]]]);
   }
 
   if (markers) {

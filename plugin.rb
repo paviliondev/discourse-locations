@@ -26,20 +26,25 @@ after_initialize do
     CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets'])
   end
 
+  Category.register_custom_field_type('location', :json)
   Category.register_custom_field_type('location_enabled', :boolean)
   Category.register_custom_field_type('location_topic_status', :boolean)
+  add_to_class(:category, :location) { self.custom_fields['location'] }
+
+  add_to_serializer(:basic_category, :location) { object.custom_fields['location'] }
   add_to_serializer(:basic_category, :location_enabled) { object.custom_fields['location_enabled'] }
   add_to_serializer(:basic_category, :location_topic_status) { object.custom_fields['location_topic_status'] }
 
   Topic.register_custom_field_type('location', :json)
   Topic.register_custom_field_type('has_geo_location', :boolean)
+  add_to_class(:topic, :location) { self.custom_fields['location'] }
 
-  add_to_serializer(:topic_view, :location) { object.topic.custom_fields['location'] }
-  add_to_serializer(:topic_view, :include_location?) { object.topic.custom_fields['location'].present? }
+  add_to_serializer(:topic_view, :location) { object.topic.location }
+  add_to_serializer(:topic_view, :include_location?) { object.topic.location.present? }
 
   TopicList.preloaded_custom_fields << 'location' if TopicList.respond_to? :preloaded_custom_fields
-  add_to_serializer(:topic_list_item, :location) { object.custom_fields['location'] }
-  add_to_serializer(:topic_list_item, :include_location?) { object.custom_fields['location'].present? }
+  add_to_serializer(:topic_list_item, :location) { object.location }
+  add_to_serializer(:topic_list_item, :include_location?) { object.location.present? }
 
   PostRevisor.track_topic_field(:location)
 
@@ -108,8 +113,8 @@ after_initialize do
     def list_map
       create_list(:map) do |topics|
         topics.joins("INNER JOIN topic_custom_fields
-                                 ON topic_custom_fields.topic_id = topics.id
-                                 AND topic_custom_fields.name = 'has_geo_location'")
+                      ON topic_custom_fields.topic_id = topics.id
+                      AND topic_custom_fields.name = 'has_geo_location'")
          Locations::Map.sorted_list_filters.each do |filter|
            topics = filter[:block].call(topics)
          end
