@@ -90,6 +90,7 @@ after_initialize do
   load File.expand_path('../serializers/geo_location.rb', __FILE__)
   load File.expand_path('../lib/country.rb', __FILE__)
   load File.expand_path('../lib/geocode.rb', __FILE__)
+  load File.expand_path('../lib/map.rb', __FILE__)
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
   unless Rails.env.test?
@@ -112,9 +113,16 @@ after_initialize do
     def list_map
       create_list(:map) do |topics|
         topics.joins("INNER JOIN topic_custom_fields
-                     ON topic_custom_fields.topic_id = topics.id
-                     AND topic_custom_fields.name = 'has_geo_location'")
+                      ON topic_custom_fields.topic_id = topics.id
+                      AND topic_custom_fields.name = 'has_geo_location'")
+         Locations::Map.sorted_list_filters.each do |filter|
+           topics = filter[:block].call(topics)
+         end
+
+         topics
       end
     end
   end
+
+  DiscourseEvent.trigger(:locations_ready)
 end
