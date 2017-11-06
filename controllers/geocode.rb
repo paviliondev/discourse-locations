@@ -13,7 +13,7 @@ class Locations::GeoController < ::ApplicationController
   end
 
   def country_codes
-    render json: success_json.merge(country_codes: Locations::Country.code_map)
+    render json: success_json.merge(country_codes: Locations::Country.codes)
   end
 
   def validate

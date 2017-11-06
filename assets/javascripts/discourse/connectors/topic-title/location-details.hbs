@@ -1,5 +1,7 @@
 {{#unless model.editingTopic}}
   {{#if model.location}}
-    {{location-label-container topic=model}}
+    {{#unless model.location.hide_marker}}
+      {{location-label-container topic=model}}
+    {{/unless}}
   {{/if}}
 {{/unless}}

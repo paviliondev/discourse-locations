@@ -26,7 +26,8 @@ export default createWidget('map', {
     let geoLocations = this.attrs.geoLocations || [];
     let rawMarkers = [];
 
-    if (topic && topic.location && topic.location.geo_location) {
+    if (topic && topic.location && topic.location.geo_location &&
+        !topic.location.hide_marker) {
       let marker = {
         lat: topic.location.geo_location.lat,
         lon: topic.location.geo_location.lon,
@@ -67,14 +68,27 @@ export default createWidget('map', {
     return markers;
   },
 
-  setupMap(category) {
+  setupMap() {
     const mapObjs = this.state.mapObjs;
     const map = mapObjs.map;
     const markers = this.addMarkers();
+    const topic = this.attrs.topic;
+    const category = this.attrs.navCategory;
+    let boundingbox = null;
+
+    if (category && category.location && category.location.geo_location
+        && category.location.geo_location.boundingbox) {
+      boundingbox = category.location.geo_location.boundingbox;
+    }
+
+    if (topic && topic.location && topic.location.geo_location
+        && topic.location.geo_location.boundingbox) {
+      boundingbox = topic.location.geo_location.boundingbox;
+    }
 
     map.invalidateSize(false);
 
-    setupMap(map, mapObjs.geojson, category, markers);
+    setupMap(map, markers, boundingbox);
   },
 
   toggleAttribution() {
@@ -132,7 +146,7 @@ export default createWidget('map', {
       state.runSetup = false;
 
       Ember.run.scheduleOnce('afterRender', this, () => {
-        this.setupMap(category);
+        this.setupMap();
       });
 
       // triggered in sidebar-container component in layouts plugin
@@ -196,6 +210,13 @@ export default createWidget('map', {
         icon: 'wrench'
       }));
     }
+
+    if (attrs.extraWidgets) {
+      const extraWidgets = attrs.extraWidgets.map((w) => {
+        return this.attach(w.widget, w.attrs);
+      });
+      contents.push(...extraWidgets);
+    };
 
     return contents;
   }
