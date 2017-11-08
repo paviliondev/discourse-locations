@@ -12,36 +12,42 @@ export default Ember.Component.extend({
   hasSearched: false,
   context: null,
   showProvider: false,
+  showGeoLocation: true,
 
   @on('init')
   setup() {
-    const inputFields = this.get('inputFields');
+    const showInputFields = this.get("showInputFields");
+    if (showInputFields) {
+      const inputFields = this.get('inputFields');
 
-    inputFields.forEach((f) => {
-      this.set(`show${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`, true);
-    });
-
-    if (this.get('searchOnInit') && this.get("showInputFields")) {
-      this.send('locationSearch');
-    }
-
-    if (inputFields.indexOf('countrycode') > -1) {
-      ajax({
-        url: '/location/country_codes',
-        type: 'GET',
-      }).then((result) => {
-        this.set('countries', result.country_codes);
+      inputFields.forEach((f) => {
+        this.set(`show${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`, true);
       });
-    }
 
-    if (GLOBAL['SiteSettings'].location_geocoding === 'required') {
-      this.set('showLocationResults', true);
-    }
-  },
+      if (inputFields.indexOf('countrycode') > -1) {
+        ajax({
+          url: '/location/country_codes',
+          type: 'GET',
+        }).then((result) => {
+          this.set('countries', result.country_codes);
+        });
+      }
 
-  @computed()
-  showGeoLocation() {
-    return GLOBAL['SiteSettings'].location_geocoding !== 'none';
+      if (inputFields.indexOf('coordinates') > -1) {
+        this.set('showGeoLocation', false);
+      } else {
+        const geocoding = GLOBAL['SiteSettings'].location_geocoding;
+        this.setProperties({
+          showGeoLocation: geocoding !== 'none',
+          showLocationResults: geocoding === 'required'
+        });
+      }
+
+      const searchOnInit = this.get('searchOnInit');
+      if (searchOnInit) {
+        this.send('locationSearch');
+      }
+    }
   },
 
   @computed()

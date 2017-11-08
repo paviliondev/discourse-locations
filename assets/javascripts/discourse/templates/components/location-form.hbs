@@ -42,6 +42,22 @@
       </div>
     </div>
   {{/if}}
+  {{#if showCoordinates}}
+    <div class='control-group'>
+      <label class="control-label">{{i18n 'location.lat.title'}}</label>
+      <div class="controls">
+        {{input type="number" value=geoLocation.lat class="input-small input-location"}}
+      </div>
+      <div class='instructions'>{{i18n 'location.lat.desc'}}</div>
+    </div>
+    <div class='control-group'>
+      <label class="control-label">{{i18n 'location.lon.title'}}</label>
+      <div class="controls">
+        {{input type="number" value=geoLocation.lon class="input-small input-location"}}
+      </div>
+      <div class='instructions'>{{i18n 'location.lon.desc'}}</div>
+    </div>
+  {{/if}}
 {{else}}
   <div class="control-group">
     <label class='control-label'>{{i18n 'location.query.title'}}</label>

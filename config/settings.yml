@@ -11,6 +11,7 @@ plugins:
       - postalcode
       - city
       - countrycode
+      - coordinates
   location_geocoding:
     client: true
     type: enum

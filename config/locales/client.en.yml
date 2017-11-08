@@ -23,6 +23,12 @@ en:
       country_code:
         title: "Country"
         placeholder: "Select a Country"
+      lat:
+        title: "Latitude"
+        desc: "e.g. -31.9456702"
+      lon:
+        title: "Longitude"
+        desc: "e.g. 115.8626477"
       query:
         title: "Address"
         desc: "e.g. 42 Wallaby Way, Sydney."

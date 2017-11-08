@@ -9,7 +9,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   postalcode: null,
   city: null,
   countrycode: null,
-  geoLocation: null,
+  geoLocation: { lat: '', lon: '' },
   rawLocation: null,
 
   setup() {
@@ -64,18 +64,20 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
       const geocodingEnabled = this.siteSettings.location_geocoding !== 'none';
       const inputFieldsEnabled = this.siteSettings.location_input_fields_enabled;
+      const inputFields = this.get('inputFields');
+      const hasCoordinates = inputFields.indexOf('coordinates') > -1;
 
       if (!geocodingEnabled && !inputFieldsEnabled) {
         location['raw'] = this.get('rawLocation');
       }
 
       if (inputFieldsEnabled) {
-        const inputFields = this.siteSettings.location_input_fields.split('|');
-        location = this.getProperties(inputFields);
+        const nonGeoProps = inputFields.filter((f) => f !== 'coordinates');
+        location = this.getProperties(nonGeoProps);
       }
 
-      let geoLocation = this.get('geoLocation');
-      if (geocodingEnabled && geoLocation) {
+      if (geocodingEnabled || hasCoordinates) {
+        const geoLocation = this.get('geoLocation');
         location['geo_location'] = geoLocation;
       }
 
@@ -91,6 +93,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
       if (Object.keys(location).length === 0) {
         location = null;
       }
+
+      console.log('sending', location)
 
       this.get('model.update')(location);
       this.clearModal();
