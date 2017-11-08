@@ -52,5 +52,5 @@ plugins:
   location_topic_status_icon:
     default: false
     client: true
-  location_remove_closed_from_map:
+  location_map_filter_closed:
     default: false
