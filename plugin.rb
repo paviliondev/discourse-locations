@@ -124,5 +124,13 @@ after_initialize do
     end
   end
 
+  Locations::Map.add_list_filter do |topics|
+    if SiteSetting.location_map_filter_closed
+      topics = topics.where(closed: false)
+    end
+
+    topics
+  end
+
   DiscourseEvent.trigger(:locations_ready)
 end
