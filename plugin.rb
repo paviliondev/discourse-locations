@@ -131,7 +131,7 @@ after_initialize do
       category = Category.find(options[:category_id])
     end
 
-    if SiteSetting.location_map_filter_closed || category.custom_fields['location_map_filter_closed']
+    if SiteSetting.location_map_filter_closed || (options[:category_id] && category.custom_fields['location_map_filter_closed'])
       topics = topics.where(closed: false)
     end
 
