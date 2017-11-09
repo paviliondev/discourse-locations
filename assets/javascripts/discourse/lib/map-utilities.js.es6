@@ -47,7 +47,8 @@ let setupMap = function(map, markers, boundingbox) {
   }
 
   if (markers) {
-    map.fitBounds(markers.getBounds());
+    const maxZoom = Discourse.SiteSettings.location_map_marker_zoom;
+    map.fitBounds(markers.getBounds(), { maxZoom });
   }
 };
 

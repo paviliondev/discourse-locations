@@ -55,3 +55,6 @@ plugins:
     client: true
   location_map_filter_closed:
     default: false
+  location_map_marker_zoom:
+    default: 16
+    client: true
