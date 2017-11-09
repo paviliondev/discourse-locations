@@ -29,11 +29,13 @@ after_initialize do
   Category.register_custom_field_type('location', :json)
   Category.register_custom_field_type('location_enabled', :boolean)
   Category.register_custom_field_type('location_topic_status', :boolean)
+  Category.register_custom_field_type('location_map_filter_closed', :boolean)
   add_to_class(:category, :location) { self.custom_fields['location'] }
 
   add_to_serializer(:basic_category, :location) { object.custom_fields['location'] }
   add_to_serializer(:basic_category, :location_enabled) { object.custom_fields['location_enabled'] }
   add_to_serializer(:basic_category, :location_topic_status) { object.custom_fields['location_topic_status'] }
+  add_to_serializer(:basic_category, :location_map_filter_closed) { object.custom_fields['location_map_filter_closed'] }
 
   Topic.register_custom_field_type('location', :json)
   Topic.register_custom_field_type('has_geo_location', :boolean)
@@ -116,7 +118,7 @@ after_initialize do
                       ON topic_custom_fields.topic_id = topics.id
                       AND topic_custom_fields.name = 'has_geo_location'")
          Locations::Map.sorted_list_filters.each do |filter|
-           topics = filter[:block].call(topics)
+           topics = filter[:block].call(topics, @options)
          end
 
          topics
@@ -124,8 +126,12 @@ after_initialize do
     end
   end
 
-  Locations::Map.add_list_filter do |topics|
-    if SiteSetting.location_map_filter_closed
+  Locations::Map.add_list_filter do |topics, options|
+    if options[:category_id]
+      category = Category.find(options[:category_id])
+    end
+
+    if SiteSetting.location_map_filter_closed || category.custom_fields['location_map_filter_closed']
       topics = topics.where(closed: false)
     end
 

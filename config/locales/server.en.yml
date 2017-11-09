@@ -13,7 +13,7 @@ en:
     location_category_map_filter: "Add map filter to categories in which locations are enabled."
     location_topic_map: "Show a button to toggle a mini map of location next to topic location labels"
     location_topic_status_icon: "Enable location topic status icons in all topic lists."
-    location_map_filter_closed: "Filter closed topics from map topic list."
+    location_map_filter_closed: "Filter closed topics from all map topic lists."
     location_map_marker_zoom: "Default zoom level for map markers."
   location:
     errors:
