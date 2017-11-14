@@ -2,7 +2,7 @@ import { createWidget } from 'discourse/widgets/widget';
 import { h } from 'virtual-dom';
 import RawHtml from 'discourse/widgets/raw-html';
 import { avatarImg } from 'discourse/widgets/post';
-import { generateMap, setupMap, addMarkersToMap } from '../lib/map-utilities';
+import { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap } from '../lib/map-utilities';
 import DiscourseURL from 'discourse/lib/url';
 
 export default createWidget('map', {
@@ -25,14 +25,19 @@ export default createWidget('map', {
     const map = this.state.mapObjs.map;
     let geoLocations = this.attrs.geoLocations || [];
     let rawMarkers = [];
+    let rawCircleMarkers = [];
 
-    if (topic && topic.location && topic.location.geo_location &&
-        !topic.location.hide_marker) {
+    if (topic && topic.location && topic.location.geo_location && !topic.location.hide_marker) {
       let marker = {
         lat: topic.location.geo_location.lat,
         lon: topic.location.geo_location.lon,
       };
-      rawMarkers.push(marker);
+      if (topic.location.circle_marker) {
+        marker['options'] = topic.location.circle_marker;
+        rawCircleMarkers.push(marker);
+      } else {
+        rawMarkers.push(marker);
+      }
     }
 
     if (topicList) {
@@ -60,6 +65,10 @@ export default createWidget('map', {
     }
 
     let markers = null;
+
+    if (rawCircleMarkers && rawCircleMarkers.length > 0) {
+      addCircleMarkersToMap(rawCircleMarkers, map);
+    }
 
     if (rawMarkers && rawMarkers.length > 0) {
       markers = addMarkersToMap(rawMarkers, map);

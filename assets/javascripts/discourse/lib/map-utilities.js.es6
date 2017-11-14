@@ -1,3 +1,4 @@
+import DiscourseURL from 'discourse/lib/url';
 
 let mapStyle = function(feature, highlight) {
   return {
@@ -74,6 +75,21 @@ var buildMarker = function(rawMarker) {
   return marker;
 };
 
+var addCircleMarkersToMap = function(rawCircleMarkers, map) {
+  rawCircleMarkers.forEach((cm) => {
+    let marker = L.circleMarker({
+      lat: cm.lat,
+      lon: cm.lon
+    }, cm.options);
+
+    if (cm.options.routeTo) {
+      marker.on('click', () => DiscourseURL.routeTo(cm.options.routeTo));
+    }
+
+    marker.addTo(map);
+  });
+};
+
 var addMarkersToMap = function(rawMarkers, map) {
   let markers = L.markerClusterGroup({
     spiderfyDistanceMultiplier: 6
@@ -88,4 +104,4 @@ var addMarkersToMap = function(rawMarkers, map) {
   return markers;
 };
 
-export { generateMap, setupMap, addMarkersToMap };
+export { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap };
