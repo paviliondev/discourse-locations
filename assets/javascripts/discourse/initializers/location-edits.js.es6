@@ -41,7 +41,7 @@ export default {
         if (!topicFirstPost) return false;
 
         const topicTypes = Discourse.SiteSettings.composer_topic_types;
-        if (topicTypes && topicTypes.split('|').indexOf(subtype) > -1 && subtype === 'event') {
+        if (topicTypes && topicTypes.split('|').indexOf(subtype) > -1 && (subtype === 'event' || subtype === 'rating')) {
           return true;
         };
 
