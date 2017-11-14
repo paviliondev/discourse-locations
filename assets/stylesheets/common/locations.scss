@@ -86,12 +86,19 @@ input.input-location, div.input-location {
 }
 
 .composer-controls-location.show-control {
-  display: inline-block;
+  float: left;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .add-location {
   border: 1px solid dark-light-diff($primary, $secondary, 90%, -60%);
   text-align: left;
+}
+
+.add-location, .add-location + button {
+  padding: 4px 8px;
+  border: none;
 }
 
 .location-details {
