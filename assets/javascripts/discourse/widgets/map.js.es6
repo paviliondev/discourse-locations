@@ -23,7 +23,7 @@ export default createWidget('map', {
     const topic = this.attrs.topic;
     const topicList = this.attrs.topicList;
     const map = this.state.mapObjs.map;
-    let locations = this.attrs.locations;
+    let locations = this.attrs.locations || [];
     let rawMarkers = [];
     let rawCircleMarkers = [];
 
