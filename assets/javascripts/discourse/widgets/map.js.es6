@@ -33,16 +33,18 @@ export default createWidget('map', {
 
     if (locations) {
       locations.forEach((l) => {
-        let marker = {
-          lat: l.geo_location.lat,
-          lon: l.geo_location.lon
-        };
-        if (l.circle_marker) {
-          marker['options'] = l.circle_marker;
-          rawCircleMarkers.push(marker);
-        } else {
-          rawMarkers.push(marker);
-        };
+        if (l.geo_location) {
+          let marker = {
+            lat: l.geo_location.lat,
+            lon: l.geo_location.lon
+          };
+          if (l.circle_marker) {
+            marker['options'] = l.circle_marker;
+            rawCircleMarkers.push(marker);
+          } else {
+            rawMarkers.push(marker);
+          };
+        }
       });
     }
 
