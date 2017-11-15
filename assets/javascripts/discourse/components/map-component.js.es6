@@ -10,7 +10,7 @@ export default MountWidget.extend({
     let args = this.getProperties(
       'navCategory',
       'topic',
-      'geoLocations',
+      'locations',
       'clickable',
       'topicList',
       'categorySearch',
@@ -18,7 +18,8 @@ export default MountWidget.extend({
     );
 
     if (this.get('geoLocation')) {
-      args['geoLocations'] = [ this.get('geoLocation') ];
+      if (!args['locations']) args['locations'] = [];
+      args['locations'].push({ geo_location: this.get('geoLocation') });
     }
 
     return args;
