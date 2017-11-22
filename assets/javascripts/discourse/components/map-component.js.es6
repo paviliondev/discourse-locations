@@ -8,7 +8,7 @@ export default MountWidget.extend({
 
   buildArgs() {
     let args = this.getProperties(
-      'navCategory',
+      'category',
       'topic',
       'locations',
       'clickable',
@@ -30,7 +30,7 @@ export default MountWidget.extend({
     this.scheduleSetup();
   },
 
-  @observes('navCategory','geoLocation','geoLocations.[]')
+  @observes('category','geoLocation','geoLocations.[]')
   refreshMap() {
     this.queueRerender();
     this.scheduleSetup();

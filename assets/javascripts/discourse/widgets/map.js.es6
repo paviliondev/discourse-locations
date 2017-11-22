@@ -81,7 +81,7 @@ export default createWidget('map', {
     const map = mapObjs.map;
     const markers = this.addMarkers();
     const topic = this.attrs.topic;
-    const category = this.attrs.navCategory;
+    const category = this.attrs.category;
     let boundingbox = null;
 
     if (category && category.location && category.location.geo_location
@@ -115,6 +115,14 @@ export default createWidget('map', {
   },
 
   toggleSearch() {
+    Ember.run.scheduleOnce('afterRender', this, () => {
+      // resetinng the val puts the cursor at the end of the text on focus
+      const $input = $('#map-category-search-input');
+      const val = $input.val();
+      $input.focus();
+      $input.val('');
+      $input.val(val);
+    });
     this.state.showSearch = !this.state.showSearch;
   },
 
@@ -138,11 +146,11 @@ export default createWidget('map', {
 
   editCategory() {
     const appRoute = this.register.lookup('route:application');
-    appRoute.send('editCategory', this.attrs.navCategory);
+    appRoute.send('editCategory', this.attrs.category);
   },
 
   html(attrs, state) {
-    const category = this.attrs.navCategory;
+    const category = this.attrs.category;
     const clickable = attrs.clickable;
     const user = this.currentUser;
 
@@ -179,7 +187,7 @@ export default createWidget('map', {
     if (attrs.categorySearch) {
       if (state.showSearch) {
         contents.push(
-          this.attach('map-search', {category}),
+          this.attach('map-category-search', {category}),
           this.attach('button', {
             className: 'btn btn-map hide-search',
             action: 'toggleSearch',
