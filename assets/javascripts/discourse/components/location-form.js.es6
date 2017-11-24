@@ -1,18 +1,25 @@
 import { default as computed, on } from 'ember-addons/ember-computed-decorators';
 import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
 import { ajax } from '../lib/ajax';
-
-const GLOBAL = typeof Discourse === 'undefined' ? Wizard : Discourse;
+import { getOwner } from 'discourse-common/lib/get-owner';
 
 export default Ember.Component.extend({
   geoLocationOptions: Ember.A(),
   classNames: ['location-form'],
+  showInputFields: Ember.computed.or('inputFieldsEnabled', 'settings.location_input_fields_enabled'),
   inputFields:['street', 'postalcode', 'city', 'countrycode'],
   countries: null,
   hasSearched: false,
   context: null,
   showProvider: false,
   showGeoLocation: true,
+
+  @computed()
+  settings() {
+    const rootElement = getOwner(this).get('rootElement');
+    const wizard = rootElement === '#custom-wizard-main';
+    return wizard ? Wizard.SiteSettings : Discourse.SiteSettings;
+  },
 
   @on('init')
   setup() {
@@ -36,7 +43,7 @@ export default Ember.Component.extend({
       if (inputFields.indexOf('coordinates') > -1) {
         this.set('showGeoLocation', false);
       } else {
-        const geocoding = GLOBAL['SiteSettings'].location_geocoding;
+        const geocoding = this.get('settings.location_geocoding');
         this.setProperties({
           showGeoLocation: geocoding !== 'none',
           showLocationResults: geocoding === 'required'
@@ -50,14 +57,9 @@ export default Ember.Component.extend({
     }
   },
 
-  @computed()
-  showInputFields() {
-    return this.get('inputFieldsEnabled') || GLOBAL['SiteSettings'].location_input_fields_enabled;
-  },
-
-  @computed('provider')
-  providerDetails(provider) {
-    return providerDetails[provider || GLOBAL['SiteSettings'].location_geocoding_provider];
+  @computed('provider', 'settings.location_geocoding_provider')
+  providerDetails(provider, locationGeocodingProvider) {
+    return providerDetails[provider || locationGeocodingProvider];
   },
 
   buildStructuredRequest() {
@@ -101,11 +103,8 @@ export default Ember.Component.extend({
     return disabled;
   },
 
-  @computed()
-  searchLabel() {
-    const locationGeocoding = GLOBAL['SiteSettings'].location_geocoding;
-    return I18n.t(`location.geo.btn.${locationGeocoding}`);
-  },
+  @computed('settings.location_geocoding')
+  searchLabel: (locationGeocoding) => I18n.t(`location.geo.btn.${locationGeocoding}`),
 
   actions: {
     updateGeoLocation(gl) {

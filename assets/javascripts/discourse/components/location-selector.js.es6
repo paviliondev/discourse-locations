@@ -1,14 +1,21 @@
 import TextField from 'discourse/components/text-field';
 import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
 import { findRawTemplate } from 'discourse/lib/raw-templates';
-
-const GLOBAL = typeof Discourse === 'undefined' ? Wizard : Discourse;
+import { getOwner } from 'discourse-common/lib/get-owner';
+import computed from 'ember-addons/ember-computed-decorators';
 
 export default TextField.extend({
   autocorrect: false,
   autocapitalize: false,
   classNames: 'location-selector',
   context: null,
+
+  @computed()
+  settings() {
+    const rootElement = getOwner(this).get('rootElement');
+    const wizard = rootElement === '#custom-wizard-main';
+    return wizard ? Wizard.SiteSettings : Discourse.SiteSettings;
+  },
 
   didInsertElement() {
     this._super();
@@ -32,7 +39,7 @@ export default TextField.extend({
         if (context) request['context'] = context;
 
         return geoLocationSearch(request).then((r) => {
-          const defaultProvider = GLOBAL['SiteSettings'].location_geocoding_provider;
+          const defaultProvider = self.get('settings.location_geocoding_provider');
           r.locations.push({
             provider: providerDetails[r.provider || defaultProvider]
           });

@@ -94,8 +94,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
         location = null;
       }
 
-      console.log('sending', location)
-
       this.get('model.update')(location);
       this.clearModal();
       this.send('closeModal');
