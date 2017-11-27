@@ -296,7 +296,7 @@ input.input-location, div.input-location {
     border-radius: 4px;
   }
 
-  .btn-map, .avatar, .leaflet-control, .map-title, .search {
+  .btn-map, .avatar, .post-count, .leaflet-control, .map-title, .search {
     z-index: 99;
     border: 1px solid dark-light-diff($primary, $secondary, 80%, -65%) !important;
   }
