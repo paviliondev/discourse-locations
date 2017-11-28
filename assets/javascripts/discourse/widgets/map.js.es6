@@ -6,7 +6,7 @@ import { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap } from '.
 import DiscourseURL from 'discourse/lib/url';
 
 export default createWidget('map', {
-  tagName: 'div.map',
+  tagName: 'div.locations-map',
   buildKey: () => 'map',
 
   defaultState() {
@@ -106,7 +106,7 @@ export default createWidget('map', {
     if (!this.state.showAttribution) {
       map.addControl(attribution);
     } else {
-      if ($('.map .leaflet-control-attribution').is(':visible')) {
+      if ($('.locations-map .leaflet-control-attribution').is(':visible')) {
         map.removeControl(attribution);
       }
     }
@@ -128,7 +128,7 @@ export default createWidget('map', {
 
   toggleExpand() {
     const map = this.state.mapObjs.map,
-          $map = $('.map');
+          $map = $('.locations-map');
 
     $map.toggleClass('expanded');
 

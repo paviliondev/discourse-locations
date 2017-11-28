@@ -120,10 +120,6 @@ input.input-location, div.input-location {
       display: inline-block;
       margin-left: 8px;
 
-      .fa {
-        margin-right: 3px;
-      }
-
       .map-component {
         position: absolute;
         z-index: 9999;
@@ -256,7 +252,7 @@ input.input-location, div.input-location {
   margin-top: 5px;
 }
 
-.map {
+.locations-map {
   height: 100%;
   position: relative;
   border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
@@ -296,7 +292,7 @@ input.input-location, div.input-location {
     border-radius: 4px;
   }
 
-  .btn-map, .avatar, .post-count, .leaflet-control, .map-title, .search {
+  .btn-map, .avatar, .leaflet-control, .map-title, .search {
     z-index: 99;
     border: 1px solid dark-light-diff($primary, $secondary, 80%, -65%) !important;
   }
