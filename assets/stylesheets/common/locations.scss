@@ -92,13 +92,13 @@ input.input-location, div.input-location {
 }
 
 .add-location {
-  border: 1px solid dark-light-diff($primary, $secondary, 90%, -60%);
   text-align: left;
 }
 
 .add-location, .add-location + button {
-  padding: 4px 8px;
-  border: none;
+  padding: 6px 10px;
+  border: 1px solid $primary-medium;
+  border-radius: 0;
 }
 
 .location-details {
