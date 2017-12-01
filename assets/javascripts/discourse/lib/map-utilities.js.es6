@@ -79,7 +79,8 @@ const buildMarker = function(rawMarker) {
     marker.bindTooltip(rawMarker.options.title,
       {
         permanent: true,
-        direction: 'top'
+        direction: 'top',
+        className: 'topic-title-map-tooltip'
       }
     ).openTooltip();
   }
