@@ -23,7 +23,7 @@ const generateMap = function(opts) {
     attributionControl: false,
     zoomSnap: 0.1
   };
-  if (opts['zoom']) attrs['zoom'] = opts['zoom'];
+  if (opts['zoom'] !== undefined) attrs['zoom'] = opts['zoom'];
   if (opts['center']) attrs['center'] = opts['center'];
 
   const map = L.map(element, attrs);
