@@ -53,8 +53,7 @@
 input.input-location, div.input-location {
   max-height: 150px;
   background-color: $secondary;
-  border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
-  min-height: 24px;
+  min-height: 36px;
   box-shadow: none;
   box-sizing: initial;
   margin: 0;
