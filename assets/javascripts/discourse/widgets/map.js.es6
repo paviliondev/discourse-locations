@@ -2,7 +2,7 @@ import { createWidget } from 'discourse/widgets/widget';
 import { h } from 'virtual-dom';
 import RawHtml from 'discourse/widgets/raw-html';
 import { avatarImg } from 'discourse/widgets/post';
-import { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap } from '../lib/map-utilities';
+import { generateMap, setupMap, zoomSize, addMarkersToMap, addCircleMarkersToMap } from '../lib/map-utilities';
 import DiscourseURL from 'discourse/lib/url';
 
 export default createWidget('map', {
@@ -127,18 +127,21 @@ export default createWidget('map', {
   },
 
   toggleExpand() {
-    const map = this.state.mapObjs.map,
-          $map = $('.locations-map');
+    const size = this.attrs.size;
+    const map = this.state.mapObjs.map;
+    const $map = $('.locations-map');
 
     $map.toggleClass('expanded');
 
     if ($map.hasClass('expanded')) {
       this.state.mapToggle = "compress";
       this.state.expanded = true;
+      map.setZoom(2);
     } else {
       this.state.mapToggle = "expand";
       this.state.expanded = false;
       this.setupMap();
+      map.setZoom(zoomSize[size]);
     }
 
     map.invalidateSize();
@@ -149,13 +152,23 @@ export default createWidget('map', {
     appRoute.send('editCategory', this.attrs.category);
   },
 
+  initializeMap() {
+    const center = this.attrs.center;
+    const clickable = this.attrs.clickable;
+    const size = this.attrs.size;
+    let opts = {};
+    if (size) opts['zoom'] = zoomSize[size];
+    if (center) opts['center'] = center;
+    if (clickable) opts['clickable'] = clickable;
+    return generateMap(opts);
+  },
+
   html(attrs, state) {
-    const category = this.attrs.category;
-    const clickable = attrs.clickable;
+    const category = attrs.category;
     const user = this.currentUser;
 
     if (!state.mapObjs) {
-      state.mapObjs = generateMap(category, clickable);
+      state.mapObjs = this.initializeMap();
     }
 
     if (state.runSetup) {

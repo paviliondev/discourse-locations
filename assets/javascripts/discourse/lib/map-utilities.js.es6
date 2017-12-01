@@ -1,6 +1,6 @@
 import DiscourseURL from 'discourse/lib/url';
 
-let mapStyle = function(feature, highlight) {
+const mapStyle = function(feature, highlight) {
   return {
     fillColor: feature.parent_slug ? "transparent" : "transparent",
     weight: highlight ? 2 : 1,
@@ -10,25 +10,37 @@ let mapStyle = function(feature, highlight) {
   };
 };
 
-let generateMap = function(category, clickable) {
-  let element = document.createElement('div');
+const zoomSize = {
+  small: 0,
+  medium: 1,
+  large: 2
+};
 
-  let map = L.map(element, {
+const generateMap = function(opts) {
+  const element = document.createElement('div');
+  let attrs = {
     zoomControl: false,
-    attributionControl: false
-  }).fitWorld();
+    attributionControl: false,
+    zoomSnap: 0.1
+  };
+  if (opts['zoom']) attrs['zoom'] = opts['zoom'];
+  if (opts['center']) attrs['center'] = opts['center'];
 
-  let options = {
+  const map = L.map(element, attrs);
+
+  if (!opts['center']) map.fitWorld();
+
+  let tileOpts = {
     attribution: Discourse.SiteSettings.location_map_attribution,
     maxZoom: 19
   };
 
   const subdomains = Discourse.SiteSettings.location_map_tile_layer_subdomains;
   if (subdomains) {
-    options['subdomains'] = subdomains;
+    tileOpts['subdomains'] = subdomains;
   }
 
-  L.tileLayer(Discourse.SiteSettings.location_map_tile_layer, options).addTo(map);
+  L.tileLayer(Discourse.SiteSettings.location_map_tile_layer, tileOpts).addTo(map);
 
   L.Icon.Default.imagePath = '/plugins/discourse-locations/leaflet/images/';
 
@@ -39,7 +51,7 @@ let generateMap = function(category, clickable) {
   return { element, map, attribution };
 };
 
-let setupMap = function(map, markers, boundingbox) {
+const setupMap = function(map, markers, boundingbox) {
 
   if (boundingbox) {
     let b = boundingbox;
@@ -53,7 +65,7 @@ let setupMap = function(map, markers, boundingbox) {
   }
 };
 
-var buildMarker = function(rawMarker) {
+const buildMarker = function(rawMarker) {
   const marker = L.marker({
     lat: rawMarker.lat,
     lon: rawMarker.lon
@@ -75,9 +87,9 @@ var buildMarker = function(rawMarker) {
   return marker;
 };
 
-var addCircleMarkersToMap = function(rawCircleMarkers, map) {
+const addCircleMarkersToMap = function(rawCircleMarkers, map) {
   rawCircleMarkers.forEach((cm) => {
-    let marker = L.circleMarker({
+    const marker = L.circleMarker({
       lat: cm.lat,
       lon: cm.lon
     }, cm.options);
@@ -90,7 +102,7 @@ var addCircleMarkersToMap = function(rawCircleMarkers, map) {
   });
 };
 
-var addMarkersToMap = function(rawMarkers, map) {
+const addMarkersToMap = function(rawMarkers, map) {
   let markers = L.markerClusterGroup({
     spiderfyDistanceMultiplier: 6
   });
@@ -104,4 +116,4 @@ var addMarkersToMap = function(rawMarkers, map) {
   return markers;
 };
 
-export { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap };
+export { generateMap, setupMap, zoomSize, addMarkersToMap, addCircleMarkersToMap };
