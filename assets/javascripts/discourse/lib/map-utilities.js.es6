@@ -11,9 +11,9 @@ const mapStyle = function(feature, highlight) {
 };
 
 const zoomSize = {
-  small: 0,
-  medium: 1,
-  large: 2
+  small: 1,
+  medium: 2,
+  large: 3
 };
 
 const generateMap = function(opts) {

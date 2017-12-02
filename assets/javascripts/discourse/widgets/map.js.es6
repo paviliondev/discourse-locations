@@ -31,6 +31,8 @@ export default createWidget('map', {
       locations.push(topic.location);
     };
 
+    locations = locations.some((l) => l !== null);
+
     if (locations) {
       locations.forEach((l) => {
         if (l.geo_location) {
@@ -132,19 +134,18 @@ export default createWidget('map', {
     const $map = $('.locations-map');
 
     $map.toggleClass('expanded');
+    map.invalidateSize();
 
     if ($map.hasClass('expanded')) {
       this.state.mapToggle = "compress";
       this.state.expanded = true;
-      map.setZoom(2);
+      map.setView([20,0], 8);
+      map.setZoom(zoomSize['large']);
     } else {
       this.state.mapToggle = "expand";
       this.state.expanded = false;
-      this.setupMap();
       map.setZoom(zoomSize[size]);
     }
-
-    map.invalidateSize();
   },
 
   editCategory() {
