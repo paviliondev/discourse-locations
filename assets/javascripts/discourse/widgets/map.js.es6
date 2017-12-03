@@ -27,13 +27,12 @@ export default createWidget('map', {
     let rawMarkers = [];
     let rawCircleMarkers = [];
 
-    if (topic && topic.location && topic.location && !topic.location.hide_marker) {
+    if (topic && topic.location && topic.location.geo_location && !topic.location.hide_marker) {
       locations.push(topic.location);
     };
 
-    locations = locations.some((l) => l !== null);
+    if (locations && locations.length > 0) {
 
-    if (locations) {
       locations.forEach((l) => {
         if (l.geo_location) {
           let marker = {
