@@ -10,12 +10,6 @@ const mapStyle = function(feature, highlight) {
   };
 };
 
-const zoomSize = {
-  small: 1,
-  medium: 2,
-  large: 3
-};
-
 const generateMap = function(opts) {
   const element = document.createElement('div');
   let attrs = {
@@ -23,12 +17,15 @@ const generateMap = function(opts) {
     attributionControl: false,
     zoomSnap: 0.1
   };
-  if (opts['zoom'] !== undefined) attrs['zoom'] = opts['zoom'];
-  if (opts['center']) attrs['center'] = opts['center'];
+
+  const defaultZoom = Discourse.SiteSettings.location_map_zoom;
+  attrs['zoom'] = opts['zoom'] !== undefined ? opts['zoom'] : defaultZoom;
+
+  const defaultLat = Discourse.SiteSettings.location_map_center_lat;
+  const defaultLon = Discourse.SiteSettings.location_map_center_lon;
+  attrs['center'] = opts['center'] !== undefined ? opts['center'] : [defaultLat, defaultLon];
 
   const map = L.map(element, attrs);
-
-  if (!opts['center']) map.fitWorld();
 
   let tileOpts = {
     attribution: Discourse.SiteSettings.location_map_attribution,
@@ -117,4 +114,4 @@ const addMarkersToMap = function(rawMarkers, map) {
   return markers;
 };
 
-export { generateMap, setupMap, zoomSize, addMarkersToMap, addCircleMarkersToMap };
+export { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap };

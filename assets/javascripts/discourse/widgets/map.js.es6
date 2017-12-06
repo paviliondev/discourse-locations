@@ -2,7 +2,7 @@ import { createWidget } from 'discourse/widgets/widget';
 import { h } from 'virtual-dom';
 import RawHtml from 'discourse/widgets/raw-html';
 import { avatarImg } from 'discourse/widgets/post';
-import { generateMap, setupMap, zoomSize, addMarkersToMap, addCircleMarkersToMap } from '../lib/map-utilities';
+import { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap } from '../lib/map-utilities';
 import DiscourseURL from 'discourse/lib/url';
 
 export default createWidget('map', {
@@ -32,7 +32,6 @@ export default createWidget('map', {
     };
 
     if (locations && locations.length > 0) {
-
       locations.forEach((l) => {
         if (l.geo_location) {
           let marker = {
@@ -128,7 +127,6 @@ export default createWidget('map', {
   },
 
   toggleExpand() {
-    const size = this.attrs.size;
     const map = this.state.mapObjs.map;
     const $map = $('.locations-map');
 
@@ -138,12 +136,11 @@ export default createWidget('map', {
     if ($map.hasClass('expanded')) {
       this.state.mapToggle = "compress";
       this.state.expanded = true;
-      map.setView([20,0], 8);
-      map.setZoom(zoomSize['large']);
+      map.setZoom(Discourse.SiteSettings.location_map_expanded_zoom);
     } else {
       this.state.mapToggle = "expand";
       this.state.expanded = false;
-      map.setZoom(zoomSize[size]);
+      this.setupMap();
     }
   },
 
@@ -155,9 +152,9 @@ export default createWidget('map', {
   initializeMap() {
     const center = this.attrs.center;
     const clickable = this.attrs.clickable;
-    const size = this.attrs.size;
+    const zoom = this.attrs.zoom;
     let opts = {};
-    if (size) opts['zoom'] = zoomSize[size];
+    if (zoom) opts['zoom'] = zoom;
     if (center) opts['center'] = center;
     if (clickable) opts['clickable'] = clickable;
     return generateMap(opts);
