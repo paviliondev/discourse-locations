@@ -16,6 +16,7 @@ class Locations::Geocode
       timeout: timeout,
       cache: $redis,
       cache_prefix: 'geocoder:',
+      use_https: true,
       always_raise: [
         SocketError,
         Timeout::Error,
