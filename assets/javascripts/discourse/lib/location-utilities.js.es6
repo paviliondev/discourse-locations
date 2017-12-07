@@ -11,8 +11,8 @@ function locationSearch(request, resultsFn) {
 
     console.log(e)
 
-    if (e.jqXHR && e.jqXHR.responseText) {
-      const responseText = e.jqXHR.responseText;
+    if (e.responseText) {
+      const responseText = e.responseText;
       message = responseText.substring(responseText.indexOf('>') + 1, responseText.indexOf('plugins'));
     };
 
