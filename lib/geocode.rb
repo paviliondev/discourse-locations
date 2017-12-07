@@ -3,17 +3,15 @@
 class GeocoderError < StandardError; end
 
 class Locations::Geocode
-  def self.set_provider(provider)
-    provider = provider.to_sym
-    api_key = SiteSetting.location_geocoding_api_key
-    timeout = SiteSetting.location_geocoding_timeout
-
-    puts "SETTING GEOCODER CONFIG PROVIDER: #{provider}"
+  def self.set_config(opts = {})
+    provider = opts[:provider] || SiteSetting.location_geocoding_provider
+    api_key = opts[:api_key] || SiteSetting.location_geocoding_api_key
+    timeout = opts[:timeout] || SiteSetting.location_geocoding_timeout
 
     Geocoder.configure(
-      lookup: provider,
+      lookup: provider.to_sym,
       api_key: api_key,
-      timeout: timeout,
+      timeout: timeout.to_i,
       cache: $redis,
       cache_prefix: 'geocoder:',
       use_https: true,
@@ -28,7 +26,7 @@ class Locations::Geocode
       ]
     )
 
-    ## test to see that the provider requirements are met
+    ## test to see that the config works
     perform('10 Downing Street')
   end
 
@@ -49,8 +47,6 @@ class Locations::Geocode
       provider = options[:lookup]
     else
       setting = SiteSetting.location_geocoding_provider.to_sym
-      puts "SETTING: #{setting}"
-      puts "LOOKUP: #{Geocoder.config[:lookup]}"
       if setting != Geocoder.config[:lookup]
         provider = setting
         options[:lookup] = setting
@@ -77,9 +73,6 @@ class Locations::Geocode
       options[:params] = { country_key.to_sym => countrycode } if country_key
     end
 
-    puts "CONFIG: #{Geocoder.config.inspect}"
-    puts "OPTIONS: #{options.inspect}"
-
     locations = perform(query, options)
 
     filters.each do |filter|
@@ -87,8 +80,6 @@ class Locations::Geocode
         locations = filtered_locations
       end
     end
-
-    puts "RESULTS: #{locations.inspect}"
 
     { locations: locations, provider: provider }
   end

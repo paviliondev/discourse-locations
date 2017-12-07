@@ -97,18 +97,19 @@ after_initialize do
 
   unless Rails.env.test?
     begin
-      puts "CALLING SET PROVIDER FROM PLUGIN.RB"
-      Locations::Geocode.set_provider(SiteSetting.location_geocoding_provider)
+      Locations::Geocode.set_config
     rescue
       SiteSetting.location_geocoding_provider = :nominatim
-      Locations::Geocode.set_provider(SiteSetting.location_geocoding_provider)
+      Locations::Geocode.set_config
     end
   end
 
   add_model_callback(SiteSetting, :before_save) do
     if name == 'location_geocoding_provider'
-      puts "CALLING SET PROVIDER FROM PLUGIN.RB MODEL CALLBACK"
-      Locations::Geocode.set_provider(value)
+      Locations::Geocode.set_config(provider: value)
+    end
+    if name == 'location_geocoding_timeout'
+      Locations::Geocode.set_config(timeout: value)
     end
   end
 
