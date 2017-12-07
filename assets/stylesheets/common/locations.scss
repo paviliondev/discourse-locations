@@ -26,6 +26,8 @@
 }
 
 .location-form, .add-location {
+  overflow: visible;
+
   .control-group {
     display: inline-block;
     vertical-align: top;
@@ -67,18 +69,34 @@ input.input-location, div.input-location {
   width: 100px;
 }
 
-.location-selector + .autocomplete {
-  width: inherit;
+.location-selector-container {
+  position: relative;
 
-  li {
-    padding: 10px;
-  }
+  .ac-wrap {
+    .loading-locations {
+      position: absolute;
+      top: 7px;
+      right: 5px;
+    }
 
-  label {
-    @extend .location-form-instructions;
-    padding: 0 5px;
+    .autocomplete {
+      width: inherit;
+      left: 0 !important;
+      width: 99.5%;
+      top: 36px !important;
+
+      li, .no-results {
+        padding: 10px;
+      }
+
+      label {
+        @extend .location-form-instructions;
+        padding: 0 5px;
+      }
+    }
   }
 }
+
 
 .location-form-title {
   display: inline-block;

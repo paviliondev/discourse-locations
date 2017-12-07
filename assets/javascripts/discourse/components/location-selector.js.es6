@@ -2,7 +2,7 @@ import TextField from 'discourse/components/text-field';
 import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
 import { findRawTemplate } from 'discourse/lib/raw-templates';
 import { getOwner } from 'discourse-common/lib/get-owner';
-import computed from 'ember-addons/ember-computed-decorators';
+import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
 export default TextField.extend({
   autocorrect: false,
@@ -38,15 +38,22 @@ export default TextField.extend({
         const context = self.get('context');
         if (context) request['context'] = context;
 
+        self.set('loading', true);
+
         return geoLocationSearch(request).then((r) => {
           const defaultProvider = self.get('settings.location_geocoding_provider');
-          console.log("results provider: ", r.provider);
-          console.log("default provider: ",  defaultProvider);
+          if (r.locations.length === 0) {
+            r.locations.push({
+              no_results: true
+            });
+          }
           r.locations.push({
             provider: providerDetails[r.provider || defaultProvider]
           });
+          self.set('loading', false);
           return r.locations;
         }).catch((e) => {
+          self.set('loading', false);
           self.sendAction('searchError', e);
         });
       },
@@ -68,6 +75,18 @@ export default TextField.extend({
         }
       }
     });
+  },
+
+  @observes('loading')
+  showLoadingSpinner() {
+    const loading = this.get('loading');
+    const $wrap = this.$().parent();
+    const $spinner = $("<span class='loading-locations'><div class='spinner small'/></span>");
+    if (loading) {
+      $spinner.prependTo($wrap);
+    } else {
+      $('.loading-locations').remove();
+    }
   },
 
   willDestroyElement() {

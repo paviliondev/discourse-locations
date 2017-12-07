@@ -3,8 +3,12 @@
     {{#each options as |o|}}
       {{#if o.provider}}
         <label>{{{i18n 'location.geo.desc' provider=o.provider}}}</label>
-      {{else}}
+      {{/if}}
+      {{#if o.address}}
         <li class="location-form-result">{{o.address}}</li>
+      {{/if}}
+      {{#if o.no_results}}
+        <div class="no-results">{{i18n 'location.geo.no_results'}}</div>
       {{/if}}
     {{/each}}
   </ul>

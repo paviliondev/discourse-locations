@@ -38,7 +38,7 @@ en:
         btn:
           label: "Find Address"
         results: "Addresses"
-        no_results: "No results. Please double check the spelling and postal code."
+        no_results: "No results."
         show_map: "Show Map"
       label:
         add: "Add a Location"
