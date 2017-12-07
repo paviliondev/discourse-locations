@@ -16,8 +16,7 @@ class Locations::Geocode
       timeout: timeout,
       cache: $redis,
       cache_prefix: 'geocoder:',
-      always_raise: :all,
-      use_https: true
+      always_raise: :all
     )
 
     ## test to see that the provider requirements are met

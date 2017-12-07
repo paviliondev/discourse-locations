@@ -9,6 +9,8 @@ function locationSearch(request, resultsFn) {
   }).catch(function (e) {
     let message = I18n.t('location.errors.search');
 
+    console.log(e)
+
     if (e.jqXHR && e.jqXHR.responseText) {
       const responseText = e.jqXHR.responseText;
       message = responseText.substring(responseText.indexOf('>') + 1, responseText.indexOf('plugins'));
