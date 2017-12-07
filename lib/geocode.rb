@@ -36,8 +36,20 @@ class Locations::Geocode
       end
     end
 
-    provider = Geocoder.config[:lookup]
-    provider = options[:lookup] if options[:lookup]
+    provider = nil
+    if options[:lookup]
+      provider = options[:lookup]
+    else
+      setting = SiteSetting.location_geocoding_provider.to_sym
+      puts "SETTING: #{setting}"
+      puts "LOOKUP: #{Geocoder.config[:lookup]}"
+      if setting != Geocoder.config[:lookup]
+        provider = setting
+        options[:lookup] = setting
+      else
+        provider = Geocoder.config[:lookup]
+      end
+    end
 
     if countrycode
       country_key = nil
