@@ -16,7 +16,15 @@ class Locations::Geocode
       timeout: timeout,
       cache: $redis,
       cache_prefix: 'geocoder:',
-      always_raise: :all
+      always_raise: [
+        SocketError,
+        Timeout::Error,
+        Geocoder::OverQueryLimitError,
+        Geocoder::RequestDenied,
+        Geocoder::InvalidRequest,
+        Geocoder::InvalidApiKey,
+        Geocoder::ServiceUnavailable
+      ]
     )
 
     ## test to see that the provider requirements are met
