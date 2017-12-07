@@ -40,6 +40,8 @@ export default TextField.extend({
 
         return geoLocationSearch(request).then((r) => {
           const defaultProvider = self.get('settings.location_geocoding_provider');
+          console.log("results provider: ", r.provider);
+          console.log("default provider: ",  defaultProvider);
           r.locations.push({
             provider: providerDetails[r.provider || defaultProvider]
           });

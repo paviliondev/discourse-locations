@@ -8,6 +8,10 @@ class Locations::Geocode
     api_key = SiteSetting.location_geocoding_api_key
     timeout = SiteSetting.location_geocoding_timeout
 
+    if existing_provider = Geocoder::Lookup.get(Geocoder.config[:lookup])
+      existing_provider.cache.expire(:all) if existing_provider.cache
+    end
+
     Geocoder.configure(
       lookup: provider,
       api_key: api_key,
@@ -34,7 +38,8 @@ class Locations::Geocode
       end
     end
 
-    provider = options[:lookup] || Geocoder.config[:lookup]
+    provider = Geocoder.config[:lookup]
+    provider = options[:lookup] if options[:lookup]
 
     if countrycode
       country_key = nil
@@ -53,6 +58,9 @@ class Locations::Geocode
 
       options[:params] = { country_key.to_sym => countrycode } if country_key
     end
+
+    puts "CONFIG: #{Geocoder.config.inspect}"
+    puts "OPTIONS: #{options.inspect}"
 
     locations = perform(query, options)
 
