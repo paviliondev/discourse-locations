@@ -8,16 +8,14 @@ class Locations::Geocode
     api_key = SiteSetting.location_geocoding_api_key
     timeout = SiteSetting.location_geocoding_timeout
 
-    if existing_provider = Geocoder::Lookup.get(Geocoder.config[:lookup])
-      existing_provider.cache.expire(:all) if existing_provider.cache
-    end
+    puts "SETTING GEOCODER CONFIG PROVIDER: #{provider}"
 
     Geocoder.configure(
       lookup: provider,
       api_key: api_key,
       timeout: timeout,
       cache: $redis,
-      cache_prefix: 'geocode',
+      cache_prefix: 'geocoder:',
       always_raise: :all,
       use_https: true
     )
@@ -69,6 +67,8 @@ class Locations::Geocode
         locations = filtered_locations
       end
     end
+
+    puts "RESULTS: #{locations.inspect}"
 
     { locations: locations, provider: provider }
   end
