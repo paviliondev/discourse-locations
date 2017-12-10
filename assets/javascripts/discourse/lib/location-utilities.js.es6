@@ -9,9 +9,9 @@ function locationSearch(request, resultsFn) {
   }).catch(function (e) {
     let message = I18n.t('location.errors.search');
 
-    console.log(e)
-
-    if (e.responseText) {
+    if (e.responseJSON && e.responseJSON.errors) {
+      message = e.responseJSON.errors[0];
+    } else if (e.responseText) {
       const responseText = e.responseText;
       message = responseText.substring(responseText.indexOf('>') + 1, responseText.indexOf('plugins'));
     };
