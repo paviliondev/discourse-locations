@@ -29,10 +29,13 @@
 .add-location .control-group {
   width: 100%;
 
-  .input-location.input-xxlarge {
+  .input-location, input {
     width: 100%;
-    min-height: 36px;
     box-sizing: border-box;
+  }
+
+  .location-name {
+    min-height: 36px;
   }
 }
 
