@@ -35,6 +35,8 @@ plugins:
     default: ''
   location_geocoding_timeout:
     default: 3
+  location_geocoding_rate_limit:
+    default: 6
   location_map_tile_layer:
     default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
     client: true

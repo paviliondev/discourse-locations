@@ -8,6 +8,7 @@ en:
       Geocoding provider (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>provider details</a>).
       If the provider requires an api key enter it below before selecting the provider.
     location_geocoding_timeout: "Geocoding timeout"
+    location_geocoding_rate_limit: "Geocoding rate limit; requests per minute."
     location_map_tile_layer: "Map tile layer uri (<a href='https://leaflet-extras.github.io/leaflet-providers/preview/'>examples</a>)."
     location_map_tile_layer_subdomains: "Map tile layer subdomains"
     location_map_attribution: "Map attribution"

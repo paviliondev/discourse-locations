@@ -4,7 +4,8 @@ class Locations::GeoController < ::ApplicationController
   def search
     params.require(:request)
 
-    RateLimiter.new(current_user, 'geocode_search', 6, 1.minute).performed!
+    rate_limit = SiteSetting.location_geocoding_rate_limit
+    RateLimiter.new(current_user, 'geocode_search', rate_limit, 1.minute).performed!
 
     result = Locations::Geocode.search(current_user, params[:request])
 
