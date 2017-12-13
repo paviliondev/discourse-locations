@@ -49,16 +49,20 @@ const generateMap = function(opts) {
 };
 
 const setupMap = function(map, markers, boundingbox) {
-
   if (boundingbox) {
     let b = boundingbox;
     // fitBounds needs: south lat, west lon, north lat, east lon
     map.fitBounds([[b[0], b[2]],[b[1], b[3]]]);
-  }
-
-  if (markers) {
+  } else if (markers) {
     const maxZoom = Discourse.SiteSettings.location_map_marker_zoom;
     map.fitBounds(markers.getBounds(), { maxZoom });
+  } else {
+    const defaultLat = Discourse.SiteSettings.location_map_center_lat;
+    const defaultLon = Discourse.SiteSettings.location_map_center_lon;
+    const defaultZoom = Discourse.SiteSettings.location_map_zoom;
+
+    map.setView([defaultLat, defaultLon]);
+    map.setZoom(defaultZoom);
   }
 };
 
