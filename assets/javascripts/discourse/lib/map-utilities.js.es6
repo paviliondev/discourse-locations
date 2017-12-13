@@ -60,9 +60,10 @@ const setupMap = function(map, markers, boundingbox, zoom, center) {
     const defaultLat = Discourse.SiteSettings.location_map_center_lat;
     const defaultLon = Discourse.SiteSettings.location_map_center_lon;
     const defaultZoom = Discourse.SiteSettings.location_map_zoom;
-
-    map.setView(center || [defaultLat, defaultLon]);
-    map.setZoom(zoom || defaultZoom);
+    const setZoom = zoom === undefined ? defaultZoom : zoom;
+    const setView = center === undefined ? [defaultLat, defaultLon] : center;
+    map.setView(setView);
+    map.setZoom(setZoom);
   }
 };
 
