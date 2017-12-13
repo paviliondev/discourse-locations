@@ -16,7 +16,8 @@ export default MountWidget.extend({
       'categorySearch',
       'showAvatar',
       'size',
-      'center'
+      'center',
+      'zoom'
     );
 
     if (this.get('geoLocation')) {
