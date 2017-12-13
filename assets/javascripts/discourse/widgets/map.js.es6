@@ -82,6 +82,8 @@ export default createWidget('map', {
     const markers = this.addMarkers();
     const topic = this.attrs.topic;
     const category = this.attrs.category;
+    const zoom = this.attrs.zoom;
+    const center = this.attrs.center;
     let boundingbox = null;
 
     if (category && category.location && category.location.geo_location
@@ -96,7 +98,7 @@ export default createWidget('map', {
 
     map.invalidateSize(false);
 
-    setupMap(map, markers, boundingbox);
+    setupMap(map, markers, boundingbox, zoom, center);
   },
 
   toggleAttribution() {

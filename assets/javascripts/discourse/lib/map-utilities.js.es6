@@ -48,7 +48,7 @@ const generateMap = function(opts) {
   return { element, map, attribution };
 };
 
-const setupMap = function(map, markers, boundingbox) {
+const setupMap = function(map, markers, boundingbox, zoom, center) {
   if (boundingbox) {
     let b = boundingbox;
     // fitBounds needs: south lat, west lon, north lat, east lon
@@ -61,8 +61,8 @@ const setupMap = function(map, markers, boundingbox) {
     const defaultLon = Discourse.SiteSettings.location_map_center_lon;
     const defaultZoom = Discourse.SiteSettings.location_map_zoom;
 
-    map.setView([defaultLat, defaultLon]);
-    map.setZoom(defaultZoom);
+    map.setView(center || [defaultLat, defaultLon]);
+    map.setZoom(zoom || defaultZoom);
   }
 };
 
