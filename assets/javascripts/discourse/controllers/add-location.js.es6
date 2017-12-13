@@ -55,6 +55,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     clear() {
       this.clearModal();
       this.get('model.update')(null);
+      this.send('closeModal');
     },
 
     submit() {

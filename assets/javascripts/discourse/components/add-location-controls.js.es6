@@ -41,7 +41,11 @@ export default Ember.Component.extend({
       let controller = showModal('add-location', { model: {
         location: this.get('location'),
         categoryId: this.get('categoryId'),
-        update: (location) => this.set('location', location)
+        update: (location) => {
+          if (this._state !== 'destroying') {
+            this.set('location', location);
+          }
+        }
       }});
 
       controller.setup();
