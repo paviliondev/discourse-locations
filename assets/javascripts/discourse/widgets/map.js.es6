@@ -168,7 +168,7 @@ export default createWidget('map', {
       state.mapObjs = this.initializeMap();
     }
 
-    if (state.runSetup) {
+    if (state.runSetup || attrs.runSetup) {
       state.runSetup = false;
 
       Ember.run.scheduleOnce('afterRender', this, () => {
