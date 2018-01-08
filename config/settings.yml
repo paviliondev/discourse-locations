@@ -71,3 +71,6 @@ plugins:
   location_map_center_lon:
     default: 5
     client: true
+  location_map_max_topics:
+    default: 100
+    client: true

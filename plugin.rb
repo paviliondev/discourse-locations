@@ -116,15 +116,17 @@ after_initialize do
   require_dependency 'topic_query'
   class ::TopicQuery
     def list_map
+      @options[:per_page] = SiteSetting.location_map_max_topics
       create_list(:map) do |topics|
-        topics.joins("INNER JOIN topic_custom_fields
-                      ON topic_custom_fields.topic_id = topics.id
-                      AND topic_custom_fields.name = 'has_geo_location'")
-         Locations::Map.sorted_list_filters.each do |filter|
-           topics = filter[:block].call(topics, @options)
-         end
+        topics = topics.joins("INNER JOIN topic_custom_fields
+                               ON topic_custom_fields.topic_id = topics.id
+                               AND topic_custom_fields.name = 'has_geo_location'")
 
-         topics
+        Locations::Map.sorted_list_filters.each do |filter|
+          topics = filter[:block].call(topics, @options)
+        end
+
+        topics
       end
     end
   end

@@ -21,6 +21,7 @@ en:
     location_map_expanded_zoom: "Default zoom level for expanded maps."
     location_map_center_lat: "Default center latitude for maps."
     location_map_center_lon: "Default center longitude for maps."
+    location_map_max_topics: "Maximum number of topics shown on map topics lists."
 
   location:
     errors:
