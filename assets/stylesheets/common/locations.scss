@@ -6,6 +6,10 @@
   text-align: left;
 }
 
+.add-location {
+  max-height: initial;
+}
+
 .add-location .location-form {
   margin-top: 20px;
 
@@ -201,10 +205,15 @@ input.input-location, div.input-location {
   &:hover, &.selected {
     background-color: $tertiary;
     color: white;
+
+    label {
+      color: white;
+    }
   }
 
   label {
     flex: 1 1 auto;
+    margin-bottom: 0;
   }
 
   i {
