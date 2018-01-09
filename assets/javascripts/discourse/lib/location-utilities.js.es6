@@ -20,7 +20,7 @@ function locationSearch(request, resultsFn) {
   });
 }
 
-var debouncedLocationSearch = _.debounce(locationSearch, 400);
+var debouncedLocationSearch = _.debounce(locationSearch, Discourse.SiteSettings.location_geocoding_debounce);
 
 let geoLocationSearch = (request) => {
   if (!request) return;
