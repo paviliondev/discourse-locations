@@ -39,16 +39,11 @@ export default {
       @computed('subtype', 'categoryId', 'topicFirstPost')
       showLocationControls(subtype, categoryId, topicFirstPost) {
         if (!topicFirstPost) return false;
-
-        const topicTypes = Discourse.SiteSettings.composer_topic_types;
-        if (topicTypes && topicTypes.split('|').indexOf(subtype) > -1 && (subtype === 'event' || subtype === 'rating')) {
-          return true;
-        };
-
         if (categoryId) {
           const category = this.site.categories.findBy('id', categoryId);
-          return category.location_enabled;
+          if (category.location_enabled) return true;
         }
+        return false;
       },
 
       clearState() {
