@@ -15,7 +15,8 @@ export default createWidget('map', {
       expanded: false,
       showAttribution: false,
       runSetup: true,
-      showSearch: false
+      showSearch: false,
+      addedTopicMarker: false
     };
   },
 
@@ -27,8 +28,11 @@ export default createWidget('map', {
     let rawMarkers = [];
     let rawCircleMarkers = [];
 
-    if (topic && topic.location && topic.location.geo_location && !topic.location.hide_marker) {
+    if (topic && topic.location &&
+        topic.location.geo_location && !topic.location.hide_marker &&
+        !this.state.addedTopicMarker) {
       locations.push(topic.location);
+      this.state.addedTopicMarker = true;
     };
 
     if (locations && locations.length > 0) {
