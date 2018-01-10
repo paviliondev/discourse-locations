@@ -90,7 +90,6 @@ let locationFormat = function(location, opts = {}) {
 
 let providerDetails = {
   nominatim: `<a href='https://www.openstreetmap.org' target='_blank'>OpenStreetMap</a>`,
-  mapzen: `<a href='https://mapzen.com/' target='_blank'>Mapzen</a>`,
   location_iq: `<a href='https://locationiq.org/' target='_blank'>LocationIQ</a>`,
   opencagedata: `<a href='https://opencagedata.com' target='_blank'>OpenCage Data</a>`,
   mapbox: `<a href='https://www.mapbox.com/' target='_blank'>Mapbox</a>`,

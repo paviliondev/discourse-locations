@@ -55,6 +55,9 @@ class Locations::Geocode
       end
     end
 
+    # To be removed
+    provider = :nominatim if provider == 'mapzen' || provider == :mapzen
+
     if countrycode
       country_key = nil
 
@@ -62,8 +65,6 @@ class Locations::Geocode
       case provider
       when :nominatim, :location_iq
         country_key = 'countrycodes'
-      when :mapzen
-        country_key = 'boundary.country'
       when :mapbox
         country_key = 'country'
       when :opencagedata
@@ -136,5 +137,10 @@ class Locations::Geocode
 
   def self.add_options(&block)
     custom_options << block
+  end
+
+  def self.revert_to_default_provider
+    SiteSetting.location_geocoding_provider = :nominatim
+    Locations::Geocode.set_config
   end
 end

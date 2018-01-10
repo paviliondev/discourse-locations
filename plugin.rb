@@ -99,8 +99,12 @@ after_initialize do
     begin
       Locations::Geocode.set_config
     rescue
-      SiteSetting.location_geocoding_provider = :nominatim
-      Locations::Geocode.set_config
+      Locations::Geocode.revert_to_default_provider
+    end
+
+    # To be removed
+    if SiteSetting.location_geocoding_provider == 'mapzen'
+      Locations::Geocode.revert_to_default_provider
     end
   end
 
