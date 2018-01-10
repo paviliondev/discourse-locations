@@ -20,7 +20,9 @@ function locationSearch(request, resultsFn) {
   });
 }
 
-var debouncedLocationSearch = _.debounce(locationSearch, Discourse.SiteSettings.location_geocoding_debounce);
+const settings = Discourse.SiteSettings || Wizard.SiteSettings;
+
+var debouncedLocationSearch = _.debounce(locationSearch, settings.location_geocoding_debounce);
 
 let geoLocationSearch = (request) => {
   if (!request) return;
