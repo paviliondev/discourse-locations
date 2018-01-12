@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class GeocoderError < StandardError; end
 
 class Locations::Geocode

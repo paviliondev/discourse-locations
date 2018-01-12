@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Locations::GeoController < ::ApplicationController
   def search
     params.require(:request)

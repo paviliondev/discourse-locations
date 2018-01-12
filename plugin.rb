@@ -1,9 +1,8 @@
-# frozen_string_literal: true
-
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
 # version: 0.1
 # authors: Angus McLeod
+# url: https://github.com/angusmcleod/discourse-locations
 
 register_asset 'stylesheets/common/locations.scss'
 register_asset 'stylesheets/mobile/locations.scss', :mobile
