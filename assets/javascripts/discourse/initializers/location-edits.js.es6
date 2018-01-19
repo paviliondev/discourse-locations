@@ -36,9 +36,10 @@ export default {
     });
 
     Composer.reopen({
-      @computed('subtype', 'categoryId', 'topicFirstPost')
-      showLocationControls(subtype, categoryId, topicFirstPost) {
+      @computed('subtype', 'categoryId', 'topicFirstPost', 'forceLocationControls')
+      showLocationControls(subtype, categoryId, topicFirstPost, force) {
         if (!topicFirstPost) return false;
+        if (force) return true;
         if (categoryId) {
           const category = this.site.categories.findBy('id', categoryId);
           if (category.location_enabled) return true;
