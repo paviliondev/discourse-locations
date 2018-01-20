@@ -51,7 +51,7 @@ after_initialize do
 
   PostRevisor.class_eval do
     track_topic_field(:location) do |tc, location|
-      if !location.blank?
+      if location.present?
         new_location = location.to_unsafe_hash
         tc.record_change('location', tc.topic.custom_fields['location'], new_location)
         tc.topic.custom_fields['location'] = new_location
@@ -61,12 +61,14 @@ after_initialize do
   end
 
   DiscourseEvent.on(:post_created) do |post, opts, _user|
-    location = opts[:location].is_a?(String) ? ::JSON.parse(opts[:location]) : opts[:location]
-    if post.is_first_post? && location
-      topic = Topic.find(post.topic_id)
-      topic.custom_fields['location'] = location
-      topic.custom_fields['has_geo_location'] = !!location['geo_location']
-      topic.save!
+    if opts[:location] && opts[:location].present?
+      location = opts[:location].is_a?(String) ? ::JSON.parse(opts[:location]) : opts[:location]
+      if post.is_first_post? && location
+        topic = Topic.find(post.topic_id)
+        topic.custom_fields['location'] = location
+        topic.custom_fields['has_geo_location'] = !!location['geo_location']
+        topic.save!
+      end
     end
   end
 
