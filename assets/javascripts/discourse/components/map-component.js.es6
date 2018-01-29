@@ -13,7 +13,7 @@ export default MountWidget.extend({
       'locations',
       'clickable',
       'topicList',
-      'categorySearch',
+      'search',
       'showAvatar',
       'size',
       'center',

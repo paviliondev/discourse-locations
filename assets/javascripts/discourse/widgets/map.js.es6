@@ -15,9 +15,15 @@ export default createWidget('map', {
       expanded: false,
       showAttribution: false,
       runSetup: true,
-      showSearch: false,
-      addedTopicMarker: false
+      showSearch: false
     };
+  },
+
+  locationPresent(locations, location) {
+    return locations.filter((l) => {
+      return l.geo_location.lat === location.geo_location.lat &&
+        l.geo_location.lon === location.geo_location.lon;
+    }).length > 0;
   },
 
   addMarkers() {
@@ -28,11 +34,10 @@ export default createWidget('map', {
     let rawMarkers = [];
     let rawCircleMarkers = [];
 
-    if (topic && topic.location &&
-        topic.location.geo_location && !topic.location.hide_marker &&
-        !this.state.addedTopicMarker) {
-      locations.push(topic.location);
-      this.state.addedTopicMarker = true;
+    if (topic && topic.location && topic.location.geo_location && !topic.location.hide_marker) {
+      if (!this.locationPresent(locations, topic.location)) {
+        locations.push(topic.location);
+      }
     };
 
     if (locations && locations.length > 0) {
@@ -123,7 +128,7 @@ export default createWidget('map', {
   toggleSearch() {
     Ember.run.scheduleOnce('afterRender', this, () => {
       // resetinng the val puts the cursor at the end of the text on focus
-      const $input = $('#map-category-search-input');
+      const $input = $('#map-search-input');
       const val = $input.val();
       $input.focus();
       $input.val('');
@@ -200,10 +205,21 @@ export default createWidget('map', {
       })));
     }
 
-    if (attrs.categorySearch) {
+    if (attrs.search) {
       if (state.showSearch) {
+        let locations = attrs.locations;
+        let current = null;
+        if (attrs.category && attrs.category.location) {
+          current = attrs.category.location;
+        };
+        if (attrs.topic && attrs.topic.location) {
+          current = attrs.topic.location;
+        }
         contents.push(
-          this.attach('map-category-search', {category}),
+          this.attach('map-search', {
+            locations,
+            current
+          }),
           this.attach('button', {
             className: 'btn btn-map hide-search',
             action: 'toggleSearch',
