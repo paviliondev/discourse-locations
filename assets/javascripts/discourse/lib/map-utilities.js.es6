@@ -90,7 +90,7 @@ const buildMarker = function(rawMarker) {
   return marker;
 };
 
-const addCircleMarkersToMap = function(rawCircleMarkers, map) {
+const addCircleMarkersToMap = function(rawCircleMarkers, map, context) {
   rawCircleMarkers.forEach((cm) => {
     const marker = L.circleMarker({
       lat: cm.lat,
@@ -98,7 +98,10 @@ const addCircleMarkersToMap = function(rawCircleMarkers, map) {
     }, cm.options);
 
     if (cm.options.routeTo) {
-      marker.on('click', () => DiscourseURL.routeTo(cm.options.routeTo));
+      marker.on('click', () => {
+        context.toggleExpand();
+        DiscourseURL.routeTo(cm.options.routeTo);
+      });
     }
 
     marker.addTo(map);

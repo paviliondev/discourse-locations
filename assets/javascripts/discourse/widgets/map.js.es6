@@ -70,7 +70,7 @@ export default createWidget('map', {
     let markers = null;
 
     if (rawCircleMarkers && rawCircleMarkers.length > 0) {
-      addCircleMarkersToMap(rawCircleMarkers, map);
+      addCircleMarkersToMap(rawCircleMarkers, map, this);
     }
 
     if (rawMarkers && rawMarkers.length > 0) {
