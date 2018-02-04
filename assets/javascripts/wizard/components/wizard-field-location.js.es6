@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   includeGeoLocation: true,
   layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
   context: Ember.computed.alias('wizard.id'),
+  hasCustomCheck: true,
 
   @on('init')
   setup() {
@@ -25,8 +26,6 @@ export default Ember.Component.extend({
     });
 
     Ember.run.later(this, () => this.handleValidation());
-
-    this.set('field.customValidation', true);
   },
 
   handleValidation() {
