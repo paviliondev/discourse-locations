@@ -51,11 +51,15 @@ after_initialize do
 
   PostRevisor.class_eval do
     track_topic_field(:location) do |tc, location|
+      tc.record_change('location', tc.topic.custom_fields['location'], location)
+
       if location.present?
-        new_location = location.to_unsafe_hash
-        tc.record_change('location', tc.topic.custom_fields['location'], new_location)
-        tc.topic.custom_fields['location'] = new_location
-        tc.topic.custom_fields['has_geo_location'] = !!new_location['geo_location']
+        location = location.to_unsafe_hash
+        tc.topic.custom_fields['location'] = location
+        tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+      else
+        tc.topic.custom_fields['location'] = {}
+        tc.topic.custom_fields['has_geo_location'] = false
       end
     end
   end
