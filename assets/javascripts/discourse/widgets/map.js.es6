@@ -42,7 +42,7 @@ export default createWidget('map', {
 
     if (locations && locations.length > 0) {
       locations.forEach((l) => {
-        if (l.geo_location) {
+        if (l && l.geo_location) {
           let marker = {
             lat: l.geo_location.lat,
             lon: l.geo_location.lon
