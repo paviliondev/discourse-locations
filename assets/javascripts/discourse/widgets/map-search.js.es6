@@ -6,9 +6,7 @@ createWidget('map-search-item', {
   tagName: 'li',
 
   html(attrs) {
-    const name = attrs.location.geo_location.name;
-    const address = attrs.location.geo_location.address;
-    return name ? name : address;
+    return attrs.locationName;
   },
 
   click() {
@@ -91,16 +89,9 @@ export default createWidget('map-search', {
     input = input ? input.toLowerCase() : '';
 
     return locations.filter((l) => {
-      const name = l.name;
-      const geoName = l.geo_location.name;
-      const geoAddress = l.geo_location.address;
-
+      const name = this.locationName(l);
       if (name) {
         return name.toLowerCase().indexOf(input) > -1;
-      } else if (geoName) {
-        return geoName.toLowerCase().indexOf(input) > -1;
-      } else if (geoAddress) {
-        return geoAddress.toLowerCase().indexOf(input) > -1;
       } else {
         return null;
       }
@@ -119,7 +110,11 @@ export default createWidget('map-search', {
     if (state.listVisible) {
       contents.push(
         h('ul.map-search-list', state.locations.map((location) => {
-          return this.attach('map-search-item', { location });
+          const locationName = this.locationName(location);
+          return this.attach('map-search-item', {
+            location,
+            locationName
+          });
         }))
       );
     }
@@ -139,12 +134,20 @@ export default createWidget('map-search', {
     this.state.listVisible = visible;
   },
 
+  locationName(location) {
+    return location.name || location.geo_location.name || location.geo_location.address;
+  },
+
   goToLocation(location) {
     this.state.current = location;
+
     const node = document.getElementById('#map-search-input');
-    if (node) {
-      node.value = location.name || location.geo_location.name || location.geo_location.address;
-    }
-    DiscourseURL.routeTo(location.circle_marker.routeTo);
+    if (node) node.value = this.locationName(location);
+
+    let url = '/';
+    if (location.marker) url = location.marker.routeTo;
+    if (location.circle_marker) url = location.circle_marker.routeTo;
+
+    DiscourseURL.routeTo(url);
   }
 });
