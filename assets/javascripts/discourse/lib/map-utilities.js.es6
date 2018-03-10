@@ -1,5 +1,6 @@
 /* global L */
 
+import { emojiUnescape } from 'discourse/lib/text';
 import DiscourseURL from 'discourse/lib/url';
 
 const generateMap = function(opts) {
@@ -72,7 +73,8 @@ const buildMarker = function(rawMarker) {
   }
 
   if (rawMarker.options && rawMarker.options.title) {
-    marker.bindTooltip(rawMarker.options.title,
+    const title = emojiUnescape(rawMarker.options.title);
+    marker.bindTooltip(title,
       {
         permanent: true,
         direction: 'top',
