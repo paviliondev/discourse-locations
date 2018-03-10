@@ -95,8 +95,6 @@ export default createWidget('map-search', {
       const geoName = l.geo_location.name;
       const geoAddress = l.geo_location.address;
 
-      console.log(name, geoName, geoAddress, input);
-
       if (name) {
         return name.toLowerCase().indexOf(input) > -1;
       } else if (geoName) {
@@ -117,8 +115,6 @@ export default createWidget('map-search', {
         topResult: state.locations[0] || false
       })
     ];
-
-    console.log(state.listVisible, state.locations, attrs.locations);
 
     if (state.listVisible) {
       contents.push(
