@@ -1,4 +1,5 @@
 import { createWidget } from 'discourse/widgets/widget';
+import Category from 'discourse/models/category';
 
 export default createWidget('layouts-map', {
   tagName: 'div.widget-container.nav-container',
@@ -15,7 +16,7 @@ export default createWidget('layouts-map', {
 
     const category = this.attrs.category;
     if (category && category.get('location_enabled')) {
-      filter = `c/${category.get('slug')}/l/map`;
+      filter = 'c/' + Category.slugFor(category) + '/l/map';
     }
 
     this.store.findFiltered('topicList', { filter }).then((list) => {

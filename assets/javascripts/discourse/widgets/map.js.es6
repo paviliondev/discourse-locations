@@ -29,7 +29,7 @@ export default createWidget('map', {
       locations.push(this.topicMarker(topic));
     };
 
-    if (topicList) {
+    if (topicList && topicList.topics) {
       topicList.topics.forEach((t) => {
         if (this.addTopicMarker(t) && !this.locationPresent(locations, t.location)) {
           locations.push(this.topicMarker(t));
