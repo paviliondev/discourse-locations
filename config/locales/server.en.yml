@@ -23,6 +23,8 @@ en:
     location_map_center_lat: "Default center latitude for maps."
     location_map_center_lon: "Default center longitude for maps."
     location_map_max_topics: "Maximum number of topics shown on map topics lists."
+    location_layouts_map_search_enabled: "Enable search in the layouts-map widget (requires Layouts Plugin)."
+    location_layouts_map_show_avatar: "Enable user avatar in the layouts-map-widget (requires Layouts Plugin)."
 
   location:
     errors:

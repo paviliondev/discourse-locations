@@ -1,14 +1,6 @@
-import DiscourseURL from 'discourse/lib/url';
+/* global L */
 
-const mapStyle = function(feature, highlight) {
-  return {
-    fillColor: feature.parent_slug ? "transparent" : "transparent",
-    weight: highlight ? 2 : 1,
-    fillOpacity: feature.parent_slug ? 0.4 : 0,
-    color: feature.parent_slug ? "#ff7800" : "#0088cc",
-    opacity: 0.6
-  };
-};
+import DiscourseURL from 'discourse/lib/url';
 
 const generateMap = function(opts) {
   const element = document.createElement('div');
@@ -55,7 +47,7 @@ const setupMap = function(map, markers, boundingbox, zoom, center) {
     map.fitBounds([[b[0], b[2]],[b[1], b[3]]]);
   } else if (markers) {
     const maxZoom = Discourse.SiteSettings.location_map_marker_zoom;
-    map.fitBounds(markers.getBounds(), { maxZoom });
+    map.fitBounds(markers.getBounds().pad(1), { maxZoom });
   } else {
     const defaultLat = Discourse.SiteSettings.location_map_center_lat;
     const defaultLon = Discourse.SiteSettings.location_map_center_lon;
@@ -73,8 +65,10 @@ const buildMarker = function(rawMarker) {
     lon: rawMarker.lon
   }, rawMarker.options);
 
-  if (rawMarker.onClick) {
-    marker.on('click', rawMarker.onClick);
+  if (rawMarker.options.routeTo) {
+    marker.on('click', () => {
+      DiscourseURL.routeTo(rawMarker.options.routeTo);
+    });
   }
 
   if (rawMarker.options && rawMarker.options.title) {

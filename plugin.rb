@@ -20,11 +20,6 @@ Discourse.anonymous_filters.push(:map)
 gem 'geocoder', '1.4.4'
 
 after_initialize do
-
-  if defined?(CustomWizard) == 'constant' && CustomWizard.class == Module
-    CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets'])
-  end
-
   Category.register_custom_field_type('location', :json)
   Category.register_custom_field_type('location_enabled', :boolean)
   Category.register_custom_field_type('location_topic_status', :boolean)
@@ -153,4 +148,16 @@ after_initialize do
   end
 
   DiscourseEvent.trigger(:locations_ready)
+end
+
+DiscourseEvent.on(:layouts_ready) do
+  if defined?(DiscourseLayouts) == 'constant' && DiscourseLayouts.class == Module
+    DiscourseLayouts::WidgetHelper.add_widget('layouts-map')
+  end
+end
+
+DiscourseEvent.on(:custom_wizard_ready) do
+  if defined?(CustomWizard) == 'constant' && CustomWizard.class == Module
+    CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets'])
+  end
 end

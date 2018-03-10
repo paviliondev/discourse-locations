@@ -1,12 +1,4 @@
 {{#d-modal-body class="add-location" title=title}}
-  <div class='control-group'>
-    <label class='control-label'>{{i18n 'location.name.title'}}</label>
-    <div class="controls">
-      {{input type="text" value=name class="input-xxlarge input-location location-name"}}
-    </div>
-    <div class='instructions'>{{i18n 'location.name.desc'}}</div>
-  </div>
-  <hr>
   {{location-form street=street
                   postalcode=postalcode
                   city=city
@@ -16,6 +8,14 @@
                   inputFields=inputFields
                   searchOnInit=searchOnInit
                   searchError="searchError"}}
+  <hr>
+  <div class='control-group'>
+    <label class='control-label'>{{i18n 'location.name.title'}}</label>
+    <div class="controls">
+      {{input type="text" value=name class="input-xxlarge input-location location-name"}}
+    </div>
+    <div class='instructions'>{{i18n 'location.name.desc'}}</div>
+  </div>
 {{/d-modal-body}}
 
 <div class="modal-footer">

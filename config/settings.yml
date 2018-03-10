@@ -77,3 +77,9 @@ plugins:
   location_map_max_topics:
     default: 100
     client: true
+  location_layouts_map_search_enabled:
+    default: false
+    client: true
+  location_layouts_map_show_avatar:
+    default: false
+    client: true

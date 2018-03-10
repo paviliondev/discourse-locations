@@ -3,20 +3,54 @@ import { h } from 'virtual-dom';
 import RawHtml from 'discourse/widgets/raw-html';
 import { avatarImg } from 'discourse/widgets/post';
 import { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap } from '../lib/map-utilities';
-import DiscourseURL from 'discourse/lib/url';
 
 export default createWidget('map', {
   tagName: 'div.locations-map',
   buildKey: () => 'map',
 
-  defaultState() {
+  defaultState(attrs) {
     return {
       mapToggle: 'expand',
       expanded: false,
       showAttribution: false,
       runSetup: true,
-      showSearch: false
+      showSearch: false,
+      locations: attrs.locations || [],
     };
+  },
+
+  gatherLocations() {
+    const topic = this.attrs.topic;
+    const topicList = this.attrs.topicList;
+
+    let locations = this.state.locations;
+
+    if (this.addTopicMarker(topic) && !this.locationPresent(locations, topic.location)) {
+      locations.push(this.topicMarker(topic));
+    };
+
+    if (topicList) {
+      topicList.topics.forEach((t) => {
+        if (this.addTopicMarker(t) && !this.locationPresent(locations, t.location)) {
+          locations.push(this.topicMarker(t));
+        }
+      });
+    }
+
+    this.state.locations = locations;
+  },
+
+  addTopicMarker(topic) {
+    return topic && topic.location && topic.location.geo_location && !topic.location.hide_marker;
+  },
+
+  topicMarker(topic) {
+    let location = topic.location;
+    location['marker'] = {
+      title: topic.fancy_title,
+      routeTo: "t/" + topic.slug
+    };
+    return location;
   },
 
   locationPresent(locations, location) {
@@ -27,47 +61,29 @@ export default createWidget('map', {
   },
 
   addMarkers() {
-    const topic = this.attrs.topic;
-    const topicList = this.attrs.topicList;
     const map = this.state.mapObjs.map;
-    let locations = this.attrs.locations || [];
+    const locations = this.state.locations;
     let rawMarkers = [];
     let rawCircleMarkers = [];
-
-    if (topic && topic.location && topic.location.geo_location && !topic.location.hide_marker) {
-      if (!this.locationPresent(locations, topic.location)) {
-        locations.push(topic.location);
-      }
-    };
 
     if (locations && locations.length > 0) {
       locations.forEach((l) => {
         if (l && l.geo_location) {
           let marker = {
             lat: l.geo_location.lat,
-            lon: l.geo_location.lon
+            lon: l.geo_location.lon,
+            options: {}
           };
+
+          if (l.marker) {
+            marker['options'] = l.marker;
+            rawMarkers.push(marker);
+          }
+
           if (l.circle_marker) {
             marker['options'] = l.circle_marker;
             rawCircleMarkers.push(marker);
-          } else {
-            rawMarkers.push(marker);
-          };
-        }
-      });
-    }
-
-    if (topicList) {
-      topicList.forEach((t) => {
-        if (t.location && t.location.geo_location) {
-          rawMarkers.push({
-            lat: t.location.geo_location.lat,
-            lon: t.location.geo_location.lon,
-            options: {
-              title: t.fancy_title
-            },
-            onClick: () => DiscourseURL.routeTo("t/" + t.slug)
-          });
+          }
         }
       });
     }
@@ -86,6 +102,8 @@ export default createWidget('map', {
   },
 
   setupMap() {
+    this.gatherLocations();
+
     const mapObjs = this.state.mapObjs;
     const map = mapObjs.map;
     const markers = this.addMarkers();
@@ -207,7 +225,7 @@ export default createWidget('map', {
 
     if (attrs.search) {
       if (state.showSearch) {
-        let locations = attrs.locations;
+        let locations = state.locations;
         let current = null;
         if (attrs.category && attrs.category.location) {
           current = attrs.category.location;
