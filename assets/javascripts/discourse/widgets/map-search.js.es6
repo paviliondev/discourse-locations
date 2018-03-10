@@ -88,7 +88,7 @@ export default createWidget('map-search', {
     const locations = this.attrs.locations;
     if (!locations || locations.length < 1) return [];
 
-    input = input.toLowerCase();
+    input = input ? input.toLowerCase() : '';
 
     return locations.filter((l) => {
       const name = l.name;
