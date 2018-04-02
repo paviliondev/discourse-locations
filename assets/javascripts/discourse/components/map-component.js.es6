@@ -13,6 +13,7 @@ export default MountWidget.extend({
       'locations',
       'clickable',
       'topicList',
+      'userList',
       'search',
       'showAvatar',
       'size',
