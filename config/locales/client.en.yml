@@ -58,3 +58,15 @@ en:
     topic_statuses:
       location:
         help: "This topic has a location."
+
+    user:
+      map_location:
+        title: "Map Location"
+        instructions:
+
+      map_link:
+        title: "Users Map"
+
+      map:
+        title: "Users Map"
+
