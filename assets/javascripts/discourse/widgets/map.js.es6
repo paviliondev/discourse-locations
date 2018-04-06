@@ -40,7 +40,7 @@ export default createWidget('map', {
 
     if (userList) {
           userList.forEach((u) => {
-              if (u.user.custom_fields.geo_location) {
+              if (u.user.custom_fields.geo_location && !$.isEmptyObject(u.user.custom_fields.geo_location)) {
                   locations.push(this.userMarker(u));
               }
           });

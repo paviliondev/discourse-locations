@@ -67,6 +67,8 @@ en:
       map_link:
         title: "Users Map"
 
+      list_link:
+       title: "Users List"
+
       map:
         title: "Users Map"
-

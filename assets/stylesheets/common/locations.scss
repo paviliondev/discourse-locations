@@ -593,3 +593,26 @@ input.input-location, div.input-location {
   height: calc(100vh - 270px);
   margin-top: 5px;
 }
+
+.users-nav{
+  margin-bottom: 18px;
+}
+
+.users-nav-pil{
+  float: left;
+  margin-right: 5px;
+  border: none;
+  font-weight: normal;
+  color: $primary;
+  background: $secondary
+}
+
+.users-nav-pil:hover{
+  color: $quaternary;
+  background-color: $quaternary-low;
+}
+
+.users-nav-pil.users-nav-pil-active{
+  color: $secondary;
+  background: $quaternary;
+}

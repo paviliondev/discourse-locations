@@ -9,7 +9,6 @@ export default {
                 renderTemplate() {
                     const currentUrl = this.get('router.currentURL');
                     if (currentUrl.indexOf('user-map') > -1) {
-                        console.log('working');
                         this.render("users/user-map");
                     } else {
                         this.render('users');
