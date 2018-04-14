@@ -46,10 +46,11 @@ after_initialize do
 
   PostRevisor.class_eval do
     track_topic_field(:location) do |tc, location|
-      tc.record_change('location', tc.topic.custom_fields['location'], location)
+      location = location.to_unsafe_hash.to_json
 
-      if location.present?
-        location = location.to_unsafe_hash
+      if location.present? && Locations::Helper.valid_location?(location)
+        location = JSON.parse(location)
+        tc.record_change('location', tc.topic.custom_fields['location'], location)
         tc.topic.custom_fields['location'] = location
         tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
       else
@@ -62,7 +63,8 @@ after_initialize do
   DiscourseEvent.on(:post_created) do |post, opts, _user|
     if opts[:location] && opts[:location].present?
       location = opts[:location].is_a?(String) ? ::JSON.parse(opts[:location]) : opts[:location]
-      if post.is_first_post? && location
+
+      if post.is_first_post? && location && Locations::Helper.valid_location?(location)
         topic = Topic.find(post.topic_id)
         topic.custom_fields['location'] = location
         topic.custom_fields['has_geo_location'] = !!location['geo_location']
@@ -92,6 +94,7 @@ after_initialize do
   load File.expand_path('../serializers/geo_location.rb', __FILE__)
   load File.expand_path('../lib/country.rb', __FILE__)
   load File.expand_path('../lib/geocode.rb', __FILE__)
+  load File.expand_path('../lib/locations.rb', __FILE__)
   load File.expand_path('../lib/map.rb', __FILE__)
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
