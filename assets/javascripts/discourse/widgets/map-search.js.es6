@@ -145,6 +145,7 @@ export default createWidget('map-search', {
     if (node) node.value = this.locationName(location);
 
     let url = '/';
+    if (location.route_to) url = location.route_to;
     if (location.marker) url = location.marker.routeTo;
     if (location.circle_marker) url = location.circle_marker.routeTo;
 
