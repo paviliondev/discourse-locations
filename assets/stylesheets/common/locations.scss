@@ -588,6 +588,18 @@ input.input-location, div.input-location {
   max-width: 530px;
 }
 
+.users-nav {
+  margin: 20px 0;
+
+  ul {
+    margin: 0;
+  }
+}
+
+.users-map-container {
+  margin-bottom: 60px;
+}
+
 .users-map-container .map-component {
   width: 100%;
   height: calc(100vh - 270px);

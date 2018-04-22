@@ -64,11 +64,9 @@ en:
         title: "Map Location"
         instructions:
 
-      map_link:
-        title: "Users Map"
-
-      list_link:
-       title: "Users List"
-
+    users:
       map:
         title: "Users Map"
+
+      list:
+        title: "Users List"
