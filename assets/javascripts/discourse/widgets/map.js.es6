@@ -26,6 +26,14 @@ export default createWidget('map', {
 
     let locations = this.state.locations;
 
+    if (this.attrs.locations && locations.length !== this.attrs.locations.length) {
+      this.attrs.locations.forEach((l) => {
+        if (!this.locationPresent(locations, l)) {
+          locations.push(l);
+        }
+      })
+    }
+
     if (this.addTopicMarker(topic) && !this.locationPresent(locations, topic.location)) {
       locations.push(this.topicMarker(topic));
     };
@@ -223,7 +231,7 @@ export default createWidget('map', {
       });
 
       // triggered in sidebar-container component in layouts plugin
-      this.appEvents.on('sidebars:rerender', () => {
+      this.appEvents.on('sidebars:after-render', () => {
         state.runSetup = true;
         state.showSearch = false;
       });

@@ -24,9 +24,17 @@ after_initialize do
   Category.register_custom_field_type('location_enabled', :boolean)
   Category.register_custom_field_type('location_topic_status', :boolean)
   Category.register_custom_field_type('location_map_filter_closed', :boolean)
-  add_to_class(:category, :location) { self.custom_fields['location'] }
 
-  add_to_serializer(:basic_category, :location) { object.custom_fields['location'] }
+  add_to_class(:category, :location) {
+    if self.custom_fields['location'] &&
+       self.custom_fields['location'].is_a?(String)
+      JSON.parse(self.custom_fields['location'])
+    else
+      nil
+    end
+  }
+
+  add_to_serializer(:basic_category, :location) { object.location }
   add_to_serializer(:basic_category, :location_enabled) { object.custom_fields['location_enabled'] }
   add_to_serializer(:basic_category, :location_topic_status) { object.custom_fields['location_topic_status'] }
   add_to_serializer(:basic_category, :location_map_filter_closed) { object.custom_fields['location_map_filter_closed'] }
@@ -56,10 +64,11 @@ after_initialize do
 
   PostRevisor.class_eval do
     track_topic_field(:location) do |tc, location|
-      tc.record_change('location', tc.topic.custom_fields['location'], location)
+      location = location.to_unsafe_hash.to_json
 
-      if location.present?
-        location = location.to_unsafe_hash
+      if location.present? && Locations::Helper.valid_location?(location)
+        location = JSON.parse(location)
+        tc.record_change('location', tc.topic.custom_fields['location'], location)
         tc.topic.custom_fields['location'] = location
         tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
       else
@@ -72,7 +81,8 @@ after_initialize do
   DiscourseEvent.on(:post_created) do |post, opts, _user|
     if opts[:location] && opts[:location].present?
       location = opts[:location].is_a?(String) ? ::JSON.parse(opts[:location]) : opts[:location]
-      if post.is_first_post? && location
+
+      if post.is_first_post? && location && Locations::Helper.valid_location?(location)
         topic = Topic.find(post.topic_id)
         topic.custom_fields['location'] = location
         topic.custom_fields['has_geo_location'] = !!location['geo_location']
@@ -107,6 +117,7 @@ after_initialize do
   load File.expand_path('../serializers/geo_location.rb', __FILE__)
   load File.expand_path('../lib/country.rb', __FILE__)
   load File.expand_path('../lib/geocode.rb', __FILE__)
+  load File.expand_path('../lib/locations.rb', __FILE__)
   load File.expand_path('../lib/map.rb', __FILE__)
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
