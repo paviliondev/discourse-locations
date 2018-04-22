@@ -25,6 +25,7 @@ en:
     location_map_max_topics: "Maximum number of topics shown on map topics lists."
     location_layouts_map_search_enabled: "Enable search in the layouts-map widget (requires Layouts Plugin)."
     location_layouts_map_show_avatar: "Enable user avatar in the layouts-map-widget (requires Layouts Plugin)."
+    location_users_map: "Allow users to add a geocoded location which is displayed on a map in the Users section."
 
   location:
     errors:
