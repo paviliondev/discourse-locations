@@ -584,8 +584,18 @@ input.input-location, div.input-location {
   }
 }
 
-.user-preferences .map-location .location-selector-container {
-  max-width: 530px;
+.user-preferences .location-selector-container {
+  max-width: 552px;
+
+  .ac-wrap {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .user-preferences .location-selector-container {
+    max-width: 472px;
+  }
 }
 
 .users-nav {
