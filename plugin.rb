@@ -51,14 +51,12 @@ after_initialize do
   add_to_serializer(:topic_list_item, :include_location?) { object.location.present? }
 
   User.register_custom_field_type('geo_location', :json)
+  add_to_serializer(:user_name, :geo_location) { object.custom_fields['geo_location'] }
+  add_to_serializer(:user_name, :include_geo_location?) { SiteSetting.location_users_map }
 
-  add_to_serializer(:user, :custom_fields) {
-    object.custom_fields
-  }
-
-  add_to_serializer(:user_name, :custom_fields) {
-    object.custom_fields
-  }
+  public_user_custom_fields = SiteSetting.public_user_custom_fields.split('|')
+  public_user_custom_fields.push('geo_location') unless public_user_custom_fields.include?('geo_location')
+  SiteSetting.public_user_custom_fields = public_user_custom_fields.join('|')
 
   PostRevisor.track_topic_field(:location)
 
