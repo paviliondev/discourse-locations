@@ -83,3 +83,6 @@ plugins:
   location_layouts_map_show_avatar:
     default: false
     client: true
+  location_add_no_text:
+    default: false
+    client: true

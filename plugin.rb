@@ -5,6 +5,7 @@
 # url: https://github.com/angusmcleod/discourse-locations
 
 register_asset 'stylesheets/common/locations.scss'
+register_asset 'stylesheets/desktop/locations.scss', :desktop
 register_asset 'stylesheets/mobile/locations.scss', :mobile
 register_asset 'lib/leaflet/leaflet.css'
 register_asset 'lib/leaflet/leaflet.js'

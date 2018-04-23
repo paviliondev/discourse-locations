@@ -111,13 +111,14 @@ input.input-location, div.input-location {
   display: inline-block;
 }
 
-.add-location {
-  text-align: left;
-}
-
-.add-location, .add-location + button {
-  padding: 6px 10px;
+.add-location-btn {
   border: 1px solid $primary-medium;
+  text-align: left;
+  height: 29px;
+
+  &.no-text {
+    width: 35px;
+  }
 }
 
 .location-details {
@@ -151,29 +152,8 @@ input.input-location, div.input-location {
   }
 }
 
-.composer-controls-location {
-  max-width: 50%;
-
-  &.show-control {
-    float: left;
-    clear: both;
-    margin-bottom: 10px;
-    margin-right: 10px;
-  }
-
-  .location-label {
-    display: flex;
-
-    .add-location + .btn.remove {
-      margin-left: 5px;
-
-      max-height: 33px;
-    }
-  }
-
-  .btn:not(:hover) {
-    background: $secondary;
-  }
+.composer-controls-location .btn:not(:hover) {
+  background: $secondary;
 }
 
 .location-form-label {
