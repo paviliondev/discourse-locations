@@ -55,13 +55,14 @@ after_initialize do
 
   PostRevisor.class_eval do
     track_topic_field(:location) do |tc, location|
-      location = location.to_unsafe_hash.to_json
+      if location.present?
+        location = location.permit(:name, :geo_location => {})
 
-      if location.present? && Locations::Helper.valid_location?(location)
-        location = JSON.parse(location)
-        tc.record_change('location', tc.topic.custom_fields['location'], location)
-        tc.topic.custom_fields['location'] = location
-        tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+        if location = Locations::Helper.parse_location(location.to_h)
+          tc.record_change('location', tc.topic.custom_fields['location'], location)
+          tc.topic.custom_fields['location'] = location
+          tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+        end
       else
         tc.topic.custom_fields['location'] = {}
         tc.topic.custom_fields['has_geo_location'] = false
@@ -69,14 +70,12 @@ after_initialize do
     end
   end
 
-  DiscourseEvent.on(:post_created) do |post, opts, _user|
-    if opts[:location] && opts[:location].present?
-      location = opts[:location].is_a?(String) ? ::JSON.parse(opts[:location]) : opts[:location]
-
-      if post.is_first_post? && location && Locations::Helper.valid_location?(location)
+  DiscourseEvent.on(:post_created) do |post, opts, user|
+    if post.is_first_post? && opts[:location].present?
+      if location = Locations::Helper.parse_location(opts[:location])
         topic = Topic.find(post.topic_id)
         topic.custom_fields['location'] = location
-        topic.custom_fields['has_geo_location'] = !!location['geo_location']
+        topic.custom_fields['has_geo_location'] = location['geo_location'].present?
         topic.save!
       end
     end

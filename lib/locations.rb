@@ -1,8 +1,5 @@
 class Locations::Helper
-  def self.valid_location?(location)
-    JSON.parse(location)
-    return true
-  rescue JSON::ParserError => e
-    return false
+  def self.parse_location(location)
+    location.is_a?(String) ? ::JSON.parse(location) : location
   end
 end
