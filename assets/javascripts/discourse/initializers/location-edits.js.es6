@@ -65,7 +65,16 @@ export default {
       @observes('composer.showLocationControls')
       applyLocationInlineClass() {
         Ember.run.scheduleOnce('afterRender', this, () => {
-          $('.composer-controls-location').toggleClass('show-control', Boolean(this.get('composer.showLocationControls')));
+          const showLocationControls = this.get('composer.showLocationControls');
+          const $container = $('.composer-fields .title-and-category');
+
+          $container.toggleClass('show-location-controls', showLocationControls);
+
+          if (showLocationControls) {
+            const $anchor = this.site.mobileView ? $container.find('.title-input') : $container;
+            $('.composer-controls-location').appendTo($anchor);
+          }
+
           this.resize();
         });
       }

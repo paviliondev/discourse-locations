@@ -6,16 +6,17 @@ export default Ember.Component.extend({
   classNames: ['location-label'],
 
   didInsertElement() {
-    if (this.site.isMobileDevice) {
-      const $controls = this.$();
-      $controls.detach();
-      $controls.insertAfter($('#reply-control .title-input input'));
-    }
+    $('.title-and-category').toggleClass('location-add-no-text', this.get("iconOnly"));
+  },
+
+  @computed()
+  iconOnly() {
+    return this.site.mobileView || Discourse.SiteSettings.location_add_no_text;
   },
 
   @computed()
   valueClasses() {
-    let classes = "add-location";
+    let classes = "add-location-btn";
     if (this.site.isMobileDevice) classes += " btn-primary";
     return classes;
   },
@@ -40,7 +41,7 @@ export default Ember.Component.extend({
     showAddLocation() {
       let controller = showModal('add-location', { model: {
         location: this.get('location'),
-        categoryId: this.get('categoryId'),
+        categoryId: this.get('category.id'),
         update: (location) => {
           if (this._state !== 'destroying') {
             this.set('location', location);

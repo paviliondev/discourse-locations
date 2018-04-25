@@ -86,3 +86,6 @@ plugins:
   location_users_map:
     default: false
     client: true
+  location_add_no_text:
+    default: false
+    client: true
