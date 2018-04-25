@@ -65,13 +65,14 @@ export default TextField.extend({
         } else {
           // hack to get around the split autocomplete performs on strings
           $('.location-form .ac-wrap .item').remove();
+          $('.user-location-selector .ac-wrap .item').remove();
           return self.$().val();
         }
       },
 
       onChangeItems: function(items) {
         if (items[0] == null) {
-          self.set('location', null);
+          self.set('location', '{}');
         }
       }
     });

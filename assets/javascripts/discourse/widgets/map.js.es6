@@ -22,6 +22,7 @@ export default createWidget('map', {
   gatherLocations() {
     const topic = this.attrs.topic;
     const topicList = this.attrs.topicList;
+    const userList = this.attrs.userList;
 
     let locations = this.state.locations;
 
@@ -45,6 +46,15 @@ export default createWidget('map', {
       });
     }
 
+    if (userList) {
+      userList.forEach((u) => {
+        const user = u.user;
+        if (user.geo_location && !$.isEmptyObject(user.geo_location)) {
+          locations.push(this.userMarker(user));
+        }
+      });
+    }
+
     this.state.locations = locations;
   },
 
@@ -54,10 +64,25 @@ export default createWidget('map', {
 
   topicMarker(topic) {
     let location = topic.location;
+
     location['marker'] = {
       title: topic.fancy_title,
       routeTo: "t/" + topic.slug
     };
+
+    return location;
+  },
+
+  userMarker(user) {
+    let location = {};
+
+    location['marker'] = {
+      title: user.username,
+      routeTo: "/u/" + user.username
+    };
+
+    location['geo_location'] = user.geo_location;
+
     return location;
   },
 

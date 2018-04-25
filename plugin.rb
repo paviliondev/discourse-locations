@@ -51,6 +51,14 @@ after_initialize do
   add_to_serializer(:topic_list_item, :location) { object.location }
   add_to_serializer(:topic_list_item, :include_location?) { object.location.present? }
 
+  User.register_custom_field_type('geo_location', :json)
+  add_to_serializer(:user_name, :geo_location) { object.custom_fields['geo_location'] }
+  add_to_serializer(:user_name, :include_geo_location?) { SiteSetting.location_users_map }
+
+  public_user_custom_fields = SiteSetting.public_user_custom_fields.split('|')
+  public_user_custom_fields.push('geo_location') unless public_user_custom_fields.include?('geo_location')
+  SiteSetting.public_user_custom_fields = public_user_custom_fields.join('|')
+
   PostRevisor.track_topic_field(:location)
 
   PostRevisor.class_eval do
@@ -97,6 +105,11 @@ after_initialize do
 
   Discourse::Application.routes.append do
     mount ::Locations::Engine, at: 'location'
+  end
+
+  Discourse::Application.routes.prepend do
+    get 'u/user-map' => 'users#index'
+    get 'users/user-map' => 'users#index'
   end
 
   load File.expand_path('../serializers/geo_location.rb', __FILE__)

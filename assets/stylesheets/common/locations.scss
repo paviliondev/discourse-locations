@@ -562,3 +562,35 @@ input.input-location, div.input-location {
     height: 28px;
   }
 }
+
+.user-preferences .location-selector-container {
+  max-width: 552px;
+
+  .ac-wrap {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .user-preferences .location-selector-container {
+    max-width: 472px;
+  }
+}
+
+.users-nav {
+  margin: 20px 0;
+
+  ul {
+    margin: 0;
+  }
+}
+
+.users-map-container {
+  margin-bottom: 60px;
+}
+
+.users-map-container .map-component {
+  width: 100%;
+  height: calc(100vh - 270px);
+  margin-top: 5px;
+}

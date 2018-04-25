@@ -1,0 +1,16 @@
+{{#if siteSettings.location_users_map}}
+  <div class="container users-nav">
+    <ul class="nav nav-pills">
+      <li>
+        {{#link-to "users.index"}}
+          {{i18n 'users.list.title'}}
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to "users.user-map"}}
+          {{i18n 'users.map.title'}}
+        {{/link-to}}
+      </li>
+    </ul>
+  </div>
+{{/if}}
