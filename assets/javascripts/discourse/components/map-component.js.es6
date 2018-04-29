@@ -21,6 +21,8 @@ export default MountWidget.extend({
       'zoom'
     );
 
+    console.log(args);
+
     if (this.get('geoLocation')) {
       if (!args['locations']) args['locations'] = [];
       args['locations'].push({ geo_location: this.get('geoLocation') });
