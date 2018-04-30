@@ -117,6 +117,7 @@ after_initialize do
   load File.expand_path('../lib/geocode.rb', __FILE__)
   load File.expand_path('../lib/locations.rb', __FILE__)
   load File.expand_path('../lib/map.rb', __FILE__)
+  load File.expand_path('../lib/users_map.rb', __FILE__)
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
   unless Rails.env.test?

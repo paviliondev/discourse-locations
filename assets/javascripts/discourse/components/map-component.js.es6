@@ -21,8 +21,6 @@ export default MountWidget.extend({
       'zoom'
     );
 
-    console.log(args);
-
     if (this.get('geoLocation')) {
       if (!args['locations']) args['locations'] = [];
       args['locations'].push({ geo_location: this.get('geoLocation') });
@@ -36,7 +34,7 @@ export default MountWidget.extend({
     this.scheduleSetup();
   },
 
-  @observes('category','geoLocation','geoLocations.[]')
+  @observes('category','geoLocation','geoLocations.[]', 'userList.[]')
   refreshMap() {
     this.queueRerender();
     this.scheduleSetup();
