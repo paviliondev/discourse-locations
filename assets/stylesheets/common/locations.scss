@@ -111,13 +111,9 @@ input.input-location, div.input-location {
   display: inline-block;
 }
 
-.add-location-btn {
+.add-location-btn, .add-location-btn + button {
   border: 1px solid $primary-medium;
   text-align: left;
-
-  &.no-text {
-    width: 35px;
-  }
 }
 
 .location-details {
