@@ -1,0 +1,72 @@
+en:
+  js:
+    category:
+      location_enabled: "Allow locations to be added to topics in this category"
+      location_topic_status: "Enable location topic status icons for topic lists in this category."
+      location_map_filter_closed: "Filter closed topics from the map topic list in this category."
+    composer:
+      location:
+        btn: "Ajoutez un lien"
+        title: "Ajoutez un lieu"
+    location:
+      name:
+        title: "Nom (optionnel)"
+        desc: "p.ex. P. Sherman Dentist"
+      street:
+        title: "Numéro et rue"
+        desc: "p.ex. 42 Wallaby Way"
+      postalcode:
+        title: "Code postal"
+        desc: "p.ex. 2548"
+      city:
+        title: "City, Town or Village"
+        desc: "p.ex. Sydney"
+      country_code:
+        title: "Pays"
+        placeholder: "Selectionnez un pays"
+      lat:
+        title: "Latitude"
+        desc: "p.ex. -31.9456702"
+      lon:
+        title: "Longitude"
+        desc: "p.ex. 115.8626477"
+      query:
+        title: "Adresse"
+        desc: "p.ex. 42 Wallaby Way, Sydney."
+      geo:
+        desc: "Adresses fourni par {{provider}}"
+        btn:
+          label: "Trouver une adresse"
+        results: "Addresses"
+        no_results: "Aucun résultat."
+        show_map: "Présenter la carte"
+      label:
+        add: "Ajoutez un lieu"
+        title: "Présenter les détails du lieu"
+      clear: "Effacer"
+      done: "Terminer"
+      errors:
+        search: "Il y a eu un problème en validant cette adresse. SVP attendre 5 minutes et recommencer à nouveau."
+
+    filters:
+      map:
+        title: "Carte"
+        help: "Marquer les sujets avec lieux dans cette catégorie sur une carte."
+    map:
+      search_placeholder: "Rechercher"
+
+    topic_statuses:
+      location:
+        help: "Ce sujet a un lieu."
+
+    user:
+      map_location:
+        title: "Map Location"
+        instructions:
+
+    users:
+      map:
+        title: "Carte d'utilisateurs"
+
+      list:
+        title: "Liste d'utilisateurs"
