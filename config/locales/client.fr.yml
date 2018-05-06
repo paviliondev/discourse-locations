@@ -37,12 +37,12 @@ fr:
         desc: "Adresses fourni par {{provider}}"
         btn:
           label: "Trouver une adresse"
-        results: "Addresses"
+        results: "Adresses"
         no_results: "Aucun résultat."
-        show_map: "Présenter la carte"
+        show_map: "Voir la carte"
       label:
         add: "Ajoutez un lieu"
-        title: "Présenter les détails du lieu"
+        title: "Voir les détails du lieu"
       clear: "Effacer"
       done: "Terminer"
       errors:
