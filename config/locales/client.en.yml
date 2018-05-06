@@ -64,7 +64,7 @@ en:
         title: "Map Location"
         instructions:
 
-    users:
+    directory:
       map:
         title: "Users Map"
 
