@@ -6,8 +6,8 @@ fr:
       location_map_filter_closed: "Filter closed topics from the map topic list in this category."
     composer:
       location:
-        btn: "Ajoutez un lien"
-        title: "Ajoutez un lieu"
+        btn: "Ajouter un lieu"
+        title: "Ajouter un lieu"
     location:
       name:
         title: "Nom (optionnel)"
@@ -17,13 +17,13 @@ fr:
         desc: "p.ex. 42 Wallaby Way"
       postalcode:
         title: "Code postal"
-        desc: "p.ex. 2548"
+        desc: "p.ex. G1C 5R3"
       city:
         title: "City, Town or Village"
-        desc: "p.ex. Sydney"
+        desc: "p.ex. Québec"
       country_code:
         title: "Pays"
-        placeholder: "Selectionnez un pays"
+        placeholder: "Selectionner un pays"
       lat:
         title: "Latitude"
         desc: "p.ex. -31.9456702"
@@ -34,7 +34,7 @@ fr:
         title: "Adresse"
         desc: "p.ex. 42 Wallaby Way, Sydney."
       geo:
-        desc: "Adresses fourni par {{provider}}"
+        desc: "Adresses fournies par {{provider}}"
         btn:
           label: "Trouver une adresse"
         results: "Adresses"
