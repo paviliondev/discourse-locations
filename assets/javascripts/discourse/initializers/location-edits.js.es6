@@ -62,7 +62,7 @@ export default {
         this.resize();
       },
 
-      @observes('composer.showLocationControls')
+      @observes('composer.showLocationControls', 'composer.composeState')
       applyLocationInlineClass() {
         Ember.run.scheduleOnce('afterRender', this, () => {
           const showLocationControls = this.get('composer.showLocationControls');

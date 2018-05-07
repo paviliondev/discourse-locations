@@ -1,6 +1,8 @@
 {{#if location}}
   {{d-button class=valueClasses title='location.label.add' action="showAddLocation" translatedLabel=valueLabel icon="map-marker"}}
-  {{d-button icon="times" action="removeLocation" class="remove"}}
+  {{#unless site.mobileView}}
+    {{d-button icon="times" action="removeLocation" class="remove"}}
+  {{/unless}}
 {{else}}
   {{#if iconOnly}}
     {{d-button class="add-location-btn"

@@ -113,7 +113,6 @@ input.input-location, div.input-location {
 
 .add-location-btn, .add-location-btn + button {
   border: 1px solid $primary-medium;
-  text-align: left;
 }
 
 .location-details {
@@ -128,6 +127,10 @@ input.input-location, div.input-location {
       line-height: 18px;
       max-width: 500px;
       display: inline-block;
+
+      .fa {
+        margin-right: 4px;
+      }
     }
 
     .location-topic-map {
@@ -145,10 +148,6 @@ input.input-location, div.input-location {
       }
     }
   }
-}
-
-.composer-controls-location .btn:not(:hover) {
-  background: $secondary;
 }
 
 .location-form-label {
