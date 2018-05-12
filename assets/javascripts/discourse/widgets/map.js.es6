@@ -65,10 +65,12 @@ export default createWidget('map', {
   topicMarker(topic) {
     let location = topic.location;
 
-    location['marker'] = {
-      title: topic.fancy_title,
-      routeTo: "t/" + topic.slug
-    };
+    if (!location['marker'] && !location['circle_marker']) {
+      location['marker'] = {
+        title: topic.fancy_title,
+        routeTo: "t/" + topic.slug
+      };
+    }
 
     return location;
   },
