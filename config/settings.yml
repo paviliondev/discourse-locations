@@ -1,7 +1,10 @@
 plugins:
-  location_input_fields_enabled:
+  location_hamburger_menu_map_link:
     client: true
     default: false
+  location_input_fields_enabled:
+    client: true
+    default: true
   location_input_fields:
     client: true
     type: list
@@ -17,9 +20,9 @@ plugins:
     type: enum
     default: 'optional'
     choices:
-     - none
-     - optional
-     - required
+      - none
+      - optional
+      - required
   location_geocoding_provider:
     default: 'nominatim'
     client: true
