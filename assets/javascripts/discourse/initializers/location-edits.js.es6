@@ -6,10 +6,14 @@ import NavItem from 'discourse/models/nav-item';
 import EditCategorySettings from 'discourse/components/edit-category-settings';
 import TopicStatus from 'discourse/raw-views/topic-status';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import { withPluginApi } from 'discourse/lib/plugin-api';
+
 
 export default {
   name: 'location-edits',
   initialize(container) {
+
+    const siteSettings = container.lookup('site-settings:main');
 
     TopicStatus.reopen({
       @computed
@@ -164,5 +168,23 @@ export default {
         }
       });
     });
+
+    withPluginApi('0.8.12', api => {
+        if (siteSettings.location_users_map) {
+          api.decorateWidget('hamburger-menu:generalLinks', helper => {
+            return {
+              route: 'users.user-map',
+              className: 'user-map-link',
+              label: 'directory.map.title'
+            }
+          })
+        }
+      });
+
+
+
+
+
+
   }
 };
