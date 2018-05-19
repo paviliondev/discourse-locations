@@ -49,9 +49,8 @@ export default createWidget('map', {
     if (userList) {
       userList.forEach((u) => {
         const user = u.user;
-        let user_loc = {};
-        user_loc['geo_location'] = user.geo_location;
-        if (user.geo_location && !$.isEmptyObject(user.geo_location) && !this.locationPresent(locations, user_loc)) {
+        if (user.geo_location && !$.isEmptyObject(user.geo_location) &&
+            !this.locationPresent(locations, { geo_location: user.geo_location })) {
           locations.push(this.userMarker(user));
         }
       });
