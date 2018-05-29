@@ -124,6 +124,7 @@ export default {
     });
 
     const mapRoutes = [
+      `Map`,
       `MapCategory`,
       `MapParentCategory`,
       `MapCategoryNone`
@@ -139,9 +140,13 @@ export default {
           return this._super(...arguments);
         },
 
-        renderTemplate() {
-          this.render('navigation/category', { outlet: 'navigation-bar' });
-          this.render("discovery/map", { outlet: "list-container", controller: 'discovery/topics' });
+        renderTemplate(controller,model) {
+          if (this.routeName.indexOf('Category') > -1 ) {
+            this.render('navigation/category', { outlet: 'navigation-bar' });
+            this.render("discovery/map", { outlet: "list-container", controller: 'discovery/topics' });
+          } else {
+            this.render("discovery/map", { outlet: "list-container", controller: "discovery/topics" });
+          }
         }
       });
     });
