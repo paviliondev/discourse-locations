@@ -145,6 +145,7 @@ export default {
             this.render('navigation/category', { outlet: 'navigation-bar' });
             this.render("discovery/map", { outlet: "list-container", controller: 'discovery/topics' });
           } else {
+            this.render("navigation/default", { outlet: 'navigation-bar' });
             this.render("discovery/map", { outlet: "list-container", controller: "discovery/topics" });
           }
         }
