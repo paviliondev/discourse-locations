@@ -35,6 +35,20 @@ after_initialize do
     end
   }
 
+  module LocationsSiteSettingExtension
+    def type_hash(name)
+      if name == :top_menu
+        @choices[name].push("map") if @choices[name].exclude?("map")
+      end
+      super(name)
+    end
+  end
+
+  require_dependency 'site_settings/type_supervisor'
+  class SiteSettings::TypeSupervisor
+    prepend LocationsSiteSettingExtension
+  end
+
   add_to_serializer(:basic_category, :location) { object.location }
   add_to_serializer(:basic_category, :location_enabled) { object.custom_fields['location_enabled'] }
   add_to_serializer(:basic_category, :location_topic_status) { object.custom_fields['location_topic_status'] }

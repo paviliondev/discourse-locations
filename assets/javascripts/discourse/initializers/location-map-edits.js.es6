@@ -10,7 +10,6 @@ export default {
         api.decorateWidget('hamburger-menu:generalLinks', () => {
           return { route: 'discovery.map', label: 'filters.map.title' };
         });
-        // echo foo...
       }
 
 
