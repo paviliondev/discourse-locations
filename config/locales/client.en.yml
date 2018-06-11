@@ -18,6 +18,9 @@ en:
       postalcode:
         title: "Postal Code (Zip)"
         desc: "e.g. 2548"
+      neighbourhood:
+        title: "Neighbourhood"
+        desc: "e.g. Cremorne Point"
       city:
         title: "City, Town or Village"
         desc: "e.g. Sydney"
@@ -34,7 +37,7 @@ en:
         title: "Address"
         desc: "e.g. 42 Wallaby Way, Sydney."
       geo:
-        desc: "Addresses provided by {{provider}}"
+        desc: "Locations provided by {{provider}}"
         btn:
           label: "Find Address"
         results: "Addresses"

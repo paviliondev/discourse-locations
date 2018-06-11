@@ -3,16 +3,25 @@
     <div class="control-group">
       <label class='control-label'>{{i18n 'location.street.title'}}</label>
       <div class="controls">
-        {{input type="text" value=street class="input-large input-location"}}
+        {{input type="text" value=street class="input-large input-location" disabled=streetDisabled}}
       </div>
       <div class='instructions'>{{i18n 'location.street.desc'}}</div>
+    </div>
+  {{/if}}
+  {{#if showNeighbourhood}}
+    <div class='control-group'>
+      <label class="control-label">{{i18n 'location.neighbourhood.title'}}</label>
+      <div class="controls">
+        {{input value=neighbourhood class="input-small input-location" disabled=neighbourhoodDisabled}}
+      </div>
+      <div class='instructions'>{{i18n 'location.neighbourhood.desc'}}</div>
     </div>
   {{/if}}
   {{#if showPostalcode}}
     <div class='control-group'>
       <label class="control-label">{{i18n 'location.postalcode.title'}}</label>
       <div class="controls">
-        {{input value=postalcode class="input-small input-location"}}
+        {{input value=postalcode class="input-small input-location" disabled=postcodeDisabled}}
       </div>
       <div class='instructions'>{{i18n 'location.postalcode.desc'}}</div>
     </div>
@@ -21,7 +30,7 @@
     <div class='control-group'>
       <label class="control-label">{{i18n 'location.city.title'}}</label>
       <div class="controls">
-        {{input type="text" value=city class="input-large input-location"}}
+        {{input type="text" value=city class="input-large input-location" disabled=cityDisabled}}
       </div>
       <div class='instructions'>{{i18n 'location.city.desc'}}</div>
     </div>
@@ -37,7 +46,8 @@
                       value=countrycode
                       none="location.country_code.placeholder"
                       class="input-location"
-                      filterable=true}}
+                      filterable=true
+                      isDisabled=countryDisabled}}
         {{/if}}
       </div>
     </div>
@@ -90,7 +100,7 @@
               {{loading-spinner size="small"}}
             {{else}}
               {{#each geoLocationOptions as |l|}}
-                {{geo-location-result updateGeoLocation="updateGeoLocation" location=l}}
+                {{geo-location-result updateGeoLocation="updateGeoLocation" location=l geoAttrs=geoAttrs}}
               {{else}}
                 <li class='no-results'>{{i18n 'location.geo.no_results'}}</li>
               {{/each}}

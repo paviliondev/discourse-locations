@@ -31,6 +31,13 @@ export default Ember.Component.extend({
         this.set(`show${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`, true);
       });
 
+      const disabledFields = this.get('disabledFields');
+      if (disabledFields) {
+        disabledFields.forEach((f) => {
+          this.set(`${f}Disabled`, true);
+        })
+      }
+
       if (inputFields.indexOf('countrycode') > -1) {
         ajax({
           url: '/location/country_codes',
@@ -62,37 +69,11 @@ export default Ember.Component.extend({
     return providerDetails[provider || locationGeocodingProvider];
   },
 
-  buildStructuredRequest() {
-    const props = this.getProperties('street', 'postalcode', 'city');
-
-    let query = '';
-    Object.keys(props).forEach((p) => {
-      if (props[p] && props[p].length > 2) {
-        query += `${props[p]}`;
-
-        if (p !== 'city') {
-          query += ', ';
-        }
-      }
-    });
-
-    if (query.length < 2) return false;
-
-    let request = { query };
-
-    const countrycode = this.get('countrycode');
-    const context = this.get('context');
-    if (countrycode) request['countrycode'] = countrycode;
-    if (context) request['context'] = context;
-
-    return request;
-  },
-
   keyDown(e) {
     if (this.get('showGeoLocation') && e.keyCode === 13) this.send('locationSearch');
   },
 
-  @computed('street', 'postalcode', 'city', 'countrycode')
+  @computed('street', 'neighbourhood', 'postalcode', 'city', 'countrycode')
   searchDisabled() {
     let disabled = false;
     this.get('inputFields').forEach((f) => {
@@ -122,8 +103,10 @@ export default Ember.Component.extend({
     },
 
     locationSearch() {
-      const request = this.buildStructuredRequest();
-      if (!request.query && !request.countrycode) return;
+      const inputFields = this.get('inputFields');
+      const request = this.getProperties(inputFields.concat(['countrycode', 'context']));
+
+      if ($.isEmptyObject(request)) return;
 
       this.setProperties({
         'showLocationResults': true,

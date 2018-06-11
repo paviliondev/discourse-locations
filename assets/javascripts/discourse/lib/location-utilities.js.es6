@@ -38,24 +38,33 @@ let geoLocationSearch = (request) => {
   });
 };
 
+let formatLocation = function(location, attrs = []) {
+  let result = '';
+
+  attrs.forEach(function(p, i) {
+    if (location[p]) {
+      result += location[p];
+
+      if (i < attrs.length - 1) {
+        result += ', ';
+      }
+    }
+  });
+
+  return result;
+}
+
 let geoLocationFormat = function(geoLocation, opts = {}) {
   if (!geoLocation) return;
-  let display = '';
+  let result;
 
   if (opts.geoAttrs && opts.geoAttrs.length > 0) {
-    opts.geoAttrs.forEach(function(a) {
-      if (geoLocation[a]) {
-        if (display.length > 0) {
-          display += ', ';
-        }
-        display += geoLocation[a];
-      }
-    });
+    result = formatLocation(geoLocation, opts.geoAttrs);
   } else {
-    display = geoLocation.address;
+    result = geoLocation.address;
   }
 
-  return display;
+  return result;
 };
 
 let locationFormat = function(location, opts = {}) {
@@ -64,21 +73,14 @@ let locationFormat = function(location, opts = {}) {
   let display = '';
 
   if (location.name) {
-    display += location.name;
+    display += location.name + ', ';
   };
 
-  if (opts['attrs']) {
-    opts['attrs'].forEach(function(p) {
-      if (location[p]) {
-        if (display.length > 0 || location.name) {
-          display += ', ';
-        }
+  if (opts.attrs) {
+    display += formatLocation(location, opts.attrs);
+  }
 
-        display += location[p];
-      }
-    });
-  } else if (location.geo_location) {
-    if (location.name) display += ', ';
+  if (location.geo_location) {
     display += geoLocationFormat(location.geo_location, opts);
   } else if (location.raw) {
     if (location.name) display += ', ';
@@ -96,4 +98,4 @@ let providerDetails = {
   mapquest: `<a href='https://developer.mapquest.com' target='_blank'>Mapquest</a>`
 };
 
-export { geoLocationSearch, geoLocationFormat, locationFormat, providerDetails };
+export { geoLocationSearch, geoLocationFormat, locationFormat, formatLocation, providerDetails };

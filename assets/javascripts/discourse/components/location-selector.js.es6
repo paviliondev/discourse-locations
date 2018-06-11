@@ -1,5 +1,5 @@
 import TextField from 'discourse/components/text-field';
-import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
+import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/location-utilities';
 import { findRawTemplate } from 'discourse/lib/raw-templates';
 import { getOwner } from 'discourse-common/lib/get-owner';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
@@ -40,18 +40,31 @@ export default TextField.extend({
 
         self.set('loading', true);
 
-        return geoLocationSearch(request).then((r) => {
+        return geoLocationSearch(request).then((result) => {
           const defaultProvider = self.get('settings.location_geocoding_provider');
-          if (r.locations.length === 0) {
-            r.locations.push({
+          const geoAttrs = self.get('geoAttrs');
+          const showType = self.get('showType');
+          let locations = [];
+
+          if (result.locations.length === 0) {
+            locations = [{
               no_results: true
+            }];
+          } else {
+            locations = result.locations.map((l) => {
+              if (geoAttrs) l['geoAttrs'] = geoAttrs;
+              if (showType !== undefined) l['showType'] = showType;
+              return l;
             });
           }
-          r.locations.push({
-            provider: providerDetails[r.provider || defaultProvider]
+
+          locations.push({
+            provider: providerDetails[result.provider || defaultProvider]
           });
+
           self.set('loading', false);
-          return r.locations;
+
+          return locations;
         }).catch((e) => {
           self.set('loading', false);
           self.sendAction('searchError', e);
@@ -61,7 +74,8 @@ export default TextField.extend({
       transformComplete: function(l) {
         if (typeof l === 'object') {
           self.set('location', l);
-          return l.address;
+          const geoAttrs = self.get('geoAttrs');
+          return geoLocationFormat(l, { geoAttrs });
         } else {
           // hack to get around the split autocomplete performs on strings
           $('.location-form .ac-wrap .item').remove();
