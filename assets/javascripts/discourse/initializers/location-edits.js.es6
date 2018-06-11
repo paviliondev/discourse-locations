@@ -155,8 +155,9 @@ export default {
     categoryRoutes.forEach(function(route){
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
-        afterModel(model) {
+        afterModel(model, transition) {
           if (this.filter(model.category) === 'map' && Discourse.SiteSettings.location_category_map_filter) {
+            transition.abort();
             return this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);
           } else {
             return this._super(...arguments);
