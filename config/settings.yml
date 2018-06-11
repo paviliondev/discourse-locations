@@ -20,9 +20,9 @@ plugins:
     type: enum
     default: 'optional'
     choices:
-      - none
-      - optional
-      - required
+     - none
+     - optional
+     - required
   location_geocoding_provider:
     default: 'nominatim'
     client: true
