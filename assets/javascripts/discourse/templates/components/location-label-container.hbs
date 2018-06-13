@@ -1,6 +1,6 @@
 <div class="location-label" title="{{i18n 'location.label.title'}}">
   {{d-icon 'map-marker'}}
-  {{location-format topic.location}}
+  {{location-format topic.location attrs=attrs geoAttrs=geoAttrs}}
 </div>
 {{#if showMapToggle}}
   <div class="location-topic-map">

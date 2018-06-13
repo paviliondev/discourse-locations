@@ -38,12 +38,12 @@ let geoLocationSearch = (request) => {
   });
 };
 
-let geoLocationFormat = function(geoLocation, params = {}) {
+let geoLocationFormat = function(geoLocation, opts = {}) {
   if (!geoLocation) return;
   let display = '';
 
-  if (params['displayAttrs'] && params['displayAttrs'].length > 0) {
-    params['displayAttrs'].forEach(function(a) {
+  if (opts.geoAttrs && opts.geoAttrs.length > 0) {
+    opts.geoAttrs.forEach(function(a) {
       if (geoLocation[a]) {
         if (display.length > 0) {
           display += ', ';
@@ -79,7 +79,7 @@ let locationFormat = function(location, opts = {}) {
     });
   } else if (location.geo_location) {
     if (location.name) display += ', ';
-    display += geoLocationFormat(location.geo_location);
+    display += geoLocationFormat(location.geo_location, opts);
   } else if (location.raw) {
     if (location.name) display += ', ';
     display += location.raw;
