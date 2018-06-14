@@ -1,5 +1,12 @@
 class GeocoderError < StandardError; end
 
+REQUEST_PARTS = [
+  'street',
+  'neighbourhood',
+  'postalcode',
+  'city'
+]
+
 class Locations::Geocode
   def self.set_config(opts = {})
     provider = opts[:provider] || SiteSetting.location_geocoding_provider
@@ -28,8 +35,28 @@ class Locations::Geocode
     perform('10 Downing Street')
   end
 
-  def self.search(user, request)
+  def self.build_query(request)
     query = request['query']
+
+    if !query
+      query = ''
+
+      REQUEST_PARTS.each do |part|
+        if request_part = request[part]
+          query << "#{request_part}"
+
+          if request_part != 'city'
+            query << ', '
+          end
+        end
+      end
+    end
+
+    query
+  end
+
+  def self.search(user, request)
+    query = self.build_query(request)
     countrycode = request['countrycode']
     context = request['context']
     options = { language: user.effective_locale }
@@ -41,10 +68,12 @@ class Locations::Geocode
     end
 
     provider = nil
+
     if options[:lookup]
       provider = options[:lookup]
     else
       setting = SiteSetting.location_geocoding_provider.to_sym
+
       if setting != Geocoder.config[:lookup]
         provider = setting
         options[:lookup] = setting
@@ -74,8 +103,14 @@ class Locations::Geocode
 
     locations = perform(query, options)
 
+    filter_params = options.merge(
+      context: context,
+      provider: provider,
+      request: request
+    )
+
     filters.each do |filter|
-      if filtered_locations = filter[:block].call(locations, context)
+      if filtered_locations = filter[:block].call(locations, filter_params)
         locations = filtered_locations
       end
     end

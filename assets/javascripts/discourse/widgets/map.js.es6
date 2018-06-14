@@ -28,7 +28,7 @@ export default createWidget('map', {
 
     if (this.attrs.locations && locations.length !== this.attrs.locations.length) {
       this.attrs.locations.forEach((l) => {
-        if (!this.locationPresent(locations, l)) {
+        if (l && !this.locationPresent(locations, l)) {
           locations.push(l);
         }
       })

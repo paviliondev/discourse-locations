@@ -4,6 +4,7 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
              :address,
              :countrycode,
              :city,
+             :district,
              :state,
              :country,
              :postalcode,
@@ -27,12 +28,60 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
     object.country_code
   end
 
+  def neighbourhood
+    object.neighbourhood
+  end
+
+  def include_neighbourhood?
+    object.respond_to?(:neighbourhood)
+  end
+
+  def suburb
+    object.suburb
+  end
+
+  def include_suburb?
+    object.respond_to?(:suburb)
+  end
+
+  def village
+    object.village
+  end
+
+  def include_village?
+    object.respond_to?(:village)
+  end
+
+  def town
+    object.town
+  end
+
+  def include_town?
+    object.respond_to?(:town)
+  end
+
   def city
     object.city
   end
 
   def include_city?
     object.respond_to?(:city)
+  end
+
+  def city
+    object.city
+  end
+
+  def include_city?
+    object.respond_to?(:city)
+  end
+
+  def district
+    object.district
+  end
+
+  def include_district?
+    object.respond_to?(:district)
   end
 
   def state

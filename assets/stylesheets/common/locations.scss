@@ -87,6 +87,10 @@ input.input-location, div.input-location {
       right: 5px;
     }
 
+    .item {
+      line-height: 1.6;
+    }
+
     .autocomplete {
       width: inherit;
       left: 0 !important;
@@ -98,7 +102,7 @@ input.input-location, div.input-location {
         padding: 10px;
       }
 
-      label {
+      ul > label {
         @extend .location-form-instructions;
         padding: 0 5px;
       }
@@ -193,6 +197,7 @@ input.input-location, div.input-location {
   label {
     flex: 1 1 auto;
     margin-bottom: 0;
+    cursor: pointer;
   }
 
   i {

@@ -8,6 +8,7 @@ plugins:
     default: 'street|postalcode|city|countrycode'
     choices:
       - street
+      - neighbourhood
       - postalcode
       - city
       - countrycode
