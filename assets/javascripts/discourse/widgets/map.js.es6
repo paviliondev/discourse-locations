@@ -91,8 +91,12 @@ export default createWidget('map', {
 
   locationPresent(locations, location) {
     return locations.filter((l) => {
-      return l.geo_location.lat === location.geo_location.lat &&
-        l.geo_location.lon === location.geo_location.lon;
+      if (location.geo_location.lat && location.geo_location.lon) {
+        return l.geo_location.lat === location.geo_location.lat &&
+          l.geo_location.lon === location.geo_location.lon;
+      } else if (location.geo_location.boundingbox) {
+        return l.geo_location.boundingbox === location.geo_location.boundingbox;
+      }
     }).length > 0;
   },
 
