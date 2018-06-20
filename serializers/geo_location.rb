@@ -3,6 +3,7 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
              :lon,
              :address,
              :countrycode,
+             :international_code,
              :city,
              :district,
              :state,
@@ -26,6 +27,14 @@ class Locations::GeoLocationSerializer < ApplicationSerializer
 
   def countrycode
     object.country_code
+  end
+
+  def international_code
+    object.international_code
+  end
+
+  def include_international_code?
+    object.respond_to?(:international_code)
   end
 
   def neighbourhood
