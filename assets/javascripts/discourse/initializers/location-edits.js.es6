@@ -100,8 +100,11 @@ export default {
       buildList(category, args) {
         let items = this._super(category, args);
 
-        if (category && category.location_enabled && Discourse.SiteSettings.location_category_map_filter) {
-          items.push(Discourse.NavItem.fromText('map', args));
+        if (category) {
+          items = items.reject((item) => item.name === 'map' ); // Don't show Site Level "/map"
+          if ( category.location_enabled && Discourse.SiteSettings.location_category_map_filter) {
+            items.push(Discourse.NavItem.fromText('map', args)); // Show category level "/map" instead
+          }
         }
 
         return items;
@@ -124,6 +127,7 @@ export default {
     });
 
     const mapRoutes = [
+      `Map`,
       `MapCategory`,
       `MapParentCategory`,
       `MapCategoryNone`
@@ -139,8 +143,9 @@ export default {
           return this._super(...arguments);
         },
 
-        renderTemplate() {
-          this.render('navigation/category', { outlet: 'navigation-bar' });
+        renderTemplate(controller,model) {
+          let navTemplate = this.routeName.indexOf('Category') > -1 ? 'navigation/category' : 'navigation/default';
+          this.render(navTemplate, { outlet: 'navigation-bar' } );
           this.render("discovery/map", { outlet: "list-container", controller: 'discovery/topics' });
         }
       });

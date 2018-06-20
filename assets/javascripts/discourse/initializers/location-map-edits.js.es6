@@ -5,6 +5,14 @@ export default {
   name:'location-map-renderer',
   initialize(){
     withPluginApi('0.8.12', api => {
+
+      if (Discourse.SiteSettings.location_hamburger_menu_map_link) {
+        api.decorateWidget('hamburger-menu:generalLinks', () => {
+          return { route: 'discovery.map', label: 'filters.map.title' };
+        });
+      }
+
+
       api.modifyClass('route:users', {
         refreshQueryWithoutTransition: false,
 
