@@ -79,13 +79,20 @@ let geoLocationFormat = function(geoLocation, opts = {}) {
 let locationFormat = function(location, opts = {}) {
   if (!location) return '';
 
+  const settings = Discourse.SiteSettings;
   let display = '';
 
   if (location.name) {
     display += location.name + ', ';
   };
 
-  if (opts.attrs) {
+  console.log(opts);
+
+  if (settings.location_input_fields_enabled && (!opts.attrs || !opts.attrs.length)) {
+    opts['attrs'] = settings.location_input_fields.split('|');
+  };
+
+  if (opts.attrs && opts.attrs.length) {
     display += formatLocation(location, opts.attrs);
   } else if (location.geo_location) {
     display += geoLocationFormat(location.geo_location, opts);

@@ -1,7 +1,8 @@
 <div class="location-label" title="{{i18n 'location.label.title'}}">
   {{d-icon 'map-marker'}}
-  {{location-format topic.location attrs=attrs geoAttrs=geoAttrs}}
+  {{location-format topic.location opts}}
 </div>
+
 {{#if showMapToggle}}
   <div class="location-topic-map">
     <button {{action "showMap"}} class='btn btn-small btn-default'>

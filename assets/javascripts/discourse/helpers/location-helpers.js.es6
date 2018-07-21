@@ -6,5 +6,5 @@ registerUnbound('geo-location-format', function(geoLocation, opts) {
 });
 
 registerUnbound('location-format', function(location, opts) {
-  return new Handlebars.SafeString(locationFormat(location, opts));
+  return new Handlebars.SafeString(locationFormat(location, $.extend({}, opts)));
 });

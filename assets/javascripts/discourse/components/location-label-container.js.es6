@@ -2,12 +2,20 @@ import { default as computed } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
   classNames: ['location-label-container'],
-  attrs: [],
+  locationAttrs: [],
   geoAttrs: [],
 
   @computed('topic.location.geo_location')
   showMapToggle(geoLocation) {
     return geoLocation && this.siteSettings.location_topic_map;
+  },
+
+  @computed('locationAttrs', 'geoAttrs')
+  opts(locationAttrs, geoAttrs) {
+    let opts = {};
+    if (locationAttrs) opts['attrs'] = locationAttrs;
+    if (geoAttrs) opts['geoAttrs'] = geoAttrs;
+    return opts;
   },
 
   didInsertElement() {

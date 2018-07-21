@@ -23,13 +23,7 @@ export default Ember.Component.extend({
 
   @computed('location', 'noText')
   valueLabel(location, noText) {
-    let opts = {};
-
-    if (Discourse.SiteSettings.location_input_fields_enabled) {
-      opts['attrs'] = Discourse.SiteSettings.location_input_fields.split('|');
-    };
-
-    return noText ? '' : locationFormat(location, opts);
+    return noText ? '' : locationFormat(location);
   },
 
   @computed('noText')
