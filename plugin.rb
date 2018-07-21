@@ -20,6 +20,8 @@ Discourse.anonymous_filters.push(:map)
 
 gem 'geocoder', '1.4.4'
 
+load File.expand_path('../models/location_country_default_site_setting.rb', __FILE__)
+
 after_initialize do
   Category.register_custom_field_type('location', :json)
   Category.register_custom_field_type('location_enabled', :boolean)

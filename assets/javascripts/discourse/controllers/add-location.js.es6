@@ -8,7 +8,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   street: null,
   postalcode: null,
   city: null,
-  countrycode: null,
+  countrycode: Discourse.SiteSettings.location_country_default,
   geoLocation: { lat: '', lon: '' },
   rawLocation: null,
 

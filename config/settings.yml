@@ -94,3 +94,7 @@ plugins:
   location_add_no_text:
     default: false
     client: true
+  location_country_default:
+    default: ''
+    client: true
+    enum: 'LocationCountryDefaultSiteSetting'

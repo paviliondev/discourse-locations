@@ -28,6 +28,7 @@ en:
     location_layouts_map_show_avatar: "Enable user avatar in the layouts-map-widget (requires Layouts Plugin)."
     location_users_map: "Allow users to add a geocoded location which is displayed on a map in the Users section."
     location_add_no_text: "No text on add location buttons."
+    location_country_default: "Default country for country input field."
 
   location:
     errors:

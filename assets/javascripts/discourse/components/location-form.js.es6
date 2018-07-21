@@ -53,12 +53,6 @@ export default Ember.Component.extend({
     }
   },
 
-  @computed
-  countries() {
-    const site = this.get('site');
-    return site.country_codes;
-  },
-
   @computed('provider', 'settings.location_geocoding_provider')
   providerDetails(provider, locationGeocodingProvider) {
     return providerDetails[provider || locationGeocodingProvider];
