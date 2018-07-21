@@ -43,7 +43,16 @@ let formatLocation = function(location, attrs = []) {
 
   attrs.forEach(function(p, i) {
     if (location[p]) {
-      result += location[p];
+      let part = location[p];
+
+      if (p === 'countrycode') {
+        const countryCodes = Discourse.Site.currentProp('country_codes');
+        let country = countryCodes.find(c => c.code === part);
+
+        if (country) part = country.name;
+      }
+
+      result += part;
 
       if (i < attrs.length - 1) {
         result += ', ';
@@ -78,9 +87,7 @@ let locationFormat = function(location, opts = {}) {
 
   if (opts.attrs) {
     display += formatLocation(location, opts.attrs);
-  }
-
-  if (location.geo_location) {
+  } else if (location.geo_location) {
     display += geoLocationFormat(location.geo_location, opts);
   } else if (location.raw) {
     if (location.name) display += ', ';

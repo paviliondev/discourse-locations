@@ -24,6 +24,9 @@ en:
       city:
         title: "City, Town or Village"
         desc: "e.g. Sydney"
+      state:
+        title: "State or Province"
+        desc: "e.g. New South Wales"
       country_code:
         title: "Country"
         placeholder: "Select a Country"

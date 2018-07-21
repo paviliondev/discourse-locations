@@ -19,8 +19,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
       this.setProperties({
         name: location.name,
         street: location.street,
+        neighbourhood: location.neighbourhood,
         postalcode: location.postalcode,
         city: location.city,
+        state: location.state,
         countrycode: location.countrycode,
         geoLocation: location.geo_location,
         rawLocation: location.raw,
@@ -42,8 +44,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
     this.setProperties({
       name: null,
       street: null,
+      neighbourhood: null,
       postalcode: null,
       city: null,
+      state: null,
       countrycode: null,
       geoLocation: null,
       rawLocation: null,

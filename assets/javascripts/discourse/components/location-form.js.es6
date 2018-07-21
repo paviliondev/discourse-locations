@@ -1,6 +1,5 @@
 import { default as computed, on } from 'ember-addons/ember-computed-decorators';
 import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
-import { ajax } from '../lib/ajax';
 import { getOwner } from 'discourse-common/lib/get-owner';
 
 export default Ember.Component.extend({
@@ -8,7 +7,6 @@ export default Ember.Component.extend({
   classNames: ['location-form'],
   showInputFields: Ember.computed.or('inputFieldsEnabled', 'settings.location_input_fields_enabled'),
   inputFields:['street', 'postalcode', 'city', 'countrycode'],
-  countries: null,
   hasSearched: false,
   context: null,
   showProvider: false,
@@ -38,15 +36,6 @@ export default Ember.Component.extend({
         })
       }
 
-      if (inputFields.indexOf('countrycode') > -1) {
-        ajax({
-          url: '/location/country_codes',
-          type: 'GET',
-        }).then((result) => {
-          this.set('countries', result.country_codes);
-        });
-      }
-
       if (inputFields.indexOf('coordinates') > -1) {
         this.set('showGeoLocation', false);
       } else {
@@ -64,6 +53,12 @@ export default Ember.Component.extend({
     }
   },
 
+  @computed
+  countries() {
+    const site = this.get('site');
+    return site.country_codes;
+  },
+
   @computed('provider', 'settings.location_geocoding_provider')
   providerDetails(provider, locationGeocodingProvider) {
     return providerDetails[provider || locationGeocodingProvider];
@@ -73,7 +68,7 @@ export default Ember.Component.extend({
     if (this.get('showGeoLocation') && e.keyCode === 13) this.send('locationSearch');
   },
 
-  @computed('street', 'neighbourhood', 'postalcode', 'city', 'countrycode')
+  @computed('street', 'neighbourhood', 'postalcode', 'city', 'state', 'countrycode')
   searchDisabled() {
     let disabled = false;
     this.get('inputFields').forEach((f) => {

@@ -11,10 +11,6 @@ class Locations::GeoController < ::ApplicationController
                      provider: result[:provider]
   end
 
-  def country_codes
-    render json: success_json.merge(country_codes: Locations::Country.codes)
-  end
-
   def validate
     params.require(:geo_location)
     params.permit(:context)

@@ -113,7 +113,6 @@ after_initialize do
 
   Locations::Engine.routes.draw do
     get 'search' => 'geo#search'
-    get 'country_codes' => 'geo#country_codes'
     get 'validate' => 'geo#validate'
   end
 
@@ -155,6 +154,12 @@ after_initialize do
       Locations::Geocode.set_config(timeout: value)
     end
   end
+
+  add_to_class(:site, :country_codes) do
+    @country_codes ||= Locations::Country.codes
+  end
+
+  add_to_serializer(:site, :country_codes) { object.country_codes }
 
   require_dependency 'topic_query'
   class ::TopicQuery

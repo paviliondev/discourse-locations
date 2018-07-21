@@ -4,7 +4,8 @@ REQUEST_PARTS = [
   'street',
   'neighbourhood',
   'postalcode',
-  'city'
+  'city',
+  'state'
 ]
 
 class Locations::Geocode

@@ -35,6 +35,15 @@
       <div class='instructions'>{{i18n 'location.city.desc'}}</div>
     </div>
   {{/if}}
+  {{#if showState}}
+    <div class='control-group'>
+      <label class="control-label">{{i18n 'location.state.title'}}</label>
+      <div class="controls">
+        {{input value=state class="input-large input-location" disabled=stateDisabled}}
+      </div>
+      <div class='instructions'>{{i18n 'location.state.desc'}}</div>
+    </div>
+  {{/if}}
   {{#if showCountrycode}}
     <div class='control-group'>
       <label class="control-label">{{i18n 'location.country_code.title'}}</label>
