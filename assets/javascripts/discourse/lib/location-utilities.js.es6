@@ -86,8 +86,6 @@ let locationFormat = function(location, opts = {}) {
     display += location.name + ', ';
   };
 
-  console.log(opts);
-
   if (settings.location_input_fields_enabled && (!opts.attrs || !opts.attrs.length)) {
     opts['attrs'] = settings.location_input_fields.split('|');
   };
