@@ -87,7 +87,12 @@ let locationFormat = function(location, opts = {}) {
   };
 
   if (settings.location_input_fields_enabled && (!opts.attrs || !opts.attrs.length)) {
-    opts['attrs'] = settings.location_input_fields.split('|');
+    let possibleFields = settings.location_input_fields.split('|');
+    let attrs = possibleFields.filter(f => location[f]);
+
+    if (attrs.length) {
+      opts['attrs'] = attrs;
+    }
   };
 
   if (opts.attrs && opts.attrs.length) {
