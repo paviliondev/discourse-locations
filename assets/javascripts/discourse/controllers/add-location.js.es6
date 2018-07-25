@@ -83,7 +83,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
       if (geocodingEnabled || hasCoordinates) {
         const geoLocation = this.get('geoLocation');
-        if (geoLocation.lat && geoLocation.lon) {
+        if (geoLocation && geoLocation.lat && geoLocation.lon) {
           location['geo_location'] = geoLocation;
         }
       }
