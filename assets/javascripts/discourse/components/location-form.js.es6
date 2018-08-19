@@ -12,15 +12,19 @@ export default Ember.Component.extend({
   showProvider: false,
   showGeoLocation: true,
 
-  @computed()
-  settings() {
-    const rootElement = getOwner(this).get('rootElement');
-    const wizard = rootElement === '#custom-wizard-main';
-    return wizard ? Wizard.SiteSettings : Discourse.SiteSettings;
+  @computed('globalObj')
+  settings(globalObj) {
+    return globalObj['SiteSettings'];
   },
 
   @on('init')
   setup() {
+    const rootElement = getOwner(this).get('rootElement');
+    const isWizard = rootElement === '#custom-wizard-main';
+    const appType = isWizard ? 'wizard' : 'discourse';
+
+    this.set('globalObj', appType.charAt(0).toUpperCase() + appType.slice(1));
+
     const showInputFields = this.get("showInputFields");
     if (showInputFields) {
       const inputFields = this.get('inputFields');
@@ -33,7 +37,7 @@ export default Ember.Component.extend({
       if (disabledFields) {
         disabledFields.forEach((f) => {
           this.set(`${f}Disabled`, true);
-        })
+        });
       }
 
       if (inputFields.indexOf('coordinates') > -1) {
@@ -50,6 +54,19 @@ export default Ember.Component.extend({
       if (searchOnInit) {
         this.send('locationSearch');
       }
+    }
+
+    const siteCodes = this.get('site.country_codes');
+    if (siteCodes) {
+      this.set('countrycodes', siteCodes);
+    } else {
+      const ajax = requirejs(`${appType}/lib/ajax`).ajax;
+      ajax({
+        url: '/location/countries',
+        type: 'GET'
+      }).then((result) => {
+        this.set('countrycodes', result.geo);
+      });
     }
   },
 

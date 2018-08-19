@@ -61,7 +61,7 @@ let formatLocation = function(location, attrs = []) {
   });
 
   return result;
-}
+};
 
 let geoLocationFormat = function(geoLocation, opts = {}) {
   if (!geoLocation) return;
@@ -79,7 +79,6 @@ let geoLocationFormat = function(geoLocation, opts = {}) {
 let locationFormat = function(location, opts = {}) {
   if (!location) return '';
 
-  const settings = Discourse.SiteSettings;
   let display = '';
 
   if (location.name) {

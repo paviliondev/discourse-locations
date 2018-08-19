@@ -31,7 +31,7 @@ export default createWidget('map', {
         if (l && !this.locationPresent(locations, l)) {
           locations.push(l);
         }
-      })
+      });
     }
 
     if (this.addTopicMarker(topic) && !this.locationPresent(locations, topic.location)) {

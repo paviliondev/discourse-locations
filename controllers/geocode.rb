@@ -28,4 +28,8 @@ class Locations::GeoController < ::ApplicationController
 
     render json: success_json.merge(messages: messages, geo_location: geo_location)
   end
+
+  def countries
+    render json: Locations::Country.codes
+  end
 end

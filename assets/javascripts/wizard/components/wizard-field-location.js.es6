@@ -3,7 +3,6 @@ import { ajax } from 'wizard/lib/ajax';
 
 export default Ember.Component.extend({
   inputFields: ['neighbourhood', 'city', 'countrycode'],
-  geoAttrs: ['name', 'suburb', 'postalcode', 'city', 'country'],
   includeGeoLocation: true,
   showType: true,
   layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
