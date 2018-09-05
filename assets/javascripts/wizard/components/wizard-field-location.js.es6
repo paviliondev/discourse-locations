@@ -2,7 +2,7 @@ import { on } from 'ember-addons/ember-computed-decorators';
 import { ajax } from 'wizard/lib/ajax';
 
 export default Ember.Component.extend({
-  inputFields: ['neighbourhood', 'city', 'countrycode'],
+  inputFields: ['lat', 'lng'],
   includeGeoLocation: true,
   showType: true,
   layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
