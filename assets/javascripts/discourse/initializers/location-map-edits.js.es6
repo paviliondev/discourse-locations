@@ -1,5 +1,4 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
-import { default as computed } from 'ember-addons/ember-computed-decorators';
 
 export default {
   name:'location-map-renderer',
@@ -11,7 +10,6 @@ export default {
           return { route: 'discovery.map', label: 'filters.map.title' };
         });
       }
-
 
       api.modifyClass('route:users', {
         refreshQueryWithoutTransition: false,

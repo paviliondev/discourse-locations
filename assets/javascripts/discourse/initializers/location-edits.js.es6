@@ -143,7 +143,7 @@ export default {
           return this._super(...arguments);
         },
 
-        renderTemplate(controller,model) {
+        renderTemplate(controller, model) {
           let navTemplate = this.routeName.indexOf('Category') > -1 ? 'navigation/category' : 'navigation/default';
           this.render(navTemplate, { outlet: 'navigation-bar' } );
           this.render("discovery/map", { outlet: "list-container", controller: 'discovery/topics' });
