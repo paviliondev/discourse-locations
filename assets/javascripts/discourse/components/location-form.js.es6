@@ -12,9 +12,9 @@ export default Ember.Component.extend({
   showProvider: false,
   showGeoLocation: true,
 
-  @computed('globalObj')
-  settings(globalObj) {
-    return globalObj['SiteSettings'];
+  @computed('appType')
+  settings(appType) {
+    return appType === 'wizard' ? Wizard.SiteSettings : Discourse.SiteSettings;
   },
 
   @on('init')
@@ -23,9 +23,9 @@ export default Ember.Component.extend({
     const isWizard = rootElement === '#custom-wizard-main';
     const appType = isWizard ? 'wizard' : 'discourse';
 
-    this.set('globalObj', appType.charAt(0).toUpperCase() + appType.slice(1));
+    this.set('appType', appType);
 
-    const showInputFields = this.get("showInputFields");
+    let showInputFields = this.get("showInputFields");
     if (showInputFields) {
       const inputFields = this.get('inputFields');
 
