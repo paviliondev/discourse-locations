@@ -40,15 +40,11 @@ export default Ember.Component.extend({
         });
       }
 
-      if (inputFields.indexOf('coordinates') > -1) {
-        this.set('showGeoLocation', false);
-      } else {
-        const geocoding = this.get('settings.location_geocoding');
-        this.setProperties({
-          showGeoLocation: geocoding !== 'none',
-          showLocationResults: geocoding === 'required'
-        });
-      }
+      const geocoding = this.get('settings.location_geocoding');
+      this.setProperties({
+        showGeoLocation: geocoding !== 'none',
+        showLocationResults: geocoding === 'required'
+      });
 
       const searchOnInit = this.get('searchOnInit');
       if (searchOnInit) {
@@ -83,7 +79,7 @@ export default Ember.Component.extend({
   searchDisabled() {
     let disabled = false;
     this.get('inputFields').forEach((f) => {
-      if (!this.get(f)) {
+      if (f !== 'coordinates' && !this.get(f)) {
         disabled = true;
       }
     });

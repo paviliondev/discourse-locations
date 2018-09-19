@@ -20,6 +20,24 @@
   }
 }
 
+.location-form {
+  display: flex;
+
+  .title {
+    font-weight: 700;
+  }
+
+  .address {
+    padding-right: 20px;
+  }
+
+  .coordinates {
+    border-left: 1px solid $primary-low;
+    padding-left: 20px;
+    min-width: 250px;
+  }
+}
+
 .location-form-instructions {
   color: #919191;
   margin: 5px 0;
