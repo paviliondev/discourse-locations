@@ -75,15 +75,9 @@ export default Ember.Component.extend({
     if (this.get('showGeoLocation') && e.keyCode === 13) this.send('locationSearch');
   },
 
-  @computed('street', 'neighbourhood', 'postalcode', 'city', 'state', 'countrycode')
-  searchDisabled() {
-    let disabled = false;
-    this.get('inputFields').forEach((f) => {
-      if (f !== 'coordinates' && !this.get(f)) {
-        disabled = true;
-      }
-    });
-    return disabled;
+  @computed('street', 'neighbourhood', 'postalcode', 'city')
+  searchDisabled(street, neighbourhood, postalcode, city) {
+    return !street && !neighbourhood && !postalcode && !city;
   },
 
   @computed('settings.location_geocoding')
