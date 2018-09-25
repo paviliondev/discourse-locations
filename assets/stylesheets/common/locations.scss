@@ -589,6 +589,10 @@ input.input-location, div.input-location {
   }
 }
 
+.user-location-warning {
+  margin-top: 5px;
+}
+
 @media (max-width: 850px) {
   .user-preferences .location-selector-container {
     max-width: 472px;

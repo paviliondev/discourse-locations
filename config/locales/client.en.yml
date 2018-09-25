@@ -70,7 +70,7 @@ en:
     user:
       map_location:
         title: "Map Location"
-        instructions:
+        warning: Your location will be displayed publicly.
 
     directory:
       map:
