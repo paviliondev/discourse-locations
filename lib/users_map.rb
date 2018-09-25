@@ -27,10 +27,15 @@ end
 module UsersControllerLocationsExtension
   def modify_user_params(attrs)
     super(attrs)
-    geo_location = attrs[:custom_fields][:geo_location]
-    if geo_location && (!geo_location['lat'] || !geo_location['lon'])
+
+    if attrs &&
+      attrs[:custom_fields] &&
+      attrs[:custom_fields][:geo_location] &&
+      (!attrs[:custom_fields][:geo_location]['lat'] ||
+       !attrs[:custom_fields][:geo_location]['lon'])
       raise Discourse::InvalidParameters.new, I18n.t('location.errors.invalid')
     end
+
     attrs
   end
 end
