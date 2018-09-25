@@ -49,7 +49,7 @@ export default createWidget('map', {
     if (userList) {
       userList.forEach((u) => {
         const user = u.user;
-        if (user.geo_location && !$.isEmptyObject(user.geo_location) &&
+        if (user.geo_location && this.validGeoLocation(user.geo_location) &&
             !this.locationPresent(locations, { geo_location: user.geo_location })) {
           locations.push(this.userMarker(user));
         }
@@ -60,7 +60,15 @@ export default createWidget('map', {
   },
 
   addTopicMarker(topic) {
-    return topic && topic.location && topic.location.geo_location && !topic.location.hide_marker;
+    return topic &&
+      topic.location &&
+      topic.location.geo_location &&
+      this.validGeoLocation(topic.location.geo_location) &&
+      !topic.location.hide_marker;
+  },
+
+  validGeoLocation(geoLocation) {
+    return geoLocation.lat && geoLocation.lon;
   },
 
   topicMarker(topic) {
