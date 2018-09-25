@@ -33,6 +33,7 @@ en:
 
   location:
     errors:
+      invalid: "Invalid map location"
       socket: "Your request failed. Please check your internet connection. If the problem persists, contact your site administrator."
       timeout: "Your request timed out. Please wait 5 seconds and try again. If the problem persists, contact your site administrator."
       request_denied: "Your request was denied. If the problem persists, contact your site administrator."
