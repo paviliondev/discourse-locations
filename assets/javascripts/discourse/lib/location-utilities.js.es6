@@ -69,7 +69,7 @@ let geoLocationFormat = function(geoLocation, opts = {}) {
 
   if (opts.geoAttrs && opts.geoAttrs.length > 0) {
     result = formatLocation(geoLocation, opts.geoAttrs);
-  } else {
+  } else if (geoLocation.address) {
     result = geoLocation.address;
   }
 
@@ -82,7 +82,7 @@ let locationFormat = function(location, opts = {}) {
   let display = '';
 
   if (location.name) {
-    display += location.name + ', ';
+    display += location.name;
   };
 
   if (settings.location_input_fields_enabled && (!opts.attrs || !opts.attrs.length)) {
@@ -94,13 +94,19 @@ let locationFormat = function(location, opts = {}) {
     }
   };
 
+  let address;
+
   if (opts.attrs && opts.attrs.length) {
-    display += formatLocation(location, opts.attrs);
+    address = formatLocation(location, opts.attrs);
   } else if (location.geo_location) {
-    display += geoLocationFormat(location.geo_location, opts);
+    address = geoLocationFormat(location.geo_location, opts);
   } else if (location.raw) {
+    address = location.raw;
+  }
+
+  if (address) {
     if (location.name) display += ', ';
-    display += location.raw;
+    display += address;
   }
 
   return display;

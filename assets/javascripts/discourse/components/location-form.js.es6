@@ -12,6 +12,11 @@ export default Ember.Component.extend({
   showProvider: false,
   showGeoLocation: true,
 
+  @computed('showInputFields', 'inputFields')
+  showAddress(showInputFields, inputFields) {
+    return showInputFields && inputFields.filter(f => f !== 'coordinates').length > 0;
+  },
+
   @computed('appType')
   settings(appType) {
     return appType === 'wizard' ? Wizard.SiteSettings : Discourse.SiteSettings;

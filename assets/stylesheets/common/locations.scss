@@ -32,9 +32,12 @@
   }
 
   .coordinates {
+    min-width: 250px;
+  }
+
+  .address + .coordinates {
     border-left: 1px solid $primary-low;
     padding-left: 20px;
-    min-width: 250px;
   }
 }
 

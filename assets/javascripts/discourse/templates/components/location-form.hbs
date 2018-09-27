@@ -1,136 +1,136 @@
-<div class="address">
-  {{#if showInputFields}}
-    <div class="title">
-      {{i18n 'location.address'}}
-    </div>
-    {{#if showStreet}}
-      <div class="control-group">
-        <label class='control-label'>{{i18n 'location.street.title'}}</label>
-        <div class="controls">
-          {{input type="text" value=street class="input-large input-location" disabled=streetDisabled}}
-        </div>
-        <div class='instructions'>{{i18n 'location.street.desc'}}</div>
-      </div>
-    {{/if}}
-    {{#if showNeighbourhood}}
-      <div class='control-group'>
-        <label class="control-label">{{i18n 'location.neighbourhood.title'}}</label>
-        <div class="controls">
-          {{input value=neighbourhood class="input-large input-location" disabled=neighbourhoodDisabled}}
-        </div>
-        <div class='instructions'>{{i18n 'location.neighbourhood.desc'}}</div>
-      </div>
-    {{/if}}
-    {{#if showPostalcode}}
-      <div class='control-group'>
-        <label class="control-label">{{i18n 'location.postalcode.title'}}</label>
-        <div class="controls">
-          {{input value=postalcode class="input-small input-location" disabled=postcodeDisabled}}
-        </div>
-        <div class='instructions'>{{i18n 'location.postalcode.desc'}}</div>
-      </div>
-    {{/if}}
-    {{#if showCity}}
-      <div class='control-group'>
-        <label class="control-label">{{i18n 'location.city.title'}}</label>
-        <div class="controls">
-          {{input type="text" value=city class="input-large input-location" disabled=cityDisabled}}
-        </div>
-        <div class='instructions'>{{i18n 'location.city.desc'}}</div>
-      </div>
-    {{/if}}
-    {{#if showState}}
-      <div class='control-group'>
-        <label class="control-label">{{i18n 'location.state.title'}}</label>
-        <div class="controls">
-          {{input value=state class="input-large input-location" disabled=stateDisabled}}
-        </div>
-        <div class='instructions'>{{i18n 'location.state.desc'}}</div>
-      </div>
-    {{/if}}
-    {{#if showCountrycode}}
-      <div class='control-group'>
-        <label class="control-label">{{i18n 'location.country_code.title'}}</label>
-        <div class="controls">
-          {{combo-box valueAttribute="code"
-                      nameProperty="name"
-                      content=countrycodes
-                      value=countrycode
-                      none="location.country_code.placeholder"
-                      class="input-location"
-                      filterable=true
-                      isDisabled=countryDisabled}}
-        </div>
-      </div>
-    {{/if}}
-  {{else}}
-    <div class="control-group">
-      <label class='control-label'>{{i18n 'location.query.title'}}</label>
-      <div class="controls location-selector-container">
-        {{#if showGeoLocation}}
-          {{location-selector location=geoLocation
-                              class="input-xxlarge location-selector"
-                              searchError='searchError'
-                              context=context}}
-        {{else}}
-          {{input type="text" value=rawLocation class="input-xxlarge input-location"}}
-        {{/if}}
-      </div>
-      <div class='instructions'>
-        {{i18n 'location.query.desc'}}
-      </div>
-    </div>
-  {{/if}}
-  {{#if showGeoLocation}}
+{{#if showAddress}}
+  <div class="address">
     {{#if showInputFields}}
-      <button class='btn btn-default wizard-btn location-search' {{action 'locationSearch'}} disabled={{searchDisabled}}>
-        {{i18n 'location.geo.btn.label'}}
-      </button>
-      {{#if showLocationResults}}
-        <div class='p-list-box'>
-          <div class="p-text small">{{i18n 'location.geo.results'}}</div>
-          <ul>
-            {{#if hasSearched}}
-              {{#if loadingLocations}}
-                {{loading-spinner size="small"}}
-              {{else}}
-                {{#each geoLocationOptions as |l|}}
-                  {{geo-location-result updateGeoLocation="updateGeoLocation" location=l geoAttrs=geoAttrs}}
-                {{else}}
-                  <li class='no-results'>{{i18n 'location.geo.no_results'}}</li>
-                {{/each}}
-              {{/if}}
-            {{/if}}
-          </ul>
+      <div class="title">
+        {{i18n 'location.address'}}
+      </div>
+      {{#if showStreet}}
+        <div class="control-group">
+          <label class='control-label'>{{i18n 'location.street.title'}}</label>
+          <div class="controls">
+            {{input type="text" value=street class="input-large input-location" disabled=streetDisabled}}
+          </div>
+          <div class='instructions'>{{i18n 'location.street.desc'}}</div>
         </div>
-        {{#if showProvider}}
-          <div class='location-form-instructions'>{{{i18n 'location.geo.desc' provider=providerDetails}}}</div>
+      {{/if}}
+      {{#if showNeighbourhood}}
+        <div class='control-group'>
+          <label class="control-label">{{i18n 'location.neighbourhood.title'}}</label>
+          <div class="controls">
+            {{input value=neighbourhood class="input-large input-location" disabled=neighbourhoodDisabled}}
+          </div>
+          <div class='instructions'>{{i18n 'location.neighbourhood.desc'}}</div>
+        </div>
+      {{/if}}
+      {{#if showPostalcode}}
+        <div class='control-group'>
+          <label class="control-label">{{i18n 'location.postalcode.title'}}</label>
+          <div class="controls">
+            {{input value=postalcode class="input-small input-location" disabled=postcodeDisabled}}
+          </div>
+          <div class='instructions'>{{i18n 'location.postalcode.desc'}}</div>
+        </div>
+      {{/if}}
+      {{#if showCity}}
+        <div class='control-group'>
+          <label class="control-label">{{i18n 'location.city.title'}}</label>
+          <div class="controls">
+            {{input type="text" value=city class="input-large input-location" disabled=cityDisabled}}
+          </div>
+          <div class='instructions'>{{i18n 'location.city.desc'}}</div>
+        </div>
+      {{/if}}
+      {{#if showState}}
+        <div class='control-group'>
+          <label class="control-label">{{i18n 'location.state.title'}}</label>
+          <div class="controls">
+            {{input value=state class="input-large input-location" disabled=stateDisabled}}
+          </div>
+          <div class='instructions'>{{i18n 'location.state.desc'}}</div>
+        </div>
+      {{/if}}
+      {{#if showCountrycode}}
+        <div class='control-group'>
+          <label class="control-label">{{i18n 'location.country_code.title'}}</label>
+          <div class="controls">
+            {{combo-box valueAttribute="code"
+                        nameProperty="name"
+                        content=countrycodes
+                        value=countrycode
+                        none="location.country_code.placeholder"
+                        class="input-location"
+                        filterable=true
+                        isDisabled=countryDisabled}}
+          </div>
+        </div>
+      {{/if}}
+    {{else}}
+      <div class="control-group">
+        <label class='control-label'>{{i18n 'location.query.title'}}</label>
+        <div class="controls location-selector-container">
+          {{#if showGeoLocation}}
+            {{location-selector location=geoLocation
+                                class="input-xxlarge location-selector"
+                                searchError='searchError'
+                                context=context}}
+          {{else}}
+            {{input type="text" value=rawLocation class="input-xxlarge input-location"}}
+          {{/if}}
+        </div>
+        <div class='instructions'>
+          {{i18n 'location.query.desc'}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if showGeoLocation}}
+      {{#if showInputFields}}
+        <button class='btn btn-default wizard-btn location-search' {{action 'locationSearch'}} disabled={{searchDisabled}}>
+          {{i18n 'location.geo.btn.label'}}
+        </button>
+        {{#if showLocationResults}}
+          <div class='p-list-box'>
+            <div class="p-text small">{{i18n 'location.geo.results'}}</div>
+            <ul>
+              {{#if hasSearched}}
+                {{#if loadingLocations}}
+                  {{loading-spinner size="small"}}
+                {{else}}
+                  {{#each geoLocationOptions as |l|}}
+                    {{geo-location-result updateGeoLocation="updateGeoLocation" location=l geoAttrs=geoAttrs}}
+                  {{else}}
+                    <li class='no-results'>{{i18n 'location.geo.no_results'}}</li>
+                  {{/each}}
+                {{/if}}
+              {{/if}}
+            </ul>
+          </div>
+          {{#if showProvider}}
+            <div class='location-form-instructions'>{{{i18n 'location.geo.desc' provider=providerDetails}}}</div>
+          {{/if}}
         {{/if}}
       {{/if}}
     {{/if}}
-  {{/if}}
-</div>
+  </div>
+{{/if}}
 
-{{#if showInputFields}}
-  {{#if showCoordinates}}
-    <div class="coordinates">
-      <div class="title">
-        {{i18n 'location.coordinates'}}
-      </div>
-      <div class='control-group'>
-        <label class="control-label">{{i18n 'location.lat.title'}}</label>
-        <div class="controls">
-          {{input type="number" value=geoLocation.lat class="input-small input-location"}}
-        </div>
-        <div class='instructions'>{{i18n 'location.lat.desc'}}</div>
-      </div>
-      <div class='control-group'>
-        <label class="control-label">{{i18n 'location.lon.title'}}</label>
-        <div class="controls">
-          {{input type="number" value=geoLocation.lon class="input-small input-location"}}
-        </div>
-        <div class='instructions'>{{i18n 'location.lon.desc'}}</div>
-      </div>
+{{#if showCoordinates}}
+  <div class="coordinates">
+    <div class="title">
+      {{i18n 'location.coordinates'}}
     </div>
-  {{/if}}
+    <div class='control-group'>
+      <label class="control-label">{{i18n 'location.lat.title'}}</label>
+      <div class="controls">
+        {{input type="number" value=geoLocation.lat class="input-small input-location"}}
+      </div>
+      <div class='instructions'>{{i18n 'location.lat.desc'}}</div>
+    </div>
+    <div class='control-group'>
+      <label class="control-label">{{i18n 'location.lon.title'}}</label>
+      <div class="controls">
+        {{input type="number" value=geoLocation.lon class="input-small input-location"}}
+      </div>
+      <div class='instructions'>{{i18n 'location.lon.desc'}}</div>
+    </div>
+  </div>
 {{/if}}
