@@ -28,14 +28,14 @@ after_initialize do
   Category.register_custom_field_type('location_topic_status', :boolean)
   Category.register_custom_field_type('location_map_filter_closed', :boolean)
 
-  add_to_class(:category, :location) {
+  add_to_class(:category, :location) do
     if self.custom_fields['location'] &&
        self.custom_fields['location'].is_a?(String)
       JSON.parse(self.custom_fields['location'])
     else
       nil
     end
-  }
+  end
 
   module LocationsSiteSettingExtension
     def type_hash(name)

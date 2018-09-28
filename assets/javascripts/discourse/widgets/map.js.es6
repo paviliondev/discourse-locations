@@ -28,19 +28,19 @@ export default createWidget('map', {
 
     if (this.attrs.locations && locations.length !== this.attrs.locations.length) {
       this.attrs.locations.forEach((l) => {
-        if (l && !this.locationPresent(locations, l)) {
+        if (l && this.validGeoLocation(l)) {
           locations.push(l);
         }
       });
     }
 
-    if (this.addTopicMarker(topic) && !this.locationPresent(locations, topic.location)) {
+    if (this.addTopicMarker(topic, locations)) {
       locations.push(this.topicMarker(topic));
     };
 
     if (topicList && topicList.topics) {
       topicList.topics.forEach((t) => {
-        if (this.addTopicMarker(t) && !this.locationPresent(locations, t.location)) {
+        if (this.addTopicMarker(t, locations)) {
           locations.push(this.topicMarker(t));
         }
       });
@@ -49,8 +49,7 @@ export default createWidget('map', {
     if (userList) {
       userList.forEach((u) => {
         const user = u.user;
-        if (user.geo_location && this.validGeoLocation(user.geo_location) &&
-            !this.locationPresent(locations, { geo_location: user.geo_location })) {
+        if (this.addUserMarker(user, locations)) {
           locations.push(this.userMarker(user));
         }
       });
@@ -59,12 +58,21 @@ export default createWidget('map', {
     this.state.locations = locations;
   },
 
-  addTopicMarker(topic) {
-    return topic &&
-      topic.location &&
-      topic.location.geo_location &&
-      this.validGeoLocation(topic.location.geo_location) &&
-      !topic.location.hide_marker;
+  addTopicMarker(topic, locations) {
+    if (!topic ||
+      !topic.location ||
+      !topic.location.geo_location ||
+      !this.validGeoLocation(topic.location.geo_location) ||
+      topic.location.hide_marker ||
+      locations.find(l => l['topic_id'] === topic.id)) return false;
+    return true;
+  },
+
+  addUserMarker(user, locations) {
+    if (!user ||
+      !this.validGeoLocation(user.geo_location) ||
+      locations.find(l => l['user_id'] === user.id)) return false;
+    return true;
   },
 
   validGeoLocation(geoLocation) {
@@ -81,6 +89,8 @@ export default createWidget('map', {
       };
     }
 
+    location['topic_id'] = topic.id;
+
     return location;
   },
 
@@ -92,6 +102,8 @@ export default createWidget('map', {
       routeTo: "/u/" + user.username
     };
 
+    location['user_id'] = user.id;
+
     location['geo_location'] = user.geo_location;
 
     return location;
@@ -99,6 +111,7 @@ export default createWidget('map', {
 
   locationPresent(locations, location) {
     return locations.filter((l) => {
+      if (location.geo_location) return false;
       if (location.geo_location.lat && location.geo_location.lon) {
         return l.geo_location.lat === location.geo_location.lat &&
           l.geo_location.lon === location.geo_location.lon;
