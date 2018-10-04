@@ -1,0 +1,80 @@
+es:
+  js:
+    category:
+      location_enabled: "Permitir que se añadan ubicaciones a los temas en esta categoría"
+      location_topic_status: "Activar iconos de estado de ubicación para los temas en esta categoría."
+      location_map_filter_closed: "Filtrar los temas cerrados de la lista-mapa en esta categoría."
+    composer:
+      location:
+        btn: "Añadir ubicación"
+        title: "Añadir una ubicación"
+    location:
+      address: "Dirección"
+      name:
+        title: "Nombre (opcional)"
+        desc: "ej.: Restaurante Martínez"
+      street:
+        title: "Calle y nombre"
+        desc: "ej.: Avenida de la Sierra 170"
+      postalcode:
+        title: "Código postal"
+        desc: "Ej.: 48010"
+      neighbourhood:
+        title: "Barrio"
+        desc: "ej.: Casco Viejo"
+      city:
+        title: "Población"
+        desc: "ej.: Bilbao"
+      state:
+        title: "Estado o provincia"
+        desc: "ej.: Cuenca"
+      country_code:
+        title: "País"
+        placeholder: "Selecciona un país"
+      coordinates: "Coordenadas"
+      lat:
+        title: "Latitud"
+        desc: "ej.: -31.9456702"
+      lon:
+        title: "Longitud"
+        desc: "ej.: 115.8626477"
+      query:
+        title: "Dirección"
+        desc: "ej.: Calle Mayor 13, Salamanca."
+      geo:
+        desc: "Proveedor de ubicaciones: {{provider}}"
+        btn:
+          label: "Encontrar dirección"
+        results: "Direcciones"
+        no_results: "Sin resultados."
+        show_map: "Mostrar mapa"
+      label:
+        add: "Añadir una ubicación"
+        title: "Mostrar detalles de la ubicación"
+      clear: "Borrar"
+      done: "OK"
+      errors:
+        search: "Ha ocurrido un error al buscar la dirección. Por favor, espera 5 segundos e inténtalo de nuevo."
+
+    filters:
+      map:
+        title: "Mapa"
+        help: "Marcar temas con ubicación en esta categoría en un mapa."
+    map:
+      search_placeholder: "Buscar"
+
+    topic_statuses:
+      location:
+        help: "Este tema tiene una ubicación.."
+
+    user:
+      map_location:
+        title: "Ubicación en el mapa"
+        warning: Tu ubicación será mostrada públicamente.
+
+    directory:
+      map:
+        title: "Mapa de usuarios"
+
+      list:
+        title: "Lista de usuarios"

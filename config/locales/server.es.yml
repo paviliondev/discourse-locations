@@ -1,0 +1,43 @@
+es:
+  site_settings:
+    location_hamburger_menu_map_link: "Activar menú de mapa en el hamburger menu"
+    location_input_fields: "Campos de entrada de ubicación"
+    location_input_fields_enabled: "Activar campos de entrada de ubicación"
+    location_geocoding: "¿Geocodificar (mapear) las ubicaciones? Si no se activa, se guardarán como texto plano."
+    location_geocoding_api_key: "Clave de API para la geocodificación"
+    location_geocoding_provider: |
+      Proveedor de geocodificación (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>detalles</a>).
+      Si el proveedor requiere una clave API, introdúcela más abajo antes de seleccionar un proveedor:
+    location_geocoding_timeout: "Tiempo de espera agotado para la geocodificación"
+    location_geocoding_rate_limit: "Límite de geocodificaciones (solicitudes por minuto)."
+    location_geocoding_debounce: "Geocoding debouce (milleseconds)"
+    location_map_tile_layer: "URI de capa de tile de mapas (<a href='https://leaflet-extras.github.io/leaflet-providers/preview/'>ejemplos</a>)."
+    location_map_tile_layer_subdomains: "Map tile layer subdomains"
+    location_map_attribution: "Atribución de mapas"
+    location_category_map_filter: "Añadir un filtro de mapa a las categorías en las que las ubicaciones están activadas."
+    location_topic_map: "Mostrar un botón para activar o desactivar un minimapa de la ubicación cercana a la de las etiquetas de ubicación del mapa."
+    location_topic_status_icon: "Activar icono de estado de ubicación en todos los temas."
+    location_map_filter_closed: "Filtrar temas cerrados de todos las listas-mapa."
+    location_map_marker_zoom: "Zoom por defecto para marcadores en mapas."
+    location_map_zoom: "Zoom por defecto en los mapas."
+    location_map_expanded_zoom: "Zoom por defecto para mapas extendidos."
+    location_map_center_lat: "Latitud central por defecto para mapas."
+    location_map_center_lon: "Longitud central por defecto para mapas."
+    location_map_max_topics: "Número máximo de temas mostrados en la lista-mapa."
+    location_layouts_map_search_enabled: "Enable search in the layouts-map widget (requires Layouts Plugin)."
+    location_layouts_map_show_avatar: "Enable user avatar in the layouts-map-widget (requires Layouts Plugin)."
+    location_users_map: "Allow users to add a geocoded location which is displayed on a map in the Users section."
+    location_users_map_limit: "Número máximo de usuarios a mostrar en el mapa al mismo tiempo."
+    location_add_no_text: "Ningún texto a añadir en los botones de ubicación."
+    location_country_default: "País por defecto en el selector."
+
+  location:
+    errors:
+      invalid: "Ubicación del mapa no válida"
+      socket: "La solicitud ha fallado. Por favor, comprueba tu conexión a internet. Si el problema persiste, ponte en contacto con la Administración."
+      timeout: "El tiempo de espera de tu solicitud se ha agotado. Por favor, espera 5 segundos e inténtalo de nuevo. Si el problema persiste, ponte en contacto con la Administración."
+      request_denied: "Tu solicitud ha sido denegada. Si el problema persiste, ponte en contacto con la Administración."
+      request_invalid: "Tu solicitud no es válida. Si el problema persiste, ponte en contacto con la Administración."
+      query_limit: "Límite de solicitudes del proveedor de geocodificación alcanzado. Si el problema persiste, ponte en contacto con la Administración."
+      api_key: "Clave API del proveedor de geocodificación no válida. Si el problema persiste, ponte en contacto con la Administración."
+      service_unavailable: "Servicio de geocodificación no disponible. Si el problema persiste, ponte en contacto con la Administración."
