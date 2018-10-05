@@ -6,7 +6,6 @@ export default {
         const $existingLocation = $('span.location');
         component.$('span.map-location').insertAfter($existingLocation);
         $existingLocation.hide();
-        $('span.website-name').css("margin-top","-3%");
       });
     }
   }
