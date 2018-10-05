@@ -613,10 +613,7 @@ input.input-location, div.input-location {
   margin-top: 5px;
 }
 
-span.map-location{
-  width: 58%;
-}
-
 #user-card .location-and-website{
-  align-items: start;
+  align-items: flex-start;
+  justify-content: space-between;
 }
