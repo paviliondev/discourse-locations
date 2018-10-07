@@ -1,9 +1,11 @@
 {{#if showAddress}}
   <div class="address">
     {{#if showInputFields}}
-      <div class="title">
-        {{i18n 'location.address'}}
-      </div>
+      {{#if showTitle}}
+        <div class="title">
+          {{i18n 'location.address'}}
+        </div>
+      {{/if}}
       {{#if showStreet}}
         <div class="control-group">
           <label class='control-label'>{{i18n 'location.street.title'}}</label>

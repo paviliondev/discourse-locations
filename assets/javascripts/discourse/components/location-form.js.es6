@@ -5,16 +5,21 @@ import { getOwner } from 'discourse-common/lib/get-owner';
 export default Ember.Component.extend({
   geoLocationOptions: Ember.A(),
   classNames: ['location-form'],
-  showInputFields: Ember.computed.or('inputFieldsEnabled', 'settings.location_input_fields_enabled'),
-  inputFields:['street', 'postalcode', 'city', 'countrycode'],
+  inputFields: ['street', 'postalcode', 'city', 'countrycode'],
   hasSearched: false,
   context: null,
   showProvider: false,
   showGeoLocation: true,
+  showTitle: Ember.computed.equal('appType', 'discourse'),
+
+  showInputFields(inputFieldsEnabled, settings) {
+    if (inputFieldsEnabled === false) return false;
+    return inputFieldsEnabled || settings.location_input_fields_enabled;
+  },
 
   @computed('showInputFields', 'inputFields')
   showAddress(showInputFields, inputFields) {
-    return showInputFields && inputFields.filter(f => f !== 'coordinates').length > 0;
+    return !showInputFields || (showInputFields && (inputFields.filter(f => f !== 'coordinates').length > 0));
   },
 
   @computed('appType')
