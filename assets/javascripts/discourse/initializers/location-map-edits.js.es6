@@ -51,6 +51,14 @@ export default {
           }
         }
       });
+
+      api.modifyClass('component:user-card-contents', {
+        hasLocationOrWebsite: Ember.computed.or(
+          "user.location",
+          "user.website_name",
+          "user.geo_location"
+        )
+      })
     });
   }
 };

@@ -3,9 +3,8 @@ export default {
     const enabled = Discourse.SiteSettings.location_users_map;
     if (enabled) {
       Ember.run.scheduleOnce('afterRender', () => {
-        const $existingLocation = $('span.location');
-        component.$('span.map-location').insertAfter($existingLocation);
-        $existingLocation.hide();
+        component.$('span.map-location').prependTo($('#user-card .location-and-website'));
+        $('#user-card .location').hide();
       });
     }
   }
