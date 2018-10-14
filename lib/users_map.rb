@@ -31,6 +31,7 @@ module UsersControllerLocationsExtension
     if attrs &&
       attrs[:custom_fields] &&
       attrs[:custom_fields][:geo_location] &&
+      attrs[:custom_fields][:geo_location] != "{}" &&
       (!attrs[:custom_fields][:geo_location]['lat'] ||
        !attrs[:custom_fields][:geo_location]['lon'])
       raise Discourse::InvalidParameters.new, I18n.t('location.errors.invalid')
