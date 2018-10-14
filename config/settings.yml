@@ -74,10 +74,10 @@ plugins:
   location_map_expanded_zoom:
     default: 2
   location_map_center_lat:
-    default: 30
+    default: '30'
     client: true
   location_map_center_lon:
-    default: 5
+    default: '5'
     client: true
   location_map_max_topics:
     default: 100

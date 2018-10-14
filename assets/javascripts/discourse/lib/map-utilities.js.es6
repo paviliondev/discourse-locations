@@ -50,8 +50,8 @@ const setupMap = function(map, markers, boundingbox, zoom, center) {
     const maxZoom = Discourse.SiteSettings.location_map_marker_zoom;
     map.fitBounds(markers.getBounds().pad(1), { maxZoom });
   } else {
-    const defaultLat = Discourse.SiteSettings.location_map_center_lat;
-    const defaultLon = Discourse.SiteSettings.location_map_center_lon;
+    const defaultLat = Number(Discourse.SiteSettings.location_map_center_lat);
+    const defaultLon = Number(Discourse.SiteSettings.location_map_center_lon);
     const defaultZoom = Discourse.SiteSettings.location_map_zoom;
     const setZoom = zoom === undefined ? defaultZoom : zoom;
     const setView = center === undefined ? [defaultLat, defaultLon] : center;
