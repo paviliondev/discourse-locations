@@ -12,6 +12,7 @@ export default Ember.Component.extend({
   showGeoLocation: true,
   showTitle: Ember.computed.equal('appType', 'discourse'),
 
+  @computed('inputFieldsEnabled', 'settings')
   showInputFields(inputFieldsEnabled, settings) {
     if (inputFieldsEnabled === false) return false;
     return inputFieldsEnabled || settings.location_input_fields_enabled;
