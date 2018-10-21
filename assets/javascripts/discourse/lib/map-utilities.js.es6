@@ -106,7 +106,7 @@ const addCircleMarkersToMap = function(rawCircleMarkers, map, context) {
 
 const addMarkersToMap = function(rawMarkers, map) {
   let markers = L.markerClusterGroup({
-    spiderfyDistanceMultiplier: 6
+    spiderfyDistanceMultiplier: Number(Discourse.SiteSettings.location_map_marker_cluster_multiplier)
   });
 
   rawMarkers.forEach((raw) => {
