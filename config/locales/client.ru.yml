@@ -2,11 +2,14 @@ ru:
   js:
     category:
       location_enabled: "Разрешить адреса для тем в этом разделе"
+      location_topic_status: ""
+      location_map_filter_closed: ""
     composer:
       location:
         btn: "Добавить адрес"
         title: "Добавить адрес"
     location:
+      address: ""
       name:
         title: "Название (опционально)"
         desc: "Например, Шерман Дентист"
@@ -16,12 +19,25 @@ ru:
       postalcode:
         title: "Почтовый индекс"
         desc: "Например, 03118"
+      neighbourhood:
+        title: ""
+        desc: ""
       city:
         title: "Город / населенный пункт"
         desc: "Например, Киев"
+      state:
+        title: ""
+        desc: ""
       country_code:
         title: "Страна"
         placeholder: "Выберите страну"
+      coordinates: ""
+      lat:
+        title: ""
+        desc: ""
+      lon:
+        title: ""
+        desc: ""
       query:
         title: "Адрес"
         desc: "Например, пр Мира 42, Киев"
@@ -39,7 +55,26 @@ ru:
       done: "Готово"
       errors:
         search: "Произошла ошибка во время проверки адреса. Пожалуйста, подождите 5 секунда и попробуйте снова."
+
     filters:
       map:
         title: "Карта"
         help: "Отобразить карту с нанесенными темами с адресами из этого раздела."
+    map:
+      search_placeholder: ""
+
+    topic_statuses:
+      location:
+        help: ""
+
+    user:
+      map_location:
+        title: ""
+        warning: ""
+
+    directory:
+      map:
+        title: ""
+
+      list:
+        title: ""

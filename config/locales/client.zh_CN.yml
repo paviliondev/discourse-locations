@@ -1,0 +1,80 @@
+zh_CN:
+  js:
+    category:
+      location_enabled: "允许在本分类的主题中插入位置。"
+      location_topic_status: "为本分类的题中启用位置状态图标。"
+      location_map_filter_closed: "将本分类中被关闭的主题过滤出地图主题列表。"
+    composer:
+      location:
+        btn: "添加位置"
+        title: "添加位置"
+    location:
+      address: "地址"
+      name:
+        title: "名称（可选）"
+        desc: "如：补牙张医生"
+      street:
+        title: "街道和门牌号"
+        desc: "如：宛平南路600号"
+      postalcode:
+        title: "邮政编码"
+        desc: "如：100025"
+      neighbourhood:
+        title: "小区"
+        desc: "如：中南海"
+      city:
+        title: "城/镇/村"
+        desc: "如：新乡"
+      state:
+        title: "省"
+        desc: "如：海南"
+      country_code:
+        title: "国家"
+        placeholder: "选择一个国家"
+      coordinates: "坐标"
+      lat:
+        title: "纬度"
+        desc: "如：-31.9456702"
+      lon:
+        title: "经度"
+        desc: "如：115.8626477"
+      query:
+        title: "地址"
+        desc: "如：新乡市宛平南路600号"
+      geo:
+        desc: "位置由 {{provider}} 提供"
+        btn:
+          label: "搜索地址"
+        results: "地址"
+        no_results: "无结果"
+        show_map: "显示地图"
+      label:
+        add: "添加位置"
+        title: "显示位置详情"
+      clear: "清除"
+      done: "完成"
+      errors:
+        search: "寻找给定的地址时出了些幺蛾子。请过 5 秒重试。"
+
+    filters:
+      map:
+        title: "地图"
+        help: "在地图上标记出本分类中有位置的主题。"
+    map:
+      search_placeholder: "搜索"
+
+    topic_statuses:
+      location:
+        help: "该主题有位置。"
+
+    user:
+      map_location:
+        title: "地图位置"
+        warning: 您给出的位置会公开显示。
+
+    directory:
+      map:
+        title: "用户地图"
+
+      list:
+        title: "用户列表"

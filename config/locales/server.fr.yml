@@ -1,0 +1,43 @@
+fr:
+  site_settings:
+    location_hamburger_menu_map_link: "Ajouter la carte au menu hamburger"
+    location_input_fields: "ajout de la barre d'adresse"
+    location_input_fields_enabled: "Ajouter la barre d'adresse"
+    location_geocoding: "L'adresse doit-elle être facultative, obligatoire ou nul. Si nul, elle sera enregistrée comme une chaine de caractères."
+    location_geocoding_api_key: "Clé API Géocoding"
+    location_geocoding_provider: |
+      Géocoding fournisseur ( <a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>détails du fournisseur</a>).
+       Si le fournisseur nécessite une clé API, entrez la dans le champ ci-dessous avant de selectionner le fournisseur.
+    location_geocoding_timeout: ""
+    location_geocoding_rate_limit: "Géocoding taux limite; requetes par minute."
+    location_geocoding_debounce: ""
+    location_map_tile_layer: ""
+    location_map_tile_layer_subdomains: ""
+    location_map_attribution: ""
+    location_category_map_filter: "Ajouter le filtre carte aux catégories dans lesquels les adresses sont autorisées"
+    location_topic_map: "Afficher le button permettant d'ouvrir la mini carte à coter de l'adresse."
+    location_topic_status_icon: "Afficher l'icone d'adresse en début de post pour la liste des annonces."
+    location_map_filter_closed: "Enlever les posts fermés de la carte."
+    location_map_marker_zoom: "Niveau de zoom par défaut pour l'épingle de carte."
+    location_map_zoom: "Niveau de zoom par défaut pour la carte."
+    location_map_expanded_zoom: "Niveau de zoom par défaut pour la carte étendue."
+    location_map_center_lat: "Latitude du centre par défaut de la carte."
+    location_map_center_lon: "Longitude du centre par défaut de la carte."
+    location_map_max_topics: "Nombre maximum de posts affichés sur la carte."
+    location_layouts_map_search_enabled: ""
+    location_layouts_map_show_avatar: ""
+    location_users_map: ""
+    location_users_map_limit: ""
+    location_add_no_text: ""
+    location_country_default: ""
+
+  location:
+    errors:
+      invalid: ""
+      socket: ""
+      timeout: ""
+      request_denied: ""
+      request_invalid: ""
+      query_limit: ""
+      api_key: ""
+      service_unavailable: ""

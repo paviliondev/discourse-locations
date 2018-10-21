@@ -3,11 +3,13 @@ gl:
     category:
       location_enabled: "Permitir engadir lugares nesta categoría"
       location_topic_status: "Activar iconos de estado de lugares para listas de temas nesta categoría."
+      location_map_filter_closed: ""
     composer:
       location:
         btn: "Engadir lugar"
         title: "Engadir un lugar"
     location:
+      address: ""
       name:
         title: "Nome (opcional)"
         desc: "P.ex. Manolanxo Teixido. Dentista"
@@ -17,12 +19,25 @@ gl:
       postalcode:
         title: "Código Postal"
         desc: "P.ex. 15365"
+      neighbourhood:
+        title: ""
+        desc: ""
       city:
         title: "Vila ou Cidade"
         desc: "P.ex. Cariño"
+      state:
+        title: ""
+        desc: ""
       country_code:
         title: "País"
         placeholder: "Selecciona un país"
+      coordinates: ""
+      lat:
+        title: ""
+        desc: ""
+      lon:
+        title: ""
+        desc: ""
       query:
         title: "Enderezo"
         desc: "P.ex. Ronda de Outeiro 496. A Coruña"
@@ -51,3 +66,15 @@ gl:
     topic_statuses:
       location:
         help: "Este tema ten un lugar."
+
+    user:
+      map_location:
+        title: ""
+        warning: ""
+
+    directory:
+      map:
+        title: ""
+
+      list:
+        title: ""

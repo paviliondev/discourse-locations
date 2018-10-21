@@ -1,0 +1,80 @@
+pl:
+  js:
+    category:
+      location_enabled: ""
+      location_topic_status: ""
+      location_map_filter_closed: ""
+    composer:
+      location:
+        btn: ""
+        title: ""
+    location:
+      address: ""
+      name:
+        title: ""
+        desc: ""
+      street:
+        title: ""
+        desc: ""
+      postalcode:
+        title: ""
+        desc: ""
+      neighbourhood:
+        title: ""
+        desc: ""
+      city:
+        title: ""
+        desc: ""
+      state:
+        title: ""
+        desc: ""
+      country_code:
+        title: ""
+        placeholder: ""
+      coordinates: ""
+      lat:
+        title: ""
+        desc: ""
+      lon:
+        title: ""
+        desc: ""
+      query:
+        title: ""
+        desc: ""
+      geo:
+        desc: ""
+        btn:
+          label: ""
+        results: ""
+        no_results: ""
+        show_map: ""
+      label:
+        add: ""
+        title: ""
+      clear: ""
+      done: ""
+      errors:
+        search: ""
+
+    filters:
+      map:
+        title: ""
+        help: ""
+    map:
+      search_placeholder: ""
+
+    topic_statuses:
+      location:
+        help: ""
+
+    user:
+      map_location:
+        title: ""
+        warning: ""
+
+    directory:
+      map:
+        title: ""
+
+      list:
+        title: ""

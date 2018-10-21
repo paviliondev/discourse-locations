@@ -1,14 +1,15 @@
 fr:
   js:
     category:
-      location_enabled: "Allow locations to be added to topics in this category"
-      location_topic_status: "Enable location topic status icons for topic lists in this category."
-      location_map_filter_closed: "Filter closed topics from the map topic list in this category."
+      location_enabled: "Autoriser la géolocalisation des sujets dans cette catégorie"
+      location_topic_status: "Marquer les sujets localisés par une icône dans la liste des sujets de cette catégorie."
+      location_map_filter_closed: "Ne pas montrer les sujets fermés sur la carte dans cette catégorie."
     composer:
       location:
         btn: "Ajouter un lieu"
         title: "Ajouter un lieu"
     location:
+      address: "Adresse"
       name:
         title: "Nom (optionnel)"
         desc: "p.ex. P. Sherman Dentist"
@@ -18,12 +19,19 @@ fr:
       postalcode:
         title: "Code postal"
         desc: "p.ex. G1C 5R3"
+      neighbourhood:
+        title: "Quartier"
+        desc: "par ex. : Saint-Sauveur"
       city:
-        title: "City, Town or Village"
+        title: "Commune"
         desc: "p.ex. Québec"
+      state:
+        title: "État ou province"
+        desc: "par ex. : Québec"
       country_code:
         title: "Pays"
         placeholder: "Selectionner un pays"
+      coordinates: "Coordonnées"
       lat:
         title: "Latitude"
         desc: "p.ex. -31.9456702"
@@ -46,7 +54,7 @@ fr:
       clear: "Effacer"
       done: "Terminer"
       errors:
-        search: "Il y a eu un problème en validant cette adresse. SVP attendre 5 minutes et recommencer à nouveau."
+        search: "Il y a eu un problème en validant cette adresse. SVP attendre 5 secondes et recommencer à nouveau."
 
     filters:
       map:
@@ -62,7 +70,7 @@ fr:
     user:
       map_location:
         title: "Map Location"
-        instructions:
+        warning: Votre géolocalisation sera montrée publiquement.
 
     directory:
       map:

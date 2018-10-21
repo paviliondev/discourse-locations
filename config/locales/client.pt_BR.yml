@@ -1,0 +1,80 @@
+pt_BR:
+  js:
+    category:
+      location_enabled: "Permitir adicionar localizações nos tópicos desta categoria. "
+      location_topic_status: "Ativar ícones em tópicos com localizações nesta categoria."
+      location_map_filter_closed: "Filtrar tópicos fechados do mapa nesta categoria."
+    composer:
+      location:
+        btn: "Adicionar uma localização. "
+        title: "Adicionar uma localização."
+    location:
+      address: "Endereço"
+      name:
+        title: "Nome (opcional)"
+        desc: "Ex: Consultório da Ana"
+      street:
+        title: "Número e Rua"
+        desc: "Ex: Rua A, 42"
+      postalcode:
+        title: "Código Postal (CEP)"
+        desc: "Ex: 31110090"
+      neighbourhood:
+        title: "Bairro"
+        desc: "Ex: Centro"
+      city:
+        title: "Cidade"
+        desc: "Ex: São Paulo"
+      state:
+        title: "Estado"
+        desc: "Ex: Minas Gerais"
+      country_code:
+        title: "País"
+        placeholder: "Selecione um país"
+      coordinates: "Coordenadas"
+      lat:
+        title: "Latitude"
+        desc: "Ex: -31.9456702"
+      lon:
+        title: "Longitude"
+        desc: "Ex: 115.8626477"
+      query:
+        title: "Endereço"
+        desc: "Ex: Rua A, 52, São Paulo."
+      geo:
+        desc: "Localização fornecida por {{provider}}"
+        btn:
+          label: "Pesquisar endereço"
+        results: "Endereços"
+        no_results: "Sem resultados."
+        show_map: "Mostrar mapa"
+      label:
+        add: "Adicionar uma localização."
+        title: "Mostrar detalhes"
+      clear: "Limpo"
+      done: "Concluído."
+      errors:
+        search: "Houve um problema na pesquisa desse endereço. Tente novamente em 5 segundos. "
+
+    filters:
+      map:
+        title: "Mapa"
+        help: "Marcar tópicos com localizações nessa categoria em um mapa."
+    map:
+      search_placeholder: "Pesquisar"
+
+    topic_statuses:
+      location:
+        help: "Este tópico tem uma localização."
+
+    user:
+      map_location:
+        title: "Localização do mapa"
+        warning: "Sua localização será visível publicamente. "
+
+    directory:
+      map:
+        title: "Mapa dos Usuários "
+
+      list:
+        title: "Lista dos Usuários"
