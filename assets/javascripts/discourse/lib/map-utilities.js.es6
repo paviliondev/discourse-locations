@@ -48,7 +48,7 @@ const setupMap = function(map, markers, boundingbox, zoom, center) {
     map.fitBounds([[b[0], b[2]],[b[1], b[3]]]);
   } else if (markers) {
     const maxZoom = Discourse.SiteSettings.location_map_marker_zoom;
-    map.fitBounds(markers.getBounds().pad(1), { maxZoom });
+    map.fitBounds(markers.getBounds().pad(0.1), { maxZoom });
   } else {
     const defaultLat = Number(Discourse.SiteSettings.location_map_center_lat);
     const defaultLon = Number(Discourse.SiteSettings.location_map_center_lon);
