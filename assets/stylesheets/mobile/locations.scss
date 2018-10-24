@@ -57,9 +57,11 @@
 
   .location-label {
     margin-right: 5px;
+    position: relative;
   }
 
   .location-topic-map {
+    position: initial;
 
     .fa {
       margin: 0;
