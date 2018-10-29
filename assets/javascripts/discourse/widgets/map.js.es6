@@ -89,6 +89,11 @@ export default createWidget('map', {
       };
     }
 
+    if (Discourse.SiteSettings.location_map_marker_category_color &&
+        topic.category && topic.category.color) {
+      location['marker']['color'] = topic.category.color;
+    }
+
     location['topic_id'] = topic.id;
 
     return location;
@@ -150,6 +155,7 @@ export default createWidget('map', {
     }
 
     let markers = null;
+    const category = this.attrs.category;
 
     if (rawCircleMarkers && rawCircleMarkers.length > 0) {
       addCircleMarkersToMap(rawCircleMarkers, map, this);

@@ -61,26 +61,61 @@ const setupMap = function(map, markers, boundingbox, zoom, center) {
 };
 
 const buildMarker = function(rawMarker) {
+  const customMarkerStyle = !!rawMarker.options.color;
+
+  if (customMarkerStyle) {
+    const markerHtmlStyles = `
+      background-color: #${rawMarker.options.color};
+      width: 1.5rem;
+      height: 1.5rem;
+      display: block;
+      left: -0.8rem;
+      top: 0;
+      position: relative;
+      border-radius: 3rem 3rem 0;
+      transform: rotate(45deg);
+      border: 1px solid #${rawMarker.options.color};
+      z-index: 100`
+
+    rawMarker.options['icon'] = L.divIcon({
+      className: "",
+      iconAnchor: [0, 30],
+      labelAnchor: [-25, 0],
+      popupAnchor: [10, -36],
+      html: `<span style="${markerHtmlStyles}" />`
+    });
+  }
+
   const marker = L.marker({
     lat: rawMarker.lat,
     lon: rawMarker.lon
   }, rawMarker.options);
 
-  if (rawMarker.options.routeTo) {
-    marker.on('click', () => {
-      DiscourseURL.routeTo(rawMarker.options.routeTo);
-    });
-  }
+  if (rawMarker.options) {
+    if (rawMarker.options.routeTo) {
+      marker.on('click', () => {
+        DiscourseURL.routeTo(rawMarker.options.routeTo);
+      });
+    }
 
-  if (rawMarker.options && rawMarker.options.title) {
-    const title = emojiUnescape(rawMarker.options.title);
-    marker.bindTooltip(title,
-      {
-        permanent: true,
-        direction: 'top',
-        className: 'topic-title-map-tooltip'
-      }
-    ).openTooltip();
+    if (rawMarker.options.title) {
+      const title = emojiUnescape(rawMarker.options.title);
+      let className = 'topic-title-map-tooltip';
+
+      if (customMarkerStyle) className += ' custom';
+
+      marker.bindTooltip(title,
+        {
+          permanent: true,
+          direction: 'top',
+          className
+        }
+      ).openTooltip();
+    }
+
+    if (rawMarker.options.class) {
+      $(marker._icon).addClass(rawMarker.options.class);
+    }
   }
 
   return marker;

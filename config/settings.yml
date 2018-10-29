@@ -74,6 +74,9 @@ plugins:
   location_map_marker_cluster_multiplier:
     default: 6
     client: true
+  location_map_marker_category_color:
+    default: false
+    client: true
   location_map_expanded_zoom:
     default: 2
   location_map_center_lat:

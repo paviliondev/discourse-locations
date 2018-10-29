@@ -420,9 +420,13 @@ input.input-location, div.input-location {
       }
     }
 
-    .laeflet-tooltip {
+    .leaflet-tooltip {
       position: absolute;
       white-space: nowrap;
+
+      &.custom {
+        top: -15px;
+      }
     }
   }
 
