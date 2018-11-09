@@ -92,6 +92,7 @@ export default createWidget('map', {
     if (Discourse.SiteSettings.location_map_marker_category_color &&
         topic.category && topic.category.color) {
       location['marker']['color'] = topic.category.color;
+      location['marker']['class'] = topic.category.slug;
     }
 
     location['topic_id'] = topic.id;

@@ -64,7 +64,7 @@ const buildMarker = function(rawMarker) {
   const customMarkerStyle = !!rawMarker.options.color;
 
   if (customMarkerStyle) {
-    const markerHtmlStyles = `
+    const markerStyles = `
       background-color: #${rawMarker.options.color};
       width: 1.5rem;
       height: 1.5rem;
@@ -77,12 +77,14 @@ const buildMarker = function(rawMarker) {
       border: 1px solid #${rawMarker.options.color};
       z-index: 100`
 
+    const markerClass = rawMarker.options.class;
+
     rawMarker.options['icon'] = L.divIcon({
       className: "",
       iconAnchor: [0, 30],
       labelAnchor: [-25, 0],
       popupAnchor: [10, -36],
-      html: `<span style="${markerHtmlStyles}" />`
+      html: `<span style="${markerStyles}" class="${markerClass}" />`
     });
   }
 
