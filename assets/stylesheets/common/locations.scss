@@ -490,8 +490,12 @@ input.input-location, div.input-location {
   }
 }
 
-.topic-list-icons {
-  .d-icon-map-marker { color: dark-light-choose($primary, $secondary); }
+.topic-list-item .d-icon-map-marker {
+  color: $primary;
+}
+
+.topic-list-item.visited .d-icon-map-marker {
+  color: $primary-medium;
 }
 
 .nav-container .locations-map:not(.expanded) {
