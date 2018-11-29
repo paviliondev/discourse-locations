@@ -6,6 +6,8 @@ export default {
         component.$('span.map-location').prependTo($('#user-card .location-and-website'));
         $('#user-card .location').hide();
       });
+
+      component.set('showUserLocation', !!args.user.custom_fields.geo_location);
     }
   }
 };
