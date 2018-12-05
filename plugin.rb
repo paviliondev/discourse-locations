@@ -24,6 +24,7 @@ load File.expand_path('../models/location_country_default_site_setting.rb', __FI
 
 if respond_to?(:register_svg_icon)
   register_svg_icon "map-o"
+  register_svg_icon "info"
 end
 
 after_initialize do

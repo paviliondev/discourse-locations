@@ -376,6 +376,7 @@ input.input-location, div.input-location {
 
   .btn, a {
     background-color: $secondary;
+    min-height: initial;
 
     &:hover {
       background-color: $secondary;
@@ -391,9 +392,9 @@ input.input-location, div.input-location {
       margin-right: 34px;
       margin-bottom: 5px;
       border-radius: 4px;
-      height: 20px;
+      height: 28px;
       font-size: 0.9em;
-      line-height: 20px;
+      line-height: 28px;
     }
 
     .leaflet-map-pane {
