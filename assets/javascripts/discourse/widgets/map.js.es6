@@ -76,7 +76,7 @@ export default createWidget('map', {
   },
 
   validGeoLocation(geoLocation) {
-    return geoLocation.lat && geoLocation.lon;
+    return geoLocation && geoLocation.lat && geoLocation.lon;
   },
 
   topicMarker(topic) {
