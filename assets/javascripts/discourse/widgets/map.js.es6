@@ -24,6 +24,8 @@ export default createWidget('map', {
     const topicList = this.attrs.topicList;
     const userList = this.attrs.userList;
 
+    console.log(userList);
+
     let locations = this.state.locations;
 
     if (this.attrs.locations && locations.length !== this.attrs.locations.length) {
