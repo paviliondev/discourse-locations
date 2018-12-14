@@ -78,8 +78,8 @@ after_initialize do
   register_editable_user_custom_field geo_location: {} if defined? register_editable_user_custom_field
   add_to_serializer(:user, :geo_location) { object.custom_fields['geo_location'] }
 
-  require_dependency 'user_name_serializer'
-  class ::UserNameSerializer
+  require_dependency 'directory_item_serializer'
+  class ::DirectoryItemSerializer::UserSerializer
     attributes :geo_location
 
     def geo_location
