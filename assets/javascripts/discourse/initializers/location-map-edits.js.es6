@@ -22,6 +22,10 @@ export default {
         handleMapTransition(transition) {
           const intent = transition.intent;
 
+          if (intent.url == "/u" && !intent.name && Discourse.SiteSettings.location_users_map_default) {
+            return this.replaceWith('users.user-map');
+          }
+
           if (intent.name === 'users.user-map') {
             if (!intent.queryParams.period || intent.queryParams.period !== 'location') {
               this.changePeriod(transition, 'location');

@@ -102,6 +102,9 @@ plugins:
     client: true
   location_users_map_limit:
     default: 50
+  location_users_map_default:
+    default: false
+    client: true
   location_add_no_text:
     default: false
     client: true
