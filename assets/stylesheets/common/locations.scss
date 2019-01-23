@@ -33,6 +33,11 @@
 
   .coordinates {
     min-width: 250px;
+
+    .control-group {
+      display: block;
+      margin-bottom: 20px;
+    }
   }
 
   .address + .coordinates {
