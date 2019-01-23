@@ -32,11 +32,26 @@
   }
 
   .coordinates {
-    min-width: 250px;
-
     .control-group {
       display: block;
-      margin-bottom: 20px;
+
+      .controls {
+        display: flex;
+        width: 100%;
+
+        input {
+          width: 100px;
+        }
+      }
+
+      .icon {
+        margin-left: 10px;
+        display: inline-block;
+      }
+    }
+
+    .icon img {
+      max-width: 30px;
     }
   }
 
