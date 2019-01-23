@@ -1,8 +1,7 @@
-import { on } from 'ember-addons/ember-computed-decorators';
+import { default as computed, on } from 'ember-addons/ember-computed-decorators';
 import { ajax } from 'wizard/lib/ajax';
 
 export default Ember.Component.extend({
-  inputFields: ['neighbourhood', 'countrycode'],
   includeGeoLocation: true,
   showType: true,
   layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
@@ -29,12 +28,18 @@ export default Ember.Component.extend({
     Ember.run.later(this, () => this.handleValidation());
   },
 
+  @computed()
+  inputFields() {
+    return Wizard.SiteSettings.location_input_fields.split('|');
+  },
+
   handleValidation() {
     const inputFields = this.get('inputFields');
+    const inputFieldsEnabled = Wizard.SiteSettings.location_input_fields_enabled;
     const includeGeoLocation = this.get('includeGeoLocation');
     let location = {};
 
-    if (inputFields) {
+    if (inputFieldsEnabled) {
       let validationType = null;
       inputFields.some((field) => {
         const input = this.get(field);

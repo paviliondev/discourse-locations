@@ -1,10 +1,13 @@
-import TextField from 'discourse/components/text-field';
 import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/location-utilities';
-import { findRawTemplate } from 'discourse/lib/raw-templates';
 import { getOwner } from 'discourse-common/lib/get-owner';
+import { compile } from 'discourse-common/lib/raw-handlebars';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
-export default TextField.extend({
+// raw template necessary for wizard support
+
+const autocompleteTemplate = "<div class='autocomplete'><ul>{{#each options as |o|}}{{#if o.no_results}}<div class='no-results'>{{i18n 'location.geo.no_results'}}</div>{{else}}{{#if o.provider}} <label>{{{i18n 'location.geo.desc' provider=o.provider}}}</label> {{else}} <li class='ac-form-result'><label>{{geo-location-format o geoAttrs=o.geoAttrs}}</label> {{#if o.showType}} {{#if o.type}} <div class='ac-type'> {{o.type}} </div> {{/if}} {{/if}} </li> {{/if}} {{/if}} {{/each}} </ul></div>";
+
+export default Ember.TextField.extend({
   autocorrect: false,
   autocapitalize: false,
   classNames: 'location-selector',
@@ -28,7 +31,7 @@ export default TextField.extend({
     }
 
     this.$().val(val).autocomplete({
-      template: findRawTemplate('location-autocomplete'),
+      template: compile(autocompleteTemplate),
       single: true,
       updateData: false,
 
@@ -96,11 +99,11 @@ export default TextField.extend({
   showLoadingSpinner() {
     const loading = this.get('loading');
     const $wrap = this.$().parent();
-    const $spinner = $("<span class='loading-locations'><div class='spinner small'/></span>");
+    const $spinner = $("<span class='ac-loading'><div class='spinner small'/></span>");
     if (loading) {
       $spinner.prependTo($wrap);
     } else {
-      $('.loading-locations').remove();
+      $('.ac-loading').remove();
     }
   },
 
