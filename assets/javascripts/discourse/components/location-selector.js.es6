@@ -1,6 +1,5 @@
 import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/location-utilities';
 import { getOwner } from 'discourse-common/lib/get-owner';
-import RawHandlebars from 'discourse-common/lib/raw-handlebars';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
 // raw template necessary for wizard support
@@ -30,8 +29,10 @@ export default Ember.TextField.extend({
       val = location;
     }
 
+    const compile = requirejs('discourse-common/lib/raw-handlebars').compile;
+
     this.$().val(val).autocomplete({
-      template: RawHandlebars.compile(autocompleteTemplate),
+      template: compile(autocompleteTemplate),
       single: true,
       updateData: false,
 
