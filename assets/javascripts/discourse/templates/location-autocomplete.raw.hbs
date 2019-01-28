@@ -1,0 +1,24 @@
+<div class='autocomplete'>
+  <ul>
+    {{#each options as |o|}}
+      {{#if o.no_results}}
+        <div class="no-results">{{i18n 'location.geo.no_results'}}</div>
+      {{else}}
+        {{#if o.provider}}
+          <label>{{{i18n 'location.geo.desc' provider=o.provider}}}</label>
+        {{else}}
+          <li class="location-form-result">
+            <label>{{geo-location-format o geoAttrs=o.geoAttrs}}</label>
+            {{#if o.showType}}
+              {{#if o.type}}
+                <div class="location-type">
+                  {{o.type}}
+                </div>
+              {{/if}}
+            {{/if}}
+          </li>
+        {{/if}}
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>

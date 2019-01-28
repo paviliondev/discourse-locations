@@ -1,6 +1,5 @@
 import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/location-utilities';
 import { getOwner } from 'discourse-common/lib/get-owner';
-import RawHandlebars from 'discourse-common/lib/raw-handlebars';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
 // raw template necessary for wizard support
@@ -14,10 +13,14 @@ export default Ember.TextField.extend({
   context: null,
 
   @computed()
-  settings() {
+  isWizard() {
     const rootElement = getOwner(this).get('rootElement');
-    const wizard = rootElement === '#custom-wizard-main';
-    return wizard ? Wizard.SiteSettings : Discourse.SiteSettings;
+    return rootElement === '#custom-wizard-main';
+  },
+
+  @computed('isWizard')
+  settings(isWizard) {
+    return isWizard ? Wizard.SiteSettings : Discourse.SiteSettings;
   },
 
   didInsertElement() {
@@ -30,8 +33,20 @@ export default Ember.TextField.extend({
       val = location;
     }
 
+    const isWizard = this.get('isWizard');
+    let template;
+
+    // See further https://meta.discourse.org/t/discourse-common-asset-availability-difference-between-development-and-production/107490
+    if (isWizard) {
+      const compile = requirejs('discourse-common/lib/raw-handlebars').compile;
+      template = compile(autocompleteTemplate);
+    } else {
+      const findRawTemplate = requirejs('discourse/lib/raw-templates').findRawTemplate;
+      template = findRawTemplate('location-autocomplete');
+    }
+
     this.$().val(val).autocomplete({
-      template: RawHandlebars.compile(autocompleteTemplate),
+      template,
       single: true,
       updateData: false,
 
