@@ -2,10 +2,6 @@ import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/lo
 import { getOwner } from 'discourse-common/lib/get-owner';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
-// raw template necessary for wizard support
-
-const autocompleteTemplate = "<div class='autocomplete'><ul>{{#each options as |o|}}{{#if o.no_results}}<div class='no-results'>{{i18n 'location.geo.no_results'}}</div>{{else}}{{#if o.provider}} <label>{{{i18n 'location.geo.desc' provider=o.provider}}}</label> {{else}} <li class='ac-form-result'><label>{{geo-location-format o geoAttrs=o.geoAttrs}}</label> {{#if o.showType}} {{#if o.type}} <div class='ac-type'> {{o.type}} </div> {{/if}} {{/if}} </li> {{/if}} {{/if}} {{/each}} </ul></div>";
-
 export default Ember.TextField.extend({
   autocorrect: false,
   autocapitalize: false,
@@ -13,14 +9,14 @@ export default Ember.TextField.extend({
   context: null,
 
   @computed()
-  isWizard() {
+  global() {
     const rootElement = getOwner(this).get('rootElement');
-    return rootElement === '#custom-wizard-main';
+    return rootElement === '#custom-wizard-main' ? Wizard : Discourse;
   },
 
-  @computed('isWizard')
-  settings(isWizard) {
-    return isWizard ? Wizard.SiteSettings : Discourse.SiteSettings;
+  @computed('global')
+  settings(global) {
+    return global.SiteSettings;
   },
 
   didInsertElement() {
@@ -33,17 +29,8 @@ export default Ember.TextField.extend({
       val = location;
     }
 
-    const isWizard = this.get('isWizard');
-    let template;
-
-    // See further https://meta.discourse.org/t/discourse-common-asset-availability-difference-between-development-and-production/107490
-    if (isWizard) {
-      const compile = requirejs('discourse-common/lib/raw-handlebars').compile;
-      template = compile(autocompleteTemplate);
-    } else {
-      const findRawTemplate = requirejs('discourse/lib/raw-templates').findRawTemplate;
-      template = findRawTemplate('location-autocomplete');
-    }
+    const global = this.get('global');
+    let template = global.RAW_TEMPLATES['javascripts/location-autocomplete'];
 
     this.$().val(val).autocomplete({
       template,
