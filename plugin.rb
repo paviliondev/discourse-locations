@@ -225,7 +225,7 @@ end
 
 DiscourseEvent.on(:custom_wizard_ready) do
   if defined?(CustomWizard) == 'constant' && CustomWizard.class == Module
-    CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets'])
+    CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets', 'templates'])
 
     ## user.geo_location requires location['geo_location'] to be the value
     CustomWizard::Builder.add_field_validator('location') do |field, updater, step_template|

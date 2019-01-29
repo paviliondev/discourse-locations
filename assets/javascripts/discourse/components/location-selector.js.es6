@@ -1,20 +1,22 @@
-import TextField from 'discourse/components/text-field';
 import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/location-utilities';
-import { findRawTemplate } from 'discourse/lib/raw-templates';
 import { getOwner } from 'discourse-common/lib/get-owner';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
-export default TextField.extend({
+export default Ember.TextField.extend({
   autocorrect: false,
   autocapitalize: false,
   classNames: 'location-selector',
   context: null,
 
   @computed()
-  settings() {
+  global() {
     const rootElement = getOwner(this).get('rootElement');
-    const wizard = rootElement === '#custom-wizard-main';
-    return wizard ? Wizard.SiteSettings : Discourse.SiteSettings;
+    return rootElement === '#custom-wizard-main' ? Wizard : Discourse;
+  },
+
+  @computed('global')
+  settings(global) {
+    return global.SiteSettings;
   },
 
   didInsertElement() {
@@ -27,8 +29,11 @@ export default TextField.extend({
       val = location;
     }
 
+    const global = this.get('global');
+    let template = global.RAW_TEMPLATES['javascripts/location-autocomplete'];
+
     this.$().val(val).autocomplete({
-      template: findRawTemplate('location-autocomplete'),
+      template,
       single: true,
       updateData: false,
 
@@ -96,11 +101,11 @@ export default TextField.extend({
   showLoadingSpinner() {
     const loading = this.get('loading');
     const $wrap = this.$().parent();
-    const $spinner = $("<span class='loading-locations'><div class='spinner small'/></span>");
+    const $spinner = $("<span class='ac-loading'><div class='spinner small'/></span>");
     if (loading) {
       $spinner.prependTo($wrap);
     } else {
-      $('.loading-locations').remove();
+      $('.ac-loading').remove();
     }
   },
 

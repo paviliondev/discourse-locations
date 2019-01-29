@@ -1,8 +1,7 @@
-import { on } from 'ember-addons/ember-computed-decorators';
+import { default as computed, on } from 'ember-addons/ember-computed-decorators';
 import { ajax } from 'wizard/lib/ajax';
 
 export default Ember.Component.extend({
-  inputFields: ['neighbourhood', 'countrycode'],
   includeGeoLocation: true,
   showType: true,
   layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
@@ -21,21 +20,47 @@ export default Ember.Component.extend({
       });
     });
 
-    if (existing['geo_location']) this.set('geoLocation', existing['geo_location']);
+    this.set('geoLocation', existing['geo_location'] || {});
+
     Ember.addObserver(this, 'geoLocation', this, () => {
       this.handleValidation();
     });
 
+    if (inputFields.indexOf('coordinates') > -1) {
+      Ember.addObserver(this, 'geoLocation.lat', this, () => {
+        this.handleValidation();
+      });
+      Ember.addObserver(this, 'geoLocation.lon', this, () => {
+        this.handleValidation();
+      });
+    }
+
     Ember.run.later(this, () => this.handleValidation());
+  },
+
+  @computed()
+  inputFields() {
+    return Wizard.SiteSettings.location_input_fields.split('|');
   },
 
   handleValidation() {
     const inputFields = this.get('inputFields');
+    const inputFieldsEnabled = Wizard.SiteSettings.location_input_fields_enabled;
     const includeGeoLocation = this.get('includeGeoLocation');
+    const geoLocation = this.get('geoLocation');
+
     let location = {};
 
-    if (inputFields) {
+    if (inputFieldsEnabled &&
+        inputFields.indexOf('coordinates') > -1 &&
+        (geoLocation.lat || geoLocation.lon)) {
+
+      return this.setValidation(geoLocation.lat && geoLocation.lon, 'coordinates');
+    }
+
+    if (inputFieldsEnabled) {
       let validationType = null;
+
       inputFields.some((field) => {
         const input = this.get(field);
         if (!input || input.length < 2) {
@@ -45,11 +70,11 @@ export default Ember.Component.extend({
           location[field] = input;
         };
       });
+
       if (validationType) return this.setValidation(false, validationType);
     }
 
     if (includeGeoLocation) {
-      const geoLocation = this.get('geoLocation');
       if (!geoLocation) return this.setValidation(false, 'geo_location');
       if (geoLocation) this.validateGeoLocation(geoLocation, location);
     } else {

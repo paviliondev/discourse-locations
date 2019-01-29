@@ -8,7 +8,14 @@
           <label>{{{i18n 'location.geo.desc' provider=o.provider}}}</label>
         {{else}}
           <li class="location-form-result">
-            {{raw 'geo-location-result' location=o geoAttrs=o.geoAttrs showType=o.showType}}
+            <label>{{geo-location-format o geoAttrs=o.geoAttrs}}</label>
+            {{#if o.showType}}
+              {{#if o.type}}
+                <div class="location-type">
+                  {{o.type}}
+                </div>
+              {{/if}}
+            {{/if}}
           </li>
         {{/if}}
       {{/if}}
