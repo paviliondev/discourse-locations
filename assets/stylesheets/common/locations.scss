@@ -32,7 +32,27 @@
   }
 
   .coordinates {
-    min-width: 250px;
+    .control-group {
+      display: block;
+
+      .controls {
+        display: flex;
+        width: 100%;
+
+        input {
+          width: 100px;
+        }
+      }
+
+      .icon {
+        margin-left: 10px;
+        display: inline-block;
+      }
+    }
+
+    .icon img {
+      max-width: 30px;
+    }
   }
 
   .address + .coordinates {
@@ -102,7 +122,7 @@ input.input-location, div.input-location {
   .ac-wrap {
     box-sizing: border-box;
 
-    .loading-locations {
+    .ac-loading {
       position: absolute;
       top: 7px;
       right: 5px;
