@@ -57,10 +57,16 @@ after_initialize do
     prepend LocationsSiteSettingExtension
   end
 
+  [
+    "location",
+    "location_enabled",
+    "location_topic_status",
+    "location_map_filter_closed"
+  ].each do |key|
+    Site.preloaded_category_custom_fields << key if Site.respond_to? :preloaded_category_custom_fields
+    add_to_serializer(:basic_category, key.to_sym) { object.custom_fields[key] } unless key == "location"
+  end
   add_to_serializer(:basic_category, :location) { object.location }
-  add_to_serializer(:basic_category, :location_enabled) { object.custom_fields['location_enabled'] }
-  add_to_serializer(:basic_category, :location_topic_status) { object.custom_fields['location_topic_status'] }
-  add_to_serializer(:basic_category, :location_map_filter_closed) { object.custom_fields['location_map_filter_closed'] }
 
   Topic.register_custom_field_type('location', :json)
   Topic.register_custom_field_type('has_geo_location', :boolean)
