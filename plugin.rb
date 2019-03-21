@@ -37,7 +37,11 @@ after_initialize do
   add_to_class(:category, :location) do
     if self.custom_fields['location'] &&
        self.custom_fields['location'].is_a?(String)
-      JSON.parse(self.custom_fields['location'])
+       begin
+         JSON.parse(self.custom_fields['location'])
+       rescue JSON::ParserError => e
+         puts e.message
+       end
     else
       nil
     end
