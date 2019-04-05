@@ -35,13 +35,18 @@ after_initialize do
   Category.register_custom_field_type('location_map_filter_closed', :boolean)
 
   add_to_class(:category, :location) do
-    if self.custom_fields['location'] &&
-       self.custom_fields['location'].is_a?(String)
-       begin
-         JSON.parse(self.custom_fields['location'])
-       rescue JSON::ParserError => e
-         puts e.message
-       end
+    if self.custom_fields['location']
+      if self.custom_fields['location'].is_a?(String)
+        begin
+          JSON.parse(self.custom_fields['location'])
+        rescue JSON::ParserError => e
+          puts e.message
+        end
+      elsif self.custom_fields['location'].is_a?(Hash)
+        self.custom_fields['location']
+      else
+        nil
+      end
     else
       nil
     end
