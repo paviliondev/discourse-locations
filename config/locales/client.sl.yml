@@ -1,0 +1,80 @@
+sl:
+  js:
+    category:
+      location_enabled: "Dovoli dodajanje lokacije na teme v tej kategoriji"
+      location_topic_status: "Omogoči ikone lokacije na seznamu tem v tej kategoriji."
+      location_map_filter_closed: "Ne prikaži zaprtih tem na zemljevidu v tej kategoriji."
+    composer:
+      location:
+        btn: "Dodaj lokacijo"
+        title: "Dodaj lokacijo"
+    location:
+      address: "Naslov"
+      name:
+        title: "Opis (neobvezno)"
+        desc: "npr. J. Novak mehanik"
+      street:
+        title: "Ulica in številka"
+        desc: "npr. Ukmarjev trg 2"
+      postalcode:
+        title: "Poštna številka"
+        desc: "npr. 6310"
+      neighbourhood:
+        title: "Soseska"
+        desc: "npr. Bežigrad"
+      city:
+        title: "Mesto"
+        desc: "npr. Izola"
+      state:
+        title: "Dežela ali pokrajina"
+        desc: "npr. Primorska"
+      country_code:
+        title: "Država"
+        placeholder: "Izberite državo"
+      coordinates: "Koordinate"
+      lat:
+        title: "Z. širina"
+        desc: "npr. -31.9456702"
+      lon:
+        title: "Z. dolžina"
+        desc: "npr. 115.8626477"
+      query:
+        title: "Naslov"
+        desc: "npr. Ukmarjev trg 2, Koper"
+      geo:
+        desc: "Lokacije zagotavlja {{provider}}"
+        btn:
+          label: "Poišči naslov"
+        results: "Naslovi"
+        no_results: "Ni zadetkov."
+        show_map: "Pokaži zemljevid"
+      label:
+        add: "Dodaj lokacijo"
+        title: "Pokaži podrobnosti lokacije"
+      clear: "počisti"
+      done: "Shrani"
+      errors:
+        search: "Prišlo je do napake pri iskanju naslova. Počakajte 5 minut in poskusite ponovno."
+
+    filters:
+      map:
+        title: "Zemljevid"
+        help: "Označi teme z lokacijami v tej kategoriji na zemljevidu."
+    map:
+      search_placeholder: "Išči"
+
+    topic_statuses:
+      location:
+        help: "Ta tema ima lokacijo."
+
+    user:
+      map_location:
+        title: "Lokacija na zemljevidu"
+        warning: "Vaša lokacija bo prikazana javno."
+
+    directory:
+      map:
+        title: "Zemljevid uporabnikov"
+
+      list:
+        title: "Seznam uporabnikov"
