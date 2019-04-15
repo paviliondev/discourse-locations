@@ -1,0 +1,47 @@
+en:
+  site_settings:
+    location_hamburger_menu_map_link: "Enable map menu item in hamburger menu"
+    location_input_fields: "Location input fields"
+    location_input_fields_enabled: "Enable location input fields"
+    location_geocoding: "Whether locations should be geocoded (mapped). If off, locations are stored as strings."
+    location_geocoding_api_key: "Geocoding API key"
+    location_geocoding_provider: |
+      Geocoding provider (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>provider details</a>).
+      If the provider requires an api key enter it below before selecting the provider.
+    location_geocoding_timeout: "Geocoding timeout"
+    location_geocoding_rate_limit: "Geocoding rate limit; requests per minute."
+    location_geocoding_debounce: "Geocoding debouce (milleseconds)"
+    location_map_tile_layer: "Map tile layer uri (<a href='https://leaflet-extras.github.io/leaflet-providers/preview/'>examples</a>)."
+    location_map_tile_layer_subdomains: "Map tile layer subdomains"
+    location_map_attribution: "Map attribution"
+    location_category_map_filter: "Add map filter to categories in which locations are enabled."
+    location_topic_map: "Show a button to toggle a mini map of location next to topic location labels"
+    location_topic_status_icon: "Enable location topic status icons in all topic lists."
+    location_map_filter_closed: "Filter closed topics from all map topic lists."
+    location_map_marker_zoom: "Default zoom level for map markers."
+    location_map_marker_cluster_multiplier: "Marker cluster distance multiplier."
+    location_map_marker_category_color: "Set marker color as the category color of the marker topic."
+    location_map_maker_cluster_enabled: "Enable marker clustering"
+    location_map_zoom: "Default zoom level for maps."
+    location_map_expanded_zoom: "Default zoom level for expanded maps."
+    location_map_center_lat: "Default center latitude for maps."
+    location_map_center_lon: "Default center longitude for maps."
+    location_map_max_topics: "Maximum number of topics shown on map topics lists."
+    location_layouts_map_search_enabled: "Enable search in the layouts-map widget (requires Layouts Plugin)."
+    location_layouts_map_show_avatar: "Enable user avatar in the layouts-map-widget (requires Layouts Plugin)."
+    location_users_map: "Allow users to add a geocoded location which is displayed on a map in the Users section."
+    location_users_map_limit: "Maximum number of users to show on the users map at one time."
+    location_users_map_default: "Default to users map when navigating to 'Users'."
+    location_add_no_text: "No text on add location buttons."
+    location_country_default: "Default country for country input field."
+
+  location:
+    errors:
+      invalid: "Neustrezna lokacija"
+      socket: "Vaša zahteva ni uspela. Preverite vašo povezavo. Če se napaka ponovi, kontaktirajte administratorja strani."
+      timeout: "Časovna omejitev vaše zahteve je potekla. Počakajte 5 minut in poskusite ponovno. Če se napaka ponovi, kontaktirajte administratorja strani"
+      request_denied: "Vaša zahteva je bila zavrnjena. Če se napaka ponovi, kontaktirajte administratorja strani."
+      request_invalid: "Vaša zahteva je bila neveljavna. Če se napaka ponovi, kontaktirajte administratorja strani."
+      query_limit: "Dosežena omejitev zahtev na Geocoding ponudniku. Kontaktirajte administratorja strani."
+      api_key: "Napačen api key za Geocoding ponudnika. Kontaktirajte administratorja strani."
+      service_unavailable: "Geocoding ponudnik ni na voljo. Kontaktirajte administratorja strani."
