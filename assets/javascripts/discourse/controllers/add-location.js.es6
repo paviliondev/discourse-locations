@@ -49,7 +49,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
       city: null,
       state: null,
       countrycode: null,
-      geoLocation: null,
+      geoLocation: { lat: '', lon: '' },
       rawLocation: null,
     });
     $('.location-form .ac-wrap .item a.remove').click();
