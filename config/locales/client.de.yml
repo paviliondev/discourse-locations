@@ -1,0 +1,80 @@
+en:
+  js:
+    category:
+      location_enabled: "Zulassen, dass Standorte zu Themen in dieser Kategorie hinzugefügt werden"
+      location_topic_status: "Aktivieren Sie die Symbole für den Status von Standortthemen für Themenlisten in dieser Kategorie."
+      location_map_filter_closed: "Filtern Sie geschlossene Themen aus der Map-Themenliste in dieser Kategorie."
+    composer:
+      location:
+        btn: "Ort hinzufügen"
+        title: "Füge einen Ort hinzu"
+    location:
+      address: "Adresse"
+      name:
+        title: "Name (Optional)"
+        desc: "z.B. Club Muster"
+      street:
+        title: "Strasse und Hausnummer"
+        desc: "z. B. Musterstrasse 10"
+      postalcode:
+        title: "Postleitzahl"
+        desc: "z.B. 8000"
+      neighbourhood:
+        title: "Nachbarschaft"
+        desc: "z.B. Muster Mustermann"
+      city:
+        title: "Stadt oder Dorf"
+        desc: "z.B. Muster"
+      state:
+        title: "Staat oder Provinz"
+        desc: "z.B. Muster"
+      country_code:
+        title: "Land"
+        placeholder: "Wähle ein Land"
+      coordinates: "Koordinaten"
+      lat:
+        title: "Breite"
+        desc: "z.B. -31.9456702"
+      lon:
+        title: "Längengrad"
+        desc: "z.B. 115.8626477"
+      query:
+        title: "Adresse"
+        desc: "z.B. e.g. Musterstrasse 10, Muster."
+      geo:
+        desc: "Ortsangabe bereitgestellt von {{provider}}"
+        btn:
+          label: "Finde die Adresse"
+        results: "Adressen"
+        no_results: "Keine Ergebnisse."
+        show_map: "Karte anzeigen"
+      label:
+        add: "Füge einen Ort hinzu"
+        title: "Standortdetails anzeigen"
+      clear: "Löschen"
+      done: "Speichern"
+      errors:
+        search: "Bei der Suche ist ein Problem aufgetreten. Bitte warten Sie 5 Sekunden und versuchen Sie es erneut."
+
+    filters:
+      map:
+        title: "Karte"
+        help: "Markieren Sie Themen mit Positionen in dieser Kategorie auf einer Karte."
+    map:
+      search_placeholder: "Suchen"
+
+    topic_statuses:
+      location:
+        help: "Dieses Thema hat eine Ortsangabe."
+
+    user:
+      map_location:
+        title: "Ortsangabe"
+        warning: Ihr Standort wird öffentlich angezeigt.
+
+    directory:
+      map:
+        title: "Benutzer Ortsangabe"
+
+      list:
+        title: "Benutzerliste"
