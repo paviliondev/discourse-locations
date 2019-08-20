@@ -6,10 +6,22 @@ import NavItem from 'discourse/models/nav-item';
 import EditCategorySettings from 'discourse/components/edit-category-settings';
 import TopicStatus from 'discourse/raw-views/topic-status';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import { withPluginApi } from 'discourse/lib/plugin-api';
+import { geoLocationFormat } from '../lib/location-utilities';
 
 export default {
   name: 'location-edits',
   initialize(container) {
+    const currentUser = container.lookup('current-user:main');
+    const siteSettings = container.lookup('site-settings:main');
+
+    withPluginApi('0.8.23', api => {
+      api.decorateWidget('post-body:after-meta-data', (helper) => {
+        if (siteSettings.location_user_post && currentUser.custom_fields.geo_location) {
+          return helper.h('div.user-location', geoLocationFormat(currentUser.custom_fields.geo_location));
+        }
+      });
+    });
 
     TopicStatus.reopen({
       @computed
