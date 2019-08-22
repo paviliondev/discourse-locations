@@ -156,6 +156,10 @@ input.input-location, div.input-location {
   display: inline-block;
 }
 
+.composer-controls-location {
+  margin: 0 0 5px 5px;
+}
+
 .add-location-btn, .add-location-btn + button {
   border: 1px solid $primary-medium;
 }
