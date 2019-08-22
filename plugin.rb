@@ -91,7 +91,7 @@ after_initialize do
   User.register_custom_field_type('geo_location', :json)
   register_editable_user_custom_field :geo_location if defined? register_editable_user_custom_field
   register_editable_user_custom_field geo_location: {} if defined? register_editable_user_custom_field
-  add_to_serializer(:user, :geo_location) { object.custom_fields['geo_location'] }
+  add_to_serializer(:user, :geo_location, false) { object.custom_fields['geo_location'] }
 
   require_dependency 'directory_item_serializer'
   class ::DirectoryItemSerializer::UserSerializer
@@ -197,7 +197,7 @@ after_initialize do
     @country_codes ||= Locations::Country.codes
   end
 
-  add_to_serializer(:site, :country_codes) { object.country_codes }
+  add_to_serializer(:site, :country_codes, false) { object.country_codes }
 
   require_dependency 'topic_query'
   class ::TopicQuery
