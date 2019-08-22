@@ -15,7 +15,7 @@ export default createWidget('layouts-map', {
     let filter = 'map';
 
     const category = this.attrs.category;
-    if (category && category.get('location_enabled')) {
+    if (category && category.get('custom_fields.location_enabled')) {
       filter = 'c/' + Category.slugFor(category) + '/l/map';
     }
 

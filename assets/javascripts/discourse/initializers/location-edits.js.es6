@@ -31,7 +31,7 @@ export default {
         let results = this._super(...arguments);
 
         if ((Discourse.SiteSettings.location_topic_status_icon ||
-            (category && category.get('location_topic_status'))) &&
+            (category && category.get('custom_fields.location_topic_status'))) &&
             topic.get('location')) {
           const url = topic.get('url');
           results.push({
@@ -54,7 +54,7 @@ export default {
         if (force) return true;
         if (categoryId) {
           const category = this.site.categories.findBy('id', categoryId);
-          if (category.location_enabled) return true;
+          if (category.custom_fields.location_enabled) return true;
         }
         return false;
       },
@@ -94,7 +94,7 @@ export default {
 
     const subtypeShowLocation = ['event', 'question', 'general'];
     Topic.reopen({
-      @computed('subtype', 'category.location_enabled')
+      @computed('subtype', 'category.custom_fields.location_enabled')
       showLocationControls(subtype, categoryEnabled) {
         return subtypeShowLocation.indexOf(subtype) > -1 || categoryEnabled;
       }
@@ -114,7 +114,7 @@ export default {
 
         if (category) {
           items = items.reject((item) => item.name === 'map' ); // Don't show Site Level "/map"
-          if ( category.location_enabled && Discourse.SiteSettings.location_category_map_filter) {
+          if ( category.custom_fields.location_enabled && Discourse.SiteSettings.location_category_map_filter) {
             items.push(Discourse.NavItem.fromText('map', args)); // Show category level "/map" instead
           }
         }
@@ -128,7 +128,7 @@ export default {
       availableViews(category) {
         let views = this._super(...arguments);
 
-        if (category.get('location_enabled') && Discourse.SiteSettings.location_category_map_filter) {
+        if (category.get('custom_fields.location_enabled') && Discourse.SiteSettings.location_category_map_filter) {
           views.push(
             {name: I18n.t('filters.map.title'), value: 'map'}
           );
