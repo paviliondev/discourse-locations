@@ -1,6 +1,7 @@
 en:
   js:
     category:
+      location_settings_label: "Locations"
       location_enabled: "Allow locations to be added to topics in this category"
       location_topic_status: "Enable location topic status icons for topic lists in this category."
       location_map_filter_closed: "Filter closed topics from the map topic list in this category."
