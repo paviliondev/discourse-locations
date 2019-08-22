@@ -81,11 +81,11 @@ after_initialize do
   Topic.register_custom_field_type('has_geo_location', :boolean)
   add_to_class(:topic, :location) { self.custom_fields['location'] }
 
-  add_to_serializer(:topic_view, :location) { object.topic.location }
+  add_to_serializer(:topic_view, :location, false) { object.topic.location }
   add_to_serializer(:topic_view, :include_location?) { object.topic.location.present? }
 
   TopicList.preloaded_custom_fields << 'location' if TopicList.respond_to? :preloaded_custom_fields
-  add_to_serializer(:topic_list_item, :location) { object.location }
+  add_to_serializer(:topic_list_item, :location, false) { object.location }
   add_to_serializer(:topic_list_item, :include_location?) { object.location.present? }
 
   User.register_custom_field_type('geo_location', :json)
