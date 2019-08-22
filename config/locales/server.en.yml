@@ -1,5 +1,6 @@
 en:
   site_settings:
+    location_enabled: "Enable the locations plugin."
     location_hamburger_menu_map_link: "Enable map menu item in hamburger menu"
     location_input_fields: "Location input fields"
     location_input_fields_enabled: "Enable location input fields"

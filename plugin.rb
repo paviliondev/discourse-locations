@@ -4,6 +4,8 @@
 # authors: Angus McLeod
 # url: https://github.com/angusmcleod/discourse-locations
 
+enabled_site_setting :location_enabled
+
 register_asset 'stylesheets/common/locations.scss'
 register_asset 'stylesheets/desktop/locations.scss', :desktop
 register_asset 'stylesheets/mobile/locations.scss', :mobile
