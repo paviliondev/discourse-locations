@@ -75,11 +75,13 @@ export default {
         this.set('location', null);
       },
 
-      @on('init')
+      @observes('draftKey')
       _setupDefaultLocation() {
-        const topicDefaultLocation = siteSettings.location_topic_default;
-        if (topicDefaultLocation === 'user' && currentUser.custom_fields.geo_location) {
-          this.set('location', { geo_location: currentUser.custom_fields.geo_location });
+        if (this.draftKey === 'new_topic') {
+          const topicDefaultLocation = siteSettings.location_topic_default;
+          if (topicDefaultLocation === 'user' && currentUser.custom_fields.geo_location) {
+            this.set('location', { geo_location: currentUser.custom_fields.geo_location });
+          }
         }
       }
     });
