@@ -1,7 +1,7 @@
 plugins:
   location_enabled:
     client: true
-    default: false
+    default: true
   location_hamburger_menu_map_link:
     client: true
     default: false
