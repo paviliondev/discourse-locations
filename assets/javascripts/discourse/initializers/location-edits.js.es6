@@ -5,7 +5,7 @@ import TopicController from 'discourse/controllers/topic';
 import NavItem from 'discourse/models/nav-item';
 import EditCategorySettings from 'discourse/components/edit-category-settings';
 import TopicStatus from 'discourse/raw-views/topic-status';
-import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import { default as computed, observes, on } from 'ember-addons/ember-computed-decorators';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import { geoLocationFormat } from '../lib/location-utilities';
 
@@ -17,8 +17,19 @@ export default {
 
     withPluginApi('0.8.23', api => {
       api.decorateWidget('post-body:after-meta-data', (helper) => {
-        if (siteSettings.location_user_post && currentUser.custom_fields.geo_location) {
-          return helper.h('div.user-location', geoLocationFormat(currentUser.custom_fields.geo_location));
+        const model = helper.getModel();
+
+        if (siteSettings.location_user_post &&
+            currentUser.custom_fields.geo_location &&
+            currentUser.id === model.user_id) {
+          let format = siteSettings.location_user_post_format.split('|');
+          let opts = {};
+          if (format.length) {
+            opts['geoAttrs'] = format;
+          }
+          return helper.h('div.user-location',
+            geoLocationFormat(currentUser.custom_fields.geo_location, opts)
+          );
         }
       });
     });
@@ -62,6 +73,14 @@ export default {
       clearState() {
         this._super(...arguments);
         this.set('location', null);
+      },
+
+      @on('init')
+      _setupDefaultLocation() {
+        const topicDefaultLocation = siteSettings.location_topic_default;
+        if (topicDefaultLocation === 'user' && currentUser.custom_fields.geo_location) {
+          this.set('location', { geo_location: currentUser.custom_fields.geo_location });
+        }
       }
     });
 

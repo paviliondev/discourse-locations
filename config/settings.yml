@@ -111,6 +111,10 @@ plugins:
   location_user_post:
     default: false
     client: true
+  location_user_post_format:
+    type: list
+    default: ''
+    client: true
   location_add_no_text:
     default: false
     client: true
@@ -118,3 +122,10 @@ plugins:
     default: ''
     client: true
     enum: 'LocationCountryDefaultSiteSetting'
+  location_topic_default:
+    type: enum
+    default: 'none'
+    client: true
+    choices:
+      - none
+      - user

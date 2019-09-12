@@ -36,6 +36,8 @@ en:
     location_add_no_text: "No text on add location buttons."
     location_country_default: "Default country for country input field."
     location_user_post: "Display a user's location below their username on their posts."
+    location_user_post_format: "Format of location on user's post. A list of geolocation attributes, with an optional index if value is split by ',' e.g. address:3"
+    location_topic_default: "Default location for topic."
 
   location:
     errors:

@@ -41,15 +41,25 @@ let geoLocationSearch = (request) => {
 let formatLocation = function(location, attrs = []) {
   let result = '';
 
-  attrs.forEach(function(p, i) {
-    if (location[p]) {
-      let part = location[p];
+  attrs.forEach(function(a, i) {
+    let attr = a.split(/:(.+)/).filter(at => at !== '');
+    let key = attr[0];
+    let value = location[key];
+    let index = attr.length > 1 ? attr[1] : null;
 
-      if (p === 'countrycode') {
+    if (value) {
+      let part = value;
+
+      if (key === 'countrycode') {
         const countryCodes = Discourse.Site.currentProp('country_codes');
-        let country = countryCodes.find(c => c.code === part);
+        let country = countryCodes.find(c => c.code === value);
 
         if (country) part = country.name;
+      }
+
+      if (index) {
+        let formatArr = part.split(',');
+        part = formatArr[index];
       }
 
       result += part;
@@ -66,6 +76,8 @@ let formatLocation = function(location, attrs = []) {
 let geoLocationFormat = function(geoLocation, opts = {}) {
   if (!geoLocation) return;
   let result;
+  
+  console.log('opts: ', opts);
 
   if (opts.geoAttrs && opts.geoAttrs.length > 0) {
     result = formatLocation(geoLocation, opts.geoAttrs);
