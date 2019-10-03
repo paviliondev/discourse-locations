@@ -1,4 +1,4 @@
-class Locations::GeoLocationSerializer < ApplicationSerializer
+class Locations::GeoLocationSerializer < ::ApplicationSerializer
   attributes :lat,
              :lon,
              :address,
