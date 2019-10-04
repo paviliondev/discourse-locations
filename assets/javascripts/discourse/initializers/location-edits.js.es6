@@ -20,6 +20,7 @@ export default {
         const model = helper.getModel();
 
         if (siteSettings.location_user_post &&
+            currentUser &&
             currentUser.custom_fields.geo_location &&
             currentUser.id === model.user_id) {
           let format = siteSettings.location_user_post_format.split('|');
