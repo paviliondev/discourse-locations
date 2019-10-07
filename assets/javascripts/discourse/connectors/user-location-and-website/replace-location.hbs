@@ -1,3 +1,6 @@
 {{#if showUserLocation}}
-  <span class='map-location'>{{d-icon "map-marker"}} <span>{{model.custom_fields.geo_location.address}}</span></span>
+  <div class='map-location'>
+    {{d-icon "map-marker"}}
+    <span>{{model.custom_fields.geo_location.address}}</span>
+  </div>
 {{/if}}

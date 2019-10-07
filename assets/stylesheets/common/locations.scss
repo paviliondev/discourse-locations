@@ -661,6 +661,12 @@ input.input-location, div.input-location {
   }
 }
 
+.user-main .location-and-website.map-location-enabled {
+  .user-profile-location {
+    display: none;
+  }
+}
+
 .map-location {
   margin-right: 7px;
 }
