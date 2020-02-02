@@ -55,14 +55,17 @@
         <div class='control-group'>
           <label class="control-label">{{i18n 'location.country_code.title'}}</label>
           <div class="controls">
-            {{combo-box valueAttribute="code"
-                        nameProperty="name"
-                        content=countrycodes
-                        value=countrycode
-                        none="location.country_code.placeholder"
-                        class="input-location"
-                        filterable=true
-                        isDisabled=countryDisabled}}
+            {{combo-box
+              valueProperty="code"
+              nameProperty="name"
+              content=countrycodes
+              value=countrycode
+              class="input-location"
+              filterable=true
+              isDisabled=countryDisabled
+              options=(hash
+                none="location.country_code.placeholder"
+              )}}
           </div>
         </div>
       {{/if}}
