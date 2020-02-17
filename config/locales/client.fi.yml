@@ -1,0 +1,81 @@
+fi:
+  js:
+    category:
+      location_settings_label: "Sijainnit"
+      location_enabled: "Salli sijaintien lisääminen tämän alueen ketjuihin."
+      location_topic_status: "Ota käyttöön sijaintien ikonit ketjulistauksessa tällä alueella."
+      location_map_filter_closed: "Älä näytä suljettuja ketjuja kartalla tällä alueella."
+    composer:
+      location:
+        btn: "Lisää sijainti"
+        title: "Lisää sijainti"
+    location:
+      address: "Osoite"
+      name:
+        title: "Nimi (valinnainen)"
+        desc: "esim. Rautatientori"
+      street:
+        title: "Katuosoite"
+        desc: "esim. Kaivokatu 1"
+      postalcode:
+        title: "Postinumero"
+        desc: "esim. 00100"
+      neighbourhood:
+        title: "Kaupunginosa"
+        desc: "esim. Käpylä"
+      city:
+        title: "Kaupunki"
+        desc: "esim. Helsinki"
+      state:
+        title: "Kunta tia maakunta"
+        desc: "esim. Uusimaa"
+      country_code:
+        title: "Maa"
+        placeholder: "Valitse maa..."
+      coordinates: "Koordinaatit"
+      lat:
+        title: "Leveysaste (latitudi)"
+        desc: "esim. -31.9456702"
+      lon:
+        title: "Pituusaste (longitudi)"
+        desc: "esim. 115.8626477"
+      query:
+        title: "Osoite"
+        desc: "esim. Kaivokatu 1, Helsinki."
+      geo:
+        desc: "Sijainnit tarjoaa {{provider}}"
+        btn:
+          label: "Etsi osoite"
+        results: "Osoitteet"
+        no_results: "Ei tuloksia."
+        show_map: "Näytä kartta"
+      label:
+        add: "Lisää sijainti"
+        title: "Näytä tarkat sijaintitiedot"
+      clear: "Tyhjennä"
+      done: "Valmis"
+      errors:
+        search: "Sijaintitietoja haettaessa tapahtui virhe. Yritä uudelleen 5 sekunnin kuluttua."
+
+    filters:
+      map:
+        title: "Kartta"
+        help: "Merkitse tämän alueen ketjujen sijaintitiedot karttaan."
+    map:
+      search_placeholder: "Haku"
+
+    topic_statuses:
+      location:
+        help: "Tälle ketjulle on asetettu sijainti."
+
+    user:
+      map_location:
+        title: "Sijainti"
+        warning: "Sijaintisi näytetään julkisesti profiilissasi."
+
+    directory:
+      map:
+        title: "Kartta"
+
+      list:
+        title: "Käyttäjät"
