@@ -133,7 +133,7 @@ const buildMarker = function(rawMarker) {
       });
     }
 
-    if (rawMarker.options.title) {
+    if (rawMarker.options.title && !settings.location_hide_labels) {
       const title = emojiUnescape(rawMarker.options.title);
       let className = 'topic-title-map-tooltip';
 

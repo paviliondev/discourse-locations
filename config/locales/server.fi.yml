@@ -34,6 +34,7 @@ fi:
     location_user_avatar: "Näytä käyttäjän avatar karttamerkissä."
     location_users_map_limit: "Kartalla kerralla näkyvien käyttäjien maksimimäärä."
     location_users_map_default: "Näytä oletuksena kartta käyttäjät-sivulla."
+    location_hide_labels: "Piilota karttamerkkien opastetekstit."
     location_add_no_text: "Älä näytä tekstiä lisää sijainti -nappuloissa."
     location_country_default: "Oletusmaa, kun ketjulle valitaan sijaintia."
     location_user_post: "Näytä käyttäjän sijainti viesteissä käyttäjänimen alapuolella."
