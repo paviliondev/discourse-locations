@@ -103,6 +103,9 @@ plugins:
   location_users_map:
     default: false
     client: true
+  location_user_avatar:
+    default: false
+    client: true
   location_users_map_limit:
     default: 50
   location_users_map_default:

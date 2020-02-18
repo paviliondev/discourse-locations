@@ -31,6 +31,7 @@ en:
     location_layouts_map_search_enabled: "Enable search in the layouts-map widget (requires Layouts Plugin)."
     location_layouts_map_show_avatar: "Enable user avatar in the layouts-map-widget (requires Layouts Plugin)."
     location_users_map: "Allow users to add a geocoded location which is displayed on a map in the Users section."
+    location_user_avatar: "Show user avatar on location markers."
     location_users_map_limit: "Maximum number of users to show on the users map at one time."
     location_users_map_default: "Default to users map when navigating to 'Users'."
     location_add_no_text: "No text on add location buttons."

@@ -444,6 +444,13 @@ input.input-location, div.input-location {
         }
       }
     }
+    
+    .leaflet-marker-icon {
+      .avatar-marker .avatar {
+        background-color: $secondary;
+        border: none !important;
+      }
+    }
 
     .leaflet-tooltip {
       position: absolute;
@@ -451,6 +458,10 @@ input.input-location, div.input-location {
 
       &.custom {
         top: -15px;
+      }
+      
+      &.avatar-tip {
+        top: -42px;
       }
     }
   }

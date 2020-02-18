@@ -89,6 +89,37 @@ const buildMarker = function(rawMarker) {
       html: `<span style="${markerStyles}" class="${markerClass}" />`
     });
   }
+  
+  const avatarMarkerStyle = !!rawMarker.options.avatar && settings.location_user_avatar;
+  
+  if (avatarMarkerStyle) {
+    const userAvatar = rawMarker.options.avatar.replace('{size}','30');
+    
+    const markerStyles = `
+      background-color: dimgrey;
+      width: 30px;
+      height: 30px;
+      display: block;
+      left: -18px;
+      top: -0px;
+      position: relative;
+      border-radius: 50% 50% 0;
+      transform: rotate(45deg);
+      border: 3px solid dimgrey;
+      z-index: 100;`
+    
+    const avatarStyles = `
+      border-radius: 50%;
+      transform: rotate(-45deg);`
+    
+    rawMarker.options['icon'] = L.divIcon({
+      className: "",
+      iconAnchor: [0, 44],
+      labelAnchor: [-25, 0],
+      popupAnchor: [10, -36],
+      html: `<span style="${markerStyles}" class="avatar-marker"><img src="${userAvatar}" style="${avatarStyles}" class="avatar"></span>`
+    });
+  }
 
   const marker = L.marker({
     lat: rawMarker.lat,
@@ -107,6 +138,7 @@ const buildMarker = function(rawMarker) {
       let className = 'topic-title-map-tooltip';
 
       if (customMarkerStyle) className += ' custom';
+      if (avatarMarkerStyle) className += ' avatar-tip';
 
       marker.bindTooltip(title,
         {

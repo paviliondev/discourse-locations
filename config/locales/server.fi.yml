@@ -31,6 +31,7 @@ fi:
     location_layouts_map_search_enabled: "Ota käyttöön haku layouts-map-widgetissä (vaatii Layouts-lisäosan)."
     location_layouts_map_show_avatar: "Ota käyttöön avatarit layouts-map-widgetissä (vaatii Layouts-lisäosan)."
     location_users_map: "Salli käyttäjien lisätä profiiliinsa geokoodattu sijainti, joka näytetään kartalla käyttäjät-sivulla."
+    location_user_avatar: "Näytä käyttäjän avatar karttamerkissä."
     location_users_map_limit: "Kartalla kerralla näkyvien käyttäjien maksimimäärä."
     location_users_map_default: "Näytä oletuksena kartta käyttäjät-sivulla."
     location_add_no_text: "Älä näytä tekstiä lisää sijainti -nappuloissa."

@@ -110,6 +110,7 @@ export default createWidget('map', {
 
     location['marker'] = {
       title: user.username,
+      avatar: user.avatar_template,
       routeTo: "/u/" + user.username
     };
 
