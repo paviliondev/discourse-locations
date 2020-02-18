@@ -662,7 +662,8 @@ input.input-location, div.input-location {
 }
 
 .user-main .location-and-website.map-location-enabled {
-  .user-profile-location {
+  .user-profile-location,
+  .user-profile-website {
     display: none;
   }
 }
