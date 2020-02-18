@@ -37,6 +37,7 @@ fi:
     location_country_default: "Oletusmaa, kun ketjulle valitaan sijaintia."
     location_user_post: "Näytä käyttäjän sijainti viesteissä käyttäjänimen alapuolella."
     location_user_post_format: "Viestissä näytettävän sijainnin muotoilu. Lista geolokaation attribuuteista (esim. city, country), sekä valinnainen indeksi kaksoispisteellä erotettuna, jos attribuutin arvo on erotettu pilkuilla (esim. address:3)."
+    location_user_profile_map: "Näytä käyttäjän sijaintitietojen vieressä profiilissa ja käyttäjäkortissa nappula, joka näyttää sijainnin kartalla."
     location_user_profile_format: "Profiilissa näytettävän sijainnin muotoilu. Lista geolokaation attribuuteista (esim. city, country), sekä valinnainen indeksi kaksoispisteellä erotettuna, jos attribuutin arvo on erotettu pilkuilla (esim. address:3)."
     location_topic_default: "Ketjun oletussijainti."
 

@@ -49,6 +49,7 @@ fi:
         results: "Osoitteet"
         no_results: "Ei tuloksia."
         show_map: "Näytä kartta"
+        hide_map: "Piilota kartta"
       label:
         add: "Lisää sijainti"
         title: "Näytä tarkat sijaintitiedot"

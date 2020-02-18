@@ -69,3 +69,11 @@
     }
   }
 }
+
+#user-card .location-and-website,
+.user-main .location-and-website.map-location-enabled {
+  &  .locations-map {
+    min-width: 300px;
+    width: 100%;
+  }
+}

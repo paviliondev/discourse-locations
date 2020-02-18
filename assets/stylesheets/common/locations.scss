@@ -659,12 +659,63 @@ input.input-location, div.input-location {
   .website-name {
     overflow: initial;
   }
+  
+  .user-website a {
+    text-decoration: underline;
+    color: $primary;
+  }
+  
+  .btn-show-map {
+    background-color: transparent;
+    color: $primary-high;
+    margin: 0;
+    padding: 0px 8px;
+    min-height: 0;
+    
+    .d-icon {
+      color: $primary-high;
+    }
+    
+    &:hover,
+    &:hover .d-icon {
+      color: $primary-very-high;
+    }
+  }
+  
+  .locations-map {
+    display: block;
+    width: 550px;
+    height: 300px;
+  }
 }
 
 .user-main .location-and-website.map-location-enabled {
   .user-profile-location,
   .user-profile-website {
     display: none;
+  }
+  
+  .btn-show-map {
+    background-color: transparent;
+    color: $primary-medium;
+    margin: 0;
+    padding: 0px 8px;
+    min-height: 0;
+    
+    .d-icon {
+      color: $primary-medium;
+    }
+    
+    &:hover,
+    &:hover .d-icon {
+      color: $primary-high;
+    }
+  }
+  
+  .locations-map {	
+    display: block;
+    min-width: 550px;
+    height: 300px;
   }
 }
 
