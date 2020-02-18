@@ -115,6 +115,10 @@ plugins:
     type: list
     default: ''
     client: true
+  location_user_profile_format:
+    type: list
+    default: ''
+    client: true
   location_add_no_text:
     default: false
     client: true
