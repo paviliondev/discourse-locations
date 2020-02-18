@@ -28,6 +28,10 @@ plugins:
      - none
      - optional
      - required
+  location_geocoding_language:
+    client: true
+    default: 'user'
+    enum: "LocationGeocodingLanguageSiteSetting"
   location_geocoding_provider:
     default: 'nominatim'
     client: true

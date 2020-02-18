@@ -5,6 +5,9 @@ en:
     location_input_fields: "Location input fields"
     location_input_fields_enabled: "Enable location input fields"
     location_geocoding: "Whether locations should be geocoded (mapped). If off, locations are stored as strings."
+    location_geocoding_language: "Language of the geocoding results."
+    location_geocoding_language_user: "User language"
+    location_geocoding_language_default: "Site default language"
     location_geocoding_api_key: "Geocoding API key"
     location_geocoding_provider: |
       Geocoding provider (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>provider details</a>).

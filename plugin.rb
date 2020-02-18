@@ -23,6 +23,7 @@ Discourse.anonymous_filters.push(:map)
 gem 'geocoder', '1.4.4'
 
 load File.expand_path('../models/location_country_default_site_setting.rb', __FILE__)
+load File.expand_path('../models/location_geocoding_language_site_setting.rb', __FILE__)
 
 if respond_to?(:register_svg_icon)
   register_svg_icon "map-o"

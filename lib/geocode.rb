@@ -60,7 +60,13 @@ class Locations::Geocode
     query = self.build_query(request)
     countrycode = request['countrycode']
     context = request['context']
-    options = { language: user.effective_locale }
+    
+    language = SiteSetting.location_geocoding_language
+    if language == 'user' || language == :user
+      options = { language: user.effective_locale }
+    else
+      options = { language: SiteSetting.default_locale }
+    end
 
     custom_options.each do |block|
       if updated_options = block.call(options, context)

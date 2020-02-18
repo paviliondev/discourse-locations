@@ -5,6 +5,9 @@ fi:
     location_input_fields: "Käytössä olevat sijaintitiedon syötekentät"
     location_input_fields_enabled: "Ota käyttöön sijaintitiedon syötekentät."
     location_geocoding: "Geokoodataanko sijainnit karttamerkeiksi? Jos poissa käytöstä, sijaintitiedot tallennetaan merkkijonoina."
+    location_geocoding_language: "Goekoodattujen paikannimien kieli"
+    location_geocoding_language_user: "Käyttäjän valitsema"
+    location_geocoding_language_default: "Sivuston oletuskieli"
     location_geocoding_api_key: "Geokoodauksen API-avain"
     location_geocoding_provider: |
       Geokoodauksen palveluntarjoaja (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>lisätietoja</a>).
