@@ -723,10 +723,14 @@ input.input-location, div.input-location {
     }
   }
   
-  .locations-map {	
+  .map-location .locations-map {	
     display: block;
     min-width: 550px;
     height: 300px;
+    
+    a[href] {
+      text-decoration: none;
+    }
   }
 }
 
