@@ -664,16 +664,15 @@ input.input-location, div.input-location {
   margin-top: 5px;
 }
 
-#user-card .location-and-website {
-  align-items: flex-start;
-
+#user-card .location-and-website.map-location-enabled {
+  .location,
   .website-name {
-    overflow: initial;
+    display: none;
   }
   
-  .user-website a {
-    text-decoration: underline;
-    color: $primary;
+  .replace-location .location,
+  .replace-location .website-name {
+    display: block;
   }
   
   .btn-show-map {
@@ -697,6 +696,14 @@ input.input-location, div.input-location {
     display: block;
     width: 550px;
     height: 300px;
+    
+    .btn-map {
+      margin-bottom: 0;
+      
+      .fa {
+        margin-right: 0;
+      }
+    }
   }
 }
 
@@ -704,6 +711,11 @@ input.input-location, div.input-location {
   .user-profile-location,
   .user-profile-website {
     display: none;
+  }
+  
+  .replace-location .user-profile-location,
+  .replace-location .user-profile-website {
+    display: block;
   }
   
   .btn-show-map {

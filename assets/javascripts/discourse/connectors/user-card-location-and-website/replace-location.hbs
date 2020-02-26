@@ -1,8 +1,10 @@
 {{#if showUserLocation}}
-  {{mount-widget widget="user-location" args=user}}
+  <span class="location">
+    {{mount-widget widget="user-location" args=user}}
+  </span>
 {{/if}}
 {{#if user.website_name}}
-  <span class='user-website'>
+  <span class='website-name'>
     {{d-icon "globe"}}
     {{#if linkWebsite}}
       <a href="{{user.website}}" rel={{unless removeNoFollow 'nofollow ugc noopener'}}
