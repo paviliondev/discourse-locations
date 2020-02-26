@@ -93,7 +93,8 @@ const buildMarker = function(rawMarker) {
   const avatarMarkerStyle = !!rawMarker.options.avatar && settings.location_user_avatar;
   
   if (avatarMarkerStyle) {
-    const userAvatar = rawMarker.options.avatar.replace('{size}','30');
+    const avatarSize = window.devicePixelRatio > 1 ? '60' : '30';
+    const userAvatar = rawMarker.options.avatar.replace('{size}', avatarSize);
     
     const markerStyles = `
       background-color: dimgrey;
@@ -109,6 +110,7 @@ const buildMarker = function(rawMarker) {
       z-index: 100;`
     
     const avatarStyles = `
+      width: 100%;
       border-radius: 50%;
       transform: rotate(-45deg);`
     
