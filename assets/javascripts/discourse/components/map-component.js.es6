@@ -10,6 +10,7 @@ export default MountWidget.extend({
     let args = this.getProperties(
       'category',
       'topic',
+      'user',
       'locations',
       'clickable',
       'topicList',

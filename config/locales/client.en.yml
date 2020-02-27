@@ -49,6 +49,7 @@ en:
         results: "Addresses"
         no_results: "No results."
         show_map: "Show Map"
+        hide_map: "Hide Map"
       label:
         add: "Add a Location"
         title: "Show Location Details"

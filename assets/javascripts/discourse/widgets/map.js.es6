@@ -22,6 +22,7 @@ export default createWidget('map', {
   gatherLocations() {
     const topic = this.attrs.topic;
     const topicList = this.attrs.topicList;
+    const user = this.attrs.user;
     const userList = this.attrs.userList;
 
     let locations = this.state.locations;
@@ -45,6 +46,10 @@ export default createWidget('map', {
         }
       });
     }
+
+    if (this.addUserMarker(user, locations)) {
+      locations.push(this.userMarker(user));
+    };
 
     if (userList) {
       userList.forEach((u) => {
@@ -105,6 +110,7 @@ export default createWidget('map', {
 
     location['marker'] = {
       title: user.username,
+      avatar: user.avatar_template,
       routeTo: "/u/" + user.username
     };
 

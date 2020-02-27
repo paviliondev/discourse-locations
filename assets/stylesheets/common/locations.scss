@@ -444,6 +444,13 @@ input.input-location, div.input-location {
         }
       }
     }
+    
+    .leaflet-marker-icon {
+      .avatar-marker .avatar {
+        background-color: $secondary;
+        border: none !important;
+      }
+    }
 
     .leaflet-tooltip {
       position: absolute;
@@ -451,6 +458,10 @@ input.input-location, div.input-location {
 
       &.custom {
         top: -15px;
+      }
+      
+      &.avatar-tip {
+        top: -42px;
       }
     }
   }
@@ -653,17 +664,85 @@ input.input-location, div.input-location {
   margin-top: 5px;
 }
 
-#user-card .location-and-website {
-  align-items: flex-start;
-
+#user-card .location-and-website.map-location-enabled {
+  .location,
   .website-name {
-    overflow: initial;
+    display: none;
+  }
+  
+  .replace-location .location,
+  .replace-location .website-name {
+    display: block;
+  }
+  
+  .btn-show-map {
+    background-color: transparent;
+    color: $primary-high;
+    margin: 0;
+    padding: 0px 8px;
+    min-height: 0;
+    
+    .d-icon {
+      color: $primary-high;
+    }
+    
+    &:hover,
+    &:hover .d-icon {
+      color: $primary-very-high;
+    }
+  }
+  
+  .locations-map {
+    display: block;
+    width: 550px;
+    height: 300px;
+    
+    .btn-map {
+      margin-bottom: 0;
+      
+      .fa {
+        margin-right: 0;
+      }
+    }
   }
 }
 
 .user-main .location-and-website.map-location-enabled {
-  .user-profile-location {
+  .user-profile-location,
+  .user-profile-website {
     display: none;
+  }
+  
+  .replace-location .user-profile-location,
+  .replace-location .user-profile-website {
+    display: block;
+  }
+  
+  .btn-show-map {
+    background-color: transparent;
+    color: $primary-medium;
+    margin: 0;
+    padding: 0px 8px;
+    min-height: 0;
+    
+    .d-icon {
+      color: $primary-medium;
+    }
+    
+    &:hover,
+    &:hover .d-icon {
+      color: $primary-high;
+    }
+  }
+  
+  .map-location .locations-map {	
+    display: block;
+    min-width: 550px;
+    height: 300px;
+    
+    a[href] {
+      text-decoration: none;
+    }
   }
 }
 

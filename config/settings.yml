@@ -28,6 +28,10 @@ plugins:
      - none
      - optional
      - required
+  location_geocoding_language:
+    client: true
+    default: 'user'
+    enum: "LocationGeocodingLanguageSiteSetting"
   location_geocoding_provider:
     default: 'nominatim'
     client: true
@@ -103,6 +107,9 @@ plugins:
   location_users_map:
     default: false
     client: true
+  location_user_avatar:
+    default: false
+    client: true
   location_users_map_limit:
     default: 50
   location_users_map_default:
@@ -114,6 +121,16 @@ plugins:
   location_user_post_format:
     type: list
     default: ''
+    client: true
+  location_user_profile_map:
+    default: true
+    client: true
+  location_user_profile_format:
+    type: list
+    default: ''
+    client: true
+  location_hide_labels:
+    default: false
     client: true
   location_add_no_text:
     default: false
