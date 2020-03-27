@@ -4,7 +4,7 @@ import { iconNode } from 'discourse-common/lib/icon-library';
 import { h } from 'virtual-dom';
 
 export default createWidget('user-location', {
-  tagName: "div.map-location",
+  tagName: "div.user-location-widget",
   buildKey: () => 'user-location',
   
   defaultState(attrs) {
@@ -13,49 +13,55 @@ export default createWidget('user-location', {
     };
   },
   
-  html(user, state) {
+  html(attrs, state) {
+    const { user } = attrs; 
     let contents = [];
     
     if (user && user.geo_location) {
-      contents.push( iconNode('map-marker-alt') );
-      contents.push(' ');
+      contents.push(iconNode('map-marker-alt'));
       
       let format = this.siteSettings.location_user_profile_format.split('|');
       let opts = {};
-      let user_location = '';
+      let userLocation;
+      
       if (format.length && format[0]) {
         opts['geoAttrs'] = format;
-        user_location = geoLocationFormat(user.geo_location, opts);
+        userLocation = geoLocationFormat(user.geo_location, opts);
       } else {
-        user_location = user.geo_location.address
+        userLocation = user.geo_location.address;
       };
       
-      contents.push( h('span', user_location) )
+      contents.push(h('div.location-label', userLocation));
       
       if (this.siteSettings.location_user_profile_map) {
-        contents.push(' ');
+        let mapContents = [];
         
-        let label = '';
-        if (!this.site.mobileView) {
-          if (state.showMap) {
-            label = I18n.t("location.geo.hide_map")
-          } else {
-            label = I18n.t("location.geo.show_map")
-          }
+        let btnParams = { 
+          icon: "far-map",
+          className: "btn-default btn-show-map btn-small",
+          action: "toggleMap"
+        }
+        
+        if (!this.site.mobileView && attrs.formFactor !== 'card') {
+          btnParams.contents = I18n.t(
+            `location.geo.${state.showMap ? 'hide' : 'show'}_map`
+          );
         };
         
-        contents.push(
-          this.attach('button', { 
-            icon: "far-map",
-            contents: label,
-            className: "btn-default btn-show-map btn-small",
-            action: "toggleMap"
-          });
-        )
-      };
-      
-      if (state.showMap) {
-        contents.push( this.attach('map', {user: user}) )
+        mapContents.push(this.attach('button', btnParams));
+        
+        if (state.showMap) {
+          mapContents.push(
+            h('div.map-container.small', 
+              this.attach('map', {
+                user,
+                disableExpand: attrs.formFactor == 'card'
+              })
+            )
+          )
+        }
+        
+        contents.push(h('div.map-wrapper', mapContents));
       }
     };
     

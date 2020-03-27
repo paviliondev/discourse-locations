@@ -16,6 +16,7 @@ export default createWidget('map', {
       runSetup: true,
       showSearch: false,
       locations: attrs.locations || [],
+      showExpand: !attrs.disableExpand
     };
   },
 
@@ -330,14 +331,19 @@ export default createWidget('map', {
         );
       }
     }
+    
+    if (state.showExpand) {
+      contents.push(
+        this.attach('button', {
+          className: `btn btn-map map-expand`,
+          action: 'toggleExpand',
+          actionParam: category,
+          icon: state.mapToggle
+        })
+      )
+    }
 
     contents.push(
-      this.attach('button', {
-        className: `btn btn-map map-expand`,
-        action: 'toggleExpand',
-        actionParam: category,
-        icon: state.mapToggle
-      }),
       this.attach('button', {
         className: 'btn btn-map map-attribution',
         action: 'toggleAttribution',

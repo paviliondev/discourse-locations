@@ -2,7 +2,7 @@ import MountWidget from 'discourse/components/mount-widget';
 import { observes, on } from 'discourse-common/utils/decorators';
 
 export default MountWidget.extend({
-  classNames: 'map-component',
+  classNameBindings: [':map-component', ':map-container', 'size'],
   widget: 'map',
   clickable: false,
 

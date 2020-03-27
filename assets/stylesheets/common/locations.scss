@@ -1,3 +1,5 @@
+@import 'locations-user';
+
 .content-wrapper > aside:first-of-type {
   z-index: 3;
 }
@@ -151,9 +153,19 @@ input.input-location, div.input-location {
   }
 }
 
-
 .location-form-title {
   display: inline-block;
+}
+
+.map-container.small {
+  position: absolute;
+  z-index: 9999;
+  top: initial;
+  right: 0;
+  width: 330px;
+  height: 250px;
+  top: 30px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
 .composer-controls-location {
@@ -187,14 +199,6 @@ input.input-location, div.input-location {
       position: relative;
       display: inline-block;
       margin-left: 8px;
-
-      .map-component {
-        position: absolute;
-        z-index: 9999;
-        top: initial;
-        bottom: -253px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-      }
     }
   }
 }
@@ -429,14 +433,15 @@ input.input-location, div.input-location {
       z-index: 202;
     }
 
-    .leaflet-bar {
+    .leaflet-control-container .leaflet-bar {
       box-shadow: none;
       margin: 3px;
 
-      a {
+      a, &.leaflet-control a[href] {
         width: 24px;
         height: 25px;
         line-height: 23px;
+        text-decoration: none;
 
         &:hover {
           background-color: $secondary;
@@ -526,11 +531,11 @@ input.input-location, div.input-location {
   }
 }
 
-.topic-list-item .d-icon-map-marker {
+.topic-list-item .d-icon-map-marker-alt {
   color: $primary;
 }
 
-.topic-list-item.visited .d-icon-map-marker {
+.topic-list-item.visited .d-icon-map-marker-alt {
   color: $primary-medium;
 }
 
@@ -626,128 +631,6 @@ input.input-location, div.input-location {
   #map-search-input {
     height: 28px;
   }
-}
-
-.user-preferences .location-selector-container {
-  max-width: 552px;
-
-  .ac-wrap {
-    width: 100% !important;
-  }
-}
-
-.user-location-warning {
-  margin-top: 5px;
-}
-
-@media (max-width: 850px) {
-  .user-preferences .location-selector-container {
-    max-width: 472px;
-  }
-}
-
-.users-nav {
-  margin: 20px 0;
-
-  ul {
-    margin: 0;
-  }
-}
-
-.users-map-container {
-  margin-bottom: 60px;
-}
-
-.users-map-container .map-component {
-  width: 100%;
-  height: calc(100vh - 270px);
-  margin-top: 5px;
-}
-
-.user-card .location-and-website.map-location-enabled {
-  .location,
-  .website-name {
-    display: none;
-  }
-  
-  .replace-location .location,
-  .replace-location .website-name {
-    display: block;
-  }
-  
-  .btn-show-map {
-    background-color: transparent;
-    color: $primary-high;
-    margin: 0;
-    padding: 0px 8px;
-    min-height: 0;
-    
-    .d-icon {
-      color: $primary-high;
-    }
-    
-    &:hover,
-    &:hover .d-icon {
-      color: $primary-very-high;
-    }
-  }
-  
-  .locations-map {
-    display: block;
-    width: 550px;
-    height: 300px;
-    
-    .btn-map {
-      margin-bottom: 0;
-      
-      .fa {
-        margin-right: 0;
-      }
-    }
-  }
-}
-
-.user-main .location-and-website.map-location-enabled {
-  .user-profile-location,
-  .user-profile-website {
-    display: none;
-  }
-  
-  .replace-location .user-profile-location,
-  .replace-location .user-profile-website {
-    display: block;
-  }
-  
-  .btn-show-map {
-    background-color: transparent;
-    color: $primary-medium;
-    margin: 0;
-    padding: 0px 8px;
-    min-height: 0;
-    
-    .d-icon {
-      color: $primary-medium;
-    }
-    
-    &:hover,
-    &:hover .d-icon {
-      color: $primary-high;
-    }
-  }
-  
-  .map-location .locations-map {	
-    display: block;
-    min-width: 550px;
-    height: 300px;
-    
-    a[href] {
-      text-decoration: none;
-    }
-  }
-}
-
-.map-location {
-  margin-right: 7px;
 }
 
 .topic-body .user-location {

@@ -1,0 +1,94 @@
+// User location selection //
+
+.user-preferences .location-selector-container {
+  max-width: 552px;
+
+  .ac-wrap {
+    width: 100% !important;
+  }
+}
+
+.user-location-warning {
+  margin-top: 5px;
+}
+
+@media (max-width: 850px) {
+  .user-preferences .location-selector-container {
+    max-width: 472px;
+  }
+}
+
+// User map //
+
+.users-nav {
+  margin: 20px 0;
+
+  ul {
+    margin: 0;
+  }
+}
+
+.users-map-container {
+  margin-bottom: 60px;
+}
+
+.users-map-container .map-component {
+  width: 100%;
+  height: calc(100vh - 270px);
+  margin-top: 5px;
+}
+
+// User location in profile and user-card //
+
+.location-and-website.map-location-enabled {
+  .user-location-widget {
+    display: flex;
+    margin-bottom: 5px;
+    
+    .d-icon-map-marker-alt {
+      margin-top: 4px;
+      margin-right: 5px;
+    }
+    
+    .map-wrapper {
+      position: relative;
+      margin-top: 2px;
+      margin-left: 10px;
+    }
+  }
+}
+
+.user-card .location-and-website.map-location-enabled {
+  .location,
+  .website-name {
+    display: none;
+  }
+  
+  .replace-location .location,
+  .replace-location .website-name {
+    display: block;
+    overflow: visible;
+  }
+  
+  .location .btn-show-map .d-icon {
+    margin-right: 0;
+  }
+  
+  .locations-map .location .d-icon {
+    margin-right: 0;
+  }
+}
+
+.user-main .about .primary .primary-textual .location-and-website.map-location-enabled {
+  overflow: initial;
+  
+  .user-profile-location,
+  .user-profile-website {
+    display: none;
+  }
+  
+  .replace-location .user-profile-location,
+  .replace-location .user-profile-website {
+    display: block;
+  }
+}
