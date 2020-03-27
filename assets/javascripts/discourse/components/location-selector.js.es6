@@ -1,6 +1,6 @@
 import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/location-utilities';
 import { getOwner } from 'discourse-common/lib/get-owner';
-import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import { default as computed, observes } from 'discourse-common/utils/decorators';
 
 export default Ember.TextField.extend({
   autocorrect: false,
@@ -32,7 +32,7 @@ export default Ember.TextField.extend({
     const global = this.get('global');
     let template = global.RAW_TEMPLATES['javascripts/location-autocomplete'];
 
-    this.$().val(val).autocomplete({
+    $(self.element).val(val).autocomplete({
       template,
       single: true,
       updateData: false,
@@ -85,7 +85,7 @@ export default Ember.TextField.extend({
           // hack to get around the split autocomplete performs on strings
           $('.location-form .ac-wrap .item').remove();
           $('.user-location-selector .ac-wrap .item').remove();
-          return self.$().val();
+          return $(self.element).val();
         }
       },
 
@@ -100,7 +100,7 @@ export default Ember.TextField.extend({
   @observes('loading')
   showLoadingSpinner() {
     const loading = this.get('loading');
-    const $wrap = this.$().parent();
+    const $wrap = $(this.element).parent();
     const $spinner = $("<span class='ac-loading'><div class='spinner small'/></span>");
     if (loading) {
       $spinner.prependTo($wrap);
@@ -111,6 +111,6 @@ export default Ember.TextField.extend({
 
   willDestroyElement() {
     this._super();
-    this.$().autocomplete('destroy');
+    $(this.element).autocomplete('destroy');
   }
 });

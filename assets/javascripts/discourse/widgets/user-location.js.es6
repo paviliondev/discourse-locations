@@ -44,7 +44,14 @@ export default createWidget('user-location', {
           }
         };
         
-        contents.push( this.attach('button', { icon: "map-o", contents: label, className: "btn-default btn-show-map", action: "toggleMap" }) )
+        contents.push(
+          this.attach('button', { 
+            icon: "far-map",
+            contents: label,
+            className: "btn-default btn-show-map btn-small",
+            action: "toggleMap"
+          });
+        )
       };
       
       if (state.showMap) {

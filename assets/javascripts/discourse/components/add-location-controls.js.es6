@@ -1,6 +1,6 @@
 import showModal from 'discourse/lib/show-modal';
 import { locationFormat } from '../lib/location-utilities';
-import { default as computed } from 'ember-addons/ember-computed-decorators';
+import { default as computed } from 'discourse-common/utils/decorators';
 
 export default Ember.Component.extend({
   classNames: ['location-label'],

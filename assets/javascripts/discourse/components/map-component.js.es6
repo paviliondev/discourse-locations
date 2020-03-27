@@ -1,5 +1,5 @@
 import MountWidget from 'discourse/components/mount-widget';
-import { observes, on } from 'ember-addons/ember-computed-decorators';
+import { observes, on } from 'discourse-common/utils/decorators';
 
 export default MountWidget.extend({
   classNames: 'map-component',

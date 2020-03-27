@@ -1,4 +1,4 @@
-import { default as computed, on } from 'ember-addons/ember-computed-decorators';
+import { default as computed, on } from 'discourse-common/utils/decorators';
 import { ajax } from 'wizard/lib/ajax';
 
 export default Ember.Component.extend({

@@ -77,8 +77,6 @@ let geoLocationFormat = function(geoLocation, opts = {}) {
   if (!geoLocation) return;
   let result;
   
-  console.log('opts: ', opts);
-
   if (opts.geoAttrs && opts.geoAttrs.length > 0) {
     result = formatLocation(geoLocation, opts.geoAttrs);
   } else if (geoLocation.address) {

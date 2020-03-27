@@ -5,7 +5,7 @@ import TopicController from 'discourse/controllers/topic';
 import NavItem from 'discourse/models/nav-item';
 import EditCategorySettings from 'discourse/components/edit-category-settings';
 import TopicStatus from 'discourse/raw-views/topic-status';
-import { default as computed, observes, on } from 'ember-addons/ember-computed-decorators';
+import { default as computed, observes, on } from 'discourse-common/utils/decorators';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import { geoLocationFormat } from '../lib/location-utilities';
 
@@ -47,7 +47,7 @@ export default {
             topic.get('location')) {
           const url = topic.get('url');
           results.push({
-            icon: 'map-marker',
+            icon: 'map-marker-alt',
             title: I18n.t(`topic_statuses.location.help`),
             href: url,
             openTag: 'a href',

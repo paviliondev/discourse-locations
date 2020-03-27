@@ -1,4 +1,4 @@
-import { default as computed, on } from 'ember-addons/ember-computed-decorators';
+import { default as computed, on } from 'discourse-common/utils/decorators';
 import { geoLocationSearch, providerDetails } from '../lib/location-utilities';
 import { getOwner } from 'discourse-common/lib/get-owner';
 

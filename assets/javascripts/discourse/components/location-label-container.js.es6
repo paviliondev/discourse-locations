@@ -1,4 +1,4 @@
-import { default as computed } from 'ember-addons/ember-computed-decorators';
+import { default as computed } from 'discourse-common/utils/decorators';
 
 export default Ember.Component.extend({
   classNames: ['location-label-container'],
@@ -19,11 +19,11 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
-    Ember.$(document).on('click', Ember.run.bind(this, this.outsideClick));
+    $(document).on('click', Ember.run.bind(this, this.outsideClick));
   },
 
   willDestroyElement() {
-    Ember.$(document).off('click', Ember.run.bind(this, this.outsideClick));
+    $(document).off('click', Ember.run.bind(this, this.outsideClick));
   },
 
   outsideClick(e) {
