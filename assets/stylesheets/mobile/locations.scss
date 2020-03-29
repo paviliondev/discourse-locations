@@ -70,10 +70,9 @@
   }
 }
 
-#user-card .location-and-website,
-.user-main .location-and-website.map-location-enabled {
-  &  .locations-map {
-    min-width: 300px;
-    width: 100%;
+.user-main .about .primary .primary-textual .location-and-website.map-location-enabled {
+  > span {
+    max-width: 100%;
+    padding: 0px;
   }
 }

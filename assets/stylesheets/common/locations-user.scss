@@ -40,7 +40,17 @@
 
 // User location in profile and user-card //
 
-.location-and-website.map-location-enabled {
+.btn-show-map.no-text {
+  padding: 6px 8px !important;
+  
+  .d-icon {
+    margin-right: 0 !important;
+    width: 1em !important;
+    height: 1em !important;
+  }
+}
+
+.location-and-website.map-location-enabled {  
   .user-location-widget {
     display: flex;
     margin-bottom: 5px;
@@ -52,8 +62,7 @@
     
     .map-wrapper {
       position: relative;
-      margin-top: 2px;
-      margin-left: 10px;
+      margin-left: 5px;
     }
   }
 }
@@ -68,9 +77,6 @@
   .replace-location .website-name {
     display: block;
     overflow: visible;
-  }
-  
-  .location .btn-show-map .d-icon {
     margin-right: 0;
   }
   
@@ -82,6 +88,10 @@
 .user-main .about .primary .primary-textual .location-and-website.map-location-enabled {
   overflow: initial;
   
+  > span {
+    max-width: 80%;
+  }
+  
   .user-profile-location,
   .user-profile-website {
     display: none;
@@ -90,5 +100,16 @@
   .replace-location .user-profile-location,
   .replace-location .user-profile-website {
     display: block;
+    margin-right: 0;
+  }
+
+  .location-label {
+    max-width: 100%;
+    white-space: initial;
+  }
+  
+  .map-wrapper {
+    min-width: 110px;
+    text-align: right;
   }
 }
