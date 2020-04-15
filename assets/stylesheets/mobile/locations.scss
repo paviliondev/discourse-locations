@@ -46,30 +46,6 @@
   height: calc(100vh - 55px);
 }
 
-.location-details .map-component {
-  width: calc(100vw - 20px);
-  right: 0;
-  left: initial;
-}
-
-.location-details .location-label-container {
-  margin-right: initial;
-
-  .location-label {
-    margin-right: 5px;
-    position: relative;
-  }
-
-  .location-topic-map {
-    position: initial;
-
-    .fa {
-      margin: 0;
-      min-width: 15px;
-    }
-  }
-}
-
 .user-main .about .primary .primary-textual .location-and-website.map-location-enabled {
   > span {
     max-width: 100%;

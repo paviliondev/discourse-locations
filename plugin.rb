@@ -242,20 +242,5 @@ end
 DiscourseEvent.on(:custom_wizard_ready) do
   if defined?(CustomWizard) == 'constant' && CustomWizard.class == Module
     CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets', 'templates'])
-
-    ## user.geo_location requires location['geo_location'] to be the value
-    CustomWizard::Builder.add_field_validator('location') do |field, updater, step_template|
-      if step_template['actions'].present?
-        step_template['actions'].each do |a|
-          if a['type'] === 'update_profile'
-            a['profile_updates'].each do |pu|
-              if pu['key'] === field['id'] && pu['value_custom'] === 'geo_location'
-                updater.fields[field['id']] = updater.fields[field['id']]['geo_location']
-              end
-            end
-          end
-        end
-      end
-    end
   end
 end

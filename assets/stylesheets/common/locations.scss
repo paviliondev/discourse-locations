@@ -1,4 +1,5 @@
 @import 'locations-user';
+@import 'locations-form';
 
 .content-wrapper > aside:first-of-type {
   z-index: 3;
@@ -17,64 +18,12 @@
 }
 
 .add-location .location-form {
-  .p-list-box {
+  .location-results {
     margin-top: 20px;
   }
 }
 
-.location-form {
-  display: flex;
-
-  .title {
-    font-weight: 700;
-  }
-
-  .address {
-    padding-right: 20px;
-  }
-
-  .coordinates {
-    .control-group {
-      display: block;
-
-      .controls {
-        display: flex;
-        width: 100%;
-
-        input {
-          width: 100px;
-        }
-      }
-
-      .icon {
-        margin-left: 10px;
-        display: inline-block;
-      }
-    }
-
-    .icon img {
-      max-width: 30px;
-    }
-  }
-
-  .address + .coordinates {
-    border-left: 1px solid $primary-low;
-    padding-left: 20px;
-  }
-}
-
-.location-form-instructions {
-  color: #919191;
-  margin: 5px 0;
-  font-size: 80%;
-  line-height: 1.4em;
-
-  a {
-    text-decoration: underline;
-  }
-}
-
-.location-form, .add-location {
+.add-location {
   overflow: visible;
 
   .control-group {
@@ -102,57 +51,6 @@
   margin: 5px 10px;
 }
 
-input.input-location, div.input-location {
-  max-height: 150px;
-  background-color: $secondary;
-  box-shadow: none;
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.input-location .select2-choice {
-  padding: 2px 5px;
-}
-
-.input-location.input-small {
-  width: 100px;
-}
-
-.location-selector-container {
-  position: relative;
-
-  .ac-wrap {
-    box-sizing: border-box;
-
-    .ac-loading {
-      position: absolute;
-      top: 7px;
-      right: 5px;
-    }
-
-    .item {
-      line-height: 1.6;
-    }
-
-    .autocomplete {
-      width: inherit;
-      left: 0 !important;
-      width: 100%;
-      top: 30px !important;
-      box-sizing: border-box;
-
-      li, .no-results {
-        padding: 10px;
-      }
-
-      ul > label {
-        @extend .location-form-instructions;
-        padding: 0 5px;
-      }
-    }
-  }
-}
-
 .location-form-title {
   display: inline-block;
 }
@@ -176,84 +74,6 @@ input.input-location, div.input-location {
   border: 1px solid $primary-medium;
 }
 
-.location-details {
-  position: relative;
-  margin-top: 7px;
-
-  .location-label-container {
-    display: flex;
-    align-items: center;
-
-    .location-label {
-      line-height: 18px;
-      max-width: 500px;
-      display: inline-block;
-
-      .fa {
-        margin-right: 4px;
-      }
-    }
-
-    .location-topic-map {
-      white-space: nowrap;
-      position: relative;
-      display: inline-block;
-      margin-left: 8px;
-    }
-  }
-}
-
-.location-form-label {
-  background-color: dark-light-diff($primary, $secondary, 95%, -85%);
-  padding: 10px 15px;
-  position: absolute;
-  top: 41px;
-  z-index: 10;
-  width: 300px;
-
-  label {
-    font-size: 1em;
-  }
-
-  a {
-    text-decoration: underline;
-    color: $primary;
-  }
-
-  a, span {
-    font-style: italic;
-  }
-
-  .fa {
-    margin-right: 5px;
-  }
-}
-
-.location-form-result {
-  cursor: pointer;
-  background-color: $secondary;
-  display: flex;
-
-  &:hover, &.selected {
-    background-color: $tertiary;
-    color: white;
-
-    label {
-      color: white;
-    }
-  }
-
-  label {
-    flex: 1 1 auto;
-    margin-bottom: 0;
-    cursor: pointer;
-  }
-
-  i {
-    margin-right: 5px;
-  }
-}
-
 .location-form-map {
   width: 40vw;
   width: 550px;
@@ -268,50 +88,6 @@ input.input-location, div.input-location {
 
 .form-element + span {
   display: block;
-}
-
-////
-
-.p-list-box {
-  max-width: 550px;
-  position: relative;
-
-  .spinner {
-    position: absolute;
-    right: 50%;
-    top: 50%;
-  }
-
-  .p-text {
-    margin-bottom: 5px;
-  }
-
-  ul {
-    background-color: dark-light-diff($primary, $secondary, 97%, -65%);
-    border: 1px solid #e9e9e9;
-    margin: 0;
-    list-style: none;
-    height: 95px;
-    overflow: scroll;
-  }
-
-  li {
-    padding: 6px 12px;
-  }
-
-  .no-results {
-    padding: 15px;
-  }
-
-  .default {
-    margin: 0 auto;
-    top: 50%;
-    transform: translateY(-50%);
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    color: #919191;
-  }
 }
 
 .map-component {
@@ -635,4 +411,31 @@ input.input-location, div.input-location {
 
 .topic-body .user-location {
   padding: 0 11px 0.25em 11px;
+}
+
+.location-details {
+  position: relative;
+  margin-top: 7px;
+
+  .location-label-container {
+    display: flex;
+    align-items: center;
+
+    .location-label {
+      line-height: 18px;
+      max-width: 500px;
+      display: inline-block;
+
+      .fa {
+        margin-right: 4px;
+      }
+    }
+
+    .location-topic-map {
+      white-space: nowrap;
+      position: relative;
+      display: inline-block;
+      margin-left: 8px;
+    }
+  }
 }
