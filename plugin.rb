@@ -111,33 +111,28 @@ after_initialize do
   public_user_custom_fields.push('geo_location') unless public_user_custom_fields.include?('geo_location')
   SiteSetting.public_user_custom_fields = public_user_custom_fields.join('|')
 
-  PostRevisor.track_topic_field(:location)
-
-  PostRevisor.class_eval do
-    track_topic_field(:location) do |tc, location|
-      if location.present?
-        location = location.permit(:name, :geo_location => {})
-
-        if location = Locations::Helper.parse_location(location.to_h)
-          tc.record_change('location', tc.topic.custom_fields['location'], location)
-          tc.topic.custom_fields['location'] = location
-          tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
-        end
-      else
-        tc.topic.custom_fields['location'] = {}
-        tc.topic.custom_fields['has_geo_location'] = false
-      end
+  PostRevisor.track_topic_field(:location) do |tc, location|
+    if location.present? && 
+       location = Locations::Helper.parse_location(location.to_unsafe_hash)
+      
+      tc.record_change('location', tc.topic.custom_fields['location'], location)
+      tc.topic.custom_fields['location'] = location
+      tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+    else
+      tc.topic.custom_fields['location'] = {}
+      tc.topic.custom_fields['has_geo_location'] = false
     end
   end
 
   DiscourseEvent.on(:post_created) do |post, opts, user|
-    if post.is_first_post? && opts[:location].present?
-      if location = Locations::Helper.parse_location(opts[:location])
-        topic = Topic.find(post.topic_id)
-        topic.custom_fields['location'] = location
-        topic.custom_fields['has_geo_location'] = location['geo_location'].present?
-        topic.save!
-      end
+    if post.is_first_post? &&
+       opts[:location].present? &&
+       location = Locations::Helper.parse_location(opts[:location])
+      
+      topic = post.topic
+      topic.custom_fields['location'] = location
+      topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+      topic.save!
     end
   end
 
