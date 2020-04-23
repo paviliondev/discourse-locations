@@ -42,6 +42,7 @@
 
 .btn-show-map.no-text {
   padding: 6px 8px !important;
+  margin-bottom: 0;
   
   .d-icon {
     margin-right: 0 !important;
@@ -53,7 +54,6 @@
 .location-and-website.map-location-enabled {  
   .user-location-widget {
     display: flex;
-    margin-bottom: 5px;
     
     .d-icon-map-marker-alt {
       margin-top: 4px;
