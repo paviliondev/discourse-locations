@@ -231,7 +231,7 @@ end
 
 DiscourseEvent.on(:layouts_ready) do
   if defined?(DiscourseLayouts) == 'constant' && DiscourseLayouts.class == Module
-    DiscourseLayouts::WidgetHelper.add_widget('layouts-map')
+    DiscourseLayouts::Widget.add('layouts-map')
   end
 end
 
