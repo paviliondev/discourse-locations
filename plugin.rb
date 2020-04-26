@@ -94,6 +94,10 @@ after_initialize do
   register_editable_user_custom_field geo_location: {} if defined? register_editable_user_custom_field
   add_to_serializer(:user, :geo_location, false) { object.custom_fields['geo_location'] }
   add_to_serializer(:user_card, :geo_location, false) { object.custom_fields['geo_location'] }
+  add_to_serializer(:user_card, :include_geo_location?) do
+    object.custom_fields['geo_location'].present? &&
+    object.custom_fields['geo_location'] != "{}"
+  end
 
   require_dependency 'directory_item_serializer'
   class ::DirectoryItemSerializer::UserSerializer
