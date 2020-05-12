@@ -30,7 +30,7 @@ export default Ember.TextField.extend({
     }
 
     const global = this.get('global');
-    let template = global.RAW_TEMPLATES['javascripts/location-autocomplete'];
+    let template = window.__DISCOURSE_RAW_TEMPLATES['javascripts/location-autocomplete'];
 
     $(self.element).val(val).autocomplete({
       template,
