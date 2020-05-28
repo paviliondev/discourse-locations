@@ -2,6 +2,7 @@ import { createWidget } from 'discourse/widgets/widget';
 import { geoLocationFormat } from '../lib/location-utilities';
 import { iconNode } from 'discourse-common/lib/icon-library';
 import { h } from 'virtual-dom';
+import I18n from "I18n";
 
 export default createWidget('user-location', {
   tagName: "div.user-location-widget",

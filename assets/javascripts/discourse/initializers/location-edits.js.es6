@@ -9,6 +9,7 @@ import { default as computed, observes, on } from 'discourse-common/utils/decora
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import { geoLocationFormat } from '../lib/location-utilities';
 import { scheduleOnce } from "@ember/runloop";
+import I18n from "I18n";
 
 export default {
   name: 'location-edits',

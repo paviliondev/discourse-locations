@@ -1,5 +1,6 @@
 import { ajax } from './ajax';
 import { Promise } from "rsvp";
+import I18n from "I18n";
 
 function locationSearch(request, resultsFn) {
   ajax({

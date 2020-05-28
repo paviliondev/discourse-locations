@@ -1,6 +1,7 @@
 import { createWidget } from 'discourse/widgets/widget';
 import DiscourseURL from 'discourse/lib/url';
 import { h } from 'virtual-dom';
+import I18n from "I18n";
 
 createWidget('map-search-item', {
   tagName: 'li',

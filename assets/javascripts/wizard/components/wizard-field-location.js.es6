@@ -2,6 +2,7 @@ import { default as computed, on } from 'discourse-common/utils/decorators';
 import { ajax } from 'wizard/lib/ajax';
 import Component from '@ember/component';
 import { alias } from "@ember/object/computed";
+import I18n from "I18n";
 
 export default Component.extend({
   includeGeoLocation: true,

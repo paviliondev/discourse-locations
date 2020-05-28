@@ -5,6 +5,7 @@ import Component from '@ember/component';
 import { equal } from "@ember/object/computed";
 import { A } from "@ember/array";
 import { set } from "@ember/object";
+import I18n from "I18n";
 
 export default Component.extend({
   geoLocationOptions: A(),
