@@ -1,4 +1,5 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
+import { or } from "@ember/object/computed";
 
 export default {
   name:'location-map-renderer',
@@ -57,7 +58,7 @@ export default {
       });
 
       api.modifyClass('component:user-card-contents', {
-        hasLocationOrWebsite: Ember.computed.or(
+        hasLocationOrWebsite: or(
           "user.location",
           "user.website_name",
           "user.geo_location"

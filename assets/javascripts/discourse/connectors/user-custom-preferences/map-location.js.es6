@@ -1,10 +1,12 @@
+import { scheduleOnce } from "@ember/runloop";
+
 export default {
   setupComponent(attrs, component) {
     const enabled = Discourse.SiteSettings.location_users_map;
     if (enabled) {
-      Ember.run.scheduleOnce('afterRender', () => {
+      scheduleOnce('afterRender', () => {
         const $existingLocationInput = $('.control-group.pref-location');
-        component.$('.control-group').insertAfter($existingLocationInput);
+        $('.control-group', component.element).insertAfter($existingLocationInput);
         $existingLocationInput.hide();
       });
     }

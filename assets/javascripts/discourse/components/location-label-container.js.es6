@@ -1,6 +1,8 @@
 import { default as computed } from 'discourse-common/utils/decorators';
+import Component from '@ember/component';
+import { bind } from "@ember/runloop";
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['location-label-container'],
   locationAttrs: [],
   geoAttrs: [],
@@ -19,11 +21,11 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
-    $(document).on('click', Ember.run.bind(this, this.outsideClick));
+    $(document).on('click', bind(this, this.outsideClick));
   },
 
   willDestroyElement() {
-    $(document).off('click', Ember.run.bind(this, this.outsideClick));
+    $(document).off('click', bind(this, this.outsideClick));
   },
 
   outsideClick(e) {

@@ -8,6 +8,7 @@ import TopicStatus from 'discourse/raw-views/topic-status';
 import { default as computed, observes, on } from 'discourse-common/utils/decorators';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import { geoLocationFormat } from '../lib/location-utilities';
+import { scheduleOnce } from "@ember/runloop";
 
 export default {
   name: 'location-edits',
@@ -98,7 +99,7 @@ export default {
 
       @observes('composer.showLocationControls', 'composer.composeState')
       applyLocationInlineClass() {
-        Ember.run.scheduleOnce('afterRender', this, () => {
+        scheduleOnce('afterRender', this, () => {
           const showLocationControls = this.get('composer.showLocationControls');
           const $container = $('.composer-fields .title-and-category');
 

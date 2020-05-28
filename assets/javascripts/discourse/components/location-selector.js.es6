@@ -1,8 +1,9 @@
 import { geoLocationSearch, geoLocationFormat, providerDetails } from '../lib/location-utilities';
 import { getOwner } from 'discourse-common/lib/get-owner';
 import { default as computed, observes } from 'discourse-common/utils/decorators';
+import TextField from "discourse/components/text-field";
 
-export default Ember.TextField.extend({
+export default TextField.extend({
   autocorrect: false,
   autocapitalize: false,
   classNames: 'location-selector',

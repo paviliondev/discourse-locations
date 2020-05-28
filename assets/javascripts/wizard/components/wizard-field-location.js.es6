@@ -1,11 +1,13 @@
 import { default as computed, on } from 'discourse-common/utils/decorators';
 import { ajax } from 'wizard/lib/ajax';
+import Component from '@ember/component';
+import { alias } from "@ember/object/computed";
 
-export default Ember.Component.extend({
+export default Component.extend({
   includeGeoLocation: true,
   showType: true,
   layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
-  context: Ember.computed.alias('wizard.id'),
+  context: alias('wizard.id'),
   inputFieldsEnabled: true,
 
   @on('init')

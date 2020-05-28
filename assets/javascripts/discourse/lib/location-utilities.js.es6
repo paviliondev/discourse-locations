@@ -1,4 +1,5 @@
 import { ajax } from './ajax';
+import { Promise } from "rsvp";
 
 function locationSearch(request, resultsFn) {
   ajax({
@@ -27,7 +28,7 @@ var debouncedLocationSearch = _.debounce(locationSearch, settings.location_geoco
 let geoLocationSearch = (request) => {
   if (!request) return;
 
-  return new Ember.RSVP.Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
     debouncedLocationSearch(request, function(r) {
       if (r.error) {
         reject(r.message);

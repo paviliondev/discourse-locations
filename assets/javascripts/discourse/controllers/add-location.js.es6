@@ -1,7 +1,8 @@
 import { default as computed } from 'discourse-common/utils/decorators';
 import ModalFunctionality from 'discourse/mixins/modal-functionality';
+import Controller from "@ember/controller";
 
-export default Ember.Controller.extend(ModalFunctionality, {
+export default Controller.extend(ModalFunctionality, {
   title: 'composer.location.title',
   searchOnInit: false,
   name: null,
