@@ -1,3 +1,4 @@
+import { run } from "@ember/runloop";
 import getUrl from 'discourse-common/lib/get-url';
 import { Promise } from "rsvp";
 import { scheduleOnce } from "@ember/runloop";

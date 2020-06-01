@@ -44,7 +44,7 @@ export default {
         const category = this.get('parent.parentView.category');
         let results = this._super(...arguments);
 
-        if ((Discourse.SiteSettings.location_topic_status_icon ||
+        if ((this.siteSettings.location_topic_status_icon ||
             (category && category.get('custom_fields.location_topic_status'))) &&
             topic.get('location')) {
           const url = topic.get('url');
@@ -138,8 +138,9 @@ export default {
 
         if (category) {
           items = items.reject((item) => item.name === 'map' ); // Don't show Site Level "/map"
-          if ( category.custom_fields.location_enabled && Discourse.SiteSettings.location_category_map_filter) {
-            items.push(Discourse.NavItem.fromText('map', args)); // Show category level "/map" instead
+          debugger;
+          if ( category.custom_fields.location_enabled && this.siteSettings.location_category_map_filter) {
+            items.push(this.NavItem.fromText('map', args)); // Show category level "/map" instead
           }
         }
 
@@ -151,8 +152,8 @@ export default {
       @computed('category')
       availableViews(category) {
         let views = this._super(...arguments);
-
-        if (category.get('custom_fields.location_enabled') && Discourse.SiteSettings.location_category_map_filter) {
+        debugger;
+        if (category.get('custom_fields.location_enabled') && this.siteSettings.location_category_map_filter) {
           views.push(
             {name: I18n.t('filters.map.title'), value: 'map'}
           );
@@ -173,8 +174,9 @@ export default {
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
         afterModel(model) {
-          if (!Discourse.SiteSettings.location_category_map_filter) {
-            this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}`);
+          debugger;
+          if (!this.siteSettings.location_category_map_filter) {
+            this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
           }
           return this._super(...arguments);
         },
@@ -197,9 +199,10 @@ export default {
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
         afterModel(model, transition) {
-          if (this.filter(model.category) === 'map' && Discourse.SiteSettings.location_category_map_filter) {
+          debugger;
+          if (this.filter(model.category) === 'map' && this.siteSettings.location_category_map_filter) {
             transition.abort();
-            return this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);
+            return this.replaceWith(`/c/${this.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);
           } else {
             return this._super(...arguments);
           }

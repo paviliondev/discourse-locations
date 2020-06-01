@@ -9,7 +9,7 @@ export default Controller.extend(ModalFunctionality, {
   street: null,
   postalcode: null,
   city: null,
-  countrycode: Discourse.SiteSettings.location_country_default,
+  countrycode: this.siteSettings.location_country_default,
   geoLocation: { lat: '', lon: '' },
   rawLocation: null,
 

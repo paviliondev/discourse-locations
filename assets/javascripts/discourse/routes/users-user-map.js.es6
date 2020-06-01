@@ -2,7 +2,7 @@ import DiscourseRoute from "discourse/routes/discourse";
 
 export default DiscourseRoute.extend({
   redirect() {
-    if (!Discourse.SiteSettings.location_users_map) {
+    if (!this.siteSettings.location_users_map) {
       this.replaceWith('/u');
     }
   },

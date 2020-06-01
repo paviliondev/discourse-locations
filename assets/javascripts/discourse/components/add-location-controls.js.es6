@@ -12,7 +12,7 @@ export default Component.extend({
 
   @computed('noText')
   iconOnly(noText) {
-    return noText|| Discourse.SiteSettings.location_add_no_text;
+    return noText|| this.siteSettings.location_add_no_text;
   },
 
   @computed('noText')

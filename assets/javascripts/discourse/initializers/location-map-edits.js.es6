@@ -3,10 +3,12 @@ import { or } from "@ember/object/computed";
 
 export default {
   name:'location-map-renderer',
-  initialize(){
+  initialize(container){
     withPluginApi('0.8.12', api => {
 
-      if (Discourse.SiteSettings.location_hamburger_menu_map_link) {
+      const siteSettings = container.lookup('site-settings:main');
+
+      if (siteSettings.location_hamburger_menu_map_link) {
         api.decorateWidget('hamburger-menu:generalLinks', () => {
           return { route: 'discovery.map', label: 'filters.map.title' };
         });
@@ -22,8 +24,8 @@ export default {
 
         handleMapTransition(transition) {
           const intent = transition.intent;
-
-          if (intent.url == "/u" && !intent.name && Discourse.SiteSettings.location_users_map_default) {
+debugger;
+          if (intent.url == "/u" && !intent.name && siteSettings.location_users_map_default) {
             return this.replaceWith('users.user-map');
           }
 

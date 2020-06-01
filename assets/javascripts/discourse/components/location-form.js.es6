@@ -30,7 +30,7 @@ export default Component.extend({
 
   @discourseComputed('appType')
   settings(appType) {
-    return appType === 'wizard' ? Wizard.SiteSettings : Discourse.SiteSettings;
+    return appType === 'wizard' ? Wizard.SiteSettings : this.siteSettings;
   },
 
   @on('init')
@@ -127,7 +127,9 @@ export default Component.extend({
         'showProvider': false
       });
 
-      geoLocationSearch(request).then((result) => {
+      debugger;
+
+      geoLocationSearch(request, this.siteSettings).then((result) => {
         if (this._state === 'destroying') { return; }
 
         if (result.provider) {

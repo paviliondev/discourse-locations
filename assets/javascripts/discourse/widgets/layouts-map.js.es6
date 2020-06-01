@@ -29,8 +29,8 @@ export default createWidget('layouts-map', {
   html(attrs, state) {
     const topic = attrs.topic;
     const category = attrs.category;
-    const search = Discourse.SiteSettings.location_layouts_map_search_enabled;
-    const showAvatar = Discourse.SiteSettings.location_layouts_map_show_avatar;
+    const search = this.siteSettings.location_layouts_map_search_enabled;
+    const showAvatar = this.siteSettings.location_layouts_map_show_avatar;
 
     if (!state.topicList) {
       this.getLocations();

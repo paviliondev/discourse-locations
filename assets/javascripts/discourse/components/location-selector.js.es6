@@ -3,7 +3,7 @@ import { getOwner } from 'discourse-common/lib/get-owner';
 import { default as computed, observes } from 'discourse-common/utils/decorators';
 import TextField from "discourse/components/text-field";
 
-export default TextField.extend({
+export default Ember.TextField.extend({
   autocorrect: false,
   autocapitalize: false,
   classNames: 'location-selector',
@@ -13,11 +13,6 @@ export default TextField.extend({
   global() {
     const rootElement = getOwner(this).get('rootElement');
     return rootElement === '#custom-wizard-main' ? Wizard : Discourse;
-  },
-
-  @computed('global')
-  settings(global) {
-    return global.SiteSettings;
   },
 
   didInsertElement() {
@@ -45,9 +40,10 @@ export default TextField.extend({
         if (context) request['context'] = context;
 
         self.set('loading', true);
+        const siteSettings = self.get('siteSettings');
 
-        return geoLocationSearch(request).then((result) => {
-          const defaultProvider = self.get('settings.location_geocoding_provider');
+        return geoLocationSearch(request, siteSettings).then((result) => {
+          const defaultProvider = siteSettings.location_geocoding_provider;
           const geoAttrs = self.get('geoAttrs');
           const showType = self.get('showType');
           let locations = [];

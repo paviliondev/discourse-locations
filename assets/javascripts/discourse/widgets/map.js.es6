@@ -27,6 +27,8 @@ export default createWidget('map', {
     const user = this.attrs.user;
     const userList = this.attrs.userList;
 
+    debugger;
+
     let locations = this.state.locations;
 
     if (this.attrs.locations && locations.length !== this.attrs.locations.length) {
@@ -95,8 +97,8 @@ export default createWidget('map', {
         routeTo: "/t/" + topic.slug
       };
     }
-
-    if (Discourse.SiteSettings.location_map_marker_category_color &&
+    debugger;
+    if (this.siteSettings.location_map_marker_category_color &&
         topic.category && topic.category.color) {
       location['marker']['color'] = topic.category.color;
       location['marker']['class'] = topic.category.slug;
@@ -203,7 +205,7 @@ export default createWidget('map', {
 
     map.invalidateSize(false);
 
-    setupMap(map, markers, boundingbox, zoom, center);
+    setupMap(map, markers, boundingbox, zoom, center, this.siteSettings);
   },
 
   toggleAttribution() {
@@ -243,7 +245,8 @@ export default createWidget('map', {
     if ($map.hasClass('expanded')) {
       this.state.mapToggle = "compress";
       this.state.expanded = true;
-      map.setZoom(Discourse.SiteSettings.location_map_expanded_zoom);
+      debugger;
+      map.setZoom(this.siteSettings.location_map_expanded_zoom);
     } else {
       this.state.mapToggle = "expand";
       this.state.expanded = false;
@@ -264,7 +267,7 @@ export default createWidget('map', {
     if (zoom) opts['zoom'] = zoom;
     if (center) opts['center'] = center;
     if (clickable) opts['clickable'] = clickable;
-    return generateMap(opts);
+    return generateMap(this.siteSettings, opts);
   },
 
   html(attrs, state) {
