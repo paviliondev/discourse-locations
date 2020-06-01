@@ -24,17 +24,19 @@ export default {
 
         handleMapTransition(transition) {
           const intent = transition.intent;
-debugger;
-          if (intent.url == "/u" && !intent.name && siteSettings.location_users_map_default) {
+          const name = transition.targetName
+          const queryParams = intent.router.activeTransition.to.queryParams
+
+          if (intent.url == "/u" && !name && siteSettings.location_users_map_default) {
             return this.replaceWith('users.user-map');
           }
 
-          if (intent.name === 'users.user-map') {
-            if (!intent.queryParams.period || intent.queryParams.period !== 'location') {
+          if (name === 'users.user-map') {
+            if (!queryParams.period || queryParams.period !== 'location') {
               this.changePeriod(transition, 'location');
             }
-          } else if (intent.name === 'users.index') {
-            if (intent.queryParams.period === 'location') {
+          } else if (name === 'users.index') {
+            if (queryParams.period === 'location') {
               this.changePeriod(transition, 'weekly');
             }
           }
@@ -44,7 +46,7 @@ debugger;
           // abort is necessary here because of https://github.com/emberjs/ember.js/issues/12169
           transition.abort();
 
-          return this.replaceWith(transition.intent.name, { queryParams: { period }});
+          return this.replaceWith(transition.targetName, { queryParams: { period }});
         },
 
         renderTemplate() {

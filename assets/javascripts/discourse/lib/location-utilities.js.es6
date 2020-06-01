@@ -22,12 +22,10 @@ function locationSearch(request, resultsFn) {
   });
 }
 
-let geoLocationSearch = (request, siteSettings) => {
+let geoLocationSearch = (request, location_geocoding_debounce) => {
   if (!request) return;
 
-  const settings = siteSettings || Wizard.SiteSettings;
-
-  var debouncedLocationSearch = _.debounce(locationSearch, settings.location_geocoding_debounce);
+  var debouncedLocationSearch = _.debounce(locationSearch, location_geocoding_debounce);
 
   return new Promise(function(resolve, reject) {
     debouncedLocationSearch(request, function(r) {
@@ -53,7 +51,6 @@ let formatLocation = function(location, site, attrs = []) {
       let part = value;
 
       if (key === 'countrycode') {
-        debugger;
         const countryCodes = site.currentProp('country_codes');
         let country = countryCodes.find(c => c.code === value);
 

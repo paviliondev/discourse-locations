@@ -138,7 +138,6 @@ export default {
 
         if (category) {
           items = items.reject((item) => item.name === 'map' ); // Don't show Site Level "/map"
-          debugger;
           if ( category.custom_fields.location_enabled && this.siteSettings.location_category_map_filter) {
             items.push(this.NavItem.fromText('map', args)); // Show category level "/map" instead
           }
@@ -152,7 +151,7 @@ export default {
       @computed('category')
       availableViews(category) {
         let views = this._super(...arguments);
-        debugger;
+
         if (category.get('custom_fields.location_enabled') && this.siteSettings.location_category_map_filter) {
           views.push(
             {name: I18n.t('filters.map.title'), value: 'map'}
@@ -174,7 +173,6 @@ export default {
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
         afterModel(model) {
-          debugger;
           if (!this.siteSettings.location_category_map_filter) {
             this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
           }
@@ -199,7 +197,6 @@ export default {
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
         afterModel(model, transition) {
-          debugger;
           if (this.filter(model.category) === 'map' && this.siteSettings.location_category_map_filter) {
             transition.abort();
             return this.replaceWith(`/c/${this.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);

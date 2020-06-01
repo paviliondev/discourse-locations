@@ -15,14 +15,14 @@ export default MountWidget.extend({
       'locations',
       'clickable',
       'topicList',
-      '',
+      'userList',
       'search',
       'showAvatar',
       'size',
       'center',
       'zoom'
     );
-debugger;
+
     if (this.get('geoLocation')) {
       if (!args['locations']) args['locations'] = [];
       args['locations'].push({ geo_location: this.get('geoLocation') });

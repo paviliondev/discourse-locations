@@ -127,9 +127,7 @@ export default Component.extend({
         'showProvider': false
       });
 
-      debugger;
-
-      geoLocationSearch(request, this.siteSettings).then((result) => {
+      geoLocationSearch(request, this.siteSettings.location_geocoding_debounce).then((result) => {
         if (this._state === 'destroying') { return; }
 
         if (result.provider) {

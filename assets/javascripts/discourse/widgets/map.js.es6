@@ -26,9 +26,6 @@ export default createWidget('map', {
     const topicList = this.attrs.topicList;
     const user = this.attrs.user;
     const userList = this.attrs.userList;
-
-    debugger;
-
     let locations = this.state.locations;
 
     if (this.attrs.locations && locations.length !== this.attrs.locations.length) {
@@ -97,7 +94,7 @@ export default createWidget('map', {
         routeTo: "/t/" + topic.slug
       };
     }
-    debugger;
+
     if (this.siteSettings.location_map_marker_category_color &&
         topic.category && topic.category.color) {
       location['marker']['color'] = topic.category.color;
@@ -245,7 +242,6 @@ export default createWidget('map', {
     if ($map.hasClass('expanded')) {
       this.state.mapToggle = "compress";
       this.state.expanded = true;
-      debugger;
       map.setZoom(this.siteSettings.location_map_expanded_zoom);
     } else {
       this.state.mapToggle = "expand";
