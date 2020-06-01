@@ -40,7 +40,7 @@ export default TextField.extend({
 
         self.set('loading', true);
 
-        return geoLocationSearch(request, self.get('settings.location_geocoding_debounce').then((result) => {
+        return geoLocationSearch(request, self.get('settings.location_geocoding_debounce')).then((result) => {
           const defaultProvider = self.get('settings.location_geocoding_provider');
           const geoAttrs = self.get('geoAttrs');
           const showType = self.get('showType');
