@@ -137,6 +137,8 @@ export default createWidget('map', {
   addMarkers() {
     const map = this.state.mapObjs.map;
     const locations = this.state.locations;
+    const settings = this.siteSettings;
+
     let rawMarkers = [];
     let rawCircleMarkers = [];
 
@@ -170,7 +172,7 @@ export default createWidget('map', {
     }
 
     if (rawMarkers && rawMarkers.length > 0) {
-      markers = addMarkersToMap(rawMarkers, map);
+      markers = addMarkersToMap(rawMarkers, map, settings.location_map_maker_cluster_enabled, settings.location_map_marker_cluster_multiplier, settings.location_user_avatar, settings.location_hide_labels);
     }
 
     return markers;

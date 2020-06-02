@@ -138,8 +138,8 @@ export default {
 
         if (category) {
           items = items.reject((item) => item.name === 'map' ); // Don't show Site Level "/map"
-          if ( category.custom_fields.location_enabled && this.siteSettings.location_category_map_filter) {
-            items.push(this.NavItem.fromText('map', args)); // Show category level "/map" instead
+          if (category.custom_fields.location_enabled && category.siteSettings.location_category_map_filter) {
+            items.push(NavItem.fromText('map', args)); // Show category level "/map" instead
           }
         }
 

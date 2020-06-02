@@ -7,7 +7,16 @@ export default DiscourseRoute.extend({
     }
   },
 
+  model() {
+    let params = {period : "weekly"};
+    return this.store.find("directoryItem", params)
+  },
+
+  setupController (controller, model) {
+    controller.set('userList', model.content);
+  },
+
   renderTemplate() {
-    this.render('users/user-map', { into: 'application' });
+    this.render('users/user-map', { into: 'application'});
   }
 });

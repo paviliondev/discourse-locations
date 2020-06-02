@@ -60,7 +60,7 @@ const setupMap = function(map, markers, boundingbox, zoom, center, siteSettings)
   }
 };
 
-const buildMarker = function(rawMarker) {
+const buildMarker = function(rawMarker, location_user_avatar, location_hide_labels) {
   const customMarkerStyle = !!rawMarker.options.color;
 
   if (customMarkerStyle) {
@@ -88,7 +88,7 @@ const buildMarker = function(rawMarker) {
     });
   }
   
-  const avatarMarkerStyle = !!rawMarker.options.avatar && siteSettings.location_user_avatar;
+  const avatarMarkerStyle = !!rawMarker.options.avatar && location_user_avatar;
   
   if (avatarMarkerStyle) {
     const avatarSize = window.devicePixelRatio > 1 ? '60' : '30';
@@ -133,7 +133,7 @@ const buildMarker = function(rawMarker) {
       });
     }
 
-    if (rawMarker.options.title && !siteSettings.location_hide_labels) {
+    if (rawMarker.options.title && !location_hide_labels) {
       const title = emojiUnescape(rawMarker.options.title);
       let className = 'topic-title-map-tooltip';
 
@@ -175,19 +175,19 @@ const addCircleMarkersToMap = function(rawCircleMarkers, map, context) {
   });
 };
 
-const addMarkersToMap = function(rawMarkers, map) {
+const addMarkersToMap = function(rawMarkers, map, location_map_maker_cluster_enabled, location_map_marker_cluster_multiplier, location_user_avatar, location_hide_labels) {
   let markers;
 
-  if (siteSettings.location_map_maker_cluster_enabled) {
+  if (location_map_maker_cluster_enabled) {
     markers = L.markerClusterGroup({
-      spiderfyDistanceMultiplier: Number(siteSettings.location_map_marker_cluster_multiplier)
+      spiderfyDistanceMultiplier: Number(location_map_marker_cluster_multiplier)
     });
   } else {
     markers = L.featureGroup();
   }
 
   rawMarkers.forEach((raw) => {
-    markers.addLayer(buildMarker(raw, map));
+    markers.addLayer(buildMarker(raw, map, location_user_avatar, location_hide_labels));
   });
 
   map.addLayer(markers);
