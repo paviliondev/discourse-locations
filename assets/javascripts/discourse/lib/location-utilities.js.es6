@@ -38,7 +38,7 @@ let geoLocationSearch = (request, location_geocoding_debounce) => {
   });
 };
 
-let formatLocation = function(location, site, attrs = []) {
+let formatLocation = function(location, country_codes, attrs = []) {
   let result = '';
 
   attrs.forEach(function(a, i) {
@@ -51,8 +51,7 @@ let formatLocation = function(location, site, attrs = []) {
       let part = value;
 
       if (key === 'countrycode') {
-        const countryCodes = site.currentProp('country_codes');
-        let country = countryCodes.find(c => c.code === value);
+        let country = country_codes.find(c => c.code === value);
 
         if (country) part = country.name;
       }
@@ -73,12 +72,12 @@ let formatLocation = function(location, site, attrs = []) {
   return result;
 };
 
-let geoLocationFormat = function(geoLocation, opts = {}) {
+let geoLocationFormat = function(geoLocation, country_codes, opts = {}) {
   if (!geoLocation) return;
   let result;
-  
+
   if (opts.geoAttrs && opts.geoAttrs.length > 0) {
-    result = formatLocation(geoLocation, opts.geoAttrs);
+    result = formatLocation(geoLocation, country_codes, opts.geoAttrs);
   } else if (geoLocation.address) {
     result = geoLocation.address;
   }
@@ -86,7 +85,7 @@ let geoLocationFormat = function(geoLocation, opts = {}) {
   return result;
 };
 
-let locationFormat = function(location, location_input_fields_enabled, location_input_fields, opts = {}) {
+let locationFormat = function(location, country_codes, location_input_fields_enabled, location_input_fields, opts = {}) {
   if (!location) return '';
 
   let display = '';
@@ -107,9 +106,9 @@ let locationFormat = function(location, location_input_fields_enabled, location_
   let address;
 
   if (opts.attrs && opts.attrs.length) {
-    address = formatLocation(location, opts.attrs);
+    address = formatLocation(location, country_codes, opts.attrs);
   } else if (location.geo_location) {
-    address = geoLocationFormat(location.geo_location, opts);
+    address = geoLocationFormat(location.geo_location, country_codes, opts);
   } else if (location.raw) {
     address = location.raw;
   }

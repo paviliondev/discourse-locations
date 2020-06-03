@@ -75,7 +75,7 @@ export default TextField.extend({
         if (typeof l === 'object') {
           self.set('location', l);
           const geoAttrs = self.get('geoAttrs');
-          return geoLocationFormat(l, { geoAttrs });
+          return geoLocationFormat(l, self.site.country_codes, { geoAttrs });
         } else {
           // hack to get around the split autocomplete performs on strings
           $('.location-form .ac-wrap .item').remove();

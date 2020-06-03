@@ -24,7 +24,7 @@ export default Component.extend({
 
   @computed('location', 'noText')
   valueLabel(location, noText) {
-    return noText ? '' : locationFormat(location, this.siteSettings.location_input_fields_enabled, this.siteSettings.location_input_fields);
+    return noText ? '' : locationFormat(location, this.site.country_codes, this.siteSettings.location_input_fields_enabled, this.siteSettings.location_input_fields);
   },
 
   @computed('noText')

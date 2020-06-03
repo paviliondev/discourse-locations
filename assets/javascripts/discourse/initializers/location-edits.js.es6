@@ -16,6 +16,7 @@ export default {
   initialize(container) {
     const currentUser = container.lookup('current-user:main');
     const siteSettings = container.lookup('site-settings:main');
+    const site = container.lookup('site:main');
 
     withPluginApi('0.8.23', api => {
       api.decorateWidget('post-body:after-meta-data', (helper) => {
@@ -31,7 +32,7 @@ export default {
             opts['geoAttrs'] = format;
           }
           return helper.h('div.user-location',
-            geoLocationFormat(currentUser.custom_fields.geo_location, opts)
+            geoLocationFormat(currentUser.custom_fields.geo_location, site.country_codes, opts)
           );
         }
       });
