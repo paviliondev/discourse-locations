@@ -9,15 +9,9 @@ export default TextField.extend({
   classNames: 'location-selector',
   context: null,
 
-  @computed()
-  global() {
+  settings() {
     const rootElement = getOwner(this).get('rootElement');
-    return rootElement === '#custom-wizard-main' ? Wizard : Discourse;
-  },
-
-  @computed('global')
-  settings(global) {
-    return global.SiteSettings;
+    return rootElement === '#custom-wizard-main' ? Wizard.SiteSettings : this.siteSettings;
   },
 
   didInsertElement() {
@@ -46,7 +40,7 @@ export default TextField.extend({
 
         self.set('loading', true);
 
-        return geoLocationSearch(request).then((result) => {
+        return geoLocationSearch(request, self.get('settings.location_geocoding_debounce')).then((result) => {
           const defaultProvider = self.get('settings.location_geocoding_provider');
           const geoAttrs = self.get('geoAttrs');
           const showType = self.get('showType');
@@ -81,7 +75,7 @@ export default TextField.extend({
         if (typeof l === 'object') {
           self.set('location', l);
           const geoAttrs = self.get('geoAttrs');
-          return geoLocationFormat(l, { geoAttrs });
+          return geoLocationFormat(l, self.site.country_codes, { geoAttrs });
         } else {
           // hack to get around the split autocomplete performs on strings
           $('.location-form .ac-wrap .item').remove();

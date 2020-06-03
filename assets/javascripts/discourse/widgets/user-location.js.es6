@@ -27,7 +27,7 @@ export default createWidget('user-location', {
       
       if (format.length && format[0]) {
         opts['geoAttrs'] = format;
-        userLocation = geoLocationFormat(user.geo_location, opts);
+        userLocation = geoLocationFormat(user.geo_location, self.site.country_codes, opts);
       } else {
         userLocation = user.geo_location.address;
       };

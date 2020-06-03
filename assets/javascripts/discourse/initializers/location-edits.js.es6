@@ -16,6 +16,7 @@ export default {
   initialize(container) {
     const currentUser = container.lookup('current-user:main');
     const siteSettings = container.lookup('site-settings:main');
+    const site = container.lookup('site:main');
 
     withPluginApi('0.8.23', api => {
       api.decorateWidget('post-body:after-meta-data', (helper) => {
@@ -31,7 +32,7 @@ export default {
             opts['geoAttrs'] = format;
           }
           return helper.h('div.user-location',
-            geoLocationFormat(currentUser.custom_fields.geo_location, opts)
+            geoLocationFormat(currentUser.custom_fields.geo_location, site.country_codes, opts)
           );
         }
       });
@@ -44,7 +45,7 @@ export default {
         const category = this.get('parent.parentView.category');
         let results = this._super(...arguments);
 
-        if ((Discourse.SiteSettings.location_topic_status_icon ||
+        if ((this.siteSettings.location_topic_status_icon ||
             (category && category.get('custom_fields.location_topic_status'))) &&
             topic.get('location')) {
           const url = topic.get('url');
@@ -138,8 +139,8 @@ export default {
 
         if (category) {
           items = items.reject((item) => item.name === 'map' ); // Don't show Site Level "/map"
-          if ( category.custom_fields.location_enabled && Discourse.SiteSettings.location_category_map_filter) {
-            items.push(Discourse.NavItem.fromText('map', args)); // Show category level "/map" instead
+          if (category.custom_fields.location_enabled && category.siteSettings.location_category_map_filter) {
+            items.push(NavItem.fromText('map', args)); // Show category level "/map" instead
           }
         }
 
@@ -152,7 +153,7 @@ export default {
       availableViews(category) {
         let views = this._super(...arguments);
 
-        if (category.get('custom_fields.location_enabled') && Discourse.SiteSettings.location_category_map_filter) {
+        if (category.get('custom_fields.location_enabled') && this.siteSettings.location_category_map_filter) {
           views.push(
             {name: I18n.t('filters.map.title'), value: 'map'}
           );
@@ -173,8 +174,8 @@ export default {
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
         afterModel(model) {
-          if (!Discourse.SiteSettings.location_category_map_filter) {
-            this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}`);
+          if (!this.siteSettings.location_category_map_filter) {
+            this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
           }
           return this._super(...arguments);
         },
@@ -197,9 +198,9 @@ export default {
       var route = container.lookup(`route:discovery.${route}`);
       route.reopen({
         afterModel(model, transition) {
-          if (this.filter(model.category) === 'map' && Discourse.SiteSettings.location_category_map_filter) {
+          if (this.filter(model.category) === 'map' && this.siteSettings.location_category_map_filter) {
             transition.abort();
-            return this.replaceWith(`/c/${Discourse.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);
+            return this.replaceWith(`/c/${this.Category.slugFor(model.category)}/l/${this.filter(model.category)}`);
           } else {
             return this._super(...arguments);
           }

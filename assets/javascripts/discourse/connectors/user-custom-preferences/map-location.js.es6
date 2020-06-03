@@ -2,7 +2,9 @@ import { scheduleOnce } from "@ember/runloop";
 
 export default {
   setupComponent(attrs, component) {
-    const enabled = Discourse.SiteSettings.location_users_map;
+
+    const enabled = component.siteSettings.location_users_map;
+
     if (enabled) {
       scheduleOnce('afterRender', () => {
         const $existingLocationInput = $('.control-group.pref-location');

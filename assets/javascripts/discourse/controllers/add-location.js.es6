@@ -9,12 +9,15 @@ export default Controller.extend(ModalFunctionality, {
   street: null,
   postalcode: null,
   city: null,
-  countrycode: Discourse.SiteSettings.location_country_default,
+  countrycode: null,
   geoLocation: { lat: '', lon: '' },
   rawLocation: null,
 
   setup() {
+    const settings = this.siteSettings;
     const location = this.get('model.location');
+
+    this.set('countrycode', settings.location_country_default);
 
     if (location) {
       this.setProperties({

@@ -12,7 +12,7 @@ export default Component.extend({
 
   @computed('noText')
   iconOnly(noText) {
-    return noText|| Discourse.SiteSettings.location_add_no_text;
+    return noText|| this.siteSettings.location_add_no_text;
   },
 
   @computed('noText')
@@ -24,7 +24,7 @@ export default Component.extend({
 
   @computed('location', 'noText')
   valueLabel(location, noText) {
-    return noText ? '' : locationFormat(location);
+    return noText ? '' : locationFormat(location, this.site.country_codes, this.siteSettings.location_input_fields_enabled, this.siteSettings.location_input_fields);
   },
 
   @computed('noText')
