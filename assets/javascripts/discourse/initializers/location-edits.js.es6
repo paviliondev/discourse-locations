@@ -5,7 +5,7 @@ import TopicController from 'discourse/controllers/topic';
 import NavItem from 'discourse/models/nav-item';
 import EditCategorySettings from 'discourse/components/edit-category-settings';
 import TopicStatus from 'discourse/raw-views/topic-status';
-import { default as computed, observes, on } from 'discourse-common/utils/decorators';
+import { default as discourseComputed, observes, on } from 'discourse-common/utils/decorators';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import { geoLocationFormat } from '../lib/location-utilities';
 import { scheduleOnce } from "@ember/runloop";
@@ -19,6 +19,14 @@ export default {
     const site = container.lookup('site:main');
 
     withPluginApi('0.8.23', api => {
+
+      api.modifyClass ('component:user-card-contents', {
+        @discourseComputed("user")
+        hasLocaleOrWebsite(user) {
+          return this.siteSettings.location_users_map || user.location || user.website_name || this.userTimezone;
+        }
+      });
+
       api.decorateWidget('post-body:after-meta-data', (helper) => {
         const model = helper.getModel();
 
@@ -39,7 +47,7 @@ export default {
     });
 
     TopicStatus.reopen({
-      @computed
+      @discourseComputed
       statuses() {
         const topic = this.get("topic");
         const category = this.get('parent.parentView.category');
@@ -63,7 +71,7 @@ export default {
     });
 
     Composer.reopen({
-      @computed('subtype', 'categoryId', 'topicFirstPost', 'forceLocationControls')
+      @discourseComputed('subtype', 'categoryId', 'topicFirstPost', 'forceLocationControls')
       showLocationControls(subtype, categoryId, topicFirstPost, force) {
         if (!topicFirstPost) return false;
         if (force) return true;
@@ -119,7 +127,7 @@ export default {
 
     const subtypeShowLocation = ['event', 'question', 'general'];
     Topic.reopen({
-      @computed('subtype', 'category.custom_fields.location_enabled')
+      @discourseComputed('subtype', 'category.custom_fields.location_enabled')
       showLocationControls(subtype, categoryEnabled) {
         return subtypeShowLocation.indexOf(subtype) > -1 || categoryEnabled;
       }
@@ -149,7 +157,7 @@ export default {
     });
 
     EditCategorySettings.reopen({
-      @computed('category')
+      @discourseComputed('category')
       availableViews(category) {
         let views = this._super(...arguments);
 
