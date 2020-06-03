@@ -20,13 +20,6 @@ export default {
 
     withPluginApi('0.8.23', api => {
 
-      api.modifyClass ('component:user-card-contents', {
-        @discourseComputed("user")
-        hasLocaleOrWebsite(user) {
-          return this.siteSettings.location_users_map || user.location || user.website_name || this.userTimezone;
-        }
-      });
-
       api.decorateWidget('post-body:after-meta-data', (helper) => {
         const model = helper.getModel();
 
