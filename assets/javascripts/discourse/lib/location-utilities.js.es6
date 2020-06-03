@@ -86,7 +86,7 @@ let geoLocationFormat = function(geoLocation, opts = {}) {
   return result;
 };
 
-let locationFormat = function(location, opts = {}) {
+let locationFormat = function(location, location_input_fields_enabled, location_input_fields, opts = {}) {
   if (!location) return '';
 
   let display = '';
@@ -95,8 +95,8 @@ let locationFormat = function(location, opts = {}) {
     display += location.name;
   };
 
-  if (settings.location_input_fields_enabled && (!opts.attrs || !opts.attrs.length)) {
-    let possibleFields = settings.location_input_fields.split('|');
+  if (location_input_fields_enabled && (!opts.attrs || !opts.attrs.length)) {
+    let possibleFields = location_input_fields.split('|');
     let attrs = possibleFields.filter(f => location[f]);
 
     if (attrs.length) {
