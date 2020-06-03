@@ -8,7 +8,7 @@ export default DiscourseRoute.extend({
   },
 
   model() {
-    let params = {period : "weekly"};
+    let params = {period : "location"};
     return this.store.find("directoryItem", params)
   },
 
