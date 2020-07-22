@@ -1,10 +1,6 @@
 @import 'locations-user';
 @import 'locations-form';
 
-.content-wrapper > aside:first-of-type {
-  z-index: 3;
-}
-
 .add-location-controls .btn {
   text-align: left;
 }

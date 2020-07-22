@@ -80,3 +80,10 @@ en:
 
       list:
         title: "Users List"
+
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"
