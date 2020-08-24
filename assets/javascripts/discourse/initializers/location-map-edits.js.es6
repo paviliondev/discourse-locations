@@ -25,7 +25,6 @@ export default {
         },
 
         handleMapTransition(transition) {
-                  debugger;
           const intent = transition.intent;
           const name = transition.targetName
           const queryParams = intent.router.activeTransition.to.queryParams
