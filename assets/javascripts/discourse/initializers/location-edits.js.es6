@@ -40,26 +40,10 @@ export default {
       });
       api.modifyClass("controller:users", {
         loadUsers(params) {
-
           if (params.period === "location") {
             return;
           }
-          this.set("isLoading", true);
-
-          this.store
-            .find("directoryItem", params)
-            .then((model) => {
-              const lastUpdatedAt = model.get("resultSetMeta.last_updated_at");
-              this.setProperties({
-                model,
-                lastUpdatedAt: lastUpdatedAt ? longDate(lastUpdatedAt) : null,
-                period: params.period,
-                nameInput: params.name,
-              });
-            })
-            .finally(() => {
-              this.set("isLoading", false);
-            });
+          this._super(params);
         },
       });
     });
