@@ -1,6 +1,7 @@
 import { ajax } from './ajax';
 import { Promise } from "rsvp";
 import I18n from "I18n";
+import discourseDebounce from "discourse/lib/debounce";
 
 function locationSearch(request, resultsFn) {
   ajax({
@@ -25,7 +26,7 @@ function locationSearch(request, resultsFn) {
 let geoLocationSearch = (request, location_geocoding_debounce) => {
   if (!request) return;
 
-  var debouncedLocationSearch = _.debounce(locationSearch, location_geocoding_debounce);
+  var debouncedLocationSearch = discourseDebounce(locationSearch, location_geocoding_debounce);
 
   return new Promise(function(resolve, reject) {
     debouncedLocationSearch(request, function(r) {
