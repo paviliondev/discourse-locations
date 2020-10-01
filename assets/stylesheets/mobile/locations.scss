@@ -41,6 +41,10 @@
   width: 90%;
 }
 
+.map-container.small {
+  right: 0;
+}
+
 .locations-map.expanded {
   top: 55px;
   height: calc(100vh - 55px);
