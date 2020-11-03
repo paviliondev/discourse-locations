@@ -176,7 +176,6 @@ export default {
     const mapRoutes = [
       `Map`,
       `MapCategory`,
-      `MapParentCategory`,
       `MapCategoryNone`
     ];
 
