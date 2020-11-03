@@ -58,7 +58,7 @@ class Locations::Geocode
 
   def self.search(user, request)
     query = self.build_query(request)
-    countrycode = request['countrycode']
+    countrycode = SiteSetting.location_country_default_apply_to_all_searches && request['countrycode'].blank? ? SiteSetting.location_country_default : request['countrycode']
     context = request['context']
     
     language = SiteSetting.location_geocoding_language

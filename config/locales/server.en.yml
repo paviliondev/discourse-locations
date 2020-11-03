@@ -40,6 +40,7 @@ en:
     location_hide_labels: "Hide tooltip labels on location markers."
     location_add_no_text: "No text on add location buttons."
     location_country_default: "Default country for country input field."
+    location_country_default_apply_to_all_searches: "Apply default country to all searches"
     location_user_post: "Display a user's location below their username on their posts."
     location_user_post_format: "Format of location on user's post. A list of geolocation attributes, with an optional index if value is split by ',' e.g. address:3"
     location_user_profile_map: "Show a button to toggle a mini map of location next to user location on profile and user card."

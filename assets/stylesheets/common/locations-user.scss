@@ -64,6 +64,21 @@
       position: relative;
       margin-left: 5px;
     }
+
+    .map-container.small {
+        position: absolute;
+        z-index: 9999;
+        top: initial;
+        right: 0;
+        max-width: 758px;
+        height: 250px;
+        top: 30px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    }
+
+    .map-container {
+      width: 330px;
+    }
   }
 }
 
