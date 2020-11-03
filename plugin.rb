@@ -241,6 +241,6 @@ end
 
 DiscourseEvent.on(:custom_wizard_ready) do
   if defined?(CustomWizard) == 'constant' && CustomWizard.class == Module
-    CustomWizard::Field.add_assets('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets', 'templates'])
+    CustomWizard::Field.register('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets', 'templates'])
   end
 end
