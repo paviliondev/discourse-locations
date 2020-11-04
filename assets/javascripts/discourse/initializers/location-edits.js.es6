@@ -199,7 +199,6 @@ export default {
 
     const categoryRoutes = [
       'category',
-      'parentCategory',
       'categoryNone'
     ];
 
