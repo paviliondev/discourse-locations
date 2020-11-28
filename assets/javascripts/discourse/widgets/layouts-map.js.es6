@@ -11,6 +11,7 @@ try {
 
 export default layouts.createLayoutsWidget('map', {
   tagName: 'div.widget-container.nav-container',
+  buildKey: () => `layouts-map`,
 
   defaultState() {
     return {
