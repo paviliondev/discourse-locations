@@ -1,7 +1,18 @@
 import { createWidget } from 'discourse/widgets/widget';
 import Category from 'discourse/models/category';
-    
-export default createWidget('layouts-map', {
+
+let layouts;
+let widgetName;
+
+try {
+  layouts = requirejs('discourse/plugins/discourse-layouts/discourse/lib/layouts');
+  widgetName = 'map';
+} catch(error) {
+  layouts = { createLayoutsWidget: createWidget };
+  widgetName = 'layouts-map';
+}
+
+export default layouts.createLayoutsWidget(widgetName, {
   tagName: 'div.widget-container.nav-container',
   buildKey: () => `layouts-map`,
 
