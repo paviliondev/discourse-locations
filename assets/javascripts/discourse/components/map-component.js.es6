@@ -1,6 +1,6 @@
 import MountWidget from 'discourse/components/mount-widget';
 import { observes, on } from 'discourse-common/utils/decorators';
-import { scheduleOnce } from "@ember/runloop";
+import { scheduleOnce, later } from "@ember/runloop";
 
 export default MountWidget.extend({
   classNameBindings: [':map-component', ':map-container', 'size'],
@@ -43,8 +43,7 @@ export default MountWidget.extend({
   },
 
   scheduleSetup() {
-    scheduleOnce('afterRender', () => {
-      this.appEvents.trigger('dom:clean');
-    });
+    scheduleOnce('afterRender', () => this.appEvents.trigger('dom:clean'));
+    later(() => this.appEvents.trigger('sidebars:after-render'));
   }
 });

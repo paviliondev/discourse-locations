@@ -287,6 +287,7 @@ export default createWidget('map', {
       this.appEvents.on('sidebars:after-render', () => {
         state.runSetup = true;
         state.showSearch = false;
+        this.scheduleRerender();
       });
     }
 
