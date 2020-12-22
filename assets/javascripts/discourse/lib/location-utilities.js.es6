@@ -1,7 +1,7 @@
 import { ajax } from './ajax';
 import { Promise } from "rsvp";
 import I18n from "I18n";
-import discourseDebounce from "discourse/lib/debounce";
+import discourseDebounce from "discourse-common/lib/debounce";
 
 function locationSearch(request, resultsFn) {
   ajax({
@@ -26,16 +26,23 @@ function locationSearch(request, resultsFn) {
 let geoLocationSearch = (request, location_geocoding_debounce) => {
   if (!request) return;
 
-  var debouncedLocationSearch = discourseDebounce(locationSearch, location_geocoding_debounce);
+  // TODO: Use discouseDebounce when discourse 2.7 gets released.
+  let debounceFunc = discourseDebounce || debounce;
 
-  return new Promise(function(resolve, reject) {
-    debouncedLocationSearch(request, function(r) {
-      if (r.error) {
-        reject(r.message);
-      } else {
-        resolve(r);
-      };
-    });
+  return new Promise(function (resolve, reject) {
+    debounceFunc(
+      this,
+      function () {
+        locationSearch(request, function (r) {
+          if (r.error) {
+            reject(r.message);
+          } else {
+            resolve(r);
+          }
+        });
+      },
+      location_geocoding_debounce
+    );
   });
 };
 
