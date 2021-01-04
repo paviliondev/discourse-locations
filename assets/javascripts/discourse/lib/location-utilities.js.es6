@@ -1,7 +1,15 @@
 import { ajax } from './ajax';
 import { Promise } from "rsvp";
 import I18n from "I18n";
-import discourseDebounce from "discourse/lib/debounce";
+
+// TODO: Update after discourse-common/lib/debounce hits stable.
+let debounceFunc;
+try {
+  debounceFunc = requirejs("discourse-common/lib/debounce");
+} catch(error) {
+  console.warn("Discourse Layouts: Discourse debounce not available, using Ember debounce");
+  debounceFunc = debounce;
+}
 
 function locationSearch(request, resultsFn) {
   ajax({
@@ -26,16 +34,20 @@ function locationSearch(request, resultsFn) {
 let geoLocationSearch = (request, location_geocoding_debounce) => {
   if (!request) return;
 
-  var debouncedLocationSearch = discourseDebounce(locationSearch, location_geocoding_debounce);
-
-  return new Promise(function(resolve, reject) {
-    debouncedLocationSearch(request, function(r) {
-      if (r.error) {
-        reject(r.message);
-      } else {
-        resolve(r);
-      };
-    });
+  return new Promise(function (resolve, reject) {
+    debounceFunc(
+      this,
+      function () {
+        locationSearch(request, function (r) {
+          if (r.error) {
+            reject(r.message);
+          } else {
+            resolve(r);
+          }
+        });
+      },
+      location_geocoding_debounce
+    );
   });
 };
 
