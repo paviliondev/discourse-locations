@@ -4,11 +4,23 @@ class Locations::GeoController < ::ApplicationController
 
     rate_limit = SiteSetting.location_geocoding_rate_limit
     RateLimiter.new(current_user, 'geocode_search', rate_limit, 1.minute).performed!
-
-    result = Locations::Geocode.search(current_user, params[:request])
-
-    render_json_dump locations: serialize_data(result[:locations], Locations::GeoLocationSerializer),
-                     provider: result[:provider]
+    
+    error = nil
+    
+    begin
+      result = Locations::Geocode.search(current_user, params[:request])
+    rescue => error
+      error = error
+    end
+    
+    if error
+      render json: failed_json.merge(message: error.message)
+    else
+      render_json_dump(
+        locations: serialize_data(result[:locations], Locations::GeoLocationSerializer),
+        provider: result[:provider]
+      )
+    end
   end
 
   def validate

@@ -12,5 +12,11 @@ export default {
         $existingLocationInput.hide();
       });
     }
+  },
+  
+  actions: {
+    searchError(error) {
+      this.set('error', error);
+    }
   }
 };

@@ -9,8 +9,12 @@
                             context=context}}
       </div>
       <div class='user-location-warning'>
-        {{d-icon 'exclamation-circle'}}
-        {{i18n 'user.map_location.warning'}}
+        {{#if error}}
+          {{error}}
+        {{else}}
+          {{d-icon 'exclamation-circle'}}
+          {{i18n 'user.map_location.warning'}}
+        {{/if}}
       </div>
     </div>
   </div>

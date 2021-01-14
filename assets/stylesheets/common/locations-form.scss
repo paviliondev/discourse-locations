@@ -93,6 +93,7 @@ input.input-location, div.input-location {
 
   .ac-wrap {
     box-sizing: border-box;
+    height: 34px;
 
     .ac-loading {
       position: absolute;
@@ -105,11 +106,6 @@ input.input-location, div.input-location {
     }
 
     .autocomplete {
-      width: inherit;
-      left: 0 !important;
-      width: 100%;
-      top: 30px !important;
-      box-sizing: border-box;
 
       li, .no-results {
         padding: 10px;

@@ -46,7 +46,7 @@ export default TextField.extend({
           const showType = self.get('showType');
           let locations = [];
 
-          if (result.locations.length === 0) {
+          if (!result.locations || result.locations.length === 0) {
             locations = [{
               no_results: true
             }];
