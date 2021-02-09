@@ -79,7 +79,7 @@ export default {
         if (force) return true;
         if (categoryId) {
           const category = this.site.categories.findBy('id', categoryId);
-          if (category.custom_fields.location_enabled) return true;
+          if (category && category.custom_fields.location_enabled) return true;
         }
         return false;
       },
