@@ -91,7 +91,7 @@ export default createWidget('map', {
     if (!location['marker'] && !location['circle_marker']) {
       location['marker'] = {
         title: topic.fancy_title,
-        routeTo: "/t/" + topic.slug
+        routeTo: topic.url
       };
     }
 
