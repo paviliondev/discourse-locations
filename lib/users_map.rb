@@ -13,8 +13,7 @@ module DirectoryItemsControllerExtension
       ").includes(:user).limit(limit)
 
       serializer_opts = {}
-      serializer_opts[:attributes] = [:likes_received, :likes_given, :topic_count, :post_count, :topics_entered, :posts_read, :days_visited]
-
+      serializer_opts[:attributes] = []
 
       serialized = serialize_data(result, DirectoryItemSerializer, serializer_opts)
       render_json_dump(directory_items: serialized,
