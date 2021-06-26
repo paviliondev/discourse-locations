@@ -10,7 +10,7 @@
   padding: 5px 12px;
 
   &:not(.btn-primary) {
-    background: $secondary;
+    background: var(--secondary);
   }
 }
 
@@ -27,7 +27,8 @@
 .add-location .control-group {
   width: 100%;
 
-  .input-location, input {
+  .input-location,
+  input {
     width: 100%;
     box-sizing: border-box;
   }
@@ -37,7 +38,7 @@
   }
 }
 
-.location-selector+.autocomplete {
+.location-selector + .autocomplete {
   width: 90%;
 }
 
@@ -50,7 +51,11 @@
   height: calc(100vh - 55px);
 }
 
-.user-main .about .primary .primary-textual .location-and-website.map-location-enabled {
+.user-main
+  .about
+  .primary
+  .primary-textual
+  .location-and-website.map-location-enabled {
   > span {
     max-width: 100%;
     padding: 0px;

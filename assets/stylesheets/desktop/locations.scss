@@ -2,7 +2,7 @@
   align-items: flex-start;
 
   &.location-add-no-text {
-    &>div:last-of-type {
+    & > div:last-of-type {
       margin-right: 0;
     }
   }
@@ -50,5 +50,5 @@
 }
 
 .composer-controls-location .btn:not(:hover) {
-  background: $secondary;
+  background: var(--secondary);
 }

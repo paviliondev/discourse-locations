@@ -1,6 +1,6 @@
-@import 'locations-user';
-@import 'locations-form';
-@import 'locations-layouts';
+@import "locations-user";
+@import "locations-form";
+@import "locations-layouts";
 
 .add-location-controls .btn {
   text-align: left;
@@ -63,15 +63,16 @@
   max-width: 758px;
   height: 250px;
   top: 30px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
 
 .composer-controls-location {
   margin: 0 0 5px 5px;
 }
 
-.add-location-btn, .add-location-btn + button {
-  border: 1px solid $primary-medium;
+.add-location-btn,
+.add-location-btn + button {
+  border: 1px solid var(--primary-medium);
 }
 
 .location-form-map {
@@ -105,7 +106,7 @@
 .locations-map {
   height: 100%;
   position: relative;
-  border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
+  border: 1px solid var(--primary-low);
 
   .avatar-wrapper {
     position: absolute;
@@ -129,12 +130,13 @@
     cursor: pointer;
 
     &.show-details {
-      background-color: $tertiary;
-      color: $secondary;
+      background-color: var(--tertiary);
+      color: var(--secondary);
     }
   }
 
-  .search, .hide-search {
+  .search,
+  .hide-search {
     position: absolute;
     top: 3px;
     right: 3px;
@@ -142,9 +144,13 @@
     border-radius: 4px;
   }
 
-  .btn-map, .avatar, .leaflet-control, .map-title, .search {
+  .btn-map,
+  .avatar,
+  .leaflet-control,
+  .map-title,
+  .search {
     z-index: 99;
-    border: 1px solid dark-light-diff($primary, $secondary, 80%, -65%) !important;
+    border: 1px solid var(--primary-low) !important;
   }
 
   .btn-map {
@@ -178,13 +184,14 @@
     right: 35px;
   }
 
-  .btn, a {
-    background-color: $secondary;
+  .btn,
+  a {
+    background-color: var(--secondary);
     min-height: initial;
 
     &:hover {
-      background-color: $secondary;
-      color: $tertiary;
+      background-color: var(--secondary);
+      color: var(--tertiary);
     }
   }
 
@@ -213,22 +220,23 @@
       box-shadow: none;
       margin: 3px;
 
-      a, &.leaflet-control a[href] {
+      a,
+      &.leaflet-control a[href] {
         width: 24px;
         height: 25px;
         line-height: 23px;
         text-decoration: none;
 
         &:hover {
-          background-color: $secondary;
-          color: $tertiary;
+          background-color: var(--secondary);
+          color: var(--tertiary);
         }
       }
     }
-    
+
     .leaflet-marker-icon {
       .avatar-marker .avatar {
-        background-color: $secondary;
+        background-color: var(--secondary);
         border: none !important;
       }
     }
@@ -240,7 +248,7 @@
       &.custom {
         top: -15px;
       }
-      
+
       &.avatar-tip {
         top: -42px;
       }
@@ -253,7 +261,7 @@
     width: 100vw;
     top: 63px;
     left: 0;
-    border: 1px solid dark-light-diff($primary, $secondary, 90%, -65%);
+    border: 1px solid var(--primary-low);
     box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.4);
     z-index: 990;
 
@@ -271,7 +279,8 @@
       right: 60px;
     }
 
-    .search, .hide-search {
+    .search,
+    .hide-search {
       top: 20px;
       right: 20px;
     }
@@ -302,17 +311,17 @@
     .leaflet-control-zoom a {
       width: 28px;
       height: 28px;
-      line-height: 26px
+      line-height: 26px;
     }
   }
 }
 
 .topic-list-item .d-icon-map-marker-alt {
-  color: $primary;
+  color: var(--primary);
 }
 
 .topic-list-item.visited .d-icon-map-marker-alt {
-  color: $primary-medium;
+  color: var(--primary-medium);
 }
 
 .nav-container .locations-map:not(.expanded) {
@@ -327,8 +336,8 @@
   top: 3px;
   z-index: 201;
   border-radius: 4px;
-  background-color: $secondary;
-  border: 1px solid dark-light-diff($primary, $secondary, 80%, -65%);
+  background-color: var(--secondary);
+  border: 1px solid var(--primary-low);
 
   &.guest {
     margin-left: 0;
@@ -392,7 +401,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: $tertiary;
+        background-color: var(--tertiary);
         color: white;
       }
     }
