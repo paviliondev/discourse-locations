@@ -40,7 +40,7 @@ export default {
       });
       api.modifyClass("controller:users", {
         loadUsers(params) {
-          if (params.period === "location") {
+          if (params !== undefined && params.period === "location") {
             return;
           }
           this._super(params);
