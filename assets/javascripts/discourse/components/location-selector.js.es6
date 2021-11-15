@@ -25,6 +25,11 @@ export default TextField.extend({
     }
 
     const global = this.get('global');
+
+    window.__DISCOURSE_RAW_TEMPLATES = requirejs(
+      "discourse-common/lib/raw-templates"
+    ).__DISCOURSE_RAW_TEMPLATES;
+
     let template = window.__DISCOURSE_RAW_TEMPLATES['javascripts/location-autocomplete'];
 
     $(self.element).val(val).autocomplete({

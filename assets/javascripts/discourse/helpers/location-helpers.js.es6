@@ -1,6 +1,7 @@
 import { registerUnbound } from 'discourse-common/lib/helpers';
 import { geoLocationFormat, locationFormat } from '../lib/location-utilities';
 import Site from "discourse/models/site";
+import Handlebars from "handlebars";
 
 registerUnbound('geo-location-format', function(geoLocation, opts) {
   return new Handlebars.SafeString(geoLocationFormat(geoLocation, Site.currentProp('country_codes'), opts));
