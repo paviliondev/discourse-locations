@@ -2,6 +2,8 @@ import { withPluginApi } from 'discourse/lib/plugin-api';
 import { default as discourseComputed } from 'discourse-common/utils/decorators';
 import { or } from "@ember/object/computed";
 
+const PLUGIN_ID = "locations-plugin";
+
 export default {
   name:'location-map-renderer',
   initialize(container){
@@ -16,6 +18,7 @@ export default {
       };
 
       api.modifyClass('route:users', {
+        pluginId: PLUGIN_ID,
 
         refreshQueryWithoutTransition: false,
 
@@ -64,6 +67,8 @@ export default {
       });
 
       api.modifyClass ('component:user-card-contents', {
+        pluginId: PLUGIN_ID,
+        
         @discourseComputed("user")
         hasLocaleOrWebsite(user) {
           return user.geo_location || user.location || user.website_name || this.userTimezone;
