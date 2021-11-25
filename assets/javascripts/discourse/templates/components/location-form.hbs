@@ -59,10 +59,12 @@
                         nameProperty="name"
                         content=countrycodes
                         value=countrycode
-                        none="location.country_code.placeholder"
                         class="input-location"
-                        filterable=true
-                        isDisabled=countryDisabled}}
+                        options=(hash
+                          filterable=true
+                          disabled=countryDisabled
+                          none="location.country_code.placeholder"
+                        )}}
           </div>
         </div>
       {{/if}}
