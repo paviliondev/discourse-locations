@@ -10,8 +10,7 @@ export default {
         $(component.element).parents('.location-and-website')
           .addClass('map-location-enabled');
       });
-
-      component.set('showUserLocation', !!args.user.custom_fields.geo_location);
+      component.set('showUserLocation', !!args.user.geo_location);
       component.set('linkWebsite', !args.user.isBasic);
     }
   }
