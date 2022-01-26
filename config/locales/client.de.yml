@@ -1,6 +1,7 @@
 de:
   js:
     category:
+      location_settings_label: "Locations"
       location_enabled: "Zulassen, dass Standorte zu Themen in dieser Kategorie hinzugefügt werden"
       location_topic_status: "Aktivieren Sie die Symbole für den Status von Standortthemen für Themenlisten in dieser Kategorie."
       location_map_filter_closed: "Filtern Sie geschlossene Themen aus der Map-Themenliste in dieser Kategorie."
@@ -48,6 +49,7 @@ de:
         results: "Adressen"
         no_results: "Keine Ergebnisse."
         show_map: "Karte anzeigen"
+        hide_map: "Hide Map"
       label:
         add: "Füge einen Ort hinzu"
         title: "Standortdetails anzeigen"
@@ -55,26 +57,27 @@ de:
       done: "Speichern"
       errors:
         search: "Bei der Suche ist ein Problem aufgetreten. Bitte warten Sie 5 Sekunden und versuchen Sie es erneut."
-
     filters:
       map:
         title: "Karte"
         help: "Markieren Sie Themen mit Positionen in dieser Kategorie auf einer Karte."
     map:
       search_placeholder: "Suchen"
-
     topic_statuses:
       location:
         help: "Dieses Thema hat eine Ortsangabe."
-
     user:
       map_location:
         title: "Ortsangabe"
         warning: Ihr Standort wird öffentlich angezeigt.
-
     directory:
       map:
         title: "Benutzer Ortsangabe"
-
       list:
         title: "Benutzerliste"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"

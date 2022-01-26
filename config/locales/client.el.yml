@@ -1,0 +1,83 @@
+el:
+  js:
+    category:
+      location_settings_label: "Locations"
+      location_enabled: "Allow locations to be added to topics in this category"
+      location_topic_status: "Enable location topic status icons for topic lists in this category."
+      location_map_filter_closed: "Filter closed topics from the map topic list in this category."
+    composer:
+      location:
+        btn: "Add Location"
+        title: "Add a Location"
+    location:
+      address: "Address"
+      name:
+        title: "Name (optional)"
+        desc: "e.g. P. Sherman Dentist"
+      street:
+        title: "Number and Street"
+        desc: "e.g. 42 Wallaby Way"
+      postalcode:
+        title: "Postal Code (Zip)"
+        desc: "e.g. 2548"
+      neighbourhood:
+        title: "Neighbourhood"
+        desc: "e.g. Cremorne Point"
+      city:
+        title: "City, Town or Village"
+        desc: "e.g. Sydney"
+      state:
+        title: "State or Province"
+        desc: "e.g. New South Wales"
+      country_code:
+        title: "Country"
+        placeholder: "Select a Country"
+      coordinates: "Coordinates"
+      lat:
+        title: "Latitude"
+        desc: "e.g. -31.9456702"
+      lon:
+        title: "Longitude"
+        desc: "e.g. 115.8626477"
+      query:
+        title: "Address"
+        desc: "e.g. 42 Wallaby Way, Sydney."
+      geo:
+        desc: "Locations provided by {{provider}}"
+        btn:
+          label: "Find Address"
+        results: "Addresses"
+        no_results: "No results."
+        show_map: "Show Map"
+        hide_map: "Hide Map"
+      label:
+        add: "Add a Location"
+        title: "Show Location Details"
+      clear: "Clear"
+      done: "Done"
+      errors:
+        search: "There was a problem looking up that address. Please wait 5 seconds and try again."
+    filters:
+      map:
+        title: "Map"
+        help: "Mark topics with locations in this category on a map."
+    map:
+      search_placeholder: "Search"
+    topic_statuses:
+      location:
+        help: "This topic has a location."
+    user:
+      map_location:
+        title: "Map Location"
+        warning: Your location will be displayed publicly.
+    directory:
+      map:
+        title: "Users Map"
+      list:
+        title: "Users List"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"

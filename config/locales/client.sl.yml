@@ -1,6 +1,7 @@
 sl:
   js:
     category:
+      location_settings_label: "Locations"
       location_enabled: "Dovoli dodajanje lokacije na teme v tej kategoriji"
       location_topic_status: "Omogoči ikone lokacije na seznamu tem v tej kategoriji."
       location_map_filter_closed: "Ne prikaži zaprtih tem na zemljevidu v tej kategoriji."
@@ -48,6 +49,7 @@ sl:
         results: "Naslovi"
         no_results: "Ni zadetkov."
         show_map: "Pokaži zemljevid"
+        hide_map: "Hide Map"
       label:
         add: "Dodaj lokacijo"
         title: "Pokaži podrobnosti lokacije"
@@ -55,26 +57,27 @@ sl:
       done: "Shrani"
       errors:
         search: "Prišlo je do napake pri iskanju naslova. Počakajte 5 minut in poskusite ponovno."
-
     filters:
       map:
         title: "Zemljevid"
         help: "Označi teme z lokacijami v tej kategoriji na zemljevidu."
     map:
       search_placeholder: "Išči"
-
     topic_statuses:
       location:
         help: "Ta tema ima lokacijo."
-
     user:
       map_location:
         title: "Lokacija na zemljevidu"
-        warning: "Vaša lokacija bo prikazana javno."
-
+        warning: Vaša lokacija bo prikazana javno.
     directory:
       map:
         title: "Zemljevid uporabnikov"
-
       list:
         title: "Seznam uporabnikov"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"

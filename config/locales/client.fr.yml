@@ -1,6 +1,7 @@
 fr:
   js:
     category:
+      location_settings_label: "Locations"
       location_enabled: "Autoriser la géolocalisation des sujets dans cette catégorie"
       location_topic_status: "Marquer les sujets localisés par une icône dans la liste des sujets de cette catégorie."
       location_map_filter_closed: "Ne pas montrer les sujets fermés sur la carte dans cette catégorie."
@@ -48,6 +49,7 @@ fr:
         results: "Adresses"
         no_results: "Aucun résultat."
         show_map: "Voir la carte"
+        hide_map: "Hide Map"
       label:
         add: "Ajoutez un lieu"
         title: "Voir les détails du lieu"
@@ -55,26 +57,27 @@ fr:
       done: "Terminer"
       errors:
         search: "Il y a eu un problème en validant cette adresse. SVP attendre 5 secondes et recommencer à nouveau."
-
     filters:
       map:
         title: "Carte"
         help: "Marquer les sujets avec lieux dans cette catégorie sur une carte."
     map:
       search_placeholder: "Rechercher"
-
     topic_statuses:
       location:
         help: "Ce sujet a un lieu."
-
     user:
       map_location:
         title: "Map Location"
         warning: Votre géolocalisation sera montrée publiquement.
-
     directory:
       map:
         title: "Carte d'utilisateurs"
-
       list:
         title: "Liste d'utilisateurs"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"
