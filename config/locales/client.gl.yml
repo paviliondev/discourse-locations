@@ -1,15 +1,16 @@
 gl:
   js:
     category:
+      location_settings_label: "Locations"
       location_enabled: "Permitir engadir lugares nesta categoría"
       location_topic_status: "Activar iconos de estado de lugares para listas de temas nesta categoría."
-      location_map_filter_closed: ""
+      location_map_filter_closed: "Filter closed topics from the map topic list in this category."
     composer:
       location:
         btn: "Engadir lugar"
         title: "Engadir un lugar"
     location:
-      address: ""
+      address: "Address"
       name:
         title: "Nome (opcional)"
         desc: "P.ex. Manolanxo Teixido. Dentista"
@@ -20,24 +21,24 @@ gl:
         title: "Código Postal"
         desc: "P.ex. 15365"
       neighbourhood:
-        title: ""
-        desc: ""
+        title: "Neighbourhood"
+        desc: "e.g. Cremorne Point"
       city:
         title: "Vila ou Cidade"
         desc: "P.ex. Cariño"
       state:
-        title: ""
-        desc: ""
+        title: "State or Province"
+        desc: "e.g. New South Wales"
       country_code:
         title: "País"
         placeholder: "Selecciona un país"
-      coordinates: ""
+      coordinates: "Coordinates"
       lat:
-        title: ""
-        desc: ""
+        title: "Latitude"
+        desc: "e.g. -31.9456702"
       lon:
-        title: ""
-        desc: ""
+        title: "Longitude"
+        desc: "e.g. 115.8626477"
       query:
         title: "Enderezo"
         desc: "P.ex. Ronda de Outeiro 496. A Coruña"
@@ -48,6 +49,7 @@ gl:
         results: "Enderezos"
         no_results: "Sen resultados. Por favor, comproba que o nome e o código postal sexan correctos."
         show_map: "Amosar Mapa"
+        hide_map: "Hide Map"
       label:
         add: "Engadir o lugar"
         title: "Amosar os detalles do lugar"
@@ -55,26 +57,27 @@ gl:
       done: "Feito"
       errors:
         search: "Houbo un problema tentando procurar o enderezo. Por favor espere 5 segundos e ténteo de novo."
-
     filters:
       map:
         title: "Mapa"
         help: "Marcar os temas con lugares desta categoría nun mapa."
     map:
       search_placeholder: "Procurar"
-
     topic_statuses:
       location:
         help: "Este tema ten un lugar."
-
     user:
       map_location:
-        title: ""
-        warning: ""
-
+        title: "Map Location"
+        warning: Your location will be displayed publicly.
     directory:
       map:
-        title: ""
-
+        title: "Users Map"
       list:
-        title: ""
+        title: "Users List"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"
