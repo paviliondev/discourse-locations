@@ -1,9 +1,13 @@
 es:
   site_settings:
+    location_enabled: "Enable the locations plugin."
     location_hamburger_menu_map_link: "Activar menú de mapa en el hamburger menu"
     location_input_fields: "Campos de entrada de ubicación"
     location_input_fields_enabled: "Activar campos de entrada de ubicación"
     location_geocoding: "¿Geocodificar (mapear) las ubicaciones? Si no se activa, se guardarán como texto plano."
+    location_geocoding_language: "Language of the geocoding results."
+    location_geocoding_language_user: "User language"
+    location_geocoding_language_default: "Site default language"
     location_geocoding_api_key: "Clave de API para la geocodificación"
     location_geocoding_provider: |
       Proveedor de geocodificación (<a href='https://github.com/alexreisner/geocoder#street-address-services' target='_blank'>detalles</a>).
@@ -19,6 +23,9 @@ es:
     location_topic_status_icon: "Activar icono de estado de ubicación en todos los temas."
     location_map_filter_closed: "Filtrar temas cerrados de todos las listas-mapa."
     location_map_marker_zoom: "Zoom por defecto para marcadores en mapas."
+    location_map_marker_cluster_multiplier: "Marker cluster distance multiplier."
+    location_map_marker_category_color: "Set marker color as the category color of the marker topic."
+    location_map_maker_cluster_enabled: "Enable marker clustering"
     location_map_zoom: "Zoom por defecto en los mapas."
     location_map_expanded_zoom: "Zoom por defecto para mapas extendidos."
     location_map_center_lat: "Latitud central por defecto para mapas."
@@ -27,10 +34,18 @@ es:
     location_layouts_map_search_enabled: "Enable search in the layouts-map widget (requires Layouts Plugin)."
     location_layouts_map_show_avatar: "Enable user avatar in the layouts-map-widget (requires Layouts Plugin)."
     location_users_map: "Allow users to add a geocoded location which is displayed on a map in the Users section."
+    location_user_avatar: "Show user avatar on location markers."
     location_users_map_limit: "Número máximo de usuarios a mostrar en el mapa al mismo tiempo."
+    location_users_map_default: "Default to users map when navigating to 'Users'."
+    location_hide_labels: "Hide tooltip labels on location markers."
     location_add_no_text: "Ningún texto a añadir en los botones de ubicación."
     location_country_default: "País por defecto en el selector."
-
+    location_country_default_apply_to_all_searches: "Apply default country to all searches"
+    location_user_post: "Display a user's location below their username on their posts."
+    location_user_post_format: "Format of location on user's post. A list of geolocation attributes, with an optional index if value is split by ',' e.g. address:3"
+    location_user_profile_map: "Show a button to toggle a mini map of location next to user location on profile and user card."
+    location_user_profile_format: "Format of location on user's profile. A list of geolocation attributes, with an optional index if value is split by ',' e.g. address:3"
+    location_topic_default: "Default location for topic."
   location:
     errors:
       invalid: "Ubicación del mapa no válida"
