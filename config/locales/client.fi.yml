@@ -57,26 +57,27 @@ fi:
       done: "Valmis"
       errors:
         search: "Sijaintitietoja haettaessa tapahtui virhe. Yritä uudelleen 5 sekunnin kuluttua."
-
     filters:
       map:
         title: "Kartta"
         help: "Merkitse tämän alueen ketjujen sijaintitiedot karttaan."
     map:
       search_placeholder: "Haku"
-
     topic_statuses:
       location:
         help: "Tälle ketjulle on asetettu sijainti."
-
     user:
       map_location:
         title: "Sijainti"
-        warning: "Sijaintisi näytetään julkisesti profiilissasi."
-
+        warning: Sijaintisi näytetään julkisesti profiilissasi.
     directory:
       map:
         title: "Kartta"
-
       list:
         title: "Käyttäjät"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"
