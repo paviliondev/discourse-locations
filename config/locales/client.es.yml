@@ -1,6 +1,7 @@
 es:
   js:
     category:
+      location_settings_label: "Locations"
       location_enabled: "Permitir que se añadan ubicaciones a los temas en esta categoría"
       location_topic_status: "Activar iconos de estado de ubicación para los temas en esta categoría."
       location_map_filter_closed: "Filtrar los temas cerrados de la lista-mapa en esta categoría."
@@ -48,6 +49,7 @@ es:
         results: "Direcciones"
         no_results: "Sin resultados."
         show_map: "Mostrar mapa"
+        hide_map: "Hide Map"
       label:
         add: "Añadir una ubicación"
         title: "Mostrar detalles de la ubicación"
@@ -55,26 +57,27 @@ es:
       done: "OK"
       errors:
         search: "Ha ocurrido un error al buscar la dirección. Por favor, espera 5 segundos e inténtalo de nuevo."
-
     filters:
       map:
         title: "Mapa"
         help: "Marcar temas con ubicación en esta categoría en un mapa."
     map:
       search_placeholder: "Buscar"
-
     topic_statuses:
       location:
         help: "Este tema tiene una ubicación.."
-
     user:
       map_location:
         title: "Ubicación en el mapa"
         warning: Tu ubicación será mostrada públicamente.
-
     directory:
       map:
         title: "Mapa de usuarios"
-
       list:
         title: "Lista de usuarios"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"
