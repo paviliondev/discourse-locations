@@ -18,7 +18,7 @@ class Locations::Geocode
       lookup: provider.to_sym,
       api_key: api_key,
       timeout: timeout.to_i,
-      cache: $redis,
+      cache: Discourse.redis,
       cache_prefix: 'geocoder:',
       use_https: true,
       always_raise: [
@@ -60,7 +60,7 @@ class Locations::Geocode
     query = self.build_query(request)
     countrycode = SiteSetting.location_country_default_apply_to_all_searches && request['countrycode'].blank? ? SiteSetting.location_country_default : request['countrycode']
     context = request['context']
-    
+
     language = SiteSetting.location_geocoding_language
     if language == 'user' || language == :user
       options = { language: user.effective_locale }
