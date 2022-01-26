@@ -1,7 +1,7 @@
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 0.1
-# authors: Angus McLeod
+# version: 6.2.1
+# authors: Angus McLeod, Robert Barrow
 # url: https://github.com/angusmcleod/discourse-locations
 
 enabled_site_setting :location_enabled
