@@ -1,15 +1,16 @@
 ru:
   js:
     category:
+      location_settings_label: "Locations"
       location_enabled: "Разрешить адреса для тем в этом разделе"
-      location_topic_status: ""
-      location_map_filter_closed: ""
+      location_topic_status: "Enable location topic status icons for topic lists in this category."
+      location_map_filter_closed: "Filter closed topics from the map topic list in this category."
     composer:
       location:
         btn: "Добавить адрес"
         title: "Добавить адрес"
     location:
-      address: ""
+      address: "Address"
       name:
         title: "Название (опционально)"
         desc: "Например, Шерман Дентист"
@@ -20,24 +21,24 @@ ru:
         title: "Почтовый индекс"
         desc: "Например, 03118"
       neighbourhood:
-        title: ""
-        desc: ""
+        title: "Neighbourhood"
+        desc: "e.g. Cremorne Point"
       city:
         title: "Город / населенный пункт"
         desc: "Например, Киев"
       state:
-        title: ""
-        desc: ""
+        title: "State or Province"
+        desc: "e.g. New South Wales"
       country_code:
         title: "Страна"
         placeholder: "Выберите страну"
-      coordinates: ""
+      coordinates: "Coordinates"
       lat:
-        title: ""
-        desc: ""
+        title: "Latitude"
+        desc: "e.g. -31.9456702"
       lon:
-        title: ""
-        desc: ""
+        title: "Longitude"
+        desc: "e.g. 115.8626477"
       query:
         title: "Адрес"
         desc: "Например, пр Мира 42, Киев"
@@ -48,6 +49,7 @@ ru:
         results: "Адреса"
         no_results: "Поиск не дал результатов. Пожалуйста, проверьте правильность адреса и почтового индекса."
         show_map: "Показать карту"
+        hide_map: "Hide Map"
       label:
         add: "Добавить адрес"
         title: "Показать детали адреса"
@@ -55,26 +57,27 @@ ru:
       done: "Готово"
       errors:
         search: "Произошла ошибка во время проверки адреса. Пожалуйста, подождите 5 секунда и попробуйте снова."
-
     filters:
       map:
         title: "Карта"
         help: "Отобразить карту с нанесенными темами с адресами из этого раздела."
     map:
-      search_placeholder: ""
-
+      search_placeholder: "Search"
     topic_statuses:
       location:
-        help: ""
-
+        help: "This topic has a location."
     user:
       map_location:
-        title: ""
-        warning: ""
-
+        title: "Map Location"
+        warning: Your location will be displayed publicly.
     directory:
       map:
-        title: ""
-
+        title: "Users Map"
       list:
-        title: ""
+        title: "Users List"
+  admin_js:
+    admin:
+      wizard:
+        field:
+          type:
+            location: "Location (Locations Plugin)"
