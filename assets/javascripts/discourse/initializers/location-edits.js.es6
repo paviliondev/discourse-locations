@@ -80,7 +80,7 @@ export default {
 
         @observes('composer.location')
         resizeWhenLocationAdded: function() {
-          this.resize();
+          this._triggerComposerResized();
         },
 
         @observes('composer.showLocationControls', 'composer.composeState')
@@ -96,7 +96,7 @@ export default {
               $('.composer-controls-location').appendTo($anchor);
             }
 
-            this.resize();
+            this._triggerComposerResized();
           });
         }
       });
