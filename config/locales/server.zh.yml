@@ -1,4 +1,4 @@
-zh-TW:
+zh-CN:
   site_settings:
     location_enabled: "Enable the locations plugin."
     location_hamburger_menu_map_link: "Enable map menu item in hamburger menu"
