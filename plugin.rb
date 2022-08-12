@@ -2,6 +2,7 @@
 # about: Tools for handling locations in Discourse
 # version: 6.2.1
 # authors: Angus McLeod, Robert Barrow
+# contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
 
 enabled_site_setting :location_enabled
@@ -117,9 +118,9 @@ after_initialize do
   SiteSetting.public_user_custom_fields = public_user_custom_fields.join('|')
 
   PostRevisor.track_topic_field(:location) do |tc, location|
-    if location.present? && 
+    if location.present? &&
        location = Locations::Helper.parse_location(location.to_unsafe_hash)
-      
+
       tc.record_change('location', tc.topic.custom_fields['location'], location)
       tc.topic.custom_fields['location'] = location
       tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
@@ -133,7 +134,7 @@ after_initialize do
     if post.is_first_post? &&
        opts[:location].present? &&
        location = Locations::Helper.parse_location(opts[:location])
-      
+
       topic = post.topic
       topic.custom_fields['location'] = location
       topic.custom_fields['has_geo_location'] = location['geo_location'].present?
