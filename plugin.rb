@@ -234,8 +234,31 @@ after_initialize do
   DiscourseEvent.trigger(:locations_ready)
 end
 
-DiscourseEvent.on(:custom_wizard_ready) do
+on(:custom_wizard_ready) do
   if defined?(CustomWizard) == 'constant' && CustomWizard.class == Module
-    CustomWizard::Field.register('location', 'discourse-locations', ['components', 'helpers', 'lib', 'stylesheets', 'templates'])
+    CustomWizard::Field.register('location', 'discourse-locations')
+    CustomWizard::Action.register_callback(:before_create_topic) do |params, wizard, action, submission|
+      if action['add_location']
+        location = CustomWizard::Mapper.new(
+          inputs: action['add_location'],
+          data: submission&.fields_and_meta,
+          user: wizard.user
+        ).perform
+
+        if location.present?
+          location = Locations::Helper.parse_location(location)
+
+          location_params = {}
+          location_params['location'] = location
+          location_params['has_geo_location'] = location['geo_location'].present?
+
+          params[:topic_opts] ||= {}
+          params[:topic_opts][:custom_fields] ||= {}
+          params[:topic_opts][:custom_fields].merge!(location_params)
+        end
+      end
+
+      params
+    end
   end
 end

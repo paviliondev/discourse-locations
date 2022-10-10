@@ -1,5 +1,5 @@
-import { default as computed, on } from 'discourse-common/utils/decorators';
-import { ajax } from 'wizard/lib/ajax';
+import discourseComputed { on } from 'discourse-common/utils/decorators';
+import { ajax } from 'discourse/lib/ajax';
 import Component from '@ember/component';
 import { alias } from "@ember/object/computed";
 import I18n from "I18n";
@@ -23,21 +23,21 @@ export default Component.extend({
     this.set('geoLocation', existing['geo_location'] || {});
     this.set('field.customCheck', this.customCheck.bind(this));
   },
-  
+
   customCheck() {
     const required = this.required;
     const hasInput = this.inputFields.some((f) => this.get(f));
-        
+
     if (required || hasInput) {
       return this.handleValidation();
     } else {
       return true;
-    }      
+    }
   },
 
-  @computed()
+  @discourseComputed()
   inputFields() {
-    return Wizard.SiteSettings.location_input_fields.split('|');
+    return this.siteSettings.location_input_fields.split('|');
   },
 
   handleValidation() {
@@ -67,7 +67,7 @@ export default Component.extend({
           location[field] = input;
         };
       });
-      
+
       if (validationType) {
         return this.setValidation(false, validationType);
       }
@@ -76,14 +76,14 @@ export default Component.extend({
     if (includeGeoLocation) {
       let valid = geoLocation && geoLocation.address;
       let message;
-            
+
       if (valid) {
         location['geo_location'] = geoLocation;
         this.set("field.value", location);
       } else {
         message = 'geo_location';
       }
-      
+
       return this.setValidation(valid, message);
     } else {
       this.set("field.value", location);
