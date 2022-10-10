@@ -1,4 +1,4 @@
-import discourseComputed { on } from 'discourse-common/utils/decorators';
+import discourseComputed, { on } from 'discourse-common/utils/decorators';
 import { ajax } from 'discourse/lib/ajax';
 import Component from '@ember/component';
 import { alias } from "@ember/object/computed";
