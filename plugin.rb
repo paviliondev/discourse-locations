@@ -1,6 +1,6 @@
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.2.4
+# version: 6.2.5
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
