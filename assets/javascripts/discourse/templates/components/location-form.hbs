@@ -88,7 +88,7 @@
     {{/if}}
     {{#if showGeoLocation}}
       {{#if showInputFields}}
-        <button class='btn btn-default wizard-btn location-search' {{action 'locationSearch'}} disabled={{searchDisabled}}>
+        <button class='btn btn-default wizard-btn location-search' onclick={{action "locationSearch"}} disabled={{searchDisabled}}>
           {{i18n 'location.geo.btn.label'}}
         </button>
         {{#if showLocationResults}}
