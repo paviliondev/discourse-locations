@@ -5,7 +5,7 @@
 
 {{#if showMapToggle}}
   <div class="location-topic-map">
-    <button {{action "showMap"}} class='btn btn-small btn-default'>
+    <button onclick={{action "showMap"}} class='btn btn-small btn-default'>
       {{d-icon 'far-map'}}
       {{#unless site.mobileView}}
         {{i18n 'location.geo.show_map'}}
