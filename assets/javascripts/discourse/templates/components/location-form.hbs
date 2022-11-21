@@ -1,6 +1,6 @@
 {{#if this.showAddress}}
   <div class="address">
-    {{#if this.showinputFields}}
+    {{#if this.showInputFields}}
       {{#if this.showTitle}}
         <div class="title">
           {{i18n "location.address"}}
@@ -28,7 +28,7 @@
         <div class="control-group">
           <label class="control-label">{{i18n "location.postalcode.title"}}</label>
           <div class="controls">
-            <input value={{this.postalcode}} class="input-small input-location" disabled={{this.postcodeDisabled}}>
+            <input type="text" value={{this.postalcode}} class="input-small input-location" disabled={{this.postcodeDisabled}}>
           </div>
           <div class="instructions">{{i18n "location.postalcode.desc"}}</div>
         </div>
@@ -73,10 +73,10 @@
         <label class="control-label">{{i18n "location.query.title"}}</label>
         <div class="controls location-selector-container">
           {{#if this.showGeoLocation}}
-            <LocationSelector location={{this.geoLocation}}
-                                class="input-xxlarge location-selector"
-                                searchError="searchError"
-                                context={{this.context}} />
+            <LocationSelector @location={{this.geoLocation}}
+                                @class="input-xxlarge location-selector"
+                                @searchError="searchError"
+                                @context={{this.context}} />
           {{else}}
             <input type="text" value={{this.rawLocation}} class="input-xxlarge input-location">
           {{/if}}
@@ -87,7 +87,7 @@
       </div>
     {{/if}}
     {{#if this.showGeoLocation}}
-      {{#if this.showinputFields}}
+      {{#if this.showInputFields}}
         <button class="btn btn-default wizard-btn location-search" onclick={{action "locationSearch"}} disabled={{this.searchDisabled}} type="button">
           {{i18n "location.geo.btn.label"}}
         </button>
