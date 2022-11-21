@@ -1,115 +1,115 @@
-{{#if showAddress}}
+{{#if this.showAddress}}
   <div class="address">
-    {{#if showInputFields}}
-      {{#if showTitle}}
+    {{#if this.showinputFields}}
+      {{#if this.showTitle}}
         <div class="title">
-          {{i18n 'location.address'}}
+          {{i18n "location.address"}}
         </div>
       {{/if}}
-      {{#if showStreet}}
+      {{#if this.showStreet}}
         <div class="control-group">
-          <label class='control-label'>{{i18n 'location.street.title'}}</label>
+          <label class="control-label">{{i18n "location.street.title"}}</label>
           <div class="controls">
-            {{input type="text" value=street class="input-large input-location" disabled=streetDisabled}}
+            <input type="text" value={{this.street}} class="input-large input-location" disabled={{this.streetDisabled}}>
           </div>
-          <div class='instructions'>{{i18n 'location.street.desc'}}</div>
+          <div class="instructions">{{i18n "location.street.desc"}}</div>
         </div>
       {{/if}}
-      {{#if showNeighbourhood}}
-        <div class='control-group'>
-          <label class="control-label">{{i18n 'location.neighbourhood.title'}}</label>
+      {{#if this.showNeighbourhood}}
+        <div class="control-group">
+          <label class="control-label">{{i18n "location.neighbourhood.title"}}</label>
           <div class="controls">
-            {{input value=neighbourhood class="input-large input-location" disabled=neighbourhoodDisabled}}
+            <input value={{this.neighbourhood}} class="input-large input-location" disabled={{this.neighbourhoodDisabled}}>
           </div>
-          <div class='instructions'>{{i18n 'location.neighbourhood.desc'}}</div>
+          <div class="instructions">{{i18n "location.neighbourhood.desc"}}</div>
         </div>
       {{/if}}
-      {{#if showPostalcode}}
-        <div class='control-group'>
-          <label class="control-label">{{i18n 'location.postalcode.title'}}</label>
+      {{#if this.showPostalcode}}
+        <div class="control-group">
+          <label class="control-label">{{i18n "location.postalcode.title"}}</label>
           <div class="controls">
-            {{input value=postalcode class="input-small input-location" disabled=postcodeDisabled}}
+            <input value={{this.postalcode}} class="input-small input-location" disabled={{this.postcodeDisabled}}>
           </div>
-          <div class='instructions'>{{i18n 'location.postalcode.desc'}}</div>
+          <div class="instructions">{{i18n "location.postalcode.desc"}}</div>
         </div>
       {{/if}}
-      {{#if showCity}}
-        <div class='control-group'>
-          <label class="control-label">{{i18n 'location.city.title'}}</label>
+      {{#if this.showCity}}
+        <div class="control-group">
+          <label class="control-label">{{i18n "location.city.title"}}</label>
           <div class="controls">
-            {{input type="text" value=city class="input-large input-location" disabled=cityDisabled}}
+            <input type="text" value={{this.city}} class="input-large input-location" disabled={{this.cityDisabled}}>
           </div>
-          <div class='instructions'>{{i18n 'location.city.desc'}}</div>
+          <div class="instructions">{{i18n "location.city.desc"}}</div>
         </div>
       {{/if}}
-      {{#if showState}}
-        <div class='control-group'>
-          <label class="control-label">{{i18n 'location.state.title'}}</label>
+      {{#if this.showState}}
+        <div class="control-group">
+          <label class="control-label">{{i18n "location.state.title"}}</label>
           <div class="controls">
-            {{input value=state class="input-large input-location" disabled=stateDisabled}}
+            <input value={{this.state}} class="input-large input-location" disabled={{this.stateDisabled}}>
           </div>
-          <div class='instructions'>{{i18n 'location.state.desc'}}</div>
+          <div class="instructions">{{i18n "location.state.desc"}}</div>
         </div>
       {{/if}}
-      {{#if showCountrycode}}
-        <div class='control-group'>
-          <label class="control-label">{{i18n 'location.country_code.title'}}</label>
+      {{#if this.showCountrycode}}
+        <div class="control-group">
+          <label class="control-label">{{i18n "location.country_code.title"}}</label>
           <div class="controls">
-            {{combo-box valueAttribute="code"
+            <ComboBox valueProperty="code"
                         nameProperty="name"
-                        content=countrycodes
-                        value=countrycode
+                        content={{this.countrycodes}}
+                        value={{this.countrycode}}
                         class="input-location"
-                        options=(hash
-                          filterable=true
-                          disabled=countryDisabled
+                        @options={{hash
+                          filterable="true"
+                          disabled=this.countryDisabled
                           none="location.country_code.placeholder"
-                        )}}
+                        }} />
           </div>
         </div>
       {{/if}}
     {{else}}
       <div class="control-group">
-        <label class='control-label'>{{i18n 'location.query.title'}}</label>
+        <label class="control-label">{{i18n "location.query.title"}}</label>
         <div class="controls location-selector-container">
-          {{#if showGeoLocation}}
-            {{location-selector location=geoLocation
+          {{#if this.showGeoLocation}}
+            <LocationSelector location={{this.geoLocation}}
                                 class="input-xxlarge location-selector"
-                                searchError='searchError'
-                                context=context}}
+                                searchError="searchError"
+                                context={{this.context}} />
           {{else}}
-            {{input type="text" value=rawLocation class="input-xxlarge input-location"}}
+            <input type="text" value={{this.rawLocation}} class="input-xxlarge input-location">
           {{/if}}
         </div>
-        <div class='instructions'>
-          {{i18n 'location.query.desc'}}
+        <div class="instructions">
+          {{i18n "location.query.desc"}}
         </div>
       </div>
     {{/if}}
-    {{#if showGeoLocation}}
-      {{#if showInputFields}}
-        <button class='btn btn-default wizard-btn location-search' onclick={{action "locationSearch"}} disabled={{searchDisabled}}>
-          {{i18n 'location.geo.btn.label'}}
+    {{#if this.showGeoLocation}}
+      {{#if this.showinputFields}}
+        <button class="btn btn-default wizard-btn location-search" onclick={{action "locationSearch"}} disabled={{this.searchDisabled}} type="button">
+          {{i18n "location.geo.btn.label"}}
         </button>
-        {{#if showLocationResults}}
-          <div class='location-results'>
-            <h4>{{i18n 'location.geo.results'}}</h4>
+        {{#if this.showLocationResults}}
+          <div class="location-results">
+            <h4>{{i18n "location.geo.results"}}</h4>
             <ul>
-              {{#if hasSearched}}
-                {{#if loadingLocations}}
+              {{#if this.hasSearched}}
+                {{#if this.loadingLocations}}
                   {{loading-spinner size="small"}}
                 {{else}}
-                  {{#each geoLocationOptions as |l|}}
-                    {{geo-location-result updateGeoLocation="updateGeoLocation" location=l geoAttrs=geoAttrs}}
+                  {{#each this.geoLocationOptions as |l|}}
+                    <GeoLocationResult updateGeoLocation="updateGeoLocation" location={{this.l}} geoAttrs={{this.geoAttrs}} />
                   {{else}}
-                    <li class='no-results'>{{i18n 'location.geo.no_results'}}</li>
+                    <li class="no-results">{{i18n "location.geo.no_results"}}</li>
                   {{/each}}
                 {{/if}}
               {{/if}}
             </ul>
           </div>
-          {{#if showProvider}}
-            <div class='location-form-instructions'>{{{i18n 'location.geo.desc' provider=providerDetails}}}</div>
+          {{#if this.showProvider}}
+            <div class="location-form-instructions">{{i18n "location.geo.desc" provider=this.providerDetails}}</div>
           {{/if}}
         {{/if}}
       {{/if}}
@@ -117,33 +117,33 @@
   </div>
 {{/if}}
 
-{{#if showCoordinates}}
+{{#if this.showCoordinates}}
   <div class="coordinates">
     <div class="title">
-      {{i18n 'location.coordinates'}}
+      {{i18n "location.coordinates"}}
     </div>
-    <div class='control-group'>
-      <label class="control-label">{{i18n 'location.lat.title'}}</label>
+    <div class="control-group">
+      <label class="control-label">{{i18n "location.lat.title"}}</label>
       <div class="controls">
-        {{input type="number" value=geoLocation.lat class="input-small input-location"}}
+        <input type="number" value={{this.geoLocation.lat}} class="input-small input-location">
         <div class="icon">
           <img src="/plugins/discourse-locations/images/latitude.png">
         </div>
       </div>
-      <div class='instructions'>
-        {{i18n 'location.lat.desc'}}
+      <div class="instructions">
+        {{i18n "location.lat.desc"}}
       </div>
     </div>
-    <div class='control-group'>
-      <label class="control-label">{{i18n 'location.lon.title'}}</label>
+    <div class="control-group">
+      <label class="control-label">{{i18n "location.lon.title"}}</label>
       <div class="controls">
-        {{input type="number" value=geoLocation.lon class="input-small input-location"}}
+        <input type="number" value={{this.geoLocation.lon}} class="input-small input-location">
         <div class="icon">
           <img src="/plugins/discourse-locations/images/longitude.png">
         </div>
       </div>
-      <div class='instructions'>
-        {{i18n 'location.lon.desc'}}
+      <div class="instructions">
+        {{i18n "location.lon.desc"}}
       </div>
     </div>
   </div>
