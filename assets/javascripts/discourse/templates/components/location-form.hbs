@@ -101,7 +101,7 @@
                   {{loading-spinner size="small"}}
                 {{else}}
                   {{#each this.geoLocationOptions as |l|}}
-                    <GeoLocationResult @updateGeoLocation="updateGeoLocation" @location={{l}} @geoAttrs={{this.geoAttrs}} />
+                    <GeoLocationResult @onClick={{action "updateGeoLocation"}} @location={{l}} @geoAttrs={{this.geoAttrs}} />
                   {{else}}
                     <li class="no-results">{{i18n "location.geo.no_results"}}</li>
                   {{/each}}

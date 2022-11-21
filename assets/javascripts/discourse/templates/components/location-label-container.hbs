@@ -1,18 +1,18 @@
-<div class="location-label" title="{{i18n 'location.label.title'}}">
-  {{d-icon 'map-marker-alt'}}
-  {{location-format topic.location opts}}
+<div class="location-label" title={{i18n "location.label.title"}}>
+  {{d-icon "map-marker-alt"}}
+  {{location-format this.topic.location this.opts}}
 </div>
 
-{{#if showMapToggle}}
+{{#if this.showMapToggle}}
   <div class="location-topic-map">
-    <button onclick={{action "showMap"}} class='btn btn-small btn-default'>
-      {{d-icon 'far-map'}}
-      {{#unless site.mobileView}}
-        {{i18n 'location.geo.show_map'}}
+    <button onclick={{action "showMap"}} class="btn btn-small btn-default" type="button">
+      {{d-icon "far-map"}}
+      {{#unless this.site.mobileView}}
+        {{i18n "location.geo.show_map"}}
       {{/unless}}
     </button>
   </div>
-  {{#if showMap}}
-    {{map-component topic=topic size='small'}}
+  {{#if this.showMap}}
+    <MapComponent @topic={{this.topic}} @size="small" />
   {{/if}}
 {{/if}}
