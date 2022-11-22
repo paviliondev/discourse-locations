@@ -1,8 +1,10 @@
-<label>{{geo-location-format location geoAttrs=geoAttrs}}</label>
-{{#if showType}}
-  {{#if location.type}}
-    <div class="location-type">
-      {{location.type}}
-    </div>
+<label {{on "click" (fn @onClick this.location)}}>
+  {{geo-location-format this.location geoAttrs=this.geoAttrs}}
+  {{#if this.showType}}
+    {{#if this.location.type}}
+      <div class="location-type">
+        {{this.location.type}}
+      </div>
+    {{/if}}
   {{/if}}
-{{/if}}
+</label>

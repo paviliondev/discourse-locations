@@ -101,7 +101,7 @@
                   {{loading-spinner size="small"}}
                 {{else}}
                   {{#each this.geoLocationOptions as |l|}}
-                    <GeoLocationResult @updateGeoLocation="updateGeoLocation" @location={{l}} @geoAttrs={{this.geoAttrs}} />
+                    <GeoLocationResult @onClick={{action "updateGeoLocation"}} @location={{l}} @geoAttrs={{this.geoAttrs}} />
                   {{else}}
                     <li class="no-results">{{i18n "location.geo.no_results"}}</li>
                   {{/each}}
@@ -110,7 +110,7 @@
             </ul>
           </div>
           {{#if this.showProvider}}
-            <div class="location-form-instructions">{{i18n "location.geo.desc" provider=this.providerDetails}}</div>
+            <div class="location-form-instructions">{{html-safe (i18n "location.geo.desc" provider=this.providerDetails)}}</div>
           {{/if}}
         {{/if}}
       {{/if}}
