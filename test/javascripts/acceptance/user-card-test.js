@@ -14,8 +14,8 @@ acceptance("User Card - Show Correct User Location Format", function (needs) {
   needs.settings({
     location_enabled: true,
     location_user_profile_format: "city|countrycode",
+    location_users_map: true,
   });
-  console.log('hello this far!');
   needs.pretender((server, helper) => {
     const cardResponse = cloneJSON(userFixtures["/u/merefield/card.json"]);
     server.get("/u/merefield/card.json", () => helper.response(cardResponse));
@@ -23,7 +23,7 @@ acceptance("User Card - Show Correct User Location Format", function (needs) {
 
   test("user card location - shows correct format", async function (assert) {
     console.log('hello this far!');
-    await visit("/t/this-is-a-test-topic/9");
+    await visit("/t/death-by-poisonous-and-electric-watermelon/41");
     await click('a[data-user-card="merefield"]');
 
     assert.equal(
