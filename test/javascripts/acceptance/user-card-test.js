@@ -6,12 +6,11 @@ import {
 import { click, visit } from "@ember/test-helpers";
 import User from "discourse/models/user";
 import { test } from "qunit";
-import userFixtures from "discourse/tests/fixtures/user-fixtures";
+import userFixtures from "../fixtures/user-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
 
 acceptance("User Card - Show Correct User Location Format", function (needs) {
   needs.user();
-  debugger;
   needs.settings({
     location_enabled: true,
     location_user_profile_format: "city|countrycode",
