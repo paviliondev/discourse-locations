@@ -7,7 +7,7 @@ export default {
         created_at: "2022-07-11T12:25:35.154Z",
         count: 1,
         badge_id: 1,
-        user_id: 29,
+        user_id: 1,
         granted_by_id: -1,
       },
       {
@@ -16,7 +16,7 @@ export default {
         created_at: "2022-07-20T22:17:16.507Z",
         count: 1,
         badge_id: 45,
-        user_id: 29,
+        user_id: 1,
         granted_by_id: -1,
       },
       {
@@ -25,7 +25,7 @@ export default {
         created_at: "2022-07-14T07:37:56.560Z",
         count: 1,
         badge_id: 10,
-        user_id: 29,
+        user_id: 1,
         granted_by_id: -1,
       },
     ],
@@ -86,7 +86,7 @@ export default {
     badge_types: [{ id: 3, name: "Bronze", sort_order: 7 }],
     users: [
       {
-        id: 29,
+        id: 1,
         username: "merefield",
         name: null,
         avatar_template: "/letter_avatar_proxy/v4/letter/m/b487fb/{size}.png",
@@ -107,7 +107,7 @@ export default {
       },
     ],
     user: {
-      id: 29,
+      id: 1,
       username: "merefield",
       name: null,
       avatar_template: "/letter_avatar_proxy/v4/letter/m/b487fb/{size}.png",
