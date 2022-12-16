@@ -39,8 +39,6 @@ acceptance("User Card - Show Correct User Location Format", function (needs) {
       ...siteFixtures["site.json"].site,
     };
     PreloadStore.store("site", cloneJSON(siteAttrs));
-    
-    
     Site.resetCurrent();
     debugger;
     PreloadStore.get("site")
