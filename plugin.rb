@@ -91,8 +91,8 @@ after_initialize do
   add_to_serializer(:topic_list_item, :include_location?) { object.location.present? }
 
   User.register_custom_field_type('geo_location', :json)
-  # register_editable_user_custom_field :geo_location if defined? register_editable_user_custom_field
-  register_editable_user_custom_field geo_location: {} if defined? register_editable_user_custom_field
+  register_editable_user_custom_field [:geo_location,  geo_location: {}] if defined? register_editable_user_custom_field
+  # register_editable_user_custom_field geo_location: {} if defined? register_editable_user_custom_field
   add_to_serializer(:user, :geo_location, false) { object.custom_fields['geo_location'] }
   add_to_serializer(:user_card, :geo_location, false) { object.custom_fields['geo_location'] }
   add_to_serializer(:user_card, :include_geo_location?) do
