@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe ::Locations::GeoController do
@@ -15,7 +16,7 @@ describe ::Locations::GeoController do
         .to_return(status: 200, body: '', headers: {})
 
       get :search, params: { request: '10 Downing Street' }, format: :json
-      expect(response).to be_success
+      expect(response).to have_http_status(:successful)
     end
 
     it 'rate limits geocode searches' do
@@ -24,20 +25,20 @@ describe ::Locations::GeoController do
 
       6.times do
         get :search, params: { request: '10 Downing Street' }, format: :json
-        expect(response).to be_success
+        expect(response).to have_http_status(:successful)
       end
 
       get :search, params: { request: '10 Downing Street' }, format: :json
-      expect(response).not_to be_success
+      expect(response).not_to have_http_status(:successful)
     end
   end
 
   describe 'country_codes' do
     it 'works' do
-      get :country_codes, format: :json
-      expect(response).to be_success
+      get :countries, format: :json
+      expect(response).to have_http_status(:successful)
       json = ::JSON.parse(response.body)
-      expect(json['country_codes'][0]['code']).to eq('af')
+      expect(json['geo'][0]['code']).to eq('af')
     end
   end
 end
