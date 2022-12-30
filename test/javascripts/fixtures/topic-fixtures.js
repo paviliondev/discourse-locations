@@ -177,6 +177,24 @@ export default {
           edit_reason: null,
           can_view_edit_history: true,
           wiki: false,
+          user_custom_fields: {
+            geo_location: {
+               lat: "48.8497018",
+               lon: "2.3516467",
+               address: "Bar à Iode - Saint-Germaine, Boulevard Saint-Germain, Quartier Saint-Victor, 5th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75005, France",
+               countrycode: "fr",
+               city: "Paris",
+               state: "Ile-de-France",
+               country: "France",
+               postalcode: "75005",
+               boundingbox: [
+                "48.8496518",
+                "48.8497518",
+                "2.3515967",
+                "2.3516967"],
+              type: "restaurant"
+           }
+          },
           notice: {
             type: "returning_user",
             last_posted_at: "2021-06-18T06:12:40Z",
