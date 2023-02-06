@@ -1,6 +1,8 @@
 <div class="location-label" title={{i18n "location.label.title"}}>
   {{d-icon "map-marker-alt"}}
-  {{location-format this.topic.location this.opts}}
+  <span class="location-text">
+    {{location-format this.topic.location this.opts}}
+  </span>
 </div>
 
 {{#if this.showMapToggle}}

@@ -1,1 +1,3 @@
-{{~location-format context.topic.location}}
+<span class="location-after-title">
+  {{~location-format context.topic.location}}
+</span>
