@@ -1,5 +1,19 @@
 export default {
-  "country_codes.json": {
+  "site.json": {
+    categories: [
+      {
+        id: 11,
+        name: "Suggestions",
+        custom_fields:
+        {
+          has_chat_enabled: null,
+          location: null,
+          location_map_filter_closed: null,
+          location_enabled: true,
+          location_topic_status: true
+        },
+        allowed_tags: [], allowed_tag_groups: [], allow_global_tags: false, read_only_banner: null, uploaded_logo: null, uploaded_logo_dark: null, uploaded_background: null, required_tag_groups: [], can_edit: true
+      }],
     country_codes: [
       { code: "af", name: "Afghanistan" },
       { code: "ax", name: "Åland Islands" },

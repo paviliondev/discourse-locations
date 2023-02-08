@@ -312,8 +312,14 @@
   }
 }
 
-.topic-list-item .d-icon-map-marker-alt {
-  color: var(--primary);
+.topic-list-item {
+  span.location-after-title {
+    margin-left: 10px;
+  }
+
+  .d-icon-map-marker-alt {
+    color: var(--primary);
+  }
 }
 
 .topic-list-item.visited .d-icon-map-marker-alt {

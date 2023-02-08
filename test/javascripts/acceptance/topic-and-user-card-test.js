@@ -10,7 +10,7 @@ import topicFixtures from "../fixtures/topic-fixtures";
 import siteFixtures from "../fixtures/site-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
 
-acceptance("User Card - Show Correct User Location Format", function (needs) {
+acceptance("Topic & User Card - Show Correct User Location Format", function (needs) {
   needs.user();
   needs.settings({
     location_enabled: true,
@@ -20,7 +20,7 @@ acceptance("User Card - Show Correct User Location Format", function (needs) {
     location_users_map: true,
     hide_user_profiles_from_public: false,
   });
-  needs.site(cloneJSON(siteFixtures["country_codes.json"]));
+  needs.site(cloneJSON(siteFixtures["site.json"]));
   needs.pretender((server, helper) => {
     const cardResponse = cloneJSON(userFixtures["/u/merefield/card.json"]);
     server.get("/u/merefield/card.json", () => helper.response(cardResponse));
@@ -28,8 +28,12 @@ acceptance("User Card - Show Correct User Location Format", function (needs) {
     server.get("/t/51/1.json", () => helper.response(topicResponse));
   });
 
-  test("post user & user card location - shows correct format", async function (assert) {
+  test("topic title location, post user & user card location - shows correct format", async function (assert) {
     await visit("/t/online-learning/51/1");
+    assert.equal(
+      query("span.location-text").innerText,
+      "Pompidou, Paris, France"
+    );
     assert.equal(
       query(".small-action-desc.timegap").innerText,
       "2 years later"
