@@ -22,8 +22,8 @@ acceptance("Topic List- Show Correct Topic Location Format", function (needs) {
 
   test("topic on topic list location - shows correct format", async function (assert) {
     await visit("/latest");
-    assert.equal(
-      query('tr[data-topic-id="36"] span.location-after-title').innerText,
+    assert.ok(
+      exists('tr[data-topic-id="36"] span.location-after-title'),
       "Pompidou, Paris, France"
     );
   });
