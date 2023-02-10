@@ -27,4 +27,11 @@ acceptance("Topic List- Show Correct Topic Location Format", function (needs) {
       "Pompidou, Paris, France"
     );
   });
+  test("topic on topic list location - doesn't include location after title span when there is no location", async function (assert) {
+    await visit("/latest");
+    assert.equal(
+      query('tr[data-topic-id="35"] span.location-after-title'),
+      null
+    )
+  });
 });
