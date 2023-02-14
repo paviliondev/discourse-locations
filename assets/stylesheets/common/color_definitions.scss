@@ -1,0 +1,14 @@
+@if #{schemeType()} == dark {
+  :root {
+    --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+  }
+  
+  .locations-map {
+    .leaflet-tile-pane  {
+      filter:var(--map-tiles-filter, none);
+    }
+    .leaflet-marker-shadow {
+      display: none;
+    }
+  }
+}
