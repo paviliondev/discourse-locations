@@ -3,7 +3,7 @@ en:
     location_enabled: "Enable the locations plugin."
     location_hamburger_menu_map_link: "Enable map menu item in hamburger menu"
     location_input_fields: "Location input fields"
-    location_input_fields_enabled: "Enable location input fields"
+    location_input_fields_enabled: "Enable location input fields (topic locations only)"
     location_geocoding: "Whether locations should be geocoded (mapped). If off, locations are stored as strings."
     location_geocoding_language: "Language of the geocoding results."
     location_geocoding_language_user: "User language"
