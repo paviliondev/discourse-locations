@@ -9,6 +9,7 @@ export default TextField.extend({
   classNames: 'location-selector',
   context: null,
 
+  @computed()
   settings() {
     const rootElement = getOwner(this).get('rootElement');
     return rootElement === '#custom-wizard-main' ? Wizard.SiteSettings : this.siteSettings;
