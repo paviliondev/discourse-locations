@@ -5,7 +5,7 @@
         <div class="no-results">{{i18n 'location.geo.no_results'}}</div>
       {{else}}
         {{#if o.provider}}
-          <label>{{{i18n 'location.geo.desc' provider=o.provider}}}</label>
+          <label>{{i18n 'location.geo.desc' provider=o.provider}}</label>
         {{else}}
           <li class="location-form-result">
             <label>{{geo-location-format o geoAttrs=o.geoAttrs}}</label>

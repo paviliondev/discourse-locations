@@ -1,30 +1,37 @@
-import { ajax } from './ajax';
+import { ajax } from "./ajax";
 import { Promise } from "rsvp";
 import { debounce } from "@ember/runloop";
 import I18n from "I18n";
 
 function locationSearch(request, resultsFn) {
   ajax({
-    url: '/location/search',
-    data: { request }
-  }).then(function (r) {
-    resultsFn(r);
-  }).catch(function (e) {
-    let message = I18n.t('location.errors.search');
+    url: "/location/search",
+    data: { request },
+  })
+    .then(function (r) {
+      resultsFn(r);
+    })
+    .catch(function (e) {
+      let message = I18n.t("location.errors.search");
 
-    if (e.responseJSON && e.responseJSON.errors) {
-      message = e.responseJSON.errors[0];
-    } else if (e.responseText) {
-      const responseText = e.responseText;
-      message = responseText.substring(responseText.indexOf('>') + 1, responseText.indexOf('plugins'));
-    };
+      if (e.responseJSON && e.responseJSON.errors) {
+        message = e.responseJSON.errors[0];
+      } else if (e.responseText) {
+        const responseText = e.responseText;
+        message = responseText.substring(
+          responseText.indexOf(">") + 1,
+          responseText.indexOf("plugins")
+        );
+      }
 
-    resultsFn({ error: true, message });
-  });
+      resultsFn({ error: true, message });
+    });
 }
 
 let geoLocationSearch = (request, location_geocoding_debounce) => {
-  if (!request) return;
+  if (!request) {
+    return;
+  }
 
   return new Promise(function (resolve, reject) {
     debounce(
@@ -43,11 +50,11 @@ let geoLocationSearch = (request, location_geocoding_debounce) => {
   });
 };
 
-let formatLocation = function(location, country_codes, attrs = []) {
-  let result = '';
+let formatLocation = function (location, country_codes, attrs = []) {
+  let result = "";
 
-  attrs.forEach(function(a, i) {
-    let attr = a.split(/:(.+)/).filter(at => at !== '');
+  attrs.forEach(function (a, i) {
+    let attr = a.split(/:(.+)/).filter((at) => at !== "");
     let key = attr[0];
     let value = location[key];
     let index = attr.length > 1 ? attr[1] : null;
@@ -55,21 +62,23 @@ let formatLocation = function(location, country_codes, attrs = []) {
     if (value) {
       let part = value;
 
-      if (key === 'countrycode') {
-        let country = country_codes.find(c => c.code === value);
+      if (key === "countrycode") {
+        let country = country_codes.find((c) => c.code === value);
 
-        if (country) part = country.name;
+        if (country) {
+          part = country.name;
+        }
       }
 
       if (index) {
-        let formatArr = part.split(',');
+        let formatArr = part.split(",");
         part = formatArr[index];
       }
 
       result += part;
 
       if (i < attrs.length - 1) {
-        result += ', ';
+        result += ", ";
       }
     }
   });
@@ -77,8 +86,10 @@ let formatLocation = function(location, country_codes, attrs = []) {
   return result;
 };
 
-let geoLocationFormat = function(geoLocation, country_codes, opts = {}) {
-  if (!geoLocation) return;
+let geoLocationFormat = function (geoLocation, country_codes, opts = {}) {
+  if (!geoLocation) {
+    return;
+  }
   let result;
 
   if (opts.geoAttrs && opts.geoAttrs.length > 0) {
@@ -90,23 +101,31 @@ let geoLocationFormat = function(geoLocation, country_codes, opts = {}) {
   return result;
 };
 
-let locationFormat = function(location, country_codes, location_input_fields_enabled, location_input_fields, opts = {}) {
-  if (!location) return '';
+let locationFormat = function (
+  location,
+  country_codes,
+  location_input_fields_enabled,
+  location_input_fields,
+  opts = {}
+) {
+  if (!location) {
+    return "";
+  }
 
-  let display = '';
+  let display = "";
 
   if (location.name) {
     display += location.name;
-  };
+  }
 
   if (location_input_fields_enabled && (!opts.attrs || !opts.attrs.length)) {
-    let possibleFields = location_input_fields.split('|');
-    let attrs = possibleFields.filter(f => location[f]);
+    let possibleFields = location_input_fields.split("|");
+    let attrs = possibleFields.filter((f) => location[f]);
 
     if (attrs.length) {
-      opts['attrs'] = attrs;
+      opts["attrs"] = attrs;
     }
-  };
+  }
 
   let address;
 
@@ -119,7 +138,9 @@ let locationFormat = function(location, country_codes, location_input_fields_ena
   }
 
   if (address) {
-    if (location.name) display += ', ';
+    if (location.name) {
+      display += ", ";
+    }
     display += address;
   }
 
@@ -131,7 +152,13 @@ let providerDetails = {
   location_iq: `<a href='https://locationiq.org/' target='_blank'>LocationIQ</a>`,
   opencagedata: `<a href='https://opencagedata.com' target='_blank'>OpenCage Data</a>`,
   mapbox: `<a href='https://www.mapbox.com/' target='_blank'>Mapbox</a>`,
-  mapquest: `<a href='https://developer.mapquest.com' target='_blank'>Mapquest</a>`
+  mapquest: `<a href='https://developer.mapquest.com' target='_blank'>Mapquest</a>`,
 };
 
-export { geoLocationSearch, geoLocationFormat, locationFormat, formatLocation, providerDetails };
+export {
+  geoLocationSearch,
+  geoLocationFormat,
+  locationFormat,
+  formatLocation,
+  providerDetails,
+};

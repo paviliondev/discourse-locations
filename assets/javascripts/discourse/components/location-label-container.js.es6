@@ -15,8 +15,12 @@ export default Component.extend({
   @computed("locationAttrs", "geoAttrs")
   opts(locationAttrs, geoAttrs) {
     let opts = {};
-    if (locationAttrs) opts["attrs"] = locationAttrs;
-    if (geoAttrs) opts["geoAttrs"] = geoAttrs;
+    if (locationAttrs) {
+      opts["attrs"] = locationAttrs;
+    }
+    if (geoAttrs) {
+      opts["geoAttrs"] = geoAttrs;
+    }
     return opts;
   },
 
