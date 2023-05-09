@@ -6,3 +6,7 @@ RSpec/ContextWording:
 
 RSpec/DescribeClass:
   Enabled: false
+
+AllCops:
+  Exclude:
+    - 'gems/**/*'
