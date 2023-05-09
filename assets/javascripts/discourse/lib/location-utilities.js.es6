@@ -29,14 +29,14 @@ let geoLocationSearch = (request, location_geocoding_debounce) => {
   return new Promise(function (resolve, reject) {
     debounce(
       this,
-      function () {
-        locationSearch(request, function (r) {
-          if (r.error) {
-            reject(r.message);
-          } else {
-            resolve(r);
-          }
-        });
+      locationSearch,
+      request,
+      function (r) {
+        if (r.error) {
+          reject(r.message);
+        } else {
+          resolve(r);
+        }
       },
       location_geocoding_debounce
     );
