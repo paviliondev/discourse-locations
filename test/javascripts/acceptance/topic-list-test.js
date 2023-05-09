@@ -3,7 +3,7 @@ import {
   exists,
   query,
 } from "discourse/tests/helpers/qunit-helpers";
-import { click, visit } from "@ember/test-helpers";
+import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import topicListFixtures from "../fixtures/topic-list-with-location";
 import siteFixtures from "../fixtures/site-fixtures";
@@ -32,6 +32,6 @@ acceptance("Topic List- Show Correct Topic Location Format", function (needs) {
     assert.equal(
       query('tr[data-topic-id="35"] span.location-after-title'),
       null
-    )
+    );
   });
 });

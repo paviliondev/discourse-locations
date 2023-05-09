@@ -43,7 +43,7 @@
 .btn-show-map.no-text {
   padding: 6px 8px !important;
   margin-bottom: 0;
-  
+
   .d-icon {
     margin-right: 0 !important;
     width: 1em !important;
@@ -51,29 +51,29 @@
   }
 }
 
-.location-and-website.map-location-enabled {  
+.location-and-website.map-location-enabled {
   .user-location-widget {
     display: flex;
-    
+
     .d-icon-map-marker-alt {
       margin-top: 4px;
       margin-right: 5px;
     }
-    
+
     .map-wrapper {
       position: relative;
       margin-left: 5px;
     }
 
     .map-container.small {
-        position: absolute;
-        z-index: 9999;
-        top: initial;
-        right: 0;
-        max-width: 758px;
-        height: 250px;
-        top: 30px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+      position: absolute;
+      z-index: 9999;
+      top: initial;
+      right: 0;
+      max-width: 758px;
+      height: 250px;
+      top: 30px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
     }
 
     .map-container {
@@ -87,31 +87,35 @@
   .website-name {
     display: none;
   }
-  
+
   .replace-location .location,
   .replace-location .website-name {
     display: block;
     overflow: visible;
     margin-right: 0;
   }
-  
+
   .locations-map .location .d-icon {
     margin-right: 0;
   }
 }
 
-.user-main .about .primary .primary-textual .location-and-website.map-location-enabled {
+.user-main
+  .about
+  .primary
+  .primary-textual
+  .location-and-website.map-location-enabled {
   overflow: initial;
-  
+
   > span {
     max-width: 80%;
   }
-  
+
   .user-profile-location,
   .user-profile-website {
     display: none;
   }
-  
+
   .replace-location .user-profile-location,
   .replace-location .user-profile-website {
     display: block;
@@ -122,7 +126,7 @@
     max-width: 100%;
     white-space: initial;
   }
-  
+
   .map-wrapper {
     min-width: 110px;
     text-align: right;

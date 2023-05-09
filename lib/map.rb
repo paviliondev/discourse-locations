@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Locations::Map
   def self.sorted_list_filters
     @sorted_list_filters ||= []

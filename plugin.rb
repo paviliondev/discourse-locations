@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
 # version: 6.3.0
