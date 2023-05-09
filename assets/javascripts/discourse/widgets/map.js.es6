@@ -1,23 +1,28 @@
-import { createWidget } from 'discourse/widgets/widget';
-import { h } from 'virtual-dom';
-import RawHtml from 'discourse/widgets/raw-html';
-import { avatarImg } from 'discourse/widgets/post';
-import { generateMap, setupMap, addMarkersToMap, addCircleMarkersToMap } from '../lib/map-utilities';
+import { createWidget } from "discourse/widgets/widget";
+import { h } from "virtual-dom";
+import RawHtml from "discourse/widgets/raw-html";
+import { avatarImg } from "discourse/widgets/post";
+import {
+  addCircleMarkersToMap,
+  addMarkersToMap,
+  generateMap,
+  setupMap,
+} from "../lib/map-utilities";
 import { scheduleOnce } from "@ember/runloop";
 
-export default createWidget('map', {
-  tagName: 'div.locations-map',
-  buildKey: () => 'map',
+export default createWidget("map", {
+  tagName: "div.locations-map",
+  buildKey: () => "map",
 
   defaultState(attrs) {
     return {
-      mapToggle: 'expand',
+      mapToggle: "expand",
       expanded: false,
       showAttribution: false,
       runSetup: true,
       showSearch: false,
       locations: attrs.locations || [],
-      showExpand: !attrs.disableExpand
+      showExpand: !attrs.disableExpand,
     };
   },
 
@@ -28,7 +33,10 @@ export default createWidget('map', {
     const userList = this.attrs.userList;
     let locations = this.state.locations;
 
-    if (this.attrs.locations && locations.length !== this.attrs.locations.length) {
+    if (
+      this.attrs.locations &&
+      locations.length !== this.attrs.locations.length
+    ) {
       this.attrs.locations.forEach((l) => {
         if (l && this.validGeoLocation(l)) {
           locations.push(l);
@@ -38,7 +46,7 @@ export default createWidget('map', {
 
     if (this.addTopicMarker(topic, locations)) {
       locations.push(this.topicMarker(topic));
-    };
+    }
 
     if (topicList && topicList.topics) {
       topicList.topics.forEach((t) => {
@@ -50,13 +58,12 @@ export default createWidget('map', {
 
     if (this.addUserMarker(user, locations)) {
       locations.push(this.userMarker(user));
-    };
+    }
 
     if (userList) {
       userList.forEach((u) => {
-        const user = u.user;
-        if (this.addUserMarker(user, locations)) {
-          locations.push(this.userMarker(user));
+        if (this.addUserMarker(u.user, locations)) {
+          locations.push(this.userMarker(u.user));
         }
       });
     }
@@ -65,19 +72,27 @@ export default createWidget('map', {
   },
 
   addTopicMarker(topic, locations) {
-    if (!topic ||
+    if (
+      !topic ||
       !topic.location ||
       !topic.location.geo_location ||
       !this.validGeoLocation(topic.location.geo_location) ||
       topic.location.hide_marker ||
-      locations.find(l => l['topic_id'] === topic.id)) return false;
+      locations.find((l) => l["topic_id"] === topic.id)
+    ) {
+      return false;
+    }
     return true;
   },
 
   addUserMarker(user, locations) {
-    if (!user ||
+    if (
+      !user ||
       !this.validGeoLocation(user.geo_location) ||
-      locations.find(l => l['user_id'] === user.id)) return false;
+      locations.find((l) => l["user_id"] === user.id)
+    ) {
+      return false;
+    }
     return true;
   },
 
@@ -88,20 +103,23 @@ export default createWidget('map', {
   topicMarker(topic) {
     let location = topic.location;
 
-    if (!location['marker'] && !location['circle_marker']) {
-      location['marker'] = {
+    if (!location["marker"] && !location["circle_marker"]) {
+      location["marker"] = {
         title: topic.fancy_title,
-        routeTo: topic.url
+        routeTo: topic.url,
       };
     }
 
-    if (this.siteSettings.location_map_marker_category_color &&
-        topic.category && topic.category.color) {
-      location['marker']['color'] = topic.category.color;
-      location['marker']['class'] = topic.category.slug;
+    if (
+      this.siteSettings.location_map_marker_category_color &&
+      topic.category &&
+      topic.category.color
+    ) {
+      location["marker"]["color"] = topic.category.color;
+      location["marker"]["class"] = topic.category.slug;
     }
 
-    location['topic_id'] = topic.id;
+    location["topic_id"] = topic.id;
 
     return location;
   },
@@ -109,29 +127,37 @@ export default createWidget('map', {
   userMarker(user) {
     let location = {};
 
-    location['marker'] = {
+    location["marker"] = {
       title: user.username,
       avatar: user.avatar_template,
-      routeTo: "/u/" + user.username
+      routeTo: "/u/" + user.username,
     };
 
-    location['user_id'] = user.id;
+    location["user_id"] = user.id;
 
-    location['geo_location'] = user.geo_location;
+    location["geo_location"] = user.geo_location;
 
     return location;
   },
 
   locationPresent(locations, location) {
-    return locations.filter((l) => {
-      if (location.geo_location) return false;
-      if (location.geo_location.lat && location.geo_location.lon) {
-        return l.geo_location.lat === location.geo_location.lat &&
-          l.geo_location.lon === location.geo_location.lon;
-      } else if (location.geo_location.boundingbox) {
-        return l.geo_location.boundingbox === location.geo_location.boundingbox;
-      }
-    }).length > 0;
+    return (
+      locations.filter((l) => {
+        if (location.geo_location) {
+          return false;
+        }
+        if (location.geo_location.lat && location.geo_location.lon) {
+          return (
+            l.geo_location.lat === location.geo_location.lat &&
+            l.geo_location.lon === location.geo_location.lon
+          );
+        } else if (location.geo_location.boundingbox) {
+          return (
+            l.geo_location.boundingbox === location.geo_location.boundingbox
+          );
+        }
+      }).length > 0
+    );
   },
 
   addMarkers() {
@@ -148,16 +174,16 @@ export default createWidget('map', {
           let marker = {
             lat: l.geo_location.lat,
             lon: l.geo_location.lon,
-            options: {}
+            options: {},
           };
 
           if (l.marker) {
-            marker['options'] = l.marker;
+            marker["options"] = l.marker;
             rawMarkers.push(marker);
           }
 
           if (l.circle_marker) {
-            marker['options'] = l.circle_marker;
+            marker["options"] = l.circle_marker;
             rawCircleMarkers.push(marker);
           }
         }
@@ -165,14 +191,20 @@ export default createWidget('map', {
     }
 
     let markers = null;
-    const category = this.attrs.category;
 
     if (rawCircleMarkers && rawCircleMarkers.length > 0) {
       addCircleMarkersToMap(rawCircleMarkers, map, this);
     }
 
     if (rawMarkers && rawMarkers.length > 0) {
-      markers = addMarkersToMap(rawMarkers, map, settings.location_map_maker_cluster_enabled, settings.location_map_marker_cluster_multiplier, settings.location_user_avatar, settings.location_hide_labels);
+      markers = addMarkersToMap(
+        rawMarkers,
+        map,
+        settings.location_map_maker_cluster_enabled,
+        settings.location_map_marker_cluster_multiplier,
+        settings.location_user_avatar,
+        settings.location_hide_labels
+      );
     }
 
     return markers;
@@ -190,15 +222,21 @@ export default createWidget('map', {
     const center = this.attrs.center;
     let boundingbox = null;
 
-    if (category &&
-        category.custom_fields.location &&
-        category.custom_fields.location.geo_location &&
-        category.custom_fields.location.geo_location.boundingbox) {
+    if (
+      category &&
+      category.custom_fields.location &&
+      category.custom_fields.location.geo_location &&
+      category.custom_fields.location.geo_location.boundingbox
+    ) {
       boundingbox = category.custom_fields.location.geo_location.boundingbox;
     }
 
-    if (topic && topic.location && topic.location.geo_location
-        && topic.location.geo_location.boundingbox) {
+    if (
+      topic &&
+      topic.location &&
+      topic.location.geo_location &&
+      topic.location.geo_location.boundingbox
+    ) {
       boundingbox = topic.location.geo_location.boundingbox;
     }
 
@@ -214,7 +252,7 @@ export default createWidget('map', {
     if (!this.state.showAttribution) {
       map.addControl(attribution);
     } else {
-      if ($('.locations-map .leaflet-control-attribution').is(':visible')) {
+      if ($(".locations-map .leaflet-control-attribution").is(":visible")) {
         map.removeControl(attribution);
       }
     }
@@ -223,12 +261,12 @@ export default createWidget('map', {
   },
 
   toggleSearch() {
-    scheduleOnce('afterRender', this, () => {
+    scheduleOnce("afterRender", this, () => {
       // resetinng the val puts the cursor at the end of the text on focus
-      const $input = $('#map-search-input');
+      const $input = $("#map-search-input");
       const val = $input.val();
       $input.focus();
-      $input.val('');
+      $input.val("");
       $input.val(val);
     });
     this.state.showSearch = !this.state.showSearch;
@@ -236,12 +274,12 @@ export default createWidget('map', {
 
   toggleExpand() {
     const map = this.state.mapObjs.map;
-    const $map = $('.locations-map');
+    const $map = $(".locations-map");
 
-    $map.toggleClass('expanded');
+    $map.toggleClass("expanded");
     map.invalidateSize();
 
-    if ($map.hasClass('expanded')) {
+    if ($map.hasClass("expanded")) {
       this.state.mapToggle = "compress";
       this.state.expanded = true;
       map.setZoom(this.siteSettings.location_map_expanded_zoom);
@@ -253,8 +291,8 @@ export default createWidget('map', {
   },
 
   editCategory() {
-    const appRoute = this.register.lookup('route:application');
-    appRoute.send('editCategory', this.attrs.category);
+    const appRoute = this.register.lookup("route:application");
+    appRoute.send("editCategory", this.attrs.category);
   },
 
   initializeMap() {
@@ -262,9 +300,15 @@ export default createWidget('map', {
     const clickable = this.attrs.clickable;
     const zoom = this.attrs.zoom;
     let opts = {};
-    if (zoom) opts['zoom'] = zoom;
-    if (center) opts['center'] = center;
-    if (clickable) opts['clickable'] = clickable;
+    if (zoom) {
+      opts["zoom"] = zoom;
+    }
+    if (center) {
+      opts["center"] = center;
+    }
+    if (clickable) {
+      opts["clickable"] = clickable;
+    }
     return generateMap(this.siteSettings, opts);
   },
 
@@ -279,12 +323,12 @@ export default createWidget('map', {
     if (state.runSetup || attrs.runSetup) {
       state.runSetup = false;
 
-      scheduleOnce('afterRender', this, () => {
+      scheduleOnce("afterRender", this, () => {
         this.setupMap();
       });
 
       // triggered in sidebar-container component in layouts plugin
-      this.appEvents.on('sidebars:after-render', () => {
+      this.appEvents.on("sidebars:after-render", () => {
         state.runSetup = true;
         state.showSearch = false;
         this.scheduleRerender();
@@ -294,13 +338,19 @@ export default createWidget('map', {
     let contents = [new RawHtml({ html: state.mapObjs.element })];
 
     if (attrs.showAvatar && user) {
-      let size = state.expanded ? 'large' : 'medium';
-      contents.push(h('a.avatar-wrapper', {
-        attributes: { 'data-user-card': user.get('username') }
-      }, avatarImg(size, {
-        template: user.get('avatar_template'),
-        username: user.get('username')
-      })));
+      let size = state.expanded ? "large" : "medium";
+      contents.push(
+        h(
+          "a.avatar-wrapper",
+          {
+            attributes: { "data-user-card": user.get("username") },
+          },
+          avatarImg(size, {
+            template: user.get("avatar_template"),
+            username: user.get("username"),
+          })
+        )
+      );
     }
 
     if (attrs.search) {
@@ -309,57 +359,59 @@ export default createWidget('map', {
         let current = null;
         if (attrs.category && attrs.category.location) {
           current = attrs.category.location;
-        };
+        }
         if (attrs.topic && attrs.topic.location) {
           current = attrs.topic.location;
         }
         contents.push(
-          this.attach('map-search', {
+          this.attach("map-search", {
             locations,
-            current
+            current,
           }),
-          this.attach('button', {
-            className: 'btn btn-map hide-search',
-            action: 'toggleSearch',
-            icon: 'times'
+          this.attach("button", {
+            className: "btn btn-map hide-search",
+            action: "toggleSearch",
+            icon: "times",
           })
         );
       } else {
         contents.push(
-          this.attach('link', {
-            className: 'btn btn-map search',
-            action: 'toggleSearch',
-            icon: 'search'
+          this.attach("link", {
+            className: "btn btn-map search",
+            action: "toggleSearch",
+            icon: "search",
           })
         );
       }
     }
-    
+
     if (state.showExpand) {
       contents.push(
-        this.attach('button', {
+        this.attach("button", {
           className: `btn btn-map map-expand`,
-          action: 'toggleExpand',
+          action: "toggleExpand",
           actionParam: category,
-          icon: state.mapToggle
+          icon: state.mapToggle,
         })
-      )
+      );
     }
 
     contents.push(
-      this.attach('button', {
-        className: 'btn btn-map map-attribution',
-        action: 'toggleAttribution',
-        icon: 'info'
+      this.attach("button", {
+        className: "btn btn-map map-attribution",
+        action: "toggleAttribution",
+        icon: "info",
       })
     );
 
     if (category && category.can_edit) {
-      contents.push(this.attach('button', {
-        className: 'btn btn-map category-edit',
-        action: "editCategory",
-        icon: 'wrench'
-      }));
+      contents.push(
+        this.attach("button", {
+          className: "btn btn-map category-edit",
+          action: "editCategory",
+          icon: "wrench",
+        })
+      );
     }
 
     if (attrs.extraWidgets) {
@@ -367,8 +419,8 @@ export default createWidget('map', {
         return this.attach(w.widget, w.attrs);
       });
       contents.push(...extraWidgets);
-    };
+    }
 
     return contents;
-  }
+  },
 });

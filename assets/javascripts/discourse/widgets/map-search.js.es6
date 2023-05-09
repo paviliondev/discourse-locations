@@ -1,57 +1,59 @@
-import { createWidget } from 'discourse/widgets/widget';
-import DiscourseURL from 'discourse/lib/url';
-import { h } from 'virtual-dom';
+import { createWidget } from "discourse/widgets/widget";
+import DiscourseURL from "discourse/lib/url";
+import { h } from "virtual-dom";
 import I18n from "I18n";
 
-createWidget('map-search-item', {
-  tagName: 'li',
+createWidget("map-search-item", {
+  tagName: "li",
 
   html(attrs) {
     return attrs.locationName;
   },
 
   click() {
-    this.sendWidgetAction('goToLocation', this.attrs.location);
-  }
+    this.sendWidgetAction("goToLocation", this.attrs.location);
+  },
 });
 
-createWidget('map-search-input', {
-  tagName: 'input',
-  buildId: () => 'map-search-input',
-  buildKey: () => 'map-search-input',
+createWidget("map-search-input", {
+  tagName: "input",
+  buildId: () => "map-search-input",
+  buildKey: () => "map-search-input",
 
   defaultState() {
     return {
-      current: this.attrs.current
+      current: this.attrs.current,
     };
   },
 
   buildClasses(attrs) {
-    if (attrs.listVisible) return 'list-visible';
+    if (attrs.listVisible) {
+      return "list-visible";
+    }
   },
 
   buildAttributes(attrs) {
     return {
-      type: 'text',
-      value: attrs.current ? attrs.current.geo_location.name : '',
-      placeholder: I18n.t('map.search_placeholder')
+      type: "text",
+      value: attrs.current ? attrs.current.geo_location.name : "",
+      placeholder: I18n.t("map.search_placeholder"),
     };
   },
 
   click() {
-    this.sendWidgetAction('toggleList', true);
+    this.sendWidgetAction("toggleList", true);
   },
 
   keyDown(e) {
-    this.sendWidgetAction('toggleList', true);
+    this.sendWidgetAction("toggleList", true);
     if (e.which === 9) {
       e.preventDefault();
-      return this.sendWidgetAction('autoComplete');
+      return this.sendWidgetAction("autoComplete");
     }
   },
 
   clickOutside() {
-    this.sendWidgetAction('toggleList', false);
+    this.sendWidgetAction("toggleList", false);
   },
 
   keyUp(e) {
@@ -62,32 +64,34 @@ createWidget('map-search-input', {
         location = this.attrs.topResult;
       }
 
-      this.sendWidgetAction('toggleList', false);
-      return this.sendWidgetAction('goToLocation', location);
+      this.sendWidgetAction("toggleList", false);
+      return this.sendWidgetAction("goToLocation", location);
     }
 
-    this.sendWidgetAction('inputChanged', e.target.value);
-  }
+    this.sendWidgetAction("inputChanged", e.target.value);
+  },
 });
 
-export default createWidget('map-search', {
-  tagName: 'div.map-search',
-  buildKey: () => 'map-search',
+export default createWidget("map-search", {
+  tagName: "div.map-search",
+  buildKey: () => "map-search",
 
   defaultState(attrs) {
-    const input = attrs.current ? attrs.current.geo_location.name : '';
+    const input = attrs.current ? attrs.current.geo_location.name : "";
     return {
       current: attrs.current,
       locations: this.filteredLocations(input),
-      listVisible: false
+      listVisible: false,
     };
   },
 
   filteredLocations(input) {
     const locations = this.attrs.locations;
-    if (!locations || locations.length < 1) return [];
+    if (!locations || locations.length < 1) {
+      return [];
+    }
 
-    input = input ? input.toLowerCase() : '';
+    input = input ? input.toLowerCase() : "";
 
     return locations.filter((l) => {
       const name = this.locationName(l);
@@ -101,22 +105,25 @@ export default createWidget('map-search', {
 
   html(attrs, state) {
     let contents = [
-      this.attach('map-search-input', {
+      this.attach("map-search-input", {
         current: attrs.current,
         listVisible: state.listVisible,
-        topResult: state.locations[0] || false
-      })
+        topResult: state.locations[0] || false,
+      }),
     ];
 
     if (state.listVisible) {
       contents.push(
-        h('ul.map-search-list', state.locations.map((location) => {
-          const locationName = this.locationName(location);
-          return this.attach('map-search-item', {
-            location,
-            locationName
-          });
-        }))
+        h(
+          "ul.map-search-list",
+          state.locations.map((location) => {
+            const locationName = this.locationName(location);
+            return this.attach("map-search-item", {
+              location,
+              locationName,
+            });
+          })
+        )
       );
     }
 
@@ -136,20 +143,32 @@ export default createWidget('map-search', {
   },
 
   locationName(location) {
-    return location.name || location.geo_location.name || location.geo_location.address;
+    return (
+      location.name ||
+      location.geo_location.name ||
+      location.geo_location.address
+    );
   },
 
   goToLocation(location) {
     this.state.current = location;
 
-    const node = document.getElementById('#map-search-input');
-    if (node) node.value = this.locationName(location);
+    const node = document.getElementById("#map-search-input");
+    if (node) {
+      node.value = this.locationName(location);
+    }
 
-    let url = '/';
-    if (location.route_to) url = location.route_to;
-    if (location.marker) url = location.marker.routeTo;
-    if (location.circle_marker) url = location.circle_marker.routeTo;
+    let url = "/";
+    if (location.route_to) {
+      url = location.route_to;
+    }
+    if (location.marker) {
+      url = location.marker.routeTo;
+    }
+    if (location.circle_marker) {
+      url = location.circle_marker.routeTo;
+    }
 
     DiscourseURL.routeTo(url);
-  }
+  },
 });

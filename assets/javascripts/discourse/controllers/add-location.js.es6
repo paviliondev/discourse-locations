@@ -1,23 +1,23 @@
-import { default as computed } from 'discourse-common/utils/decorators';
-import ModalFunctionality from 'discourse/mixins/modal-functionality';
+import { default as computed } from "discourse-common/utils/decorators";
+import ModalFunctionality from "discourse/mixins/modal-functionality";
 import Controller from "@ember/controller";
 
 export default Controller.extend(ModalFunctionality, {
-  title: 'composer.location.title',
+  title: "composer.location.title",
   searchOnInit: false,
   name: null,
   street: null,
   postalcode: null,
   city: null,
   countrycode: null,
-  geoLocation: { lat: '', lon: '' },
+  geoLocation: { lat: "", lon: "" },
   rawLocation: null,
 
   setup() {
     const settings = this.siteSettings;
-    const location = this.get('model.location');
+    const location = this.get("model.location");
 
-    this.set('countrycode', settings.location_country_default);
+    this.set("countrycode", settings.location_country_default);
 
     if (location) {
       this.setProperties({
@@ -36,12 +36,12 @@ export default Controller.extend(ModalFunctionality, {
 
   @computed()
   inputFields() {
-    return this.siteSettings.location_input_fields.split('|');
+    return this.siteSettings.location_input_fields.split("|");
   },
 
-  @computed('geoLocation')
+  @computed("geoLocation")
   submitDisabled(geoLocation) {
-    return this.siteSettings.location_geocoding === 'required' && !geoLocation;
+    return this.siteSettings.location_geocoding === "required" && !geoLocation;
   },
 
   clearModal() {
@@ -53,50 +53,55 @@ export default Controller.extend(ModalFunctionality, {
       city: null,
       state: null,
       countrycode: null,
-      geoLocation: { lat: '', lon: '' },
+      geoLocation: { lat: "", lon: "" },
       rawLocation: null,
     });
-    $('.location-form .ac-wrap .item a.remove').click();
+    $(".location-form .ac-wrap .item a.remove").click();
   },
 
   actions: {
     clear() {
       this.clearModal();
-      this.get('model.update')(null);
-      this.send('closeModal');
+      this.get("model.update")(null);
+      this.send("closeModal");
     },
 
     submit() {
-      if (this.get('submitDisabled')) return;
+      if (this.get("submitDisabled")) {
+        return;
+      }
 
       let location = {};
 
-      const geocodingEnabled = this.siteSettings.location_geocoding !== 'none';
-      const inputFieldsEnabled = this.siteSettings.location_input_fields_enabled;
-      const inputFields = this.get('inputFields');
-      const hasCoordinates = inputFields.indexOf('coordinates') > -1;
+      const geocodingEnabled = this.siteSettings.location_geocoding !== "none";
+      const inputFieldsEnabled = this.siteSettings
+        .location_input_fields_enabled;
+      const inputFields = this.get("inputFields");
+      const hasCoordinates = inputFields.indexOf("coordinates") > -1;
 
       if (!geocodingEnabled && !inputFieldsEnabled) {
-        location['raw'] = this.get('rawLocation');
+        location["raw"] = this.get("rawLocation");
       }
 
       if (inputFieldsEnabled) {
-        const nonGeoProps = inputFields.filter((f) => f !== 'coordinates');
+        const nonGeoProps = inputFields.filter((f) => f !== "coordinates");
         location = this.getProperties(nonGeoProps);
       }
 
       if (geocodingEnabled || hasCoordinates) {
-        const geoLocation = this.get('geoLocation');
+        const geoLocation = this.get("geoLocation");
         if (geoLocation && geoLocation.lat && geoLocation.lon) {
-          location['geo_location'] = geoLocation;
+          location["geo_location"] = geoLocation;
         }
       }
 
-      let name = this.get('name');
-      if (name) location['name'] = name;
+      let name = this.get("name");
+      if (name) {
+        location["name"] = name;
+      }
 
       Object.keys(location).forEach((k) => {
-        if (location[k] == null || location[k] === '' || location[k] === {}) {
+        if (location[k] == null || location[k] === "" || location[k] === {}) {
           delete location[k];
         }
       });
@@ -105,14 +110,13 @@ export default Controller.extend(ModalFunctionality, {
         location = null;
       }
 
-      this.get('model.update')(location);
+      this.get("model.update")(location);
       this.clearModal();
-      this.send('closeModal');
+      this.send("closeModal");
     },
 
     searchError(error) {
-      this.flash(error, 'error');
-    }
-  }
-
+      this.flash(error, "error");
+    },
+  },
 });

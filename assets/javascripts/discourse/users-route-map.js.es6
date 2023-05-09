@@ -1,6 +1,6 @@
 export default {
-  resource: 'users',
+  resource: "users",
   map() {
-    this.route('user-map');
-  }
+    this.route("user-map");
+  },
 };

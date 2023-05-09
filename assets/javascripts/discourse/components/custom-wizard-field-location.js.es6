@@ -1,27 +1,28 @@
-import discourseComputed, { on } from 'discourse-common/utils/decorators';
-import { ajax } from 'discourse/lib/ajax';
-import Component from '@ember/component';
+import discourseComputed, { on } from "discourse-common/utils/decorators";
+import Component from "@ember/component";
 import { alias } from "@ember/object/computed";
 import I18n from "I18n";
 
 export default Component.extend({
   includeGeoLocation: true,
   showType: true,
-  layoutName: 'javascripts/wizard/templates/components/wizard-field-location',
-  context: alias('wizard.id'),
+  layoutName: "javascripts/wizard/templates/components/wizard-field-location",
+  context: alias("wizard.id"),
   inputFieldsEnabled: true,
 
-  @on('init')
+  @on("init")
   setup() {
-    const existing = this.get('field.value') || {};
-    const inputFields = this.get('inputFields');
+    const existing = this.get("field.value") || {};
+    const inputFields = this.get("inputFields");
 
     inputFields.forEach((f) => {
-      if (existing[f]) this.set(f, existing[f]);
+      if (existing[f]) {
+        this.set(f, existing[f]);
+      }
     });
 
-    this.set('geoLocation', existing['geo_location'] || {});
-    this.set('field.customCheck', this.customCheck.bind(this));
+    this.set("geoLocation", existing["geo_location"] || {});
+    this.set("field.customCheck", this.customCheck.bind(this));
   },
 
   customCheck() {
@@ -37,22 +38,26 @@ export default Component.extend({
 
   @discourseComputed()
   inputFields() {
-    return this.siteSettings.location_input_fields.split('|');
+    return this.siteSettings.location_input_fields.split("|");
   },
 
   handleValidation() {
-    const inputFields = this.get('inputFields');
+    const inputFields = this.get("inputFields");
     const inputFieldsEnabled = this.inputFieldsEnabled;
-    const includeGeoLocation = this.get('includeGeoLocation');
-    const geoLocation = this.get('geoLocation');
+    const includeGeoLocation = this.get("includeGeoLocation");
+    const geoLocation = this.get("geoLocation");
 
     let location = {};
 
-    if (inputFieldsEnabled &&
-        inputFields.indexOf('coordinates') > -1 &&
-        (geoLocation.lat || geoLocation.lon)) {
-
-      return this.setValidation(geoLocation.lat && geoLocation.lon, 'coordinates');
+    if (
+      inputFieldsEnabled &&
+      inputFields.indexOf("coordinates") > -1 &&
+      (geoLocation.lat || geoLocation.lon)
+    ) {
+      return this.setValidation(
+        geoLocation.lat && geoLocation.lon,
+        "coordinates"
+      );
     }
 
     if (inputFieldsEnabled) {
@@ -65,7 +70,7 @@ export default Component.extend({
           return true;
         } else {
           location[field] = input;
-        };
+        }
       });
 
       if (validationType) {
@@ -78,10 +83,10 @@ export default Component.extend({
       let message;
 
       if (valid) {
-        location['geo_location'] = geoLocation;
+        location["geo_location"] = geoLocation;
         this.set("field.value", location);
       } else {
-        message = 'geo_location';
+        message = "geo_location";
       }
 
       return this.setValidation(valid, message);
@@ -92,8 +97,8 @@ export default Component.extend({
   },
 
   setValidation(valid, type) {
-    const message = type ? I18n.t(`location.validation.${type}`) : '';
+    const message = type ? I18n.t(`location.validation.${type}`) : "";
     this.field.setValid(valid, message);
     return valid;
-  }
+  },
 });
