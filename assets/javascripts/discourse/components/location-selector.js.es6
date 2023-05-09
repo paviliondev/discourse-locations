@@ -9,12 +9,6 @@ export default TextField.extend({
   classNames: 'location-selector',
   context: null,
 
-  @computed()
-  settings() {
-    const rootElement = getOwner(this).get('rootElement');
-    return rootElement === '#custom-wizard-main' ? Wizard.SiteSettings : this.siteSettings;
-  },
-
   didInsertElement() {
     this._super();
     let self = this;
@@ -46,8 +40,8 @@ export default TextField.extend({
 
         self.set('loading', true);
 
-        return geoLocationSearch(request, self.get('settings.location_geocoding_debounce')).then((result) => {
-          const defaultProvider = self.get('settings.location_geocoding_provider');
+        return geoLocationSearch(request, self.siteSettings.location_geocoding_debounce).then((result) => {
+          const defaultProvider = self.siteSettings.location_geocoding_provider;
           const geoAttrs = self.get('geoAttrs');
           const showType = self.get('showType');
           let locations = [];
