@@ -1,4 +1,5 @@
 import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
+import { ajax } from "discourse/lib/ajax";
 import { action, getProperties } from '@ember/object';
 import { equal } from "@ember/object/computed";
 import { A } from "@ember/array";
@@ -56,8 +57,8 @@ export default class LocationForm extends Component {
         }
       });
 
-      if (this.disabledFields) {
-        disabledFields.forEach((f) => {
+      if (this.args.disabledFields) {
+        this.args.disabledFields.forEach((f) => {
           this.set(`${f}Disabled`, true);
         });
       }
@@ -75,7 +76,6 @@ export default class LocationForm extends Component {
     if (siteCodes) {
       this.countrycodes = siteCodes;
     } else {
-      const ajax = requirejs(`${appType}/lib/ajax`).ajax;
       ajax({
         url: "/location/countries",
         type: "GET",
