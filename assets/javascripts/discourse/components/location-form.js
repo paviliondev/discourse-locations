@@ -1,18 +1,11 @@
-// import {
-//   default as discourseComputed,
-//   on,
-// } from "discourse-common/utils/decorators";
 import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
-// import { getOwner } from "discourse-common/lib/get-owner";
-import Component from '@glimmer/component';
-import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
+import { action, getProperties } from '@ember/object';
 import { equal } from "@ember/object/computed";
 import { A } from "@ember/array";
-import { set } from "@ember/object";
-import I18n from "I18n";
 import { inject as service } from "@ember/service";
-import { getProperties } from '@ember/object';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import I18n from "I18n";
 
 export default class LocationForm extends Component {
   @service siteSettings;
@@ -27,9 +20,9 @@ export default class LocationForm extends Component {
   @tracked showGeoLocation =  true;
   @tracked countrycodes = [];
   @tracked loadingLocations = false;
-  @tracked showLocationResults = false;  
+  @tracked showLocationResults = false;
   @tracked newLocation = true;
-  
+
   showTitle = equal("appType", "discourse");
 
   get showInputFields() {
