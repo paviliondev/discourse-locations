@@ -38,10 +38,8 @@ class Locations::Geocode
   end
 
   def self.build_query(request)
-    query = request['query']
-
-    if !query
-      query = ''
+    if !request['query']
+      query = +""
 
       REQUEST_PARTS.each do |part|
         if request_part = request[part]
@@ -52,6 +50,8 @@ class Locations::Geocode
           end
         end
       end
+    else
+      query = request['query']
     end
 
     query

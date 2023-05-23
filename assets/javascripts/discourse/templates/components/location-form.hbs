@@ -1,3 +1,4 @@
+<div class="location-form">
 {{#if this.showAddress}}
   <div class="address">
     {{#if this.showInputFields}}
@@ -76,7 +77,7 @@
           {{#if this.showGeoLocation}}
             <LocationSelector @location={{this.geoLocation}}
                                 @class="input-xxlarge location-selector"
-                                @searchError="searchError"
+                                {{on "searchError" this.searchError}}
                                 @context={{this.context}} />
           {{else}}
             <Input @type="text" @value={{this.rawLocation}} class="input-xxlarge input-location" />
@@ -149,3 +150,4 @@
     </div>
   </div>
 {{/if}}
+</div>

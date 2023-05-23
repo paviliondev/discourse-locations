@@ -115,6 +115,10 @@ export default Controller.extend(ModalFunctionality, {
       this.send("closeModal");
     },
 
+    setGeoLocation(gl) {
+      this.set("geoLocation", gl);
+    },
+
     searchError(error) {
       this.flash(error, "error");
     },

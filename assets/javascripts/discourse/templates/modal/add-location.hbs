@@ -9,7 +9,8 @@
                   @rawLocation={{this.rawLocation}}
                   @inputFields={{this.inputFields}}
                   @searchOnInit={{this.searchOnInit}}
-                  @searchError={{this.searchError}} />
+                  @setGeoLocation={{action "setGeoLocation"}}
+                  @searchError={{action "searchError"}} />
   <hr>
   <div class="control-group">
     <label class="control-label">{{i18n "location.name.title"}}</label>

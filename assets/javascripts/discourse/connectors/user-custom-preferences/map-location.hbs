@@ -5,7 +5,7 @@
       <div class="controls location-selector-container">
         {{location-selector location=model.custom_fields.geo_location
                             class="input-xxlarge location-selector"
-                            searchError='searchError'
+                            searchError=(action "searchError")
                             context=context}}
       </div>
       <div class='user-location-warning'>
