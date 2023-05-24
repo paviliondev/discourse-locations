@@ -1,6 +1,6 @@
 import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
 import { ajax } from "discourse/lib/ajax";
-import { action, getProperties } from '@ember/object';
+import { action, set, getProperties } from '@ember/object';
 import { equal } from "@ember/object/computed";
 import { A } from "@ember/array";
 import { inject as service } from "@ember/service";
@@ -22,7 +22,6 @@ export default class LocationForm extends Component {
   @tracked countrycodes = [];
   @tracked loadingLocations = false;
   @tracked showLocationResults = false;
-  @tracked newLocation = true;
 
   showTitle = equal("appType", "discourse");
 
@@ -96,16 +95,15 @@ export default class LocationForm extends Component {
   }
 
   get searchLabel() {
-    return I18n.t(`location.geo.btn.${this.siteSettings.location_geocoding}`)
+    return I18n.t(`location.geo.btn.${this.siteSettings.location_geocoding}`);
   };
 
   @action
   updateGeoLocation(gl) {
     gl["zoomTo"] = true;
-    this.newLocation = gl;
-    this.args.setGeoLocation(this.newLocation);
+    this.args.setGeoLocation(gl);
     this.geoLocationOptions.forEach((o) => {
-      o = ["selected", o["address"] === gl["address"]];
+      set(o, "selected", o["address"] === gl["address"]);
     });
   };
 

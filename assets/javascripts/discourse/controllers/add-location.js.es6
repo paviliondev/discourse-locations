@@ -96,6 +96,7 @@ export default Controller.extend(ModalFunctionality, {
       }
 
       let name = this.get("name");
+
       if (name) {
         location["name"] = name;
       }
