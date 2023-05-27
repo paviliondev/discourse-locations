@@ -47,7 +47,7 @@
         <div class="control-group">
           <label class="control-label">{{i18n "location.state.title"}}</label>
           <div class="controls">
-            <Input @value={{this.args.state}} class="input-large input-location" disabled={{this.stateDisabled}} />
+            <Input @value={{@state}} class="input-large input-location" disabled={{this.stateDisabled}} />
           </div>
           <div class="instructions">{{i18n "location.state.desc"}}</div>
         </div>
@@ -58,7 +58,7 @@
           <div class="controls">
             <ComboBox   @valueProperty="code"
                         @nameProperty="name"
-                        @content={{this.args.countrycodes}}
+                        @content={{@countrycodes}}
                         @value={{this.formCountrycode}}
                         @class="input-location"
                         @onChange={{action (mut this.formCountrycode)}}
