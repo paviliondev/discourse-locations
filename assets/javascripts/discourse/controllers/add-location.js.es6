@@ -117,7 +117,17 @@ export default Controller.extend(ModalFunctionality, {
     },
 
     setGeoLocation(gl) {
-      this.set("geoLocation", gl);
+      this.setProperties({
+        name: gl.name,
+        street: gl.street,
+        neighbourhood: gl.neighbourhood,
+        postalcode: gl.postalcode,
+        city: gl.city,
+        state: gl.state,
+        geoLocation: { lat: gl.lat, lon: gl.lon },
+        countrycode: gl.countrycode,
+        rawLocation: gl.raw,
+      });
     },
 
     searchError(error) {

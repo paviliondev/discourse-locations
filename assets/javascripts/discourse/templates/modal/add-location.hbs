@@ -22,6 +22,6 @@
 </DModalBody>
 
 <div class="modal-footer">
-  <DButton @action={{action "submit"}} @label="location.done" @class="btn-primary" @disabled={{this.submitDisabled}} />
-  <DButton @class="clear" @action={{action "clear"}} @label="location.clear" />
+  <DButton id="save-location" @action={{action "submit"}} @label="location.done" @class="btn-primary" @disabled={{this.submitDisabled}} />
+  <DButton id="clear-location" @class="clear" @action={{action "clear"}} @label="location.clear" />
 </div>

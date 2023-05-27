@@ -11,7 +11,7 @@
         <div class="control-group">
           <label class="control-label">{{i18n "location.street.title"}}</label>
           <div class="controls">
-            <Input @type="text" @value={{this.street}} class="input-large input-location" disabled={{this.streetDisabled}} />
+            <Input @type="text" @value={{this.formStreet}} class="input-large input-location" disabled={{this.streetDisabled}} />
           </div>
           <div class="instructions">{{i18n "location.street.desc"}}</div>
         </div>
@@ -20,7 +20,7 @@
         <div class="control-group">
           <label class="control-label">{{i18n "location.neighbourhood.title"}}</label>
           <div class="controls">
-            <Input @value={{this.neighbourhood}} class="input-large input-location" disabled={{this.neighbourhoodDisabled}} />
+            <Input @value={{this.formNeighbourhood}} class="input-large input-location" disabled={{this.neighbourhoodDisabled}} />
           </div>
           <div class="instructions">{{i18n "location.neighbourhood.desc"}}</div>
         </div>
@@ -29,7 +29,7 @@
         <div class="control-group">
           <label class="control-label">{{i18n "location.postalcode.title"}}</label>
           <div class="controls">
-            <Input @type="text" @value={{this.postalcode}} class="input-small input-location" disabled={{this.postcodeDisabled}} />
+            <Input @type="text" @value={{this.formPostalcode}} class="input-small input-location" disabled={{this.postalcodeDisabled}} />
           </div>
           <div class="instructions">{{i18n "location.postalcode.desc"}}</div>
         </div>
@@ -38,7 +38,7 @@
         <div class="control-group">
           <label class="control-label">{{i18n "location.city.title"}}</label>
           <div class="controls">
-            <Input @type="text" @value={{this.city}} class="input-large input-location" disabled={{this.cityDisabled}} />
+            <Input @type="text" @value={{this.formCity}} class="input-large input-location" disabled={{this.cityDisabled}} />
           </div>
           <div class="instructions">{{i18n "location.city.desc"}}</div>
         </div>
@@ -47,7 +47,7 @@
         <div class="control-group">
           <label class="control-label">{{i18n "location.state.title"}}</label>
           <div class="controls">
-            <Input @value={{this.state}} class="input-large input-location" disabled={{this.stateDisabled}} />
+            <Input @value={{this.args.state}} class="input-large input-location" disabled={{this.stateDisabled}} />
           </div>
           <div class="instructions">{{i18n "location.state.desc"}}</div>
         </div>
@@ -58,10 +58,10 @@
           <div class="controls">
             <ComboBox   @valueProperty="code"
                         @nameProperty="name"
-                        @content={{this.countrycodes}}
-                        @value={{this.countrycode}}
+                        @content={{this.args.countrycodes}}
+                        @value={{this.formCountrycode}}
                         @class="input-location"
-                        @onChange={{action (mut this.countrycode)}}
+                        @onChange={{action (mut this.formCountrycode)}}
                         @options={{hash
                           filterable="true"
                           disabled=this.countryDisabled

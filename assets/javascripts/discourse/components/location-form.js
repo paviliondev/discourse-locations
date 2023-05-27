@@ -22,6 +22,12 @@ export default class LocationForm extends Component {
   @tracked countrycodes = [];
   @tracked loadingLocations = false;
   @tracked showLocationResults = false;
+  @tracked formStreet;
+  @tracked formNeighbourhood;
+  @tracked formPostalcode;
+  @tracked formCity;
+  @tracked formState;
+  @tracked formCountrycode;
 
   showTitle = equal("appType", "discourse");
 
@@ -50,6 +56,7 @@ export default class LocationForm extends Component {
 
       this.internalInputFields.forEach((f) => {
         this[`show${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] = true;
+        this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] = this.args[f];
 
         if (['street', 'neighbourhood', 'postalcode', 'city'].includes(f))  {
           this.searchDisabled = false;
@@ -101,6 +108,14 @@ export default class LocationForm extends Component {
   @action
   updateGeoLocation(gl) {
     gl["zoomTo"] = true;
+
+    if (gl.address.indexOf(gl.city) > 0) {
+      gl.street = gl.address.slice(0, (gl.address.indexOf(gl.city))).replace(/,(\s+)?$/, '');
+    };
+
+    this.internalInputFields.forEach((f) => {
+      this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] = gl[f];
+    });
     this.args.setGeoLocation(gl);
     this.geoLocationOptions.forEach((o) => {
       set(o, "selected", o["address"] === gl["address"]);
@@ -115,7 +130,14 @@ export default class LocationForm extends Component {
 
   @action
   locationSearch() {
-   const request = getProperties(this,this.internalInputFields.concat(["countrycode", "context"]));
+    let request = {};
+    let requestFields = [];
+
+    const searchInputFields = this.internalInputFields.concat(["countrycode", "context"])
+    requestFields = searchInputFields.map((f) => {
+      request[f] = this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`]
+    });
+
     if ($.isEmptyObject(request)) {
       return;
     }
