@@ -1,6 +1,6 @@
 import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
 import { ajax } from "discourse/lib/ajax";
-import { action, getProperties, set } from '@ember/object';
+import { action, set } from '@ember/object';
 import { equal } from "@ember/object/computed";
 import { A } from "@ember/array";
 import { inject as service } from "@ember/service";
@@ -131,11 +131,10 @@ export default class LocationForm extends Component {
   @action
   locationSearch() {
     let request = {};
-    let requestFields = [];
 
-    const searchInputFields = this.internalInputFields.concat(["countrycode", "context"])
-    requestFields = searchInputFields.map((f) => {
-      request[f] = this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`]
+    const searchInputFields = this.internalInputFields.concat(["countrycode", "context"]);
+    searchInputFields.map((f) => {
+      request[f] = this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`];
     });
 
     if ($.isEmptyObject(request)) {
