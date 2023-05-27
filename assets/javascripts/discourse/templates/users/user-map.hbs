@@ -2,16 +2,19 @@
   <ul class="nav nav-pills">
     <li>
       {{#link-to "users.index"}}
-        {{i18n 'directory.list.title'}}
+        {{i18n "directory.list.title"}}
       {{/link-to}}
     </li>
     <li>
       {{#link-to "users.user-map"}}
-        {{i18n 'directory.map.title'}}
+        {{i18n "directory.map.title"}}
       {{/link-to}}
     </li>
     <li>
-      <a href="/my/preferences/profile" title="Takes you to your profile so that you can add or edit your location">Update My Location</a>
+      <a
+        href="/my/preferences/profile"
+        title="Takes you to your profile so that you can add or edit your location"
+      >Update My Location</a>
     </li>
   </ul>
 </div>

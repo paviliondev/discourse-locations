@@ -1,19 +1,33 @@
 {{#if this.location}}
-  <DButton @class={{this.valueClasses}} @title="location.label.add" @action={{action "showAddLocation"}} @translatedLabel={{this.valueLabel}} @icon="map-marker-alt" />
+  <DButton
+    @class={{this.valueClasses}}
+    @title="location.label.add"
+    @action={{action "showAddLocation"}}
+    @translatedLabel={{this.valueLabel}}
+    @icon="map-marker-alt"
+  />
   {{#unless this.noText}}
-    <DButton @icon="times" @action={{action "removeLocation"}} @class="remove" />
+    <DButton
+      @icon="times"
+      @action={{action "removeLocation"}}
+      @class="remove"
+    />
   {{/unless}}
 {{else}}
   {{#if this.iconOnly}}
-    <DButton @class="add-location-btn"
-               @icon="map-marker-alt"
-               @action={{action "showAddLocation"}}
-               @title={{this.addLabel}} />
+    <DButton
+      @class="add-location-btn"
+      @icon="map-marker-alt"
+      @action={{action "showAddLocation"}}
+      @title={{this.addLabel}}
+    />
   {{else}}
-    <DButton @class="add-location-btn"
-               @icon="map-marker-alt"
-               @label={{this.addLabel}}
-               @action={{action "showAddLocation"}}
-               @title={{this.addLabel}} />
+    <DButton
+      @class="add-location-btn"
+      @icon="map-marker-alt"
+      @label={{this.addLabel}}
+      @action={{action "showAddLocation"}}
+      @title={{this.addLabel}}
+    />
   {{/if}}
 {{/if}}

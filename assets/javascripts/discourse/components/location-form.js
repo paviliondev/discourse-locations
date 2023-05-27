@@ -1,24 +1,29 @@
 import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
 import { ajax } from "discourse/lib/ajax";
-import { action, set } from '@ember/object';
+import { action, set } from "@ember/object";
 import { equal } from "@ember/object/computed";
 import { A } from "@ember/array";
 import { inject as service } from "@ember/service";
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
 import I18n from "I18n";
 
 export default class LocationForm extends Component {
   @service siteSettings;
   @service site;
   context = null;
-  @tracked geoLocationOptions =  A();
-  @tracked internalInputFields = ["street", "postalcode", "city", "countrycode"];
+  @tracked geoLocationOptions = A();
+  @tracked internalInputFields = [
+    "street",
+    "postalcode",
+    "city",
+    "countrycode",
+  ];
   @tracked provider = "";
   @tracked hasSearched = false;
   @tracked searchDisabled = false;
   @tracked showProvider = false;
-  @tracked showGeoLocation =  true;
+  @tracked showGeoLocation = true;
   @tracked countrycodes = [];
   @tracked loadingLocations = false;
   @tracked showLocationResults = false;
@@ -35,8 +40,11 @@ export default class LocationForm extends Component {
     if (this.args.inputFieldsEnabled === false) {
       return false;
     }
-    return this.args.inputFieldsEnabled || this.siteSettings.location_input_fields_enabled;
-  };
+    return (
+      this.args.inputFieldsEnabled ||
+      this.siteSettings.location_input_fields_enabled
+    );
+  }
 
   get showAddress() {
     return (
@@ -44,7 +52,7 @@ export default class LocationForm extends Component {
       (this.showInputFields &&
         this.internalInputFields.filter((f) => f !== "coordinates").length > 0)
     );
-  };
+  }
 
   constructor() {
     super(...arguments);
@@ -55,10 +63,13 @@ export default class LocationForm extends Component {
       this.searchDisabled = true;
 
       this.internalInputFields.forEach((f) => {
-        this[`show${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] = true;
-        this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] = this.args[f];
+        this[
+          `show${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`
+        ] = true;
+        this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] =
+          this.args[f];
 
-        if (['street', 'neighbourhood', 'postalcode', 'city'].includes(f))  {
+        if (["street", "neighbourhood", "postalcode", "city"].includes(f)) {
           this.searchDisabled = false;
         }
       });
@@ -89,11 +100,13 @@ export default class LocationForm extends Component {
         this.countrycodes = result.geo;
       });
     }
-  };
+  }
 
   get providerDetails() {
-    return providerDetails[this.provider || this.siteSettings.location_geocoding_provider];
-  };
+    return providerDetails[
+      this.provider || this.siteSettings.location_geocoding_provider
+    ];
+  }
 
   keyDown(e) {
     if (this.showGeoLocation && e.keyCode === 13) {
@@ -103,24 +116,27 @@ export default class LocationForm extends Component {
 
   get searchLabel() {
     return I18n.t(`location.geo.btn.${this.siteSettings.location_geocoding}`);
-  };
+  }
 
   @action
   updateGeoLocation(gl) {
     gl["zoomTo"] = true;
 
     if (gl.address.indexOf(gl.city) > 0) {
-      gl.street = gl.address.slice(0, (gl.address.indexOf(gl.city))).replace(/,(\s+)?$/, '');
-    };
+      gl.street = gl.address
+        .slice(0, gl.address.indexOf(gl.city))
+        .replace(/,(\s+)?$/, "");
+    }
 
     this.internalInputFields.forEach((f) => {
-      this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] = gl[f];
+      this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] =
+        gl[f];
     });
     this.args.setGeoLocation(gl);
     this.geoLocationOptions.forEach((o) => {
       set(o, "selected", o["address"] === gl["address"]);
     });
-  };
+  }
 
   @action
   clearSearch() {
@@ -132,9 +148,13 @@ export default class LocationForm extends Component {
   locationSearch() {
     let request = {};
 
-    const searchInputFields = this.internalInputFields.concat(["countrycode", "context"]);
+    const searchInputFields = this.internalInputFields.concat([
+      "countrycode",
+      "context",
+    ]);
     searchInputFields.map((f) => {
-      request[f] = this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`];
+      request[f] =
+        this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`];
     });
 
     if ($.isEmptyObject(request)) {
@@ -169,5 +189,5 @@ export default class LocationForm extends Component {
       .catch((error) => {
         this.args.searchError(error);
       });
-  };
-};
+  }
+}

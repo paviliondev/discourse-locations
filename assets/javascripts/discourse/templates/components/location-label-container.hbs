@@ -7,7 +7,11 @@
 
 {{#if this.showMapToggle}}
   <div class="location-topic-map">
-    <button onclick={{action "showMap"}} class="btn btn-small btn-default" type="button">
+    <button
+      onclick={{action "showMap"}}
+      class="btn btn-small btn-default"
+      type="button"
+    >
       {{d-icon "far-map"}}
       {{#unless this.site.mobileView}}
         {{i18n "location.geo.show_map"}}
