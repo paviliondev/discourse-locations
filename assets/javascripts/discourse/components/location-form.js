@@ -36,24 +36,6 @@ export default class LocationForm extends Component {
 
   showTitle = equal("appType", "discourse");
 
-  get showInputFields() {
-    if (this.args.inputFieldsEnabled === false) {
-      return false;
-    }
-    return (
-      this.args.inputFieldsEnabled ||
-      this.siteSettings.location_input_fields_enabled
-    );
-  }
-
-  get showAddress() {
-    return (
-      !this.showInputFields ||
-      (this.showInputFields &&
-        this.internalInputFields.filter((f) => f !== "coordinates").length > 0)
-    );
-  }
-
   constructor() {
     super(...arguments);
 
@@ -87,6 +69,24 @@ export default class LocationForm extends Component {
       if (this.searchOnInit) {
         this.send("locationSearch");
       }
+    }
+
+    get showInputFields() {
+      if (this.args.inputFieldsEnabled === false) {
+        return false;
+      }
+      return (
+        this.args.inputFieldsEnabled ||
+        this.siteSettings.location_input_fields_enabled
+      );
+    }
+
+    get showAddress() {
+      return (
+        !this.showInputFields ||
+        (this.showInputFields &&
+          this.internalInputFields.filter((f) => f !== "coordinates").length > 0)
+      );
     }
 
     const siteCodes = this.site.country_codes;
