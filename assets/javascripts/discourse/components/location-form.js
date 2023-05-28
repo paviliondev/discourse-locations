@@ -88,7 +88,7 @@ export default class LocationForm extends Component {
   get showInputFields() {
     if (this.args.inputFieldsEnabled === false) {
       return false;
-    };
+    }
     return (
       this.args.inputFieldsEnabled ||
       this.siteSettings.location_input_fields_enabled
