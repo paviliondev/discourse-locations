@@ -19,6 +19,7 @@ acceptance(
       location_user_profile_format: "city|countrycode",
       location_user_post_format: "city|countrycode",
       location_input_fields_enabled: true,
+      location_auto_infer_street_from_address_data: true,
       location_user_post: true,
       location_users_map: true,
       hide_user_profiles_from_public: false,
