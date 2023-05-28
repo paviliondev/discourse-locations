@@ -12,7 +12,7 @@ acceptance(
   function (needs) {
     needs.user({
       username: "demetria_gutmann",
-      id: 134
+      id: 134,
     });
     needs.settings({
       location_enabled: true,
@@ -54,22 +54,19 @@ acceptance(
 
     test("enter Topic location via dialogue", async function (assert) {
       await visit("/t/online-learning/51/1");
-      await click('a.edit-topic');
-      await click('button.add-location-btn');
+      await click("a.edit-topic");
+      await click("button.add-location-btn");
 
-      assert.equal(
-        query(".add-location-modal").style.display,
-        "block"
-      );
+      assert.equal(query(".add-location-modal").style.display, "block");
       await fillIn(".input-large:first-child", "liver building");
-      await click('button.location-search');
-      await click('li.location-form-result:first-child label');
-      await click('#save-location');
+      await click("button.location-search");
+      await click("li.location-form-result:first-child label");
+      await click("#save-location");
 
       assert.equal(
         query("button.add-location-btn span.d-button-label").innerText,
         "Royal Liver Building, Water Street, Ropewalks, L3 1EG, Liverpool, United Kingdom"
-        );
+      );
     });
   }
 );
