@@ -11,7 +11,6 @@ import I18n from "I18n";
 export default class LocationForm extends Component {
   @service siteSettings;
   @service site;
-  context = null;
   @tracked geoLocationOptions = A();
   @tracked internalInputFields = [
     "street",
@@ -33,6 +32,7 @@ export default class LocationForm extends Component {
   @tracked formCity;
   @tracked formState;
   @tracked formCountrycode;
+  context = null;
 
   showTitle = equal("appType", "discourse");
 
