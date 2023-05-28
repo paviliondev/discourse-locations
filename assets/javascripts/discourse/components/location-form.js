@@ -71,25 +71,8 @@ export default class LocationForm extends Component {
       }
     }
 
-    get showInputFields() {
-      if (this.args.inputFieldsEnabled === false) {
-        return false;
-      }
-      return (
-        this.args.inputFieldsEnabled ||
-        this.siteSettings.location_input_fields_enabled;
-      );
-    }
-
-    get showAddress() {
-      return (
-        !this.showInputFields ||
-        (this.showInputFields &&
-          this.internalInputFields.filter((f) => f !== "coordinates").length > 0)
-      );
-    }
-
     const siteCodes = this.site.country_codes;
+
     if (siteCodes) {
       this.countrycodes = siteCodes;
     } else {
@@ -100,6 +83,24 @@ export default class LocationForm extends Component {
         this.countrycodes = result.geo;
       });
     }
+  }
+
+  get showInputFields() {
+    if (this.args.inputFieldsEnabled === false) {
+      return false;
+    };
+    return (
+      this.args.inputFieldsEnabled ||
+      this.siteSettings.location_input_fields_enabled
+    );
+  }
+
+  get showAddress() {
+    return (
+      !this.showInputFields ||
+      (this.showInputFields &&
+        this.internalInputFields.filter((f) => f !== "coordinates").length > 0)
+    );
   }
 
   get providerDetails() {
