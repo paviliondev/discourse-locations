@@ -1,5 +1,5 @@
 import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
-import { click, visit } from "@ember/test-helpers";
+import { click, fillIn, visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import userFixtures from "../fixtures/user-fixtures";
 import topicFixtures from "../fixtures/topic-fixtures";
@@ -30,7 +30,6 @@ acceptance(
       const topicResponse = cloneJSON(topicFixtures["/t/51/1.json"]);
       server.get("/t/51/1.json", () => helper.response(topicResponse));
       const locationResponse = cloneJSON(locationFixtures["location.json"]);
-      //server.get("/location/search?request%5Bstreet%5D=liver%20building&request%5Bcontext%5D=", () => helper.response(locationResponse));
       server.get("/location/search", () => helper.response(locationResponse));
     });
 

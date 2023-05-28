@@ -77,7 +77,7 @@ export default class LocationForm extends Component {
       }
       return (
         this.args.inputFieldsEnabled ||
-        this.siteSettings.location_input_fields_enabled
+        this.siteSettings.location_input_fields_enabled;
       );
     }
 
