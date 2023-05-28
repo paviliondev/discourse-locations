@@ -123,7 +123,7 @@ export default class LocationForm extends Component {
   updateGeoLocation(gl) {
     gl["zoomTo"] = true;
 
-    if (gl.address.indexOf(gl.city) > 0) {
+    if (this.siteSettings.location_auto_infer_street_from_address_data && gl.address.indexOf(gl.city) > 0) {
       gl.street = gl.address
         .slice(0, gl.address.indexOf(gl.city))
         .replace(/,(\s+)?$/, "");

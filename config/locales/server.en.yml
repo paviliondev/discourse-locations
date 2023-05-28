@@ -3,6 +3,7 @@ en:
     location_enabled: "Enable the locations plugin."
     location_hamburger_menu_map_link: "Enable map menu item in hamburger menu"
     location_input_fields: "Location input fields"
+    location_auto_infer_street_from_address_data: "EXPERIMENTAL: Attempt to extract street info from address response"
     location_input_fields_enabled: "Enable location input fields (topic locations only)"
     location_geocoding: "Whether locations should be geocoded (mapped). If off, locations are stored as strings."
     location_geocoding_language: "Language of the geocoding results."
