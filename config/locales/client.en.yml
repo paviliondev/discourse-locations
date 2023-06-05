@@ -77,6 +77,9 @@ en:
     directory:
       map:
         title: "Users Map"
+        user_prefs_link:
+          title: Takes you to your profile so that you can add or edit your location
+          text: Update My Location
 
       list:
         title: "Users List"
