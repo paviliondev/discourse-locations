@@ -85,7 +85,7 @@ export default TextField.extend({
             })
             .catch((e) => {
               self.set("loading", false);
-              self.sendAction("searchError", e);
+              this.searchError(e);
             });
         },
 

@@ -74,8 +74,8 @@ export default Controller.extend(ModalFunctionality, {
       let location = {};
 
       const geocodingEnabled = this.siteSettings.location_geocoding !== "none";
-      const inputFieldsEnabled = this.siteSettings
-        .location_input_fields_enabled;
+      const inputFieldsEnabled =
+        this.siteSettings.location_input_fields_enabled;
       const inputFields = this.get("inputFields");
       const hasCoordinates = inputFields.indexOf("coordinates") > -1;
 
@@ -96,6 +96,7 @@ export default Controller.extend(ModalFunctionality, {
       }
 
       let name = this.get("name");
+
       if (name) {
         location["name"] = name;
       }
@@ -113,6 +114,20 @@ export default Controller.extend(ModalFunctionality, {
       this.get("model.update")(location);
       this.clearModal();
       this.send("closeModal");
+    },
+
+    setGeoLocation(gl) {
+      this.setProperties({
+        name: gl.name,
+        street: gl.street,
+        neighbourhood: gl.neighbourhood,
+        postalcode: gl.postalcode,
+        city: gl.city,
+        state: gl.state,
+        geoLocation: { lat: gl.lat, lon: gl.lon },
+        countrycode: gl.countrycode,
+        rawLocation: gl.raw,
+      });
     },
 
     searchError(error) {

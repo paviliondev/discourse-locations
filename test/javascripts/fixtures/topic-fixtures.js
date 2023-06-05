@@ -899,7 +899,7 @@ export default {
     has_summary: false,
     archetype: "regular",
     slug: "online-learning",
-    category_id: 16,
+    category_id: 11,
     word_count: 1175,
     deleted_at: null,
     user_id: 7,

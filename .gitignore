@@ -6,3 +6,5 @@ auto_generated
 .DS_Store
 node_modules/
 vendor/*
+.yarn/*
+.yarnrc
