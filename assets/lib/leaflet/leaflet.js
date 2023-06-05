@@ -2361,9 +2361,10 @@
         return t && !t.equals([0, 0]);
       },
       _getTopLeftPoint: function (t, i) {
-        return (t && void 0 !== i
-          ? this._getNewPixelOrigin(t, i)
-          : this.getPixelOrigin()
+        return (
+          t && void 0 !== i
+            ? this._getNewPixelOrigin(t, i)
+            : this.getPixelOrigin()
         ).subtract(this._getMapPanePos());
       },
       _getNewPixelOrigin: function (t, i) {
@@ -3185,7 +3186,8 @@
                   (this._lastTarget = t.target || t.srcElement),
                   window.SVGElementInstance &&
                     this._lastTarget instanceof window.SVGElementInstance &&
-                    (this._lastTarget = this._lastTarget.correspondingUseElement),
+                    (this._lastTarget =
+                      this._lastTarget.correspondingUseElement),
                   ci(this._lastTarget, "leaflet-drag-target")),
                 (this._newPos = this._startPos.add(e)),
                 (this._moving = !0),
@@ -6059,9 +6061,10 @@
         n = O(e.project(i[0]), e.project(i[1])),
         o = n.min,
         s = n.max,
-        r = (1.3 <= this._wmsVersion && this._crs === be
-          ? [o.y, o.x, s.y, s.x]
-          : [o.x, o.y, s.x, s.y]
+        r = (
+          1.3 <= this._wmsVersion && this._crs === be
+            ? [o.y, o.x, s.y, s.x]
+            : [o.x, o.y, s.x, s.y]
         ).join(","),
         a = sn.prototype.getTileUrl.call(this, t);
       return (

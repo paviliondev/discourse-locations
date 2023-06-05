@@ -1,19 +1,21 @@
 {{#if siteSettings.location_users_map}}
   <div class="user-location-selector">
     <div class="control-group">
-      <label class='control-label'>{{i18n 'user.map_location.title'}}</label>
+      <label class="control-label">{{i18n "user.map_location.title"}}</label>
       <div class="controls location-selector-container">
-        {{location-selector location=model.custom_fields.geo_location
-                            class="input-xxlarge location-selector"
-                            searchError='searchError'
-                            context=context}}
+        {{location-selector
+          location=model.custom_fields.geo_location
+          class="input-xxlarge location-selector"
+          searchError=(action "searchError")
+          context=context
+        }}
       </div>
-      <div class='user-location-warning'>
+      <div class="user-location-warning">
         {{#if error}}
           {{error}}
         {{else}}
-          {{d-icon 'exclamation-circle'}}
-          {{i18n 'user.map_location.warning'}}
+          {{d-icon "exclamation-circle"}}
+          {{i18n "user.map_location.warning"}}
         {{/if}}
       </div>
     </div>

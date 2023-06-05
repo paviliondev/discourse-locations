@@ -20,6 +20,9 @@ plugins:
       - state
       - countrycode
       - coordinates
+  location_auto_infer_street_from_address_data:
+    client: true
+    default: false
   location_geocoding:
     client: true
     type: enum

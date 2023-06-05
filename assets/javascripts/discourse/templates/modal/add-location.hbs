@@ -1,26 +1,44 @@
 <DModalBody @class="add-location" @title={{this.title}}>
-  <LocationForm @street={{this.street}}
-                  @neighbourhood={{this.neighbourhood}}
-                  @postalcode={{this.postalcode}}
-                  @city={{this.city}}
-                  @state={{this.state}}
-                  @countrycode={{this.countrycode}}
-                  @geoLocation={{this.geoLocation}}
-                  @rawLocation={{this.rawLocation}}
-                  @inputFields={{this.inputFields}}
-                  @searchOnInit={{this.searchOnInit}}
-                  @searchError={{this.searchError}} />
-  <hr>
+  <LocationForm
+    @street={{this.street}}
+    @neighbourhood={{this.neighbourhood}}
+    @postalcode={{this.postalcode}}
+    @city={{this.city}}
+    @state={{this.state}}
+    @countrycode={{this.countrycode}}
+    @geoLocation={{this.geoLocation}}
+    @rawLocation={{this.rawLocation}}
+    @inputFields={{this.inputFields}}
+    @searchOnInit={{this.searchOnInit}}
+    @setGeoLocation={{action "setGeoLocation"}}
+    @searchError={{action "searchError"}}
+  />
+  <hr />
   <div class="control-group">
     <label class="control-label">{{i18n "location.name.title"}}</label>
     <div class="controls">
-      <Input @type="text" @value={{this.name}} class="input-xxlarge input-location location-name" />
+      <Input
+        @type="text"
+        @value={{this.name}}
+        class="input-xxlarge input-location location-name"
+      />
     </div>
     <div class="instructions">{{i18n "location.name.desc"}}</div>
   </div>
 </DModalBody>
 
 <div class="modal-footer">
-  <DButton @action={{action "submit"}} @label="location.done" @class="btn-primary" @disabled={{this.submitDisabled}} />
-  <DButton @class="clear" @action={{action "clear"}} @label="location.clear" />
+  <DButton
+    id="save-location"
+    @action={{action "submit"}}
+    @label="location.done"
+    @class="btn-primary"
+    @disabled={{this.submitDisabled}}
+  />
+  <DButton
+    id="clear-location"
+    @class="clear"
+    @action={{action "clear"}}
+    @label="location.clear"
+  />
 </div>
