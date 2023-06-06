@@ -110,6 +110,7 @@ export default class LocationForm extends Component {
   }
 
   keyDown(e) {
+    debugger;
     if (this.showGeoLocation && e.keyCode === 13) {
       this.send("locationSearch");
     }
@@ -121,6 +122,7 @@ export default class LocationForm extends Component {
 
   @action
   updateGeoLocation(gl) {
+    debugger;
     if (!this.showInputFields) {
       gl = this.geoLocation;
     }
@@ -155,6 +157,7 @@ export default class LocationForm extends Component {
   @action
   locationSearch() {
     let request = {};
+    debugger;
 
     const searchInputFields = this.internalInputFields.concat([
       "countrycode",
@@ -173,6 +176,8 @@ export default class LocationForm extends Component {
     this.loadingLocations = true;
     this.hasSearched = true;
     this.showProvider = false;
+
+
 
     geoLocationSearch(request, this.siteSettings.location_geocoding_debounce)
       .then((result) => {

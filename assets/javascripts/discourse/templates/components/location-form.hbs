@@ -114,7 +114,7 @@
                 @location={{this.geoLocation}}
                 @onChange={{action this.updateGeoLocation}}
                 @class="input-xxlarge location-selector"
-                {{on "searchError" this.args.searchError}}
+                {{on "searchError" @searchError}}
                 @context={{this.context}}
               />
             {{else}}
