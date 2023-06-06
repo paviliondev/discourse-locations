@@ -174,8 +174,6 @@ export default class LocationForm extends Component {
     this.hasSearched = true;
     this.showProvider = false;
 
-
-
     geoLocationSearch(request, this.siteSettings.location_geocoding_debounce)
       .then((result) => {
         if (this._state === "destroying") {

@@ -1,6 +1,5 @@
-import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
-import { click, visit } from "@ember/test-helpers";
-import { emulateAutocomplete } from "discourse/tests/helpers/qunit-helpers";
+import { acceptance, emulateAutocomplete, query } from "discourse/tests/helpers/qunit-helpers";
+import { click, fillIn, visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import topicFixtures from "../fixtures/topic-fixtures";
 import siteFixtures from "../fixtures/site-fixtures";
@@ -26,14 +25,17 @@ acceptance(
       const locationResponse = cloneJSON(locationFixtures["location.json"]);
       server.get("/location/search", () => helper.response(locationResponse));
     });
+
     test("enter Topic location via dialogue without address fields", async function (assert) {
       await visit("/t/online-learning/51/1");
       await click("a.edit-topic");
       await click("button.add-location-btn");
+
       assert.equal(query(".add-location-modal").style.display, "block");
 
       await emulateAutocomplete(".location-selector", "liver building");
       await click("li.location-form-result:first-child label");
+
       assert.equal(
         query(".location-selector-container .item span").innerText,
         "Royal Liver Building, Water Street, Ropewalks, Liverpool, Liverpool City Region, England, L3 1EG, United Kingdom"
@@ -41,6 +43,7 @@ acceptance(
 
       await fillIn(".location-name", "Home Sweet Home");
       await click("#save-location");
+
       assert.equal(
         query("button.add-location-btn span.d-button-label").innerText,
         "Home Sweet Home"
