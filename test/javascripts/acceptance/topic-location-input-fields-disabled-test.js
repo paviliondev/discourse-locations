@@ -1,5 +1,6 @@
 import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
-import { click, fillIn, visit } from "@ember/test-helpers";
+import { click, visit } from "@ember/test-helpers";
+import { emulateAutocomplete } from "discourse/tests/helpers/qunit-helpers";
 import { test } from "qunit";
 import topicFixtures from "../fixtures/topic-fixtures";
 import siteFixtures from "../fixtures/site-fixtures";
@@ -7,7 +8,7 @@ import locationFixtures from "../fixtures/location-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
 
 acceptance(
-  "Topic Location - Input Fields Disabled Retrieves Location",
+  "Topic - Show Correct Location after entering location with Input Fields Disabled",
   function (needs) {
     needs.user({
       username: "demetria_gutmann",
@@ -22,25 +23,27 @@ acceptance(
     needs.pretender((server, helper) => {
       const topicResponse = cloneJSON(topicFixtures["/t/51/1.json"]);
       server.get("/t/51/1.json", () => helper.response(topicResponse));
-      // const locationResponse = cloneJSON(locationFixtures["location.json"]);
-      // server.get("/location/search", () => helper.response(locationResponse));
+      const locationResponse = cloneJSON(locationFixtures["location.json"]);
+      server.get("/location/search", () => helper.response(locationResponse));
     });
     test("enter Topic location via dialogue without address fields", async function (assert) {
       await visit("/t/online-learning/51/1");
       await click("a.edit-topic");
       await click("button.add-location-btn");
-      debugger;
-
       assert.equal(query(".add-location-modal").style.display, "block");
-      await fillIn(".location-selector", "liver building");
-      debugger;
-      // await click("button.location-search");
-      await click("li.location-form-result:first-child label");
-      await click("#save-location");
 
+      await emulateAutocomplete(".location-selector", "liver building");
+      await click("li.location-form-result:first-child label");
+      assert.equal(
+        query(".location-selector-container .item span").innerText,
+        "Royal Liver Building, Water Street, Ropewalks, Liverpool, Liverpool City Region, England, L3 1EG, United Kingdom"
+      );
+
+      await fillIn(".location-name", "Home Sweet Home");
+      await click("#save-location");
       assert.equal(
         query("button.add-location-btn span.d-button-label").innerText,
-        "Royal Liver Building, Water Street, Ropewalks, L3 1EG, Liverpool, United Kingdom"
+        "Home Sweet Home"
       );
     });
   }

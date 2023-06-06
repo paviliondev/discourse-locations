@@ -7,7 +7,7 @@ import locationFixtures from "../fixtures/location-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
 
 acceptance(
-  "Topic & User Card - Show Correct User Location Format other",
+  "Topic - Show Correct Location after entering location with Input Fields Enabled",
   function (needs) {
     needs.user({
       username: "demetria_gutmann",
@@ -15,13 +15,8 @@ acceptance(
     });
     needs.settings({
       location_enabled: true,
-      location_user_profile_format: "city|countrycode",
-      location_user_post_format: "city|countrycode",
       location_input_fields_enabled: true,
       location_auto_infer_street_from_address_data: true,
-      location_user_post: true,
-      location_users_map: true,
-      hide_user_profiles_from_public: false,
     });
     needs.site(cloneJSON(siteFixtures["site.json"]));
     needs.pretender((server, helper) => {
@@ -37,6 +32,7 @@ acceptance(
       await click("button.add-location-btn");
 
       assert.equal(query(".add-location-modal").style.display, "block");
+
       await fillIn(".input-large:first-child", "liver building");
       await click("button.location-search");
       await click("li.location-form-result:first-child label");

@@ -36,17 +36,23 @@ acceptance(
 
     test("topic title location, post user & user card location - shows correct format", async function (assert) {
       await visit("/t/online-learning/51/1");
+
       assert.equal(
         query("span.location-text").innerText,
         "Pompidou, Paris, France"
       );
+
       assert.equal(
         query(".small-action-desc.timegap").innerText,
         "2 years later"
       );
+
       assert.equal(query("#post_3 .user-location").innerText, "Paris, France");
+
       assert.equal(query('a[data-user-card="merefield"]').innerText, "");
+
       await click('a[data-user-card="merefield"]');
+
       assert.equal(
         query(".user-card .location-label").innerText,
         "London, United Kingdom"
