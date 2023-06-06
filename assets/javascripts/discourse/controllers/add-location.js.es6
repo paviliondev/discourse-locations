@@ -126,7 +126,7 @@ export default Controller.extend(ModalFunctionality, {
         state: gl.state,
         geoLocation: { lat: gl.lat, lon: gl.lon },
         countrycode: gl.countrycode,
-        rawLocation: gl.raw,
+        rawLocation: gl.address,
       });
     },
 

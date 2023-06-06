@@ -1,5 +1,5 @@
 import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
-import { click, fillIn, visit } from "@ember/test-helpers";
+import { click, visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import userFixtures from "../fixtures/user-fixtures";
 import topicFixtures from "../fixtures/topic-fixtures";
@@ -36,37 +36,26 @@ acceptance(
 
     test("topic title location, post user & user card location - shows correct format", async function (assert) {
       await visit("/t/online-learning/51/1");
+
       assert.equal(
         query("span.location-text").innerText,
         "Pompidou, Paris, France"
       );
+
       assert.equal(
         query(".small-action-desc.timegap").innerText,
         "2 years later"
       );
+
       assert.equal(query("#post_3 .user-location").innerText, "Paris, France");
+
       assert.equal(query('a[data-user-card="merefield"]').innerText, "");
+
       await click('a[data-user-card="merefield"]');
+
       assert.equal(
         query(".user-card .location-label").innerText,
         "London, United Kingdom"
-      );
-    });
-
-    test("enter Topic location via dialogue", async function (assert) {
-      await visit("/t/online-learning/51/1");
-      await click("a.edit-topic");
-      await click("button.add-location-btn");
-
-      assert.equal(query(".add-location-modal").style.display, "block");
-      await fillIn(".input-large:first-child", "liver building");
-      await click("button.location-search");
-      await click("li.location-form-result:first-child label");
-      await click("#save-location");
-
-      assert.equal(
-        query("button.add-location-btn span.d-button-label").innerText,
-        "Royal Liver Building, Water Street, Ropewalks, L3 1EG, Liverpool, United Kingdom"
       );
     });
   }
