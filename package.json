@@ -6,6 +6,6 @@
   "license": "GPL V2",
   "devDependencies": {
     "eslint-config-discourse": "^3.1.0",
-    "semver": "^7.3.5"
+    "semver": "^7.5.2"
   }
 }
