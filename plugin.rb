@@ -163,6 +163,7 @@ after_initialize do
   Discourse::Application.routes.prepend do
     get 'u/user-map' => 'users#index'
     get 'users/user-map' => 'users#index'
+    get "c/*category_slug_path_with_id/l/map" => "list#category_default"
   end
 
   load File.expand_path('../serializers/geo_location.rb', __FILE__)
