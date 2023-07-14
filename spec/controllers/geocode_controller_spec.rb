@@ -21,7 +21,7 @@ describe ::Locations::GeoController do
 
     it 'rate limits geocode searches' do
       RateLimiter.stubs(:disabled?).returns(false)
-      RateLimiter.clear_all!
+      RateLimiter.clear_all_global!
 
       6.times do
         get :search, params: { request: '10 Downing Street' }, format: :json
