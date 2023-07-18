@@ -65,7 +65,7 @@ export default class LocationForm extends Component {
 
       const hasCoordinates = this.internalInputFields.indexOf("coordinates") > -1;
 
-      if(hasCoordinates) {
+      if(hasCoordinates && this.args.geoLocation) {
         this.geoLocation.lat = this.args.geoLocation.lat;
         this.geoLocation.lon = this.args.geoLocation.lon;
       }
@@ -128,19 +128,20 @@ export default class LocationForm extends Component {
   }
 
   @action
-  updateGeoLocation(gl) {
+  updateGeoLocation(gl, force_coords) {
     if (!this.showInputFields) {
       gl = this.geoLocation;
     }
 
     gl["zoomTo"] = true;
 
-    const hasCoordinates = this.internalInputFields.indexOf("coordinates") > -1;
-
-    if (hasCoordinates) {
-      gl.lat = this.geoLocation.lat
-      gl.lon = this.geoLocation.lon
-    }
+    if (force_coords) {
+      gl.lat = this.geoLocation.lat;
+      gl.lon = this.geoLocation.lon;
+    } else {
+      this.geoLocation.lat = gl.lat;
+      this.geoLocation.lon = gl.lon;
+    };
 
     if (
       this.siteSettings.location_auto_infer_street_from_address_data &&

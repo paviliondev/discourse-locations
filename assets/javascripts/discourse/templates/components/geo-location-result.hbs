@@ -1,4 +1,4 @@
-<label {{on "click" (fn @onClick this.location)}}>
+<label {{on "click" (fn @updateGeoLocation this.location false)}}>
   {{geo-location-format this.location geoAttrs=this.geoAttrs}}
   {{#if this.showType}}
     {{#if this.location.type}}

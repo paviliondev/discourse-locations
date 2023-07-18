@@ -150,7 +150,7 @@
                   {{else}}
                     {{#each this.geoLocationOptions as |l|}}
                       <GeoLocationResult
-                        @onClick={{action "updateGeoLocation"}}
+                        @updateGeoLocation={{this.updateGeoLocation}}
                         @location={{l}}
                         @geoAttrs={{this.geoAttrs}}
                       />
@@ -185,10 +185,10 @@
           <Input
             @type="number"
             @value={{this.geoLocation.lat}}
-           {{on "change" this.updateGeoLocation}}
-           {{on "onKepyUp" this.updateGeoLocation}}
+           {{on "change" (fn updateGeoLocation this.geoLocation true)}}
+           {{on "onKepyUp" (fn updateGeoLocation this.geoLocation true)}}
             step="any"
-            class="input-small input-location"
+            class="input-small input-location lat"
           />
           <div class="icon">
             <img src="/plugins/discourse-locations/images/latitude.png" />
@@ -204,10 +204,10 @@
           <Input
             @type="number"
             @value={{this.geoLocation.lon}}
-            {{on "change" this.updateGeoLocation}}
-            {{on "onKepyUp" this.updateGeoLocation}}
+            {{on "change" (fn this.updateGeoLocation this.geoLocation true)}}
+            {{on "onKepyUp" (fn this.updateGeoLocation this.geoLocation true)}}
             step="any"
-            class="input-small input-location"
+            class="input-small input-location lon"
           />
           <div class="icon">
             <img src="/plugins/discourse-locations/images/longitude.png" />
