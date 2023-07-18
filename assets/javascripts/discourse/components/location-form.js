@@ -32,6 +32,7 @@ export default class LocationForm extends Component {
   @tracked formCity;
   @tracked formState;
   @tracked formCountrycode;
+  @tracked geoLocation = {};
   context = null;
 
   showTitle = equal("appType", "discourse");
@@ -60,6 +61,13 @@ export default class LocationForm extends Component {
         this.args.disabledFields.forEach((f) => {
           this.set(`${f}Disabled`, true);
         });
+      }
+
+      const hasCoordinates = this.internalInputFields.indexOf("coordinates") > -1;
+
+      if(hasCoordinates) {
+        this.geoLocation.lat = this.args.geoLocation.lat;
+        this.geoLocation.lon = this.args.geoLocation.lon;
       }
 
       const geocoding = this.siteSettings.location_geocoding;
@@ -126,6 +134,13 @@ export default class LocationForm extends Component {
     }
 
     gl["zoomTo"] = true;
+
+    const hasCoordinates = this.internalInputFields.indexOf("coordinates") > -1;
+
+    if (hasCoordinates) {
+      gl.lat = this.geoLocation.lat
+      gl.lon = this.geoLocation.lon
+    }
 
     if (
       this.siteSettings.location_auto_infer_street_from_address_data &&

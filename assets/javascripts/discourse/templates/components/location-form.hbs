@@ -185,6 +185,9 @@
           <Input
             @type="number"
             @value={{this.geoLocation.lat}}
+           {{on "change" this.updateGeoLocation}}
+           {{on "onKepyUp" this.updateGeoLocation}}
+            step="any"
             class="input-small input-location"
           />
           <div class="icon">
@@ -201,6 +204,9 @@
           <Input
             @type="number"
             @value={{this.geoLocation.lon}}
+            {{on "change" this.updateGeoLocation}}
+            {{on "onKepyUp" this.updateGeoLocation}}
+            step="any"
             class="input-small input-location"
           />
           <div class="icon">
