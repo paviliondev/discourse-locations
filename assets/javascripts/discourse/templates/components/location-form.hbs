@@ -92,9 +92,9 @@
               <ComboBox
                 @valueProperty="code"
                 @nameProperty="name"
-                @content={{@countrycodes}}
+                @content={{this.countrycodes}}
                 @value={{this.formCountrycode}}
-                @class="input-location"
+                @class="input-location country-code"
                 @onChange={{action (mut this.formCountrycode)}}
                 @options={{hash
                   filterable="true"

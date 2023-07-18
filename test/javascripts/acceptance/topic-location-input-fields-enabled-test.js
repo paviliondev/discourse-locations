@@ -5,6 +5,7 @@ import topicFixtures from "../fixtures/topic-fixtures";
 import siteFixtures from "../fixtures/site-fixtures";
 import locationFixtures from "../fixtures/location-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
+import selectKit from "discourse/tests/helpers/select-kit-helper";
 
 acceptance(
   "Topic - Show Correct Location after entering location with Input Fields Enabled",
@@ -32,6 +33,15 @@ acceptance(
       await click("button.add-location-btn");
 
       assert.equal(query(".add-location-modal").style.display, "block");
+
+      await selectKit(".input-location.country-code").expand();
+      assert.ok(exists(".input-location.country-code .select-kit-collection"));
+      assert.ok(exists(".select-kit-row.is-highlighted.is-selected"));
+      assert.equal(
+        query(".select-kit-row.is-highlighted.is-selected").innerText,
+        "France",
+        "France exists in the drop down and is selected"
+      );
 
       await fillIn(".input-large:first-child", "liver building");
       await click("button.location-search");
