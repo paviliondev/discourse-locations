@@ -184,7 +184,7 @@
         <div class="controls">
           <Input
             @type="number"
-            @value={{this.geoLocation.lat}}
+            @value={{this.formLatitude}}
            {{on "change" (fn updateGeoLocation this.geoLocation true)}}
            {{on "onKepyUp" (fn updateGeoLocation this.geoLocation true)}}
             step="any"
@@ -203,7 +203,7 @@
         <div class="controls">
           <Input
             @type="number"
-            @value={{this.geoLocation.lon}}
+            @value={{this.formLongitude}}
             {{on "change" (fn this.updateGeoLocation this.geoLocation true)}}
             {{on "onKepyUp" (fn this.updateGeoLocation this.geoLocation true)}}
             step="any"
