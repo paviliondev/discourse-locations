@@ -69,7 +69,7 @@ acceptance(
 
       await fillIn(".add-location div.location-form div.coordinates .input-location.lat", "22");
       await fillIn(".add-location div.location-form div.coordinates .input-location.lon", "33");
-      
+
       await click("#save-location");
       await click("button.add-location-btn");
       assert.equal(

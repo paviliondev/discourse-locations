@@ -142,7 +142,8 @@ export default class LocationForm extends Component {
     }
 
     if (
-      gl.address && this.siteSettings.location_auto_infer_street_from_address_data &&
+      gl.address &&
+      this.siteSettings.location_auto_infer_street_from_address_data &&
       gl.address.indexOf(gl.city) > 0
     ) {
       gl.street = gl.address
