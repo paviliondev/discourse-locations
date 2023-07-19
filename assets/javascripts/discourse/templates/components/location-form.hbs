@@ -92,9 +92,9 @@
               <ComboBox
                 @valueProperty="code"
                 @nameProperty="name"
-                @content={{@countrycodes}}
+                @content={{this.countrycodes}}
                 @value={{this.formCountrycode}}
-                @class="input-location"
+                @class="input-location country-code"
                 @onChange={{action (mut this.formCountrycode)}}
                 @options={{hash
                   filterable="true"
@@ -150,7 +150,7 @@
                   {{else}}
                     {{#each this.geoLocationOptions as |l|}}
                       <GeoLocationResult
-                        @onClick={{action "updateGeoLocation"}}
+                        @updateGeoLocation={{this.updateGeoLocation}}
                         @location={{l}}
                         @geoAttrs={{this.geoAttrs}}
                       />
@@ -184,8 +184,11 @@
         <div class="controls">
           <Input
             @type="number"
-            @value={{this.geoLocation.lat}}
-            class="input-small input-location"
+            @value={{this.formLatitude}}
+            {{on "change" (fn updateGeoLocation this.geoLocation true)}}
+            {{on "onKepyUp" (fn updateGeoLocation this.geoLocation true)}}
+            step="any"
+            class="input-small input-location lat"
           />
           <div class="icon">
             <img src="/plugins/discourse-locations/images/latitude.png" />
@@ -200,8 +203,11 @@
         <div class="controls">
           <Input
             @type="number"
-            @value={{this.geoLocation.lon}}
-            class="input-small input-location"
+            @value={{this.formLongitude}}
+            {{on "change" (fn this.updateGeoLocation this.geoLocation true)}}
+            {{on "onKepyUp" (fn this.updateGeoLocation this.geoLocation true)}}
+            step="any"
+            class="input-small input-location lon"
           />
           <div class="icon">
             <img src="/plugins/discourse-locations/images/longitude.png" />

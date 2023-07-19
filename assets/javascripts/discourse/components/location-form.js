@@ -12,12 +12,7 @@ export default class LocationForm extends Component {
   @service siteSettings;
   @service site;
   @tracked geoLocationOptions = A();
-  @tracked internalInputFields = [
-    "street",
-    "postalcode",
-    "city",
-    "countrycode",
-  ];
+  @tracked internalInputFields = [];
   @tracked provider = "";
   @tracked hasSearched = false;
   @tracked searchDisabled = false;
@@ -32,6 +27,9 @@ export default class LocationForm extends Component {
   @tracked formCity;
   @tracked formState;
   @tracked formCountrycode;
+  @tracked formLatitude;
+  @tracked formLongitude;
+  @tracked geoLocation = {};
   context = null;
 
   showTitle = equal("appType", "discourse");
@@ -60,6 +58,14 @@ export default class LocationForm extends Component {
         this.args.disabledFields.forEach((f) => {
           this.set(`${f}Disabled`, true);
         });
+      }
+
+      const hasCoordinates =
+        this.internalInputFields.indexOf("coordinates") > -1;
+
+      if (hasCoordinates && this.args.geoLocation) {
+        this.formLatitude = this.args.geoLocation.lat;
+        this.formLongitude = this.args.geoLocation.lon;
       }
 
       const geocoding = this.siteSettings.location_geocoding;
@@ -120,14 +126,23 @@ export default class LocationForm extends Component {
   }
 
   @action
-  updateGeoLocation(gl) {
+  updateGeoLocation(gl, force_coords) {
     if (!this.showInputFields) {
       gl = this.geoLocation;
     }
 
     gl["zoomTo"] = true;
 
+    if (force_coords) {
+      gl.lat = this.formLatitude;
+      gl.lon = this.formLongitude;
+    } else {
+      this.formLatitude = gl.lat;
+      this.formLongitude = gl.lon;
+    }
+
     if (
+      gl.address &&
       this.siteSettings.location_auto_infer_street_from_address_data &&
       gl.address.indexOf(gl.city) > 0
     ) {
@@ -137,9 +152,15 @@ export default class LocationForm extends Component {
     }
 
     this.internalInputFields.forEach((f) => {
-      this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] =
-        gl[f];
+      if (f === "coordinates") {
+        this.formLatitude = gl.lat;
+        this.formLongitude = gl.lon;
+      } else {
+        this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] =
+          gl[f];
+      }
     });
+
     this.args.setGeoLocation(gl);
     this.geoLocationOptions.forEach((o) => {
       set(o, "selected", o["address"] === gl["address"]);
@@ -163,6 +184,10 @@ export default class LocationForm extends Component {
     searchInputFields.map((f) => {
       request[f] =
         this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`];
+      if (f === "coordinates") {
+        request["lat"] = this.formLatitude;
+        request["lon"] = this.formLongitude;
+      }
     });
 
     if ($.isEmptyObject(request)) {
