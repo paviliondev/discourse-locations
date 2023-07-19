@@ -60,9 +60,10 @@ export default class LocationForm extends Component {
         });
       }
 
-      const hasCoordinates = this.internalInputFields.indexOf("coordinates") > -1;
+      const hasCoordinates =
+        this.internalInputFields.indexOf("coordinates") > -1;
 
-      if(hasCoordinates && this.args.geoLocation) {
+      if (hasCoordinates && this.args.geoLocation) {
         this.formLatitude = this.args.geoLocation.lat;
         this.formLongitude = this.args.geoLocation.lon;
       }
@@ -138,7 +139,7 @@ export default class LocationForm extends Component {
     } else {
       this.formLatitude = gl.lat;
       this.formLongitude = gl.lon;
-    };
+    }
 
     if (
       this.siteSettings.location_auto_infer_street_from_address_data &&
@@ -155,7 +156,7 @@ export default class LocationForm extends Component {
         this.formLongitude = gl.lon;
       } else {
         this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`] =
-        gl[f];
+          gl[f];
       }
     });
 
@@ -180,7 +181,8 @@ export default class LocationForm extends Component {
       "context",
     ]);
     searchInputFields.map((f) => {
-      request[f] = this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`];
+      request[f] =
+        this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`];
       if (f == "coordinates") {
         request["lat"] = this.formLatitude;
         request["lon"] = this.formLongitude;
