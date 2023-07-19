@@ -1,4 +1,8 @@
-import { acceptance, exists, query } from "discourse/tests/helpers/qunit-helpers";
+import {
+  acceptance,
+  exists,
+  query,
+} from "discourse/tests/helpers/qunit-helpers";
 import { click, fillIn, visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import topicFixtures from "../fixtures/topic-fixtures";
@@ -17,7 +21,7 @@ acceptance(
     needs.settings({
       location_enabled: true,
       location_input_fields_enabled: true,
-      location_input_fields: 'street|postalcode|city|countrycode|coordinates',
+      location_input_fields: "street|postalcode|city|countrycode|coordinates",
       location_auto_infer_street_from_address_data: true,
     });
     needs.site(cloneJSON(siteFixtures["site.json"]));
@@ -48,7 +52,9 @@ acceptance(
       await click("button.location-search");
       await click("li.location-form-result:first-child label");
       assert.equal(
-        query(".add-location div.location-form div.coordinates .input-location.lat").value,
+        query(
+          ".add-location div.location-form div.coordinates .input-location.lat"
+        ).value,
         "53.4058473",
         "Correct latitude is populated"
       );
@@ -67,18 +73,28 @@ acceptance(
 
       assert.equal(query(".add-location-modal").style.display, "block");
 
-      await fillIn(".add-location div.location-form div.coordinates .input-location.lat", "22");
-      await fillIn(".add-location div.location-form div.coordinates .input-location.lon", "33");
+      await fillIn(
+        ".add-location div.location-form div.coordinates .input-location.lat",
+        "22"
+      );
+      await fillIn(
+        ".add-location div.location-form div.coordinates .input-location.lon",
+        "33"
+      );
 
       await click("#save-location");
       await click("button.add-location-btn");
       assert.equal(
-        query(".add-location div.location-form div.coordinates .input-location.lat").value,
+        query(
+          ".add-location div.location-form div.coordinates .input-location.lat"
+        ).value,
         "22",
         "Correct latitude is populated"
       );
       assert.equal(
-        query(".add-location div.location-form div.coordinates .input-location.lon").value,
+        query(
+          ".add-location div.location-form div.coordinates .input-location.lon"
+        ).value,
         "33",
         "Correct latitude is populated"
       );
