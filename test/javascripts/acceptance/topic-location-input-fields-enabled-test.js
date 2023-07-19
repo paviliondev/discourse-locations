@@ -17,6 +17,7 @@ acceptance(
     needs.settings({
       location_enabled: true,
       location_input_fields_enabled: true,
+      location_input_fields: 'street|postalcode|city|countrycode|coordinates',
       location_auto_infer_street_from_address_data: true,
     });
     needs.site(cloneJSON(siteFixtures["site.json"]));
@@ -46,11 +47,40 @@ acceptance(
       await fillIn(".input-large:first-child", "liver building");
       await click("button.location-search");
       await click("li.location-form-result:first-child label");
-      await click("#save-location");
+      assert.equal(
+        query(".add-location div.location-form div.coordinates .input-location.lat").value,
+        "53.4058473",
+        "Correct latitude is populated"
+      );
 
+      await click("#save-location");
       assert.equal(
         query("button.add-location-btn span.d-button-label").innerText,
         "Royal Liver Building, Water Street, Ropewalks, L3 1EG, Liverpool, United Kingdom"
+      );
+    });
+
+    test("enter Topic location via dialogue using coordinates", async function (assert) {
+      await visit("/t/online-learning/51/1");
+      await click("a.edit-topic");
+      await click("button.add-location-btn");
+
+      assert.equal(query(".add-location-modal").style.display, "block");
+
+      await fillIn(".add-location div.location-form div.coordinates .input-location.lat", "22");
+      await fillIn(".add-location div.location-form div.coordinates .input-location.lon", "33");
+      
+      await click("#save-location");
+      await click("button.add-location-btn");
+      assert.equal(
+        query(".add-location div.location-form div.coordinates .input-location.lat").value,
+        "22",
+        "Correct latitude is populated"
+      );
+      assert.equal(
+        query(".add-location div.location-form div.coordinates .input-location.lon").value,
+        "33",
+        "Correct latitude is populated"
       );
     });
   }
