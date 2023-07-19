@@ -151,7 +151,7 @@ export default class LocationForm extends Component {
     }
 
     this.internalInputFields.forEach((f) => {
-      if (f == "coordinates") {
+      if (f === "coordinates") {
         this.formLatitude = gl.lat;
         this.formLongitude = gl.lon;
       } else {
@@ -183,7 +183,7 @@ export default class LocationForm extends Component {
     searchInputFields.map((f) => {
       request[f] =
         this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`];
-      if (f == "coordinates") {
+      if (f === "coordinates") {
         request["lat"] = this.formLatitude;
         request["lon"] = this.formLongitude;
       }

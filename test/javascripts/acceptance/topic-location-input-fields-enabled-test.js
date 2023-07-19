@@ -1,4 +1,4 @@
-import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
+import { acceptance, exists, query } from "discourse/tests/helpers/qunit-helpers";
 import { click, fillIn, visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import topicFixtures from "../fixtures/topic-fixtures";
