@@ -86,7 +86,13 @@ export default {
             const topicDefaultLocation = siteSettings.location_topic_default;
             if (
               topicDefaultLocation === "user" &&
-              currentUser.custom_fields.geo_location
+              currentUser.custom_fields.geo_location &&
+              ((typeof currentUser.custom_fields.geo_location === "string" &&
+                currentUser.custom_fields.geo_location.replaceAll(" ", "") !==
+                  "{}") ||
+                (typeof currentUser.custom_fields.geo_location === "object" &&
+                  Object.keys(currentUser.custom_fields.geo_location).length !==
+                    0))
             ) {
               this.set("location", {
                 geo_location: currentUser.custom_fields.geo_location,
