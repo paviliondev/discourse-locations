@@ -148,7 +148,7 @@ plugins:
     client: false
   location_topic_default:
     type: enum
-    default: 'none'
+    default: none
     client: true
     choices:
       - none
