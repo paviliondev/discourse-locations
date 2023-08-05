@@ -38,7 +38,13 @@ export default MountWidget.extend({
     this.scheduleSetup();
   },
 
-  @observes("topicList", "category", "geoLocation", "geoLocations.[]", "userList.[]")
+  @observes(
+    "topicList",
+    "category",
+    "geoLocation",
+    "geoLocations.[]",
+    "userList.[]"
+  )
   refreshMap() {
     this.queueRerender();
     this.scheduleSetup();

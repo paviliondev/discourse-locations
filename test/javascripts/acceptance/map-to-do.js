@@ -1,7 +1,4 @@
-import {
-  acceptance,
-  exists,
-} from "discourse/tests/helpers/qunit-helpers";
+import { acceptance, exists } from "discourse/tests/helpers/qunit-helpers";
 import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import mapFixtures from "../fixtures/map-fixtures";
@@ -18,7 +15,9 @@ acceptance("Topic Map - Show Correct Population", function (needs) {
   needs.site(cloneJSON(altSiteFixtures["site.json"]));
   needs.pretender((server, helper) => {
     const categoryMapResponse = cloneJSON(mapFixtures["/category_map.json"]);
-    server.get("/c/general/announcements/24/l/map.json", () => helper.response(categoryMapResponse));
+    server.get("/c/general/announcements/24/l/map.json", () =>
+      helper.response(categoryMapResponse)
+    );
     const mapResponse = cloneJSON(mapFixtures["/map.json"]);
     server.get("/map.json", () => helper.response(mapResponse));
   });
@@ -27,7 +26,9 @@ acceptance("Topic Map - Show Correct Population", function (needs) {
     await visit("c/general/announcements/24/l/map");
 
     assert.ok(
-      exists('img.leaflet-marker-icon[title="Coolest thing you have seen today"]'),
+      exists(
+        'img.leaflet-marker-icon[title="Coolest thing you have seen today"]'
+      ),
       "Announcement Topic Location exists"
     );
 
@@ -41,7 +42,9 @@ acceptance("Topic Map - Show Correct Population", function (needs) {
     await visit("/map");
 
     assert.ok(
-      exists('img.leaflet-marker-icon[title="Coolest thing you have seen today"]'),
+      exists(
+        'img.leaflet-marker-icon[title="Coolest thing you have seen today"]'
+      ),
       "Announcement Topic Location exists"
     );
 
