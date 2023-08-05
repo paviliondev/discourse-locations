@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.3.6
+# version: 6.3.7
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
@@ -164,6 +164,7 @@ after_initialize do
     get 'u/user-map' => 'users#index'
     get 'users/user-map' => 'users#index'
     get "c/*category_slug_path_with_id/l/map" => "list#category_default"
+    get "/map" => "list#latest"
   end
 
   load File.expand_path('../serializers/geo_location.rb', __FILE__)
