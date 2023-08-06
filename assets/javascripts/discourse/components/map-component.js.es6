@@ -39,7 +39,7 @@ export default MountWidget.extend({
   },
 
   @observes(
-    "topicList",
+    "topicList.[]",
     "category",
     "geoLocation",
     "geoLocations.[]",
