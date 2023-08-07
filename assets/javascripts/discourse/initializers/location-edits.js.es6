@@ -13,7 +13,6 @@ import I18n from "I18n";
 export default {
   name: "location-edits",
   initialize(container) {
-    const currentUser = container.lookup("current-user:main");
     const siteSettings = container.lookup("site-settings:main");
     const site = container.lookup("site:main");
 
