@@ -13,7 +13,6 @@ import I18n from "I18n";
 export default {
   name: "location-edits",
   initialize(container) {
-    const currentUser = container.lookup("current-user:main");
     const siteSettings = container.lookup("site-settings:main");
     const site = container.lookup("site:main");
 
@@ -83,13 +82,24 @@ export default {
         @observes("draftKey")
         _setupDefaultLocation() {
           if (this.draftKey === "new_topic") {
-            const topicDefaultLocation = siteSettings.location_topic_default;
+            const topicDefaultLocation =
+              this.siteSettings.location_topic_default;
+            // NB: we can't use the siteSettings, nor currentUser values set in the initialiser here
+            // because in QUnit they will not be defined as the initialiser only runs once
+            // so this will break all tests, even if in runtime it may work.
+            // so solution is to use the values provided by the Composer model under 'this'.
             if (
               topicDefaultLocation === "user" &&
-              currentUser.custom_fields.geo_location
+              this.user.custom_fields.geo_location &&
+              ((typeof this.user.custom_fields.geo_location === "string" &&
+                this.user.custom_fields.geo_location.replaceAll(" ", "") !==
+                  "{}") ||
+                (typeof this.user.custom_fields.geo_location === "object" &&
+                  Object.keys(this.user.custom_fields.geo_location).length !==
+                    0))
             ) {
               this.set("location", {
-                geo_location: currentUser.custom_fields.geo_location,
+                geo_location: this.user.custom_fields.geo_location,
               });
             }
           }
