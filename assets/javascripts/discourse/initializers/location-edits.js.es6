@@ -83,7 +83,8 @@ export default {
         @observes("draftKey")
         _setupDefaultLocation() {
           if (this.draftKey === "new_topic") {
-            const topicDefaultLocation = this.siteSettings.location_topic_default;
+            const topicDefaultLocation =
+              this.siteSettings.location_topic_default;
             // NB: we can't use the siteSettings, nor currentUser values set in the initialiser here
             // because in QUnit they will not be defined as the initialiser only runs once
             // so this will break all tests, even if in runtime it may work.
