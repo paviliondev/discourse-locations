@@ -174,6 +174,21 @@ after_initialize do
   load File.expand_path('../lib/users_map.rb', __FILE__)
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
+  # check latitude and longitude are included when updating users location or raise and error
+  register_modifier(:users_controller_update_user_params) do |result, _, params|
+    if params &&
+      params[:custom_fields] &&
+      params[:custom_fields][:geo_location] &&
+      params[:custom_fields][:geo_location] != "{}" &&
+      (!params[:custom_fields][:geo_location]['lit'] ||
+       !params[:custom_fields][:geo_location]['lon'])
+      raise Discourse::InvalidParameters.new, I18n.t('location.errors.invalid')
+    end
+
+    result[:custom_fields][:geo_location] = params[:custom_fields][:geo_location]
+    result
+  end
+
   unless Rails.env.test?
     begin
       Locations::Geocode.set_config
