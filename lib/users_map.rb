@@ -30,25 +30,3 @@ require_dependency 'directory_items_controller'
 class ::DirectoryItemsController
   prepend DirectoryItemsControllerExtension
 end
-
-module UsersControllerLocationsExtension
-  def modify_user_params(attrs)
-    super(attrs)
-
-    if attrs &&
-      attrs[:custom_fields] &&
-      attrs[:custom_fields][:geo_location] &&
-      attrs[:custom_fields][:geo_location] != "{}" &&
-      (!attrs[:custom_fields][:geo_location]['lat'] ||
-       !attrs[:custom_fields][:geo_location]['lon'])
-      raise Discourse::InvalidParameters.new, I18n.t('location.errors.invalid')
-    end
-
-    attrs
-  end
-end
-
-require_dependency 'users_controller'
-class ::UsersController
-  prepend UsersControllerLocationsExtension
-end
