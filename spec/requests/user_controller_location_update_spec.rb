@@ -5,7 +5,6 @@ RSpec.describe UsersController do
   fab!(:user) { Fabricate(:user) }
   before do
     sign_in(user)
-    byebug
     SiteSetting.location_enabled = true
     SiteSetting.location_users_map = true
   end
@@ -15,30 +14,28 @@ RSpec.describe UsersController do
       put "/u/#{user.username}.json",
       params: {
         custom_fields: {
-          geo_location: {lat: 10, lon: 12 },
+          geo_location: { lat: 10, lon: 12 },
         },
       }
 
       expect(response.status).to eq(200)
       result = response.parsed_body
       expect(result["success"]).to eq("OK")
-      expect(user.custom_fields["geo_location"][lat]).to eq(10)
-      expect(user.custom_fields["geo_location"][lat]).to eq(12)
+      expect(user.custom_fields["geo_location"]["lat"]).to eq("10")
+      expect(user.custom_fields["geo_location"]["lon"]).to eq("12")
     end
 
     it "doesn't allow user to upload invalid geolocation to their profile" do
       put "/u/#{user.username}.json",
       params: {
         custom_fields: {
-          geo_location: {lat: 10},
+          geo_location: { lat: 10 },
         },
       }
 
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(400)
       result = response.parsed_body
-      expect(result["success"]).to eq("OK")
-      expect(user.custom_fields["geo_location"][lat]).to eq(10)
-      expect(user.custom_fields["geo_location"][lat]).to eq(12)
+      expect(result["error_type"]).to eq("invalid_parameters")
     end
   end
 end
