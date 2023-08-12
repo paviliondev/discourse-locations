@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.3.10
+# version: 6.3.11
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
@@ -185,7 +185,12 @@ after_initialize do
       raise Discourse::InvalidParameters.new, I18n.t('location.errors.invalid')
     end
 
-    result[:custom_fields][:geo_location] = params[:custom_fields][:geo_location]
+    if params &&
+      params[:custom_fields] &&
+      params[:custom_fields][:geo_location]
+      result[:custom_fields][:geo_location] = params[:custom_fields][:geo_location]
+    end
+
     result
   end
 
