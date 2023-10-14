@@ -86,25 +86,13 @@ export default class AddLocationComponent extends Component {
       location["raw"] = this.rawLocation;
     }
 
-//     -   const request = getProperties(this,this.internalInputFields.concat(["countrycode", "context"]));
-// +    let request = {};
-// +    let requestFields = [];
-// +
-// +    const searchInputFields = this.internalInputFields.concat(["countrycode", "context"])
-// +    requestFields = searchInputFields.map((f) => {
-// +      request[f] = this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`]
-// +    });
-
     if (inputFieldsEnabled) {
       const nonGeoProps = inputFields.filter((f) => f !== "coordinates");
-
       let locationFields = []
+
       locationFields = nonGeoProps.map((f) => {
-        location[f] = this[`form${f.charAt(0).toUpperCase() + f.substr(1).toLowerCase()}`]
+        location[f] = this[f];
       });
-
-
-      location = this.getProperties(nonGeoProps);
     }
 
     if (geocodingEnabled || hasCoordinates) {
@@ -114,7 +102,7 @@ export default class AddLocationComponent extends Component {
       }
     }
 
-    let name = this.get("name");
+    let name = this.name;
 
     if (name) {
       location["name"] = name;
