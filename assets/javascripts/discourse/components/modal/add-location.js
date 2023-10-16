@@ -39,12 +39,14 @@ export default class AddLocationComponent extends Component {
   @computed()
   get inputFields() {
     return this.siteSettings.location_input_fields.split("|");
-  };
+  }
 
   @computed("geoLocation")
   get submitDisabled() {
-    return this.siteSettings.location_geocoding === "required" && !this.geoLocation;
-  };
+    return (
+      this.siteSettings.location_geocoding === "required" && !this.geoLocation
+    );
+  }
 
   @action
   clearModal() {
@@ -56,17 +58,15 @@ export default class AddLocationComponent extends Component {
     this.state = null;
     this.countrycode = null;
     this.geoLocation = { lat: "", lon: "" };
-    this.rawLocation =  null;
-  };
-    //$(".location-form .ac-wrap .item a.remove").click();
-  //};
+    this.rawLocation = null;
+  }
 
   @action
   clear() {
     this.clearModal();
     this.args.model.update(null);
     this.args.closeModal();
-  };
+  }
 
   @action
   submit() {
@@ -77,8 +77,7 @@ export default class AddLocationComponent extends Component {
     let location = {};
 
     const geocodingEnabled = this.siteSettings.location_geocoding !== "none";
-    const inputFieldsEnabled =
-      this.siteSettings.location_input_fields_enabled;
+    const inputFieldsEnabled = this.siteSettings.location_input_fields_enabled;
     const inputFields = this.inputFields;
     const hasCoordinates = inputFields.indexOf("coordinates") > -1;
 
@@ -88,7 +87,7 @@ export default class AddLocationComponent extends Component {
 
     if (inputFieldsEnabled) {
       const nonGeoProps = inputFields.filter((f) => f !== "coordinates");
-      let locationFields = []
+      let locationFields = [];
 
       locationFields = nonGeoProps.map((f) => {
         location[f] = this[f];
@@ -121,7 +120,7 @@ export default class AddLocationComponent extends Component {
     this.args.model.update(location);
     this.clearModal();
     this.args.closeModal();
-  };
+  }
 
   @action
   setGeoLocation(gl) {
@@ -134,10 +133,10 @@ export default class AddLocationComponent extends Component {
     this.geoLocation = { lat: gl.lat, lon: gl.lon };
     this.countrycode = gl.countrycode;
     this.rawLocation = gl.address;
-  };
+  }
 
   @action
   searchError(error) {
     this.flash = error;
-  };
-};
+  }
+}

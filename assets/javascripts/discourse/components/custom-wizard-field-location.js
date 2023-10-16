@@ -1,17 +1,8 @@
 import Component from "@glimmer/component";
-// import { alias } from "@ember/object/computed";
 import I18n from "I18n";
 import { action, computed } from "@ember/object";
 import { inject as service } from "@ember/service";
-
-// {{component
-//   inputComponentName
-//   field=field
-//   step=step
-//   fieldClass=fieldClass
-//   wizard=wizard
-//   autocomplete=validators.autocomplete
-// }}
+import { tracked } from "@glimmer/tracking";
 
 export default class CustomWizardFieldLocationComponent extends Component {
   @service siteSettings;
@@ -20,6 +11,13 @@ export default class CustomWizardFieldLocationComponent extends Component {
   layoutName = "javascripts/wizard/templates/components/wizard-field-location";
   context = this.args.wizard.id;
   inputFieldsEnabled = true;
+  @tracked name = null;
+  @tracked street = null;
+  @tracked postalcode = null;
+  @tracked city = null;
+  @tracked countrycode = null;
+  @tracked geoLocation = { lat: "", lon: "" };
+  @tracked rawLocation = null;
 
   constructor() {
     super(...arguments);
@@ -34,11 +32,10 @@ export default class CustomWizardFieldLocationComponent extends Component {
 
     this.geoLocation = existing["geo_location"] || {};
     //this.args.field.customCheck = this.customCheck.bind(this);
-    this.args.field.customCheck = this.customCheck;
-  };
+    this.args.field.customCheck = this.customCheck.bind(this);
+  }
 
-  @computed
-  get customCheck() {
+  customCheck() {
     const required = this.required;
     const hasInput = this.inputFields.some((f) => this[f]);
 
@@ -47,12 +44,12 @@ export default class CustomWizardFieldLocationComponent extends Component {
     } else {
       return true;
     }
-  };
+  }
 
   @computed
   get inputFields() {
     return this.siteSettings.location_input_fields.split("|");
-  };
+  }
 
   handleValidation() {
     const inputFields = this.inputFields;
@@ -63,8 +60,8 @@ export default class CustomWizardFieldLocationComponent extends Component {
     let location = {};
 
     if (
-      inputFieldsEnabled &&
-      inputFields.indexOf("coordinates") > -1 &&
+      this.inputFieldsEnabled &&
+      this.inputFields.indexOf("coordinates") > -1 &&
       (geoLocation.lat || geoLocation.lon)
     ) {
       return this.setValidation(
@@ -73,11 +70,11 @@ export default class CustomWizardFieldLocationComponent extends Component {
       );
     }
 
-    if (inputFieldsEnabled) {
+    if (this.inputFieldsEnabled) {
       let validationType = null;
 
-      inputFields.some((field) => {
-        const input = this.get(field);
+      this.inputFields.some((field) => {
+        const input = this[`${field}`];
         if (!input || input.length < 2) {
           validationType = field;
           return true;
@@ -91,29 +88,31 @@ export default class CustomWizardFieldLocationComponent extends Component {
       }
     }
 
-    if (includeGeoLocation) {
-      let valid = geoLocation && geoLocation.address;
+    if (this.includeGeoLocation) {
+      let valid =
+        this.geoLocation && this.geoLocation.lat && this.geoLocation.lon;
+      // let valid = this.geoLocation && this.geoLocation.address;
       let message;
 
       if (valid) {
-        location["geo_location"] = geoLocation;
-        this.set("field.value", location);
+        location["geo_location"] = this.geoLocation;
+        this.args.field.value = location;
       } else {
         message = "geo_location";
       }
 
       return this.setValidation(valid, message);
     } else {
-      this.set("field.value", location);
+      this.args.field.value = location;
       return this.setValidation(true);
     }
-  };
+  }
 
   setValidation(valid, type) {
     const message = type ? I18n.t(`location.validation.${type}`) : "";
-    this.field.setValid(valid, message);
+    this.args.field.setValid(valid, message);
     return valid;
-  };
+  }
 
   @action
   setGeoLocation(gl) {
@@ -126,10 +125,10 @@ export default class CustomWizardFieldLocationComponent extends Component {
     this.geoLocation = { lat: gl.lat, lon: gl.lon };
     this.countrycode = gl.countrycode;
     this.rawLocation = gl.address;
-  };
+  }
 
   @action
   searchError(error) {
     this.flash = error;
-  };
-};
+  }
+}
