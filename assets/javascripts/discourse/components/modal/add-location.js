@@ -87,9 +87,8 @@ export default class AddLocationComponent extends Component {
 
     if (inputFieldsEnabled) {
       const nonGeoProps = inputFields.filter((f) => f !== "coordinates");
-      let locationFields = [];
 
-      locationFields = nonGeoProps.map((f) => {
+      nonGeoProps.forEach((f) => {
         location[f] = this[f];
       });
     }

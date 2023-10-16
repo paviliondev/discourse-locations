@@ -6,11 +6,7 @@ import { tracked } from "@glimmer/tracking";
 
 export default class CustomWizardFieldLocationComponent extends Component {
   @service siteSettings;
-  includeGeoLocation = true;
-  showType = true;
-  layoutName = "javascripts/wizard/templates/components/wizard-field-location";
-  context = this.args.wizard.id;
-  inputFieldsEnabled = true;
+
   @tracked name = null;
   @tracked street = null;
   @tracked postalcode = null;
@@ -18,6 +14,11 @@ export default class CustomWizardFieldLocationComponent extends Component {
   @tracked countrycode = null;
   @tracked geoLocation = { lat: "", lon: "" };
   @tracked rawLocation = null;
+  context = this.args.wizard.id;
+  includeGeoLocation = true;
+  inputFieldsEnabled = true;
+  layoutName = "javascripts/wizard/templates/components/wizard-field-location";
+  showType = true;
 
   constructor() {
     super(...arguments);
