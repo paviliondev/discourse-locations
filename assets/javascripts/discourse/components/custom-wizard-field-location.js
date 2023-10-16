@@ -32,7 +32,6 @@ export default class CustomWizardFieldLocationComponent extends Component {
     });
 
     this.geoLocation = existing["geo_location"] || {};
-    //this.args.field.customCheck = this.customCheck.bind(this);
     this.args.field.customCheck = this.customCheck.bind(this);
   }
 
