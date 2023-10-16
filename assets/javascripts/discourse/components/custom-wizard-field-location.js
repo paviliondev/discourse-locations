@@ -52,20 +52,15 @@ export default class CustomWizardFieldLocationComponent extends Component {
   }
 
   handleValidation() {
-    const inputFields = this.inputFields;
-    const inputFieldsEnabled = this.inputFieldsEnabled;
-    const includeGeoLocation = this.includeGeoLocation;
-    const geoLocation = this.geoLocation;
-
     let location = {};
 
     if (
       this.inputFieldsEnabled &&
       this.inputFields.indexOf("coordinates") > -1 &&
-      (geoLocation.lat || geoLocation.lon)
+      (this.geoLocation.lat || this.geoLocation.lon)
     ) {
       return this.setValidation(
-        geoLocation.lat && geoLocation.lon,
+        this.geoLocation.lat && this.geoLocation.lon,
         "coordinates"
       );
     }
@@ -91,7 +86,6 @@ export default class CustomWizardFieldLocationComponent extends Component {
     if (this.includeGeoLocation) {
       let valid =
         this.geoLocation && this.geoLocation.lat && this.geoLocation.lon;
-      // let valid = this.geoLocation && this.geoLocation.address;
       let message;
 
       if (valid) {

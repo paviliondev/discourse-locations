@@ -220,7 +220,6 @@ export default class LocationForm extends Component {
         this.loadingLocations = false;
       })
       .catch((error) => {
-        console.log(error);
         this.args.searchError(error);
       });
   }

@@ -59,8 +59,6 @@ export default Component.extend({
           },
         },
       });
-
-      controller.setup();
     },
 
     removeLocation() {
