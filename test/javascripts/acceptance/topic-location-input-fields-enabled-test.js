@@ -37,10 +37,7 @@ acceptance(
       await visit("/t/online-learning/51/1");
       await click("a.edit-topic");
       await click("button.add-location-btn");
-      assert.ok(
-        visible(".add-location-modal"),
-        "add location modal is shown"
-      );
+      assert.ok(visible(".add-location-modal"), "add location modal is shown");
       await selectKit(".input-location.country-code").expand();
       assert.ok(exists(".input-location.country-code .select-kit-collection"));
       assert.ok(exists(".select-kit-row.is-highlighted.is-selected"));
@@ -72,10 +69,7 @@ acceptance(
       await visit("/t/online-learning/51/1");
       await click("a.edit-topic");
       await click("button.add-location-btn");
-      assert.ok(
-        visible(".add-location-modal"),
-        "add location modal is shown"
-      );
+      assert.ok(visible(".add-location-modal"), "add location modal is shown");
       await fillIn(
         ".add-location div.location-form div.coordinates .input-location.lat",
         "22"

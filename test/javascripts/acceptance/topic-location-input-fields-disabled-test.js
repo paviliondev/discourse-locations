@@ -35,10 +35,7 @@ acceptance(
       await visit("/t/online-learning/51/1");
       await click("a.edit-topic");
       await click("button.add-location-btn");
-      assert.ok(
-        visible(".add-location-modal"),
-        "add location modal is shown"
-      );
+      assert.ok(visible(".add-location-modal"), "add location modal is shown");
       await emulateAutocomplete(".location-selector", "liver building");
       await click("li.location-form-result:first-child label");
 
