@@ -2,6 +2,7 @@ import {
   acceptance,
   exists,
   query,
+  visible,
 } from "discourse/tests/helpers/qunit-helpers";
 import { click, fillIn, visit } from "@ember/test-helpers";
 import { test } from "qunit";
@@ -36,9 +37,10 @@ acceptance(
       await visit("/t/online-learning/51/1");
       await click("a.edit-topic");
       await click("button.add-location-btn");
-
-      assert.equal(query(".add-location-modal").style.display, "block");
-
+      assert.ok(
+        visible(".add-location-modal"),
+        "add location modal is shown"
+      );
       await selectKit(".input-location.country-code").expand();
       assert.ok(exists(".input-location.country-code .select-kit-collection"));
       assert.ok(exists(".select-kit-row.is-highlighted.is-selected"));
@@ -70,9 +72,10 @@ acceptance(
       await visit("/t/online-learning/51/1");
       await click("a.edit-topic");
       await click("button.add-location-btn");
-
-      assert.equal(query(".add-location-modal").style.display, "block");
-
+      assert.ok(
+        visible(".add-location-modal"),
+        "add location modal is shown"
+      );
       await fillIn(
         ".add-location div.location-form div.coordinates .input-location.lat",
         "22"
