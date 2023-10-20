@@ -191,15 +191,7 @@ export default {
           },
 
           renderTemplate() {
-            let navTemplate =
-              this.routeName.indexOf("Category") > -1
-                ? "navigation/category"
-                : "navigation/default";
-            this.render(navTemplate, { outlet: "navigation-bar" });
-            this.render("discovery/map", {
-              outlet: "list-container",
-              controller: "discovery/topics",
-            });
+            this.render("discovery/map");
           },
         });
       });
