@@ -32,7 +32,7 @@ export default createWidget("map", {
     const user = this.attrs.user;
     const userList = this.attrs.userList;
     let locations = this.state.locations;
-
+    
     if (
       this.attrs.locations &&
       locations.length !== this.attrs.locations.length
@@ -48,8 +48,8 @@ export default createWidget("map", {
       locations.push(this.topicMarker(topic));
     }
 
-    if (topicList && topicList.topics) {
-      topicList.topics.forEach((t) => {
+    if (topicList && topicList.list.topics) {
+      topicList.list.topics.forEach((t) => {
         if (this.addTopicMarker(t, locations)) {
           locations.push(this.topicMarker(t));
         }
