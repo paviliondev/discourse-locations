@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.3.13
+# version: 6.3.16
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
@@ -84,20 +84,28 @@ after_initialize do
   Topic.register_custom_field_type('has_geo_location', :boolean)
   add_to_class(:topic, :location) { self.custom_fields['location'] }
 
-  add_to_serializer(:topic_view, :location, false) { object.topic.location }
-  add_to_serializer(:topic_view, :include_location?) { object.topic.location.present? }
+  add_to_serializer(:topic_view, :location, include_condition: -> { object.topic.location.present? }) do
+    object.topic.location
+  end
 
   TopicList.preloaded_custom_fields << 'location' if TopicList.respond_to? :preloaded_custom_fields
-  add_to_serializer(:topic_list_item, :location, false) { object.location }
-  add_to_serializer(:topic_list_item, :include_location?) { object.location.present? }
+  add_to_serializer(:topic_list_item, :location, include_condition: -> { object.location.present? }) do
+    object.location
+  end
 
   User.register_custom_field_type('geo_location', :json)
   register_editable_user_custom_field [:geo_location,  geo_location: {}] if defined? register_editable_user_custom_field
-  add_to_serializer(:user, :geo_location, false) { object.custom_fields['geo_location'] }
-  add_to_serializer(:user_card, :geo_location, false) { object.custom_fields['geo_location'] }
-  add_to_serializer(:user_card, :include_geo_location?) do
-    object.custom_fields['geo_location'].present? &&
-    object.custom_fields['geo_location'] != "{}"
+  add_to_serializer(:user, :geo_location, respect_plugin_enabled: false) do
+    object.custom_fields['geo_location']
+  end
+  add_to_serializer(
+    :user_card,
+    :geo_location,
+    include_condition: -> do
+      object.custom_fields['geo_location'].present? && object.custom_fields['geo_location'] != "{}"
+    end,
+  ) do
+    object.custom_fields['geo_location']
   end
 
   require_dependency 'directory_item_serializer'
@@ -220,7 +228,7 @@ after_initialize do
     @country_codes ||= Locations::Country.codes
   end
 
-  add_to_serializer(:site, :country_codes, false) { object.country_codes }
+  add_to_serializer(:site, :country_codes, respect_plugin_enabled: false) { object.country_codes }
 
   require_dependency 'topic_query'
   class ::TopicQuery
