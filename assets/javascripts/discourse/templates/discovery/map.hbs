@@ -1,9 +1,9 @@
 <Discovery::Navigation
-  @category={{this.navigationArgs.category}}
-  @tag={{this.navigationArgs.tag}}
+  @category={{this.model.category}}
+  @tag={{this.model.tag}}
   @additionalTags={{this.additionalTags}}
-  @filterType={{this.navigationArgs.filterType}}
-  @noSubcategories={{this.navigationArgs.noSubcategories}}
+  @filterType={{this.model.filterType}}
+  @noSubcategories={{this.model.noSubcategories}}
   @canBulkSelect={{this.canBulkSelect}}
   @bulkSelectHelper={{this.bulkSelectHelper}}
   @createTopic={{this.createTopic}}
@@ -13,4 +13,4 @@
   @tagNotification={{this.tagNotification}}
 />
 
-{{map-component topicList=model}}
+<MapComponent @topicList={{model}} />

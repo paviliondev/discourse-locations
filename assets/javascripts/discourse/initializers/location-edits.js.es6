@@ -183,14 +183,15 @@ export default {
         api.modifyClass(`route:discovery.${route}`, {
           pluginId: "locations-plugin",
 
-          // afterModel(model) {
-          //   console.log(model);
-          //   // // debugger;
-          //   // // if (!this.siteSettings.location_category_map_filter) {
-          //       this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
-          //   // // }
-          //   return this._super(...arguments);
-          // },
+          afterModel(model) {
+            console.log(model);
+            console.log(this);
+            // // debugger;
+            // // if (!this.siteSettings.location_category_map_filter) {
+               // this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
+            // // }
+            return this._super(...arguments);
+          },
 
           renderTemplate() {
             this.render("discovery/map");
