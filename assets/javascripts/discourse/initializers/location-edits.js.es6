@@ -184,12 +184,6 @@ export default {
           pluginId: "locations-plugin",
 
           afterModel(model) {
-            console.log(model);
-            console.log(this);
-            // // debugger;
-            // // if (!this.siteSettings.location_category_map_filter) {
-               // this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
-            // // }
             return this._super(...arguments);
           },
 
