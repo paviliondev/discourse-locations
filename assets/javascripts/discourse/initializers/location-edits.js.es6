@@ -183,10 +183,6 @@ export default {
         api.modifyClass(`route:discovery.${route}`, {
           pluginId: "locations-plugin",
 
-          afterModel(model) {
-            return this._super(...arguments);
-          },
-
           renderTemplate() {
             this.render("discovery/map");
           },
