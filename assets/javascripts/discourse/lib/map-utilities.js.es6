@@ -61,8 +61,10 @@ const setupMap = function (
       [b[1], b[3]],
     ]);
   } else if (markers) {
+    debugger;
     const maxZoom = siteSettings.location_map_marker_zoom;
     map.fitBounds(markers.getBounds().pad(0.1), { maxZoom });
+    debugger;
   } else {
     const defaultLat = Number(siteSettings.location_map_center_lat);
     const defaultLon = Number(siteSettings.location_map_center_lon);
@@ -138,7 +140,7 @@ const buildMarker = function (
       html: `<span style="${markerStyles}" class="avatar-marker"><img src="${userAvatar}" style="${avatarStyles}" class="avatar"></span>`,
     });
   }
-
+  debugger;
   const marker = L.marker(
     {
       lat: rawMarker.lat,
@@ -222,7 +224,7 @@ const addMarkersToMap = function (
   } else {
     markers = L.featureGroup();
   }
-
+  debugger;
   rawMarkers.forEach((raw) => {
     markers.addLayer(
       buildMarker(raw, map, location_user_avatar, location_hide_labels)
