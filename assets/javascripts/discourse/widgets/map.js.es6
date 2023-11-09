@@ -296,6 +296,8 @@ export default createWidget("map", {
   },
 
   initializeMap() {
+    debugger;
+    console.log('initialise map')
     const center = this.attrs.center;
     const clickable = this.attrs.clickable;
     const zoom = this.attrs.zoom;
@@ -317,6 +319,7 @@ export default createWidget("map", {
     const user = this.currentUser;
 
     if (!state.mapObjs) {
+      debugger;
       state.mapObjs = this.initializeMap();
     }
 
@@ -334,7 +337,8 @@ export default createWidget("map", {
         this.scheduleRerender();
       });
     }
-
+    console.log(state.mapObjs.element);
+    console.log(state.mapObjs.element.outerHTML);
     let contents = [new RawHtml({ html: state.mapObjs.element })];
 
     if (attrs.showAvatar && user) {

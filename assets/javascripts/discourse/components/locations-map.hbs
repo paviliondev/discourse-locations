@@ -2,15 +2,16 @@
 <div
     {{did-insert this.setup}}
     {{did-update this.setup this.args.category}}
-    class="locations-map {{if this.expanded 'expanded'}}"
+    id="locations-map" class="locations-map {{if this.expanded 'expanded'}}"
 >
-    {{html-safe this.mapHTML}}
-    {{#if this.args.showExpand}}
-      <button class="btn btn-map map-expand" {{on "click" this.toggleExpand this.args.category}} icon={{this.mapToggle}}/>
+
+{{!-- {{html-safe this.mapHTML}} --}}
+    {{#if this.showExpand}}
+      <button class="btn btn-map map-expand" {{on "click" this.toggleExpand}}>{{d-icon this.mapToggle}}</button>
     {{/if}}
-    <button class="btn btn-map map-attribution" {{on "click" this.toggleAttribution}} icon="info"/>
-    {{#if showEditButton}}
-      <button class="btn btn-map category-edit" {{on "click" this.editCategory}} icon="wrench" />
+    <button class="btn btn-map map-attribution" {{on "click" this.toggleAttribution}}>{{d-icon "info"}}</button>
+    {{#if this.showEditButton}}
+      <button class="btn btn-map category-edit" {{on "click" this.editCategory}}>{{d-icon "wrench"}}</button>
     {{/if}}
 </div>
 </div>

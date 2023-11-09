@@ -4,6 +4,8 @@ import { emojiUnescape } from "discourse/lib/text";
 import DiscourseURL from "discourse/lib/url";
 
 const generateMap = function (siteSettings, opts) {
+  console.log("MU: generate map");
+  debugger;
   const element = document.createElement("div");
   let attrs = {
     zoomControl: false,
@@ -53,6 +55,8 @@ const setupMap = function (
   center,
   siteSettings
 ) {
+  console.log("MU: setup map");
+  debugger;
   if (boundingbox) {
     let b = boundingbox;
     // fitBounds needs: south lat, west lon, north lat, east lon
@@ -81,6 +85,8 @@ const buildMarker = function (
   location_user_avatar,
   location_hide_labels
 ) {
+  console.log("MU: build marker");
+  debugger;
   const customMarkerStyle = !!rawMarker.options.color;
 
   if (customMarkerStyle) {
@@ -185,6 +191,8 @@ const buildMarker = function (
 };
 
 const addCircleMarkersToMap = function (rawCircleMarkers, map, context) {
+  console.log("MU: add circle markers to map");
+  debugger;
   rawCircleMarkers.forEach((cm) => {
     const marker = L.circleMarker(
       {
@@ -213,6 +221,8 @@ const addMarkersToMap = function (
   location_user_avatar,
   location_hide_labels
 ) {
+  console.log("MU: add markers");
+  debugger;
   let markers;
 
   if (location_map_maker_cluster_enabled) {
@@ -221,7 +231,9 @@ const addMarkersToMap = function (
         location_map_marker_cluster_multiplier
       ),
     });
+    debugger;
   } else {
+    debugger;
     markers = L.featureGroup();
   }
   debugger;
