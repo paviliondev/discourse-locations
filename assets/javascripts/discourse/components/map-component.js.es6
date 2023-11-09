@@ -24,7 +24,7 @@ export default MountWidget.extend({
     );
 
 
-    debugger;
+    // debugger;
     if (this.get("geoLocation")) {
       if (!args["locations"]) {
         args["locations"] = [];

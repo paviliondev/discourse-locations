@@ -37,14 +37,20 @@ export default class LocationMapComponent extends Component {
   @tracked userList = {};
   @tracked mapObjs = {};
   @tracked showAttribution = false;
+  @tracked markers = null;
 
   @action 
   setup() {
+    debugger;
     this.getLocationTopics().then(() => {
+      debugger;
       if (!Object.keys(this.mapObjs).length) {
         console.log('init map');
         this.mapObjs = this.initializeMap();
+      } else {
+        this.markers._featureGroup.clearLayers() 
       }
+
       const currentDiv = document.getElementById("locations-map");
       currentDiv.appendChild(this.mapObjs.element);
       
@@ -112,7 +118,7 @@ export default class LocationMapComponent extends Component {
 
 
   gatherLocations() {
-    // debugger;
+    // // debugger;
     console.log("gather map data and prepare raw marker data");
     this.mapType = this.args.mapType
     this.topic = this.args.topic;
@@ -134,11 +140,11 @@ export default class LocationMapComponent extends Component {
     if (this.addTopicMarker(this.topic, this.locations)) {
       this.locations.push(this.topicMarker(this.topic));
     }
-//debugger;
+//// debugger;
     if (this.mapType == "topicList" && this.topicList && this.topicList.topics) {
       this.topicList.topics.forEach((t) => {
         if (this.addTopicMarker(t, this.locations)) {
-  //        debugger;
+  //        // debugger;
           this.locations.push(this.topicMarker(t));
         }
       });
@@ -252,7 +258,7 @@ export default class LocationMapComponent extends Component {
     //remove
     // return;
     const map = this.mapObjs.map;
-   // debugger;
+   // // debugger;
     const locations = this.locations;
     const settings = this.siteSettings;
 
@@ -288,7 +294,7 @@ export default class LocationMapComponent extends Component {
     }
 
     if (rawMarkers && rawMarkers.length > 0) {
-    //debugger;
+    //// debugger;
       markers = addMarkersToMap(
         rawMarkers,
         map,
@@ -298,7 +304,7 @@ export default class LocationMapComponent extends Component {
         settings.location_hide_labels
       );
     }
-   // debugger;
+   // // debugger;
     return markers;
   };
 
@@ -308,16 +314,16 @@ export default class LocationMapComponent extends Component {
     // return;
 
     const mapObjs = this.mapObjs;
-   // debugger;
+   // // debugger;
     const map = mapObjs.map;
-    const markers = this.addMarkers();
+    this.markers = this.addMarkers();
     const topic = this.topic;
     const category = this.args.category;
     const zoom = this.zoom;
     const center = this.args.center;
     let boundingbox = null;
 
-   // debugger;
+   // // debugger;
     
     if (
       category &&
@@ -325,7 +331,7 @@ export default class LocationMapComponent extends Component {
       category.custom_fields.location.geo_location &&
       category.custom_fields.location.geo_location.boundingbox
     ) {
-      //debugger;
+      //// debugger;
       boundingbox = category.custom_fields.location.geo_location.boundingbox;
     }
 
@@ -339,16 +345,16 @@ export default class LocationMapComponent extends Component {
     }
 
     map.invalidateSize(false);
-   //debugger;
+   //// debugger;
     setupMap(map, markers, boundingbox, zoom, center, this.siteSettings);
-    debugger;
-    map.invalidateSize();
-    debugger;
+    //// debugger;
+   // map.invalidateSize();
+    //// debugger;
   };
 
   @action
   toggleAttribution() {
-    //debugger;
+    //// debugger;
     const map = this.mapObjs.map;
     const attribution = this.mapObjs.attribution;
 
@@ -410,6 +416,12 @@ export default class LocationMapComponent extends Component {
 
   initializeMap() {
     console.log('initialise map');
+    const currentDiv = document.getElementById("locations-map");
+    debugger;
+    // this.mapObjs.map = document.firstChild;
+    // debugger;
+    // this.mapObjs.map.clearLayers();
+
     const center = this.args.center;
     const clickable = this.args.clickable;
     const zoom = this.args.zoom;
@@ -423,13 +435,13 @@ export default class LocationMapComponent extends Component {
     if (clickable) {
       opts["clickable"] = clickable;
     }
-    //debugger;
+    //// debugger;
     return generateMap(this.siteSettings, opts);
   };
 
   get mapHTML() {
    //return htmlSafe(this.mapObjs.element)
-   debugger;
+   // debugger;
    if (this.mapObjs && this.mapObjs.element) {
     console.log(this.mapObjs.element);
     console.log(this.mapObjs.element.outerHTML);
@@ -568,7 +580,7 @@ export default class LocationMapComponent extends Component {
   //   );
 
 
-  //   debugger;
+  //   // debugger;
   //   if (this.get("geoLocation")) {
   //     if (!args["locations"]) {
   //       args["locations"] = [];

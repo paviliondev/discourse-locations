@@ -296,7 +296,7 @@ export default createWidget("map", {
   },
 
   initializeMap() {
-    debugger;
+    // debugger;
     console.log('initialise map')
     const center = this.attrs.center;
     const clickable = this.attrs.clickable;
@@ -319,7 +319,7 @@ export default createWidget("map", {
     const user = this.currentUser;
 
     if (!state.mapObjs) {
-      debugger;
+      // debugger;
       state.mapObjs = this.initializeMap();
     }
 

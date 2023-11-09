@@ -5,7 +5,7 @@ import DiscourseURL from "discourse/lib/url";
 
 const generateMap = function (siteSettings, opts) {
   console.log("MU: generate map");
-  debugger;
+  // debugger;;
   const element = document.createElement("div");
   let attrs = {
     zoomControl: false,
@@ -56,7 +56,7 @@ const setupMap = function (
   siteSettings
 ) {
   console.log("MU: setup map");
-  debugger;
+  // debugger;;
   if (boundingbox) {
     let b = boundingbox;
     // fitBounds needs: south lat, west lon, north lat, east lon
@@ -65,10 +65,10 @@ const setupMap = function (
       [b[1], b[3]],
     ]);
   } else if (markers) {
-    debugger;
+    // debugger;;
     const maxZoom = siteSettings.location_map_marker_zoom;
     map.fitBounds(markers.getBounds().pad(0.1), { maxZoom });
-    debugger;
+    // debugger;;
   } else {
     const defaultLat = Number(siteSettings.location_map_center_lat);
     const defaultLon = Number(siteSettings.location_map_center_lon);
@@ -86,7 +86,7 @@ const buildMarker = function (
   location_hide_labels
 ) {
   console.log("MU: build marker");
-  debugger;
+  // debugger;;
   const customMarkerStyle = !!rawMarker.options.color;
 
   if (customMarkerStyle) {
@@ -146,7 +146,7 @@ const buildMarker = function (
       html: `<span style="${markerStyles}" class="avatar-marker"><img src="${userAvatar}" style="${avatarStyles}" class="avatar"></span>`,
     });
   }
-  debugger;
+  // debugger;;
   const marker = L.marker(
     {
       lat: rawMarker.lat,
@@ -192,7 +192,7 @@ const buildMarker = function (
 
 const addCircleMarkersToMap = function (rawCircleMarkers, map, context) {
   console.log("MU: add circle markers to map");
-  debugger;
+  // debugger;;
   rawCircleMarkers.forEach((cm) => {
     const marker = L.circleMarker(
       {
@@ -222,7 +222,7 @@ const addMarkersToMap = function (
   location_hide_labels
 ) {
   console.log("MU: add markers");
-  debugger;
+  // debugger;;
   let markers;
 
   if (location_map_maker_cluster_enabled) {
@@ -231,12 +231,12 @@ const addMarkersToMap = function (
         location_map_marker_cluster_multiplier
       ),
     });
-    debugger;
+    // debugger;;
   } else {
-    debugger;
+    // debugger;;
     markers = L.featureGroup();
   }
-  debugger;
+  // debugger;;
   rawMarkers.forEach((raw) => {
     markers.addLayer(
       buildMarker(raw, map, location_user_avatar, location_hide_labels)
