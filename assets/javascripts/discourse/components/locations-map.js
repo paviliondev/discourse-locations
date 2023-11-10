@@ -10,7 +10,8 @@ import {
   setupMap,
 } from "../lib/map-utilities";
 import { tracked } from "@glimmer/tracking";
-import { htmlSafe } from "@ember/template";
+// import { htmlSafe } from "@ember/template";
+import { ajax } from "discourse/lib/ajax";
 
 export default class LocationMapComponent extends Component {
 //export default MountWidget.extend({
@@ -42,7 +43,7 @@ export default class LocationMapComponent extends Component {
   @action 
   setup() {
     //debugger;
-    this.getLocationTopics().then(() => {
+    this.getLocationData().then(() => {
       //debugger;
       if (!Object.keys(this.mapObjs).length) {
         console.log('init map');
@@ -77,25 +78,38 @@ export default class LocationMapComponent extends Component {
     })
   }
 
-  async getLocationTopics() {
+  async getLocationData() {
     let topics = [];
     let filter = "";
     console.log(this.args.category);
     let category = this.args.category;
 
+    if (this.args.mapType === "topicList") {
+      if (category) {
+        debugger;
+        let filter = `c/${category.slug}/${category.id}/l/map`
 
-    if (category) {
-      let filter = `c/${category.slug}/${category.id}/l/map`
+      // let filter = `tag/${settings.topic_list_featured_images_tag}`;
+      // let lastTopicList = findOrResetCachedTopicList (this.session, filter);
+      //list = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
+      // const filter = "c/" + categoryId;
+      // this.category = Category.findById(categoryId);
 
-    // let filter = `tag/${settings.topic_list_featured_images_tag}`;
-    // let lastTopicList = findOrResetCachedTopicList (this.session, filter);
-    //list = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
-    // const filter = "c/" + categoryId;
-    // this.category = Category.findById(categoryId);
+        this.topicList = await this.store.findFiltered ('topicList', {filter} )
 
-      this.topicList = await this.store.findFiltered ('topicList', {filter} )
-
+      } else {
+        let result = await ajax("map.json");
+        this.topicList = result.topic_list;
+      }
     }
+
+    if (this.args.mapType === "userList") {
+      let params = { period: "location" };
+      this.userList = await this.store.find("directoryItem", params);
+      debugger;
+    }
+
+
     console.log("current topic list:");
     console.log(this.topicList);
       //this.topics = Ember.Object.create(list).topic_list.topics;
@@ -162,6 +176,7 @@ export default class LocationMapComponent extends Component {
     if (this.mapType == "userList" && this.userList) {
       this.userList.forEach((u) => {
         if (this.addUserMarker(u.user, this.locations)) {
+          debugger;
           this.locations.push(this.userMarker(u.user));
         }
       });
