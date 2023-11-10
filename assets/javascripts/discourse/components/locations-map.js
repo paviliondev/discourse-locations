@@ -50,7 +50,7 @@ export default class LocationMapComponent extends Component {
       } else {
         if (this.markers) {
           console.log('map exists, but clear markers');
-          this.markers._featureGroup.clearLayers() 
+          this.markers.clearLayers();
           this.markers = null;
         }
       }
