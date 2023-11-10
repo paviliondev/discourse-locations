@@ -432,6 +432,8 @@ export default class LocationMapComponent extends Component {
 
   initializeMap() {
     console.log('initialise map');
+    let mapObjs;
+
     // const currentDiv = document.getElementById("locations-map");
     // debugger;
     // this.mapObjs.map = document.firstChild;
@@ -452,7 +454,21 @@ export default class LocationMapComponent extends Component {
       opts["clickable"] = clickable;
     }
     //// debugger;
-    return generateMap(this.siteSettings, opts);
+    mapObjs =  generateMap(this.siteSettings, opts);
+
+    //sleep(2000);
+
+    // // find our container
+    // const locationsMapDiv = document.getElementById("locations-map");
+
+    // // check if there's a map in it
+    // const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
+    
+    // // if not add it
+    // if (mapContainerDivs === null) {
+    //   locationsMapDiv.appendChild(this.mapObjs.element);
+    // }
+    return mapObjs;
   };
 
   get mapHTML() {
