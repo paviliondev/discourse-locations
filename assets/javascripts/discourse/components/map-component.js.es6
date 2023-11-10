@@ -3,57 +3,57 @@ import { observes, on } from "discourse-common/utils/decorators";
 import { later, scheduleOnce } from "@ember/runloop";
 
 export default MountWidget.extend({
-  classNameBindings: [":map-component", ":map-container", "size"],
-  widget: "map",
-  clickable: false,
+  // classNameBindings: [":map-component", ":map-container", "size"],
+  // widget: "map",
+  // clickable: false,
 
-  buildArgs() {
-    let args = this.getProperties(
-      "category",
-      "topic",
-      "user",
-      "locations",
-      "clickable",
-      "topicList",
-      "userList",
-      "search",
-      "showAvatar",
-      "size",
-      "center",
-      "zoom"
-    );
+  // buildArgs() {
+  //   let args = this.getProperties(
+  //     "category",
+  //     "topic",
+  //     "user",
+  //     "locations",
+  //     "clickable",
+  //     "topicList",
+  //     "userList",
+  //     "search",
+  //     "showAvatar",
+  //     "size",
+  //     "center",
+  //     "zoom"
+  //   );
 
 
-    // debugger;
-    if (this.get("geoLocation")) {
-      if (!args["locations"]) {
-        args["locations"] = [];
-      }
-      args["locations"].push({ geo_location: this.get("geoLocation") });
-    }
+  //   // debugger;
+  //   if (this.get("geoLocation")) {
+  //     if (!args["locations"]) {
+  //       args["locations"] = [];
+  //     }
+  //     args["locations"].push({ geo_location: this.get("geoLocation") });
+  //   }
 
-    return args;
-  },
+  //   return args;
+  // },
 
-  @on("didInsertElement")
-  setupOnRender() {
-    this.scheduleSetup();
-  },
+  // @on("didInsertElement")
+  // setupOnRender() {
+  //   this.scheduleSetup();
+  // },
 
-  @observes(
-    "topicList.[]",
-    "category",
-    "geoLocation",
-    "geoLocations.[]",
-    "userList.[]"
-  )
-  refreshMap() {
-    this.queueRerender();
-    this.scheduleSetup();
-  },
+  // @observes(
+  //   "topicList.[]",
+  //   "category",
+  //   "geoLocation",
+  //   "geoLocations.[]",
+  //   "userList.[]"
+  // )
+  // refreshMap() {
+  //   this.queueRerender();
+  //   this.scheduleSetup();
+  // },
 
-  scheduleSetup() {
-    scheduleOnce("afterRender", () => this.appEvents.trigger("dom:clean"));
-    later(() => this.appEvents.trigger("sidebars:after-render"));
-  },
+  // scheduleSetup() {
+  //   scheduleOnce("afterRender", () => this.appEvents.trigger("dom:clean"));
+  //   later(() => this.appEvents.trigger("sidebars:after-render"));
+  // },
 });

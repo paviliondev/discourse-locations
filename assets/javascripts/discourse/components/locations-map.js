@@ -41,26 +41,38 @@ export default class LocationMapComponent extends Component {
 
   @action 
   setup() {
-    debugger;
+    //debugger;
     this.getLocationTopics().then(() => {
-      debugger;
+      //debugger;
       if (!Object.keys(this.mapObjs).length) {
         console.log('init map');
         this.mapObjs = this.initializeMap();
       } else {
-        this.markers._featureGroup.clearLayers() 
+        if (this.markers) {
+          console.log('map exists, but clear markers');
+          this.markers._featureGroup.clearLayers() 
+          this.markers = null;
+        }
       }
 
-      const currentDiv = document.getElementById("locations-map");
-      currentDiv.appendChild(this.mapObjs.element);
+      // find our container
+      const locationsMapDiv = document.getElementById("locations-map");
+
+      // check if there's a map in it
+      const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
+      
+      // if not add it
+      if (mapContainerDivs === null) {
+        locationsMapDiv.appendChild(this.mapObjs.element);
+      }
       
       this.gatherLocations();
 
       const category = this.args.category;
       const user = this.currentUser;
 
-      if (this.runSetup || this.args.runSetup) {
-        this.runSetup = false;
+      // if (this.runSetup || this.args.runSetup) {
+      //   this.runSetup = false;
         this.setupLocationMap();
 
         // TODO        
@@ -70,7 +82,7 @@ export default class LocationMapComponent extends Component {
         //   state.showSearch = false;
         //   this.scheduleRerender();
         // });
-      }
+      // }
 
     })
   }
@@ -94,6 +106,8 @@ export default class LocationMapComponent extends Component {
       this.topicList = await this.store.findFiltered ('topicList', {filter} )
 
     }
+    console.log("current topic list:");
+    console.log(this.topicList);
       //this.topics = Ember.Object.create(list).topic_list.topics;
 
 
@@ -120,6 +134,7 @@ export default class LocationMapComponent extends Component {
   gatherLocations() {
     // // debugger;
     console.log("gather map data and prepare raw marker data");
+    this.locations = [];
     this.mapType = this.args.mapType
     this.topic = this.args.topic;
     // this.topicList = this.args.topicList;
@@ -165,6 +180,7 @@ export default class LocationMapComponent extends Component {
 
   addTopicMarker(topic, locations) {
     console.log("confirm if topic marker to the data should be added")
+    debugger;
     if (
       !topic ||
       !topic.location ||
@@ -346,9 +362,9 @@ export default class LocationMapComponent extends Component {
 
     map.invalidateSize(false);
    //// debugger;
-    setupMap(map, markers, boundingbox, zoom, center, this.siteSettings);
+    setupMap(map, this.markers, boundingbox, zoom, center, this.siteSettings);
     //// debugger;
-   // map.invalidateSize();
+    map.invalidateSize();
     //// debugger;
   };
 
@@ -416,8 +432,8 @@ export default class LocationMapComponent extends Component {
 
   initializeMap() {
     console.log('initialise map');
-    const currentDiv = document.getElementById("locations-map");
-    debugger;
+    // const currentDiv = document.getElementById("locations-map");
+    // debugger;
     // this.mapObjs.map = document.firstChild;
     // debugger;
     // this.mapObjs.map.clearLayers();

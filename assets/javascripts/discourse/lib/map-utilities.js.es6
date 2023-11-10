@@ -65,7 +65,10 @@ const setupMap = function (
       [b[1], b[3]],
     ]);
   } else if (markers) {
-    // debugger;;
+    debugger;
+    // var latLngs = [markers.getLatLng()];
+    // var markerBounds = L.latLngBounds(latLngs);
+    // map.fitBounds(markerBounds);
     const maxZoom = siteSettings.location_map_marker_zoom;
     map.fitBounds(markers.getBounds().pad(0.1), { maxZoom });
     // debugger;;
