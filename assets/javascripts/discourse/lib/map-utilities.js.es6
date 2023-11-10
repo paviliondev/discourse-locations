@@ -4,6 +4,20 @@ import { emojiUnescape } from "discourse/lib/text";
 import DiscourseURL from "discourse/lib/url";
 
 const generateMap = function (siteSettings, opts) {
+
+  // const onMapLoad = () => {
+  //   debugger;
+  //     // find our container
+  //     const locationsMapDiv = document.getElementById("locations-map");
+  //     // check if there's a map in it
+  //     const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
+  //     // if not add it
+  //     if (mapContainerDivs === null) {
+  //       locationsMapDiv.appendChild(this.mapObjs.element);
+  //     }
+  // };
+
+
   console.log("MU: generate map");
   // debugger;;
   const element = document.createElement("div");
@@ -22,6 +36,7 @@ const generateMap = function (siteSettings, opts) {
     opts["center"] !== undefined ? opts["center"] : [defaultLat, defaultLon];
 
   const map = L.map(element, attrs);
+  //.on('load', onMapLoad);
 
   let tileOpts = {
     attribution: siteSettings.location_map_attribution,

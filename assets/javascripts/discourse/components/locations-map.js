@@ -54,18 +54,8 @@ export default class LocationMapComponent extends Component {
           this.markers = null;
         }
       }
+      this.onMapLoad();
 
-      // find our container
-      const locationsMapDiv = document.getElementById("locations-map");
-
-      // check if there's a map in it
-      const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
-      
-      // if not add it
-      if (mapContainerDivs === null) {
-        locationsMapDiv.appendChild(this.mapObjs.element);
-      }
-      
       this.gatherLocations();
 
       const category = this.args.category;
@@ -430,6 +420,19 @@ export default class LocationMapComponent extends Component {
   //   appRoute.send("editCategory", this.category);
   // };
 
+  onMapLoad() {
+      // find our container
+      const locationsMapDiv = document.getElementById("locations-map");
+
+      // check if there's a map in it
+      const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
+
+      // if not add it
+      if (mapContainerDivs === null) {
+        locationsMapDiv.appendChild(this.mapObjs.element);
+      }
+  };
+
   initializeMap() {
     console.log('initialise map');
     let mapObjs;
@@ -455,6 +458,8 @@ export default class LocationMapComponent extends Component {
     }
     //// debugger;
     mapObjs =  generateMap(this.siteSettings, opts);
+
+    //this.onMapLoad.bind(this)
 
     //sleep(2000);
 
