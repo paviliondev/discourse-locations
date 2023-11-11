@@ -184,17 +184,9 @@ export default {
           pluginId: "locations-plugin",
 
           afterModel(model) {
-            console.log(model);
-            console.log(this);
-            // // debugger;
-            // // if (!this.siteSettings.location_category_map_filter) {
-               // this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
-            // // }
-            return this._super(...arguments);
-          },
+            this.templateName = "discovery/map"
 
-          renderTemplate() {
-            this.render("discovery/map");
+            return this._super(...arguments);
           },
         });
       });
@@ -259,19 +251,16 @@ export default {
        
         let items = this._super(category, args);
 
-        // if (category) {
-          items = items.reject((item) => item.name === "map"); // Don't show Site Level "/map"
-          if (
-            typeof(category) === 'undefined' ||
-            (category &&
-            category.custom_fields.location_enabled &&
-            category.siteSettings.location_category_map_filter)
-          ) {
-            debugger;
-            items.push(NavItem.fromText("map", args)); // Show category level "/map" instead
-          }
-        
-          console.log(items);
+        items = items.reject((item) => item.name === "map"); // Don't show Site Level "/map"
+        if (
+          typeof(category) === 'undefined' ||
+          (category &&
+          category.custom_fields.location_enabled &&
+          category.siteSettings.location_category_map_filter)
+        ) {
+          items.push(NavItem.fromText("map", args)); // Show category level "/map" instead
+        }
+
         return items;
       },
     });

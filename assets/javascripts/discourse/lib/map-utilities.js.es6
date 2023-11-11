@@ -4,22 +4,6 @@ import { emojiUnescape } from "discourse/lib/text";
 import DiscourseURL from "discourse/lib/url";
 
 const generateMap = function (siteSettings, opts) {
-
-  // const onMapLoad = () => {
-  //   debugger;
-  //     // find our container
-  //     const locationsMapDiv = document.getElementById("locations-map");
-  //     // check if there's a map in it
-  //     const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
-  //     // if not add it
-  //     if (mapContainerDivs === null) {
-  //       locationsMapDiv.appendChild(this.mapObjs.element);
-  //     }
-  // };
-
-
-  console.log("MU: generate map");
-  // debugger;;
   const element = document.createElement("div");
   let attrs = {
     zoomControl: false,
@@ -36,7 +20,6 @@ const generateMap = function (siteSettings, opts) {
     opts["center"] !== undefined ? opts["center"] : [defaultLat, defaultLon];
 
   const map = L.map(element, attrs);
-  //.on('load', onMapLoad);
 
   let tileOpts = {
     attribution: siteSettings.location_map_attribution,
@@ -70,8 +53,6 @@ const setupMap = function (
   center,
   siteSettings
 ) {
-  console.log("MU: setup map");
-  // debugger;;
   if (boundingbox) {
     let b = boundingbox;
     // fitBounds needs: south lat, west lon, north lat, east lon
@@ -80,13 +61,8 @@ const setupMap = function (
       [b[1], b[3]],
     ]);
   } else if (markers) {
-    debugger;
-    // var latLngs = [markers.getLatLng()];
-    // var markerBounds = L.latLngBounds(latLngs);
-    // map.fitBounds(markerBounds);
     const maxZoom = siteSettings.location_map_marker_zoom;
     map.fitBounds(markers.getBounds().pad(0.1), { maxZoom });
-    // debugger;;
   } else {
     const defaultLat = Number(siteSettings.location_map_center_lat);
     const defaultLon = Number(siteSettings.location_map_center_lon);
@@ -103,8 +79,6 @@ const buildMarker = function (
   location_user_avatar,
   location_hide_labels
 ) {
-  console.log("MU: build marker");
-  // debugger;;
   const customMarkerStyle = !!rawMarker.options.color;
 
   if (customMarkerStyle) {
@@ -164,7 +138,6 @@ const buildMarker = function (
       html: `<span style="${markerStyles}" class="avatar-marker"><img src="${userAvatar}" style="${avatarStyles}" class="avatar"></span>`,
     });
   }
-  // debugger;;
   const marker = L.marker(
     {
       lat: rawMarker.lat,
@@ -209,8 +182,6 @@ const buildMarker = function (
 };
 
 const addCircleMarkersToMap = function (rawCircleMarkers, map, context) {
-  console.log("MU: add circle markers to map");
-  // debugger;;
   rawCircleMarkers.forEach((cm) => {
     const marker = L.circleMarker(
       {
@@ -239,8 +210,6 @@ const addMarkersToMap = function (
   location_user_avatar,
   location_hide_labels
 ) {
-  console.log("MU: add markers");
-  // debugger;;
   let markers;
 
   if (location_map_maker_cluster_enabled) {
@@ -249,12 +218,9 @@ const addMarkersToMap = function (
         location_map_marker_cluster_multiplier
       ),
     });
-    // debugger;;
   } else {
-    // debugger;;
     markers = L.featureGroup();
   }
-  // debugger;;
   rawMarkers.forEach((raw) => {
     markers.addLayer(
       buildMarker(raw, map, location_user_avatar, location_hide_labels)

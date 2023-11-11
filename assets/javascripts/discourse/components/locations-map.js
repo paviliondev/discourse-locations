@@ -1,5 +1,3 @@
-import MountWidget from "discourse/components/mount-widget";
-import { later, scheduleOnce } from "@ember/runloop";
 import { action, computed } from "@ember/object";
 import Component from "@glimmer/component";
 import { inject as service } from "@ember/service";
@@ -10,19 +8,13 @@ import {
   setupMap,
 } from "../lib/map-utilities";
 import { tracked } from "@glimmer/tracking";
-// import { htmlSafe } from "@ember/template";
 import { ajax } from "discourse/lib/ajax";
 
 export default class LocationMapComponent extends Component {
-//export default MountWidget.extend({
-  //TODO
-  // classNameBindings: [":map-component", ":map-container", "size"],
-  // widget: "map",
-  // clickable: false,
-
   @service siteSettings;
   @service currentUser;
   @service store;
+
   @tracked mapToggle = "expand";
   @tracked expanded = false;
   @tracked showExpand = !this.args.disableExpand;
@@ -42,10 +34,8 @@ export default class LocationMapComponent extends Component {
 
   @action 
   setup() {
-    //debugger;
     this.getLocationData().then(() => {
       if (!Object.keys(this.mapObjs).length) {
-        console.log('init map');
         this.mapObjs = this.initializeMap();
       } else {
         if (this.markers) {
@@ -61,32 +51,30 @@ export default class LocationMapComponent extends Component {
       const category = this.args.category;
       const user = this.currentUser;
 
+      // TODO - needed?
       // if (this.runSetup || this.args.runSetup) {
       //   this.runSetup = false;
-        this.setupLocationMap();
+      this.setupLocationMap();
 
-        // TODO        
-        // // triggered in sidebar-container component in layouts plugin
-        // this.appEvents.on("sidebars:after-render", () => {
-        //   state.runSetup = true;
-        //   state.showSearch = false;
-        //   this.scheduleRerender();
-        // });
+      // TODO        
+      // // triggered in sidebar-container component in layouts plugin
+      // this.appEvents.on("sidebars:after-render", () => {
+      //   state.runSetup = true;
+      //   state.showSearch = false;
+      //   this.scheduleRerender();
+      // });
       // }
-
     })
   }
 
   async getLocationData() {
     let topics = [];
-
     let filter = "";
-    console.log(this.args.category);
     let category = this.args.category;
 
     if (this.args.mapType === "topicList") {
       if (category) {
-        let filter = `c/${category.slug}/${category.id}/l/map`
+        filter = `c/${category.slug}/${category.id}/l/map`
 
       // let filter = `tag/${settings.topic_list_featured_images_tag}`;
       // let lastTopicList = findOrResetCachedTopicList (this.session, filter);
@@ -94,7 +82,7 @@ export default class LocationMapComponent extends Component {
       // const filter = "c/" + categoryId;
       // this.category = Category.findById(categoryId);
 
-        this.topicList = await this.store.findFiltered ('topicList', {filter} )
+        this.topicList = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
 
       } else {
         let result = await ajax("map.json");
@@ -106,44 +94,16 @@ export default class LocationMapComponent extends Component {
       let params = { period: "location" };
       this.userList = await this.store.find("directoryItem", params);
     }
-
-
-    console.log("current topic list:");
-    console.log(this.topicList);
-      //this.topics = Ember.Object.create(list).topic_list.topics;
-
-
-  
-    // if (this.args.category && settings.topic_list_featured_images_from_current_category_only) {
-    //   topics = topics.filter(topic => topic.category_id == this.args.category.id)
-    // };
-  
-    // const reducedTopics = topics ? settings.topic_list_featured_images_count == 0 ? topics : topics.slice(0,settings.topic_list_featured_images_count) : [];
-
-    // if (settings.topic_list_featured_images_created_order) {
-    //   reducedTopics.sort((a, b) => {
-    //     var keyA = new Date(a.created_at), keyB = new Date(b.created_at);
-    //     // Compare the 2 dates
-    //     if (keyA < keyB) return 1;
-    //     if (keyA > keyB) return -1;
-    //     return 0;
-    //   });
-    // }
-    // this.featuredTopics = reducedTopics;
   };
 
-
   gatherLocations() {
-    // // debugger;
-    console.log("gather map data and prepare raw marker data");
+    // gather map data and prepare raw marker data
+
     this.locations = [];
     this.mapType = this.args.mapType
     this.topic = this.args.topic;
-    // this.topicList = this.args.topicList;
     this.user = this.args.user;
-    debugger;
-    // this.userList = this.args.userList;
-    
+
     if (
       this.args.locations &&
       this.locations.length !== this.args.locations.length
@@ -155,35 +115,25 @@ export default class LocationMapComponent extends Component {
       });
     }
 
-    // if (this.args.mapType === "user") {
-    //   debugger;
-    //   if (this.args.user.geo_location) {
-    //     this.locations.push({ geo_location: this.args.user.geo_location });
-    //   }
-    // }
-
     if (this.addTopicMarker(this.topic, this.locations)) {
       this.locations.push(this.topicMarker(this.topic));
     }
-//// debugger;
+
     if (this.mapType == "topicList" && this.topicList && this.topicList.topics) {
       this.topicList.topics.forEach((t) => {
         if (this.addTopicMarker(t, this.locations)) {
-  //        // debugger;
           this.locations.push(this.topicMarker(t));
         }
       });
     }
 
     if (this.mapType == "user" && this.addUserMarker(this.user, this.locations)) {
-      debugger;
       this.locations.push(this.userMarker(this.user));
     }
 
     if (this.mapType == "userList" && this.userList) {
       this.userList.forEach((u) => {
         if (this.addUserMarker(u.user, this.locations)) {
-          debugger;
           this.locations.push(this.userMarker(u.user));
         }
       });
@@ -191,8 +141,7 @@ export default class LocationMapComponent extends Component {
   };
 
   addTopicMarker(topic, locations) {
-    console.log("confirm if topic marker to the data should be added")
-    debugger;
+    // confirm if topic marker to the data should be added
     if (
       !topic ||
       !topic.location ||
@@ -203,7 +152,7 @@ export default class LocationMapComponent extends Component {
     ) {
       return false;
     }
-    console.log("confirmed")
+    // confirmed
     return true;
   };
 
@@ -283,10 +232,7 @@ export default class LocationMapComponent extends Component {
   };
 
   addMarkers() {
-    //remove
-    // return;
     const map = this.mapObjs.map;
-   // // debugger;
     const locations = this.locations;
     const settings = this.siteSettings;
 
@@ -322,7 +268,6 @@ export default class LocationMapComponent extends Component {
     }
 
     if (rawMarkers && rawMarkers.length > 0) {
-    //// debugger;
       markers = addMarkersToMap(
         rawMarkers,
         map,
@@ -332,17 +277,14 @@ export default class LocationMapComponent extends Component {
         settings.location_hide_labels
       );
     }
-   // // debugger;
+
     return markers;
   };
 
   setupLocationMap() {
-    console.log('setup map');
-    //this.gatherLocations();
-    // return;
+    // setup map
 
     const mapObjs = this.mapObjs;
-   // // debugger;
     const map = mapObjs.map;
     this.markers = this.addMarkers();
     const topic = this.topic;
@@ -351,15 +293,12 @@ export default class LocationMapComponent extends Component {
     const center = this.args.center;
     let boundingbox = null;
 
-   // // debugger;
-    
     if (
       category &&
       category.custom_fields.location &&
       category.custom_fields.location.geo_location &&
       category.custom_fields.location.geo_location.boundingbox
     ) {
-      //// debugger;
       boundingbox = category.custom_fields.location.geo_location.boundingbox;
     }
 
@@ -373,16 +312,12 @@ export default class LocationMapComponent extends Component {
     }
 
     map.invalidateSize(false);
-   //// debugger;
     setupMap(map, this.markers, boundingbox, zoom, center, this.siteSettings);
-    //// debugger;
-    map.invalidateSize();
-    //// debugger;
+    //map.invalidateSize();
   };
 
   @action
   toggleAttribution() {
-    //// debugger;
     const map = this.mapObjs.map;
     const attribution = this.mapObjs.attribution;
 
@@ -406,6 +341,7 @@ export default class LocationMapComponent extends Component {
 
   @action
   toggleSearch() {
+    // TODO
     // scheduleOnce("afterRender", this, () => {
     //   // resetinng the val puts the cursor at the end of the text on focus
     //   const $input = $("#map-search-input");
@@ -420,9 +356,6 @@ export default class LocationMapComponent extends Component {
   @action
   toggleExpand() {
     const map = this.mapObjs.map;
-    // const $map = $(".locations-map");
-
-    // $map.toggleClass("expanded");
     this.expanded = !this.expanded;
     map.invalidateSize();
 
@@ -443,28 +376,21 @@ export default class LocationMapComponent extends Component {
   // };
 
   onMapLoad() {
-    debugger;
-      // find our container
-      const locationsMapDiv = document.getElementById("locations-map");
+    // find our container
+    const locationsMapDiv = document.getElementById("locations-map");
 
-      // check if there's a map in it
-      const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
+    // check if there's a map in it
+    const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
 
-      // if not add it
-      if (mapContainerDivs === null) {
-        locationsMapDiv.appendChild(this.mapObjs.element);
-      }
+    // if not add it
+    if (mapContainerDivs === null) {
+      locationsMapDiv.appendChild(this.mapObjs.element);
+    }
   };
 
   initializeMap() {
-    console.log('initialise map');
+    // initialise map
     let mapObjs;
-
-    // const currentDiv = document.getElementById("locations-map");
-    // debugger;
-    // this.mapObjs.map = document.firstChild;
-    // debugger;
-    // this.mapObjs.map.clearLayers();
 
     const center = this.args.center;
     const clickable = this.args.clickable;
@@ -479,49 +405,12 @@ export default class LocationMapComponent extends Component {
     if (clickable) {
       opts["clickable"] = clickable;
     }
-    //// debugger;
+
     mapObjs =  generateMap(this.siteSettings, opts);
 
-    //this.onMapLoad.bind(this)
-
-    //sleep(2000);
-
-    // // find our container
-    // const locationsMapDiv = document.getElementById("locations-map");
-
-    // // check if there's a map in it
-    // const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
-    
-    // // if not add it
-    // if (mapContainerDivs === null) {
-    //   locationsMapDiv.appendChild(this.mapObjs.element);
-    // }
     return mapObjs;
   };
 
-  get mapHTML() {
-   //return htmlSafe(this.mapObjs.element)
-   // debugger;
-   if (this.mapObjs && this.mapObjs.element) {
-    console.log(this.mapObjs.element);
-    console.log(this.mapObjs.element.outerHTML);
-    return this.mapObjs.element.outerHTML
-   } else {
-    return "";
-   }
-
-  };
-
-  // html(attrs, state) {
-
-  constructor() {
-    super(...arguments);
-
-
-  };
-
-    //DONE
-    // let contents = [new RawHtml({ html: state.mapObjs.element })];
 
    //TODO
     // if (attrs.showAvatar && user) {
@@ -573,38 +462,6 @@ export default class LocationMapComponent extends Component {
     //   }
     // }
 
-    //DONE
-    // if (state.showExpand) {
-    //   contents.push(
-    //     this.attach("button", {
-    //       className: `btn btn-map map-expand`,
-    //       action: "toggleExpand",
-    //       actionParam: category,
-    //       icon: state.mapToggle,
-    //     })
-    //   );
-    // }
-
-    //DONE
-    // contents.push(
-    //   this.attach("button", {
-    //     className: "btn btn-map map-attribution",
-    //     action: "toggleAttribution",
-    //     icon: "info",
-    //   })
-    // );
-
-    //DONE
-    // if (category && category.can_edit) {
-    //   contents.push(
-    //     this.attach("button", {
-    //       className: "btn btn-map category-edit",
-    //       action: "editCategory",
-    //       icon: "wrench",
-    //     })
-    //   );
-    // }
-
    //TODO
     // if (attrs.extraWidgets) {
     //   const extraWidgets = attrs.extraWidgets.map((w) => {
@@ -612,64 +469,4 @@ export default class LocationMapComponent extends Component {
     //   });
     //   contents.push(...extraWidgets);
     // }
-
-  //   return contents;
-  // };
-
-
-
-
-
-
-
-//TODO
-  // buildArgs() {
-  //   let args = this.getProperties(
-  //     "category",
-  //     "topic",
-  //     "user",
-  //     "locations",
-  //     "clickable",
-  //     "topicList",
-  //     "userList",
-  //     "search",
-  //     "showAvatar",
-  //     "size",
-  //     "center",
-  //     "zoom"
-  //   );
-
-
-  //   // debugger;
-  //   if (this.get("geoLocation")) {
-  //     if (!args["locations"]) {
-  //       args["locations"] = [];
-  //     }
-  //     args["locations"].push({ geo_location: this.get("geoLocation") });
-  //   }
-
-  //   return args;
-  // },
-
-  // @on("didInsertElement")
-  // setupOnRender() {
-  //   this.scheduleSetup();
-  // },
-
-  // @observes(
-  //   "topicList.[]",
-  //   "category",
-  //   "geoLocation",
-  //   "geoLocations.[]",
-  //   "userList.[]"
-  // )
-  // refreshMap() {
-  //   this.queueRerender();
-  //   this.scheduleSetup();
-  // },
-
-  // scheduleSetup() {
-  //   scheduleOnce("afterRender", () => this.appEvents.trigger("dom:clean"));
-  //   later(() => this.appEvents.trigger("sidebars:after-render"));
-  // },
 };
