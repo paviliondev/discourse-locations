@@ -184,7 +184,7 @@ export default {
           pluginId: "locations-plugin",
 
           afterModel(model) {
-            this.templateName = "discovery/map"
+            this.templateName = "discovery/map";
 
             return this._super(...arguments);
           },
@@ -248,15 +248,14 @@ export default {
 
     NavItem.reopenClass({
       buildList(category, args) {
-       
         let items = this._super(category, args);
 
         // items = items.reject((item) => item.name === "map"); // Don't show Site Level "/map"
         if (
-          typeof(category) === 'undefined' ||
+          typeof category === "undefined" ||
           (category &&
-          category.custom_fields.location_enabled &&
-          category.siteSettings.location_category_map_filter)
+            category.custom_fields.location_enabled &&
+            category.siteSettings.location_category_map_filter)
         ) {
           items.push(NavItem.fromText("map", args)); // Show category level "/map" instead
         }

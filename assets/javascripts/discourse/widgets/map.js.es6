@@ -32,7 +32,7 @@ export default createWidget("map", {
     const user = this.attrs.user;
     const userList = this.attrs.userList;
     let locations = this.state.locations;
-    
+
     if (
       this.attrs.locations &&
       locations.length !== this.attrs.locations.length

@@ -32,14 +32,14 @@ export default class LocationMapComponent extends Component {
   @tracked showAttribution = false;
   @tracked markers = null;
 
-  @action 
+  @action
   setup() {
     this.getLocationData().then(() => {
       if (!Object.keys(this.mapObjs).length) {
         this.mapObjs = this.initializeMap();
       } else {
         if (this.markers) {
-          console.log('map exists, but clear markers');
+          console.log("map exists, but clear markers");
           this.markers.clearLayers();
           this.markers = null;
         }
@@ -56,7 +56,7 @@ export default class LocationMapComponent extends Component {
       //   this.runSetup = false;
       this.setupLocationMap();
 
-      // TODO        
+      // TODO
       // // triggered in sidebar-container component in layouts plugin
       // this.appEvents.on("sidebars:after-render", () => {
       //   state.runSetup = true;
@@ -64,7 +64,7 @@ export default class LocationMapComponent extends Component {
       //   this.scheduleRerender();
       // });
       // }
-    })
+    });
   }
 
   async getLocationData() {
@@ -74,16 +74,17 @@ export default class LocationMapComponent extends Component {
 
     if (this.args.mapType === "topicList") {
       if (category) {
-        filter = `c/${category.slug}/${category.id}/l/map`
+        filter = `c/${category.slug}/${category.id}/l/map`;
 
-      // let filter = `tag/${settings.topic_list_featured_images_tag}`;
-      // let lastTopicList = findOrResetCachedTopicList (this.session, filter);
-      //list = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
-      // const filter = "c/" + categoryId;
-      // this.category = Category.findById(categoryId);
+        // let filter = `tag/${settings.topic_list_featured_images_tag}`;
+        // let lastTopicList = findOrResetCachedTopicList (this.session, filter);
+        //list = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
+        // const filter = "c/" + categoryId;
+        // this.category = Category.findById(categoryId);
 
-        this.topicList = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
-
+        this.topicList =
+          (await findOrResetCachedTopicList(this.session, filter)) ||
+          this.store.findFiltered("topicList", { filter });
       } else {
         let result = await ajax("map.json");
         this.topicList = result.topic_list;
@@ -94,13 +95,13 @@ export default class LocationMapComponent extends Component {
       let params = { period: "location" };
       this.userList = await this.store.find("directoryItem", params);
     }
-  };
+  }
 
   gatherLocations() {
     // gather map data and prepare raw marker data
 
     this.locations = [];
-    this.mapType = this.args.mapType
+    this.mapType = this.args.mapType;
     this.topic = this.args.topic;
     this.user = this.args.user;
 
@@ -119,7 +120,11 @@ export default class LocationMapComponent extends Component {
       this.locations.push(this.topicMarker(this.topic));
     }
 
-    if (this.mapType == "topicList" && this.topicList && this.topicList.topics) {
+    if (
+      this.mapType == "topicList" &&
+      this.topicList &&
+      this.topicList.topics
+    ) {
       this.topicList.topics.forEach((t) => {
         if (this.addTopicMarker(t, this.locations)) {
           this.locations.push(this.topicMarker(t));
@@ -127,7 +132,10 @@ export default class LocationMapComponent extends Component {
       });
     }
 
-    if (this.mapType == "user" && this.addUserMarker(this.user, this.locations)) {
+    if (
+      this.mapType == "user" &&
+      this.addUserMarker(this.user, this.locations)
+    ) {
       this.locations.push(this.userMarker(this.user));
     }
 
@@ -138,7 +146,7 @@ export default class LocationMapComponent extends Component {
         }
       });
     }
-  };
+  }
 
   addTopicMarker(topic, locations) {
     // confirm if topic marker to the data should be added
@@ -154,7 +162,7 @@ export default class LocationMapComponent extends Component {
     }
     // confirmed
     return true;
-  };
+  }
 
   addUserMarker(user, locations) {
     if (
@@ -165,11 +173,11 @@ export default class LocationMapComponent extends Component {
       return false;
     }
     return true;
-  };
+  }
 
   validGeoLocation(geoLocation) {
     return geoLocation && geoLocation.lat && geoLocation.lon;
-  };
+  }
 
   topicMarker(topic) {
     let location = topic.location;
@@ -193,7 +201,7 @@ export default class LocationMapComponent extends Component {
     location["topic_id"] = topic.id;
 
     return location;
-  };
+  }
 
   userMarker(user) {
     let location = {};
@@ -209,7 +217,7 @@ export default class LocationMapComponent extends Component {
     location["geo_location"] = user.geo_location;
 
     return location;
-  };
+  }
 
   locationPresent(locations, location) {
     return (
@@ -229,7 +237,7 @@ export default class LocationMapComponent extends Component {
         }
       }).length > 0
     );
-  };
+  }
 
   addMarkers() {
     const map = this.mapObjs.map;
@@ -279,7 +287,7 @@ export default class LocationMapComponent extends Component {
     }
 
     return markers;
-  };
+  }
 
   setupLocationMap() {
     // setup map
@@ -314,7 +322,7 @@ export default class LocationMapComponent extends Component {
     map.invalidateSize(false);
     setupMap(map, this.markers, boundingbox, zoom, center, this.siteSettings);
     //map.invalidateSize();
-  };
+  }
 
   @action
   toggleAttribution() {
@@ -330,14 +338,14 @@ export default class LocationMapComponent extends Component {
     }
 
     this.showAttribution = !this.showAttribution;
-  };
+  }
 
   @computed("args.category")
   get showEditButton() {
     return false;
     // TODO
     //return this.args.category && this.args.category.can_edit;
-  };
+  }
 
   @action
   toggleSearch() {
@@ -351,7 +359,7 @@ export default class LocationMapComponent extends Component {
     //   $input.val(val);
     // });
     this.showSearch = !this.showSearch;
-  };
+  }
 
   @action
   toggleExpand() {
@@ -366,7 +374,7 @@ export default class LocationMapComponent extends Component {
       this.mapToggle = "expand";
       this.setupLocationMap();
     }
-  };
+  }
 
   // TODO
   // @action
@@ -380,13 +388,14 @@ export default class LocationMapComponent extends Component {
     const locationsMapDiv = document.getElementById("locations-map");
 
     // check if there's a map in it
-    const mapContainerDivs = locationsMapDiv.querySelector('.leaflet-container')
+    const mapContainerDivs =
+      locationsMapDiv.querySelector(".leaflet-container");
 
     // if not add it
     if (mapContainerDivs === null) {
       locationsMapDiv.appendChild(this.mapObjs.element);
     }
-  };
+  }
 
   initializeMap() {
     // initialise map
@@ -406,67 +415,66 @@ export default class LocationMapComponent extends Component {
       opts["clickable"] = clickable;
     }
 
-    mapObjs =  generateMap(this.siteSettings, opts);
+    mapObjs = generateMap(this.siteSettings, opts);
 
     return mapObjs;
-  };
+  }
 
+  //TODO
+  // if (attrs.showAvatar && user) {
+  //   let size = state.expanded ? "large" : "medium";
+  //   contents.push(
+  //     h(
+  //       "a.avatar-wrapper",
+  //       {
+  //         attributes: { "data-user-card": user.get("username") },
+  //       },
+  //       avatarImg(size, {
+  //         template: user.get("avatar_template"),
+  //         username: user.get("username"),
+  //       })
+  //     )
+  //   );
+  // }
 
-   //TODO
-    // if (attrs.showAvatar && user) {
-    //   let size = state.expanded ? "large" : "medium";
-    //   contents.push(
-    //     h(
-    //       "a.avatar-wrapper",
-    //       {
-    //         attributes: { "data-user-card": user.get("username") },
-    //       },
-    //       avatarImg(size, {
-    //         template: user.get("avatar_template"),
-    //         username: user.get("username"),
-    //       })
-    //     )
-    //   );
-    // }
+  //TOOD
+  // if (attrs.search) {
+  //   if (state.showSearch) {
+  //     let locations = state.locations;
+  //     let current = null;
+  //     if (attrs.category && attrs.category.location) {
+  //       current = attrs.category.location;
+  //     }
+  //     if (attrs.topic && attrs.topic.location) {
+  //       current = attrs.topic.location;
+  //     }
+  //     contents.push(
+  //       this.attach("map-search", {
+  //         locations,
+  //         current,
+  //       }),
+  //       this.attach("button", {
+  //         className: "btn btn-map hide-search",
+  //         action: "toggleSearch",
+  //         icon: "times",
+  //       })
+  //     );
+  //   } else {
+  //     contents.push(
+  //       this.attach("link", {
+  //         className: "btn btn-map search",
+  //         action: "toggleSearch",
+  //         icon: "search",
+  //       })
+  //     );
+  //   }
+  // }
 
-    //TOOD
-    // if (attrs.search) {
-    //   if (state.showSearch) {
-    //     let locations = state.locations;
-    //     let current = null;
-    //     if (attrs.category && attrs.category.location) {
-    //       current = attrs.category.location;
-    //     }
-    //     if (attrs.topic && attrs.topic.location) {
-    //       current = attrs.topic.location;
-    //     }
-    //     contents.push(
-    //       this.attach("map-search", {
-    //         locations,
-    //         current,
-    //       }),
-    //       this.attach("button", {
-    //         className: "btn btn-map hide-search",
-    //         action: "toggleSearch",
-    //         icon: "times",
-    //       })
-    //     );
-    //   } else {
-    //     contents.push(
-    //       this.attach("link", {
-    //         className: "btn btn-map search",
-    //         action: "toggleSearch",
-    //         icon: "search",
-    //       })
-    //     );
-    //   }
-    // }
-
-   //TODO
-    // if (attrs.extraWidgets) {
-    //   const extraWidgets = attrs.extraWidgets.map((w) => {
-    //     return this.attach(w.widget, w.attrs);
-    //   });
-    //   contents.push(...extraWidgets);
-    // }
-};
+  //TODO
+  // if (attrs.extraWidgets) {
+  //   const extraWidgets = attrs.extraWidgets.map((w) => {
+  //     return this.attach(w.widget, w.attrs);
+  //   });
+  //   contents.push(...extraWidgets);
+  // }
+}

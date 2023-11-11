@@ -9,17 +9,15 @@ export default class LocationMapComponent extends Component {
   @service site;
   @tracked showMap = false;
 
-  get mapButtonLabel () {
-    return I18n.t(
-      `location.geo.${this.showMap ? "hide" : "show"}_map`
-    );
+  get mapButtonLabel() {
+    return I18n.t(`location.geo.${this.showMap ? "hide" : "show"}_map`);
   }
 
-  get showMapButtonLabel () {
+  get showMapButtonLabel() {
     return this.args.formFactor !== "card" && !this.site.mobileView;
   }
 
-  get userLocation () {
+  get userLocation() {
     let locationText = "";
     if (this.args.user && this.args.user.geo_location) {
       let format = this.siteSettings.location_user_profile_format.split("|");

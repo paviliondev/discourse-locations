@@ -9,5 +9,5 @@ RSpec/DescribeClass:
 
 AllCops:
   Exclude:
-    - '**/gems/**/*'
-    - '**/vendor/**/*'
+    - "**/gems/**/*"
+    - "**/vendor/**/*"
