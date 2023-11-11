@@ -15,6 +15,10 @@ export default class LocationMapComponent extends Component {
     );
   }
 
+  get showMapButtonLabel () {
+    return this.args.formFactor !== "card" && !this.site.mobileView;
+  }
+
   get userLocation () {
     let locationText = "";
     if (this.args.user && this.args.user.geo_location) {

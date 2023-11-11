@@ -1,7 +1,9 @@
 {{! template-lint-disable link-rel-noopener  }}
 
 {{#if showUserLocation}}
-  <UserLocation @user={{model}} />
+  <div class="user-profile-location">
+    <UserLocation @user={{model}} @formFactor="profile"/>
+  </div>
 {{/if}}
 {{#if model.website_name}}
   <div class="user-profile-website">
