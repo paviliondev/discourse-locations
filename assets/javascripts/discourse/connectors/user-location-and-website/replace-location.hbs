@@ -1,12 +1,7 @@
 {{! template-lint-disable link-rel-noopener  }}
 
 {{#if showUserLocation}}
-  <div class="user-profile-location">
-    {{mount-widget
-      widget="user-location"
-      args=(hash user=model formFactor="profile")
-    }}
-  </div>
+  <UserProfileLocation @user={{model}} />
 {{/if}}
 {{#if model.website_name}}
   <div class="user-profile-website">

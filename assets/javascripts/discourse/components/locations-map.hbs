@@ -1,10 +1,8 @@
-<div class="map-component">
 <div
     {{did-insert this.setup}}
     {{did-update this.setup this.args.category}}
     id="locations-map" class="locations-map {{if this.expanded 'expanded'}}"
 >
-
 {{!-- {{html-safe this.mapHTML}} --}}
     {{#if this.showExpand}}
       <button class="btn btn-map map-expand" {{on "click" this.toggleExpand}}>{{d-icon this.mapToggle}}</button>
@@ -13,5 +11,4 @@
     {{#if this.showEditButton}}
       <button class="btn btn-map category-edit" {{on "click" this.editCategory}}>{{d-icon "wrench"}}</button>
     {{/if}}
-</div>
 </div>

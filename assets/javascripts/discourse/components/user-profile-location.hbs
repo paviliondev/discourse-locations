@@ -1,0 +1,24 @@
+  <div class="user-profile-location">
+    <div class="user-location-widget">
+      {{d-icon "map-marker-alt"}}
+      <div class="location-label">
+        {{this.userLocation}}
+      </div>
+      <div class="map-wrapper">
+        <button class="widget-button btn btn-default btn-show-map btn-small btn-icon-text" {{on "click" this.toggleMap}}>
+          {{d-icon "map"}}
+          {{this.mapButtonLabel}}
+        </button>
+         {{#if this.showMap}}
+           <div class="map-component small">
+             <LocationsMap @mapType="user" @user={{this.args.user}}/>
+           </div>
+         {{/if}}
+      </div>
+    </div>
+    {{!-- {{mount-widget
+      widget="user-location"
+      args=(hash user=model formFactor="profile")
+    }} --}}
+
+  </div>

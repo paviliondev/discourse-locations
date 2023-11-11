@@ -44,7 +44,6 @@ export default class LocationMapComponent extends Component {
   setup() {
     //debugger;
     this.getLocationData().then(() => {
-      //debugger;
       if (!Object.keys(this.mapObjs).length) {
         console.log('init map');
         this.mapObjs = this.initializeMap();
@@ -80,13 +79,13 @@ export default class LocationMapComponent extends Component {
 
   async getLocationData() {
     let topics = [];
+
     let filter = "";
     console.log(this.args.category);
     let category = this.args.category;
 
     if (this.args.mapType === "topicList") {
       if (category) {
-        debugger;
         let filter = `c/${category.slug}/${category.id}/l/map`
 
       // let filter = `tag/${settings.topic_list_featured_images_tag}`;
@@ -106,7 +105,6 @@ export default class LocationMapComponent extends Component {
     if (this.args.mapType === "userList") {
       let params = { period: "location" };
       this.userList = await this.store.find("directoryItem", params);
-      debugger;
     }
 
 
@@ -143,6 +141,7 @@ export default class LocationMapComponent extends Component {
     this.topic = this.args.topic;
     // this.topicList = this.args.topicList;
     this.user = this.args.user;
+    debugger;
     // this.userList = this.args.userList;
     
     if (
@@ -155,6 +154,13 @@ export default class LocationMapComponent extends Component {
         }
       });
     }
+
+    // if (this.args.mapType === "user") {
+    //   debugger;
+    //   if (this.args.user.geo_location) {
+    //     this.locations.push({ geo_location: this.args.user.geo_location });
+    //   }
+    // }
 
     if (this.addTopicMarker(this.topic, this.locations)) {
       this.locations.push(this.topicMarker(this.topic));
@@ -170,6 +176,7 @@ export default class LocationMapComponent extends Component {
     }
 
     if (this.mapType == "user" && this.addUserMarker(this.user, this.locations)) {
+      debugger;
       this.locations.push(this.userMarker(this.user));
     }
 
@@ -436,6 +443,7 @@ export default class LocationMapComponent extends Component {
   // };
 
   onMapLoad() {
+    debugger;
       // find our container
       const locationsMapDiv = document.getElementById("locations-map");
 
