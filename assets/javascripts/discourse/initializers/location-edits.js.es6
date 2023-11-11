@@ -170,7 +170,7 @@ export default {
             category.get("custom_fields.location_enabled") &&
             this.siteSettings.location_category_map_filter
           ) {
-            views.push({ name: I18n.t("filters.map.title"), value: "map" });
+            views.push({ name: I18n.t("filters.map.label"), value: "map" });
           }
 
           return views;
@@ -251,7 +251,7 @@ export default {
        
         let items = this._super(category, args);
 
-        items = items.reject((item) => item.name === "map"); // Don't show Site Level "/map"
+        // items = items.reject((item) => item.name === "map"); // Don't show Site Level "/map"
         if (
           typeof(category) === 'undefined' ||
           (category &&

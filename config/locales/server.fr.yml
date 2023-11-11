@@ -1,7 +1,7 @@
 fr:
   site_settings:
     location_enabled: "Enable the locations plugin."
-    location_hamburger_menu_map_link: "Ajouter la carte au menu hamburger"
+    location_sidebar_menu_map_link: "Ajouter la carte au menu hamburger"
     location_input_fields: "ajout de la barre d'adresse"
     location_input_fields_enabled: "Ajouter la barre d'adresse"
     location_geocoding: "L'adresse doit-elle être facultative, obligatoire ou nul. Si nul, elle sera enregistrée comme une chaine de caractères."
