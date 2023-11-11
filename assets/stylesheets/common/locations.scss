@@ -95,7 +95,7 @@
 
 #main-outlet .map-component {
   width: 100%;
-  height: 400px; //calc(100vh - 270px);
+  height: calc(100vh - 270px);
   margin-top: 5px;
 }
 
