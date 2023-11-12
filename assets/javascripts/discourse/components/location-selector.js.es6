@@ -5,6 +5,7 @@ import {
 } from "../lib/location-utilities";
 import { observes } from "discourse-common/utils/decorators";
 import TextField from "discourse/components/text-field";
+import { findRawTemplate } from "discourse-common/lib/raw-templates";
 
 export default TextField.extend({
   autocorrect: false,
@@ -22,17 +23,10 @@ export default TextField.extend({
       val = location;
     }
 
-    window.__DISCOURSE_RAW_TEMPLATES = requirejs(
-      "discourse-common/lib/raw-templates"
-    ).__DISCOURSE_RAW_TEMPLATES;
-
-    let template =
-      window.__DISCOURSE_RAW_TEMPLATES["javascripts/location-autocomplete"];
-
     $(self.element)
       .val(val)
       .autocomplete({
-        template,
+        template: findRawTemplate("javascripts/location-autocomplete"),
         single: true,
         updateData: false,
 
