@@ -9,7 +9,7 @@ import {
 } from "../lib/map-utilities";
 import { tracked } from "@glimmer/tracking";
 import { ajax } from "discourse/lib/ajax";
-import {findOrResetCachedTopicList} from 'discourse/lib/cached-topic-list';
+import { findOrResetCachedTopicList } from "discourse/lib/cached-topic-list";
 
 export default class LocationMapComponent extends Component {
   @service siteSettings;
@@ -355,7 +355,6 @@ export default class LocationMapComponent extends Component {
   toggleExpand() {
     const map = this.mapObjs.map;
     this.expanded = !this.expanded;
-    map.invalidateSize();
 
     if (this.expanded) {
       this.mapToggle = "compress";
@@ -364,6 +363,7 @@ export default class LocationMapComponent extends Component {
       this.mapToggle = "expand";
       this.setupLocationMap();
     }
+    map.invalidateSize();
   }
 
   // TODO
