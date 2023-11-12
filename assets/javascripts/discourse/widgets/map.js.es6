@@ -334,8 +334,7 @@ export default createWidget("map", {
         this.scheduleRerender();
       });
     }
-    console.log(state.mapObjs.element);
-    console.log(state.mapObjs.element.outerHTML);
+
     let contents = [new RawHtml({ html: state.mapObjs.element })];
 
     if (attrs.showAvatar && user) {

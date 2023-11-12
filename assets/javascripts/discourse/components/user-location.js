@@ -3,6 +3,7 @@ import Component from "@glimmer/component";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import I18n from "I18n";
+import { geoLocationFormat } from "../lib/location-utilities";
 
 export default class LocationMapComponent extends Component {
   @service siteSettings;

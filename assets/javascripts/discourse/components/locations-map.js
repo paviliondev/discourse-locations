@@ -9,6 +9,7 @@ import {
 } from "../lib/map-utilities";
 import { tracked } from "@glimmer/tracking";
 import { ajax } from "discourse/lib/ajax";
+import {findOrResetCachedTopicList} from 'discourse/lib/cached-topic-list';
 
 export default class LocationMapComponent extends Component {
   @service siteSettings;
@@ -22,14 +23,12 @@ export default class LocationMapComponent extends Component {
   @tracked runSetup = true;
   @tracked showSearch = false;
   @tracked locations = this.args.locations || [];
-  @tracked locations = [];
   @tracked mapType = "category";
   @tracked topic = {};
   @tracked topicList = {};
   @tracked user = {};
   @tracked userList = {};
   @tracked mapObjs = {};
-  @tracked showAttribution = false;
   @tracked markers = null;
 
   @action
@@ -39,7 +38,6 @@ export default class LocationMapComponent extends Component {
         this.mapObjs = this.initializeMap();
       } else {
         if (this.markers) {
-          console.log("map exists, but clear markers");
           this.markers.clearLayers();
           this.markers = null;
         }
@@ -48,27 +46,19 @@ export default class LocationMapComponent extends Component {
 
       this.gatherLocations();
 
-      const category = this.args.category;
-      const user = this.currentUser;
-
-      // TODO - needed?
-      // if (this.runSetup || this.args.runSetup) {
-      //   this.runSetup = false;
       this.setupLocationMap();
 
-      // TODO
-      // // triggered in sidebar-container component in layouts plugin
+      // TODO handle sidebar
+      // triggered in sidebar-container component in layouts plugin
       // this.appEvents.on("sidebars:after-render", () => {
       //   state.runSetup = true;
       //   state.showSearch = false;
       //   this.scheduleRerender();
       // });
-      // }
     });
   }
 
   async getLocationData() {
-    let topics = [];
     let filter = "";
     let category = this.args.category;
 
@@ -78,7 +68,7 @@ export default class LocationMapComponent extends Component {
 
         // let filter = `tag/${settings.topic_list_featured_images_tag}`;
         // let lastTopicList = findOrResetCachedTopicList (this.session, filter);
-        //list = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
+        // list = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
         // const filter = "c/" + categoryId;
         // this.category = Category.findById(categoryId);
 
@@ -121,7 +111,7 @@ export default class LocationMapComponent extends Component {
     }
 
     if (
-      this.mapType == "topicList" &&
+      this.mapType === "topicList" &&
       this.topicList &&
       this.topicList.topics
     ) {
@@ -133,13 +123,13 @@ export default class LocationMapComponent extends Component {
     }
 
     if (
-      this.mapType == "user" &&
+      this.mapType === "user" &&
       this.addUserMarker(this.user, this.locations)
     ) {
       this.locations.push(this.userMarker(this.user));
     }
 
-    if (this.mapType == "userList" && this.userList) {
+    if (this.mapType === "userList" && this.userList) {
       this.userList.forEach((u) => {
         if (this.addUserMarker(u.user, this.locations)) {
           this.locations.push(this.userMarker(u.user));

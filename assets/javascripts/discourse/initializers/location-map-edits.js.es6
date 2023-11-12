@@ -1,5 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { default as discourseComputed } from "discourse-common/utils/decorators";
+import I18n from "I18n";
 
 const PLUGIN_ID = "locations-plugin";
 

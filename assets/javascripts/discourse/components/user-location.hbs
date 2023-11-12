@@ -6,6 +6,7 @@
   <div class="map-wrapper">
     <button
       class="widget-button btn btn-default btn-show-map btn-small btn-icon-text"
+      type="button"
       {{on "click" this.toggleMap}}
     >
       {{d-icon "far-map"}}
@@ -15,7 +16,7 @@
     </button>
     {{#if this.showMap}}
       <div class="map-container small">
-        <LocationsMap @mapType="user" @user={{this.args.user}} />
+        <LocationsMap @mapType="user" @user={{@user}} />
       </div>
     {{/if}}
   </div>
