@@ -65,6 +65,10 @@ export default class LocationMapComponent extends Component {
     return this.args.mapType === "topicList";
   }
 
+  get isMultipleLocations() {
+    return (this.args.maptype === "topicList" || this.args.mapType === "userList")
+  }
+
   @action
   changeFilterType(event) {
     this.searchFilterType = event.target.value;

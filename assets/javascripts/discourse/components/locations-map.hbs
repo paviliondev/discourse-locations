@@ -25,42 +25,44 @@
     >{{d-icon "wrench"}}</button>
   {{/if}}
   <div class="map-search">
-    <input
-      type="text"
-      value={{this.searchFilter}}
-      {{!-- onkeyup={{action (mut this.filter) target="value"}} --}}
-               {{!-- value={{this.id}} --}}
-     {{on 'input' this.filterLocations}}
-      {{!-- onkeyup={{action (mut this.filter) target="value"}} --}}
-      {{!-- onkeyup={{action this.filterLocations @value}}  --}}
-    />
-    {{#if this.isTopicListType}}
-    <span class="search-filter-type">
-      <span style="left: 0px;">
-        <label for="name">
-          <input type="radio" id="name" name="filter_type" value="name" {{on 'input' this.changeFilterType}} checked="checked">
-          Name
-        </label>
-      </span>
-      <span style="left: 100px;">
-        <label for="address">
-          <input type="radio" id="address" name="filter_type" value="address" {{on 'input' this.changeFilterType}}>
-          Address
-        </label>
-      </span>
-      <span style="left: 200px;">
-        <label for="city">
-          <input type="radio" id="street" name="filter_type" value="street" {{on 'input' this.changeFilterType}}>
-          Street
-        </label>
-      </span>
-      <span style="left: 300px;">
-        <label for="city">
-          <input type="radio" id="city" name="filter_type" value="city" {{on 'input' this.changeFilterType}}>
-          City
-        </label>
-      </span>
-    </span>
+    {{#if this.isMultipleLocations}}
+      <input
+        type="text"
+        value={{this.searchFilter}}
+        {{!-- onkeyup={{action (mut this.filter) target="value"}} --}}
+                {{!-- value={{this.id}} --}}
+      {{on 'input' this.filterLocations}}
+        {{!-- onkeyup={{action (mut this.filter) target="value"}} --}}
+        {{!-- onkeyup={{action this.filterLocations @value}}  --}}
+      />
+      {{#if this.isTopicListType}}
+        <span class="search-filter-type">
+          <span style="left: 0px;">
+            <label for="name">
+              <input type="radio" id="name" name="filter_type" value="name" {{on 'input' this.changeFilterType}} checked="checked">
+              Name
+            </label>
+          </span>
+          <span style="left: 100px;">
+            <label for="address">
+              <input type="radio" id="address" name="filter_type" value="address" {{on 'input' this.changeFilterType}}>
+              Address
+            </label>
+          </span>
+          <span style="left: 200px;">
+            <label for="city">
+              <input type="radio" id="street" name="filter_type" value="street" {{on 'input' this.changeFilterType}}>
+              Street
+            </label>
+          </span>
+          <span style="left: 300px;">
+            <label for="city">
+              <input type="radio" id="city" name="filter_type" value="city" {{on 'input' this.changeFilterType}}>
+              City
+            </label>
+          </span>
+        </span>
+      {{/if}}
     {{/if}}
-    </div>
+  </div>
 </div>
