@@ -1,6 +1,6 @@
 zh_CN:
   site_settings:
-    location_hamburger_menu_map_link: ""
+    location_sidebar_menu_map_link: ""
     location_input_fields: ""
     location_input_fields_enabled: ""
     location_geocoding: ""

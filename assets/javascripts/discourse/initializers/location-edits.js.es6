@@ -170,7 +170,7 @@ export default {
             category.get("custom_fields.location_enabled") &&
             this.siteSettings.location_category_map_filter
           ) {
-            views.push({ name: I18n.t("filters.map.title"), value: "map" });
+            views.push({ name: I18n.t("filters.map.label"), value: "map" });
           }
 
           return views;
@@ -183,23 +183,10 @@ export default {
         api.modifyClass(`route:discovery.${route}`, {
           pluginId: "locations-plugin",
 
-          afterModel(model) {
-            if (!this.siteSettings.location_category_map_filter) {
-              this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
-            }
-            return this._super(...arguments);
-          },
+          afterModel() {
+            this.templateName = "discovery/map";
 
-          renderTemplate() {
-            let navTemplate =
-              this.routeName.indexOf("Category") > -1
-                ? "navigation/category"
-                : "navigation/default";
-            this.render(navTemplate, { outlet: "navigation-bar" });
-            this.render("discovery/map", {
-              outlet: "list-container",
-              controller: "discovery/topics",
-            });
+            return this._super(...arguments);
           },
         });
       });
@@ -263,14 +250,14 @@ export default {
       buildList(category, args) {
         let items = this._super(category, args);
 
-        if (category) {
-          items = items.reject((item) => item.name === "map"); // Don't show Site Level "/map"
-          if (
-            category.custom_fields.location_enabled &&
-            category.siteSettings.location_category_map_filter
-          ) {
-            items.push(NavItem.fromText("map", args)); // Show category level "/map" instead
-          }
+        // Don't show Site Level "/map"
+        if (
+          typeof category !== "undefined" &&
+          category &&
+          category.custom_fields.location_enabled &&
+          category.siteSettings.location_category_map_filter
+        ) {
+          items.push(NavItem.fromText("map", args)); // Show category level "/map" instead
         }
 
         return items;

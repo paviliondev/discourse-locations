@@ -1,6 +1,6 @@
 pt_BR:
   site_settings:
-    location_hamburger_menu_map_link: ""
+    location_sidebar_menu_map_link: ""
     location_input_fields: ""
     location_input_fields_enabled: "Ativar campos de entrada de localização."
     location_geocoding: "Se off, localizações são armazenadas como strings. Se on, devem ser geocodificados. "

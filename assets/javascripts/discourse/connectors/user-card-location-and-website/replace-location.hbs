@@ -2,10 +2,7 @@
 
 {{#if showUserLocation}}
   <span class="location">
-    {{mount-widget
-      widget="user-location"
-      args=(hash user=user formFactor="card")
-    }}
+    <UserLocation @user={{user}} @formFactor="card" />
   </span>
 {{/if}}
 {{#if user.website_name}}
