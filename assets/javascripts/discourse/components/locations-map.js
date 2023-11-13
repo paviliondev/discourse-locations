@@ -264,7 +264,7 @@ export default class LocationMapComponent extends Component {
       }
       if (
         this.searchFilterType === "name" &&
-        !(user.name.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1)
+        !(user.name && user.name.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1)
       ) {
         return false;
       }
