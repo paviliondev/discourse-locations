@@ -334,12 +334,35 @@
 .map-search {
   position: absolute;
   width: 130px;
-  right: 35px;
+  left: 3px;
   top: 3px;
   z-index: 201;
   border-radius: 4px;
-  background-color: var(--secondary);
-  border: 1px solid var(--primary-low);
+  // background-color:  rgba (0, 0, 0, 0.5);
+  // opacity: 0.5;
+  //border: 1px solid var(--primary-low);
+
+  input {
+    background-color:  rgba (0, 0, 0, 0.5);
+    opacity: 0.6;
+    color:  black;
+    border: 1px solid var(--primary-low);
+  };
+
+  .search-filter-type {
+    position: relative;
+    left: 220px;
+    top: -20px;
+    span {
+      display: inline-block;
+      position: absolute;
+      top: 0px;
+      width: 100px;
+      label {
+        font-weight: normal;
+      }
+    }
+  }
 
   &.guest {
     margin-left: 0;

@@ -23,6 +23,7 @@ export default class LocationMapComponent extends Component {
   @tracked runSetup = true;
   @tracked showSearch = false;
   @tracked locations = this.args.locations || [];
+  @tracked filteredLocations = [];
   @tracked mapType = "category";
   @tracked topic = {};
   @tracked topicList = {};
@@ -30,6 +31,8 @@ export default class LocationMapComponent extends Component {
   @tracked userList = {};
   @tracked mapObjs = {};
   @tracked markers = null;
+  @tracked searchFilter = "";
+  @tracked searchFilterType = "name";
 
   @action
   setup() {
@@ -43,7 +46,7 @@ export default class LocationMapComponent extends Component {
         }
       }
       this.onMapLoad();
-
+      this.locations = [];
       this.gatherLocations();
 
       this.setupLocationMap();
@@ -56,7 +59,38 @@ export default class LocationMapComponent extends Component {
       //   this.scheduleRerender();
       // });
     });
+  };
+
+  get isTopicListType() {
+    return this.args.mapType === "topicList";
   }
+
+  @action
+  changeFilterType(event) {
+    this.searchFilterType = event.target.value;
+  };
+
+  @action
+  filterLocations(event) {
+    this.searchFilter = event.target.value;
+
+    if (this.markers) {
+      this.markers.clearLayers();
+      this.markers = null;
+    }
+
+    this.gatherLocations();
+
+    this.setupLocationMap();
+
+    // TODO handle sidebar
+    // triggered in sidebar-container component in layouts plugin
+    // this.appEvents.on("sidebars:after-render", () => {
+    //   state.runSetup = true;
+    //   state.showSearch = false;
+    //   this.scheduleRerender();
+    // });
+  };
 
   async getLocationData() {
     let filter = "";
@@ -88,9 +122,8 @@ export default class LocationMapComponent extends Component {
   }
 
   gatherLocations() {
+    this.filteredLocations = [];
     // gather map data and prepare raw marker data
-
-    this.locations = [];
     this.mapType = this.args.mapType;
     this.topic = this.args.topic;
     this.user = this.args.user;
@@ -107,7 +140,7 @@ export default class LocationMapComponent extends Component {
     }
 
     if (this.addTopicMarker(this.topic, this.locations)) {
-      this.locations.push(this.topicMarker(this.topic));
+      this.filteredLocations.push(this.topicMarker(this.topic));
     }
 
     if (
@@ -117,7 +150,7 @@ export default class LocationMapComponent extends Component {
     ) {
       this.topicList.topics.forEach((t) => {
         if (this.addTopicMarker(t, this.locations)) {
-          this.locations.push(this.topicMarker(t));
+          this.filteredLocations.push(this.topicMarker(t));
         }
       });
     }
@@ -126,19 +159,19 @@ export default class LocationMapComponent extends Component {
       this.mapType === "user" &&
       this.addUserMarker(this.user, this.locations)
     ) {
-      this.locations.push(this.userMarker(this.user));
+      this.filteredLocations.push(this.userMarker(this.user));
     }
 
     if (this.mapType === "userList" && this.userList) {
       this.userList.forEach((u) => {
         if (this.addUserMarker(u.user, this.locations)) {
-          this.locations.push(this.userMarker(u.user));
+          this.filteredLocations.push(this.userMarker(u.user));
         }
       });
     }
   }
 
-  addTopicMarker(topic, locations) {
+  addTopicMarker(topic) {
     // confirm if topic marker to the data should be added
     if (
       !topic ||
@@ -146,9 +179,49 @@ export default class LocationMapComponent extends Component {
       !topic.location.geo_location ||
       !this.validGeoLocation(topic.location.geo_location) ||
       topic.location.hide_marker ||
-      locations.find((l) => l["topic_id"] === topic.id)
+      this.locations.find((l) => l["topic_id"] === topic.id)
     ) {
       return false;
+    }
+    if (this.isTopicListType) {
+      if (this.searchFilter !== "") {
+        if (this.searchFilterType === "name") {
+          if ( topic.location.name ) {
+            if (!(topic.location.name.toLowerCase().indexOf(this.searchFilter) > -1)) {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        }
+        if (this.searchFilterType === "address") {
+          if ( topic.location.address ) {
+            if (!(topic.location.address.toLowerCase().indexOf(this.searchFilter) > -1)) {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        }
+        if (this.searchFilterType === "city") {
+          if ( topic.location.city ) {
+            if (!(topic.location.city.toLowerCase().indexOf(this.searchFilter) > -1)) {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        }
+        if (this.searchFilterType === "street") {
+          if ( topic.location.street ) {
+            if (!(topic.location.street.toLowerCase().indexOf(this.searchFilter) > -1)) {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        }
+      }
     }
     // confirmed
     return true;
@@ -158,7 +231,8 @@ export default class LocationMapComponent extends Component {
     if (
       !user ||
       !this.validGeoLocation(user.geo_location) ||
-      locations.find((l) => l["user_id"] === user.id)
+      locations.find((l) => l["user_id"] === user.id) ||
+      (this.searchFilter !== "" && !(user.username.toLowerCase().indexOf(searchFilter) > -1))
     ) {
       return false;
     }
@@ -175,7 +249,7 @@ export default class LocationMapComponent extends Component {
     if (!location["marker"] && !location["circle_marker"]) {
       location["marker"] = {
         title: topic.fancy_title,
-        routeTo: topic.url,
+        routeTo: `/t/${topic.slug}/${topic.id}`,
       };
     }
 
@@ -231,14 +305,14 @@ export default class LocationMapComponent extends Component {
 
   addMarkers() {
     const map = this.mapObjs.map;
-    const locations = this.locations;
+    const filteredLocations = this.filteredLocations;
     const settings = this.siteSettings;
 
     let rawMarkers = [];
     let rawCircleMarkers = [];
 
-    if (locations && locations.length > 0) {
-      locations.forEach((l) => {
+    if (filteredLocations && filteredLocations.length > 0) {
+      filteredLocations.forEach((l) => {
         if (l && l.geo_location) {
           let marker = {
             lat: l.geo_location.lat,
