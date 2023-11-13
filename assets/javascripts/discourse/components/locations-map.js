@@ -193,8 +193,9 @@ export default class LocationMapComponent extends Component {
           if (topic.location.name) {
             if (
               !(
-                topic.location.name.toLowerCase().indexOf(this.searchFilter) >
-                -1
+                topic.location.name
+                  .toLowerCase()
+                  .indexOf(this.searchFilter.toLowerCase()) > -1
               )
             ) {
               return false;
@@ -209,7 +210,7 @@ export default class LocationMapComponent extends Component {
               !(
                 topic.location.address
                   .toLowerCase()
-                  .indexOf(this.searchFilter) > -1
+                  .indexOf(this.searchFilter.toLowerCase()) > -1
               )
             ) {
               return false;
@@ -222,8 +223,9 @@ export default class LocationMapComponent extends Component {
           if (topic.location.city) {
             if (
               !(
-                topic.location.city.toLowerCase().indexOf(this.searchFilter) >
-                -1
+                topic.location.city
+                  .toLowerCase()
+                  .indexOf(this.searchFilter.toLowerCase()) > -1
               )
             ) {
               return false;
@@ -236,8 +238,9 @@ export default class LocationMapComponent extends Component {
           if (topic.location.street) {
             if (
               !(
-                topic.location.street.toLowerCase().indexOf(this.searchFilter) >
-                -1
+                topic.location.street
+                  .toLowerCase()
+                  .indexOf(this.searchFilter.toLowerCase()) > -1
               )
             ) {
               return false;
@@ -263,13 +266,16 @@ export default class LocationMapComponent extends Component {
     if (this.searchFilter !== "") {
       if (
         this.searchFilterType === "username" &&
-        !(user.username.toLowerCase().indexOf(this.searchFilter) > -1)
+        !(
+          user.username.toLowerCase().indexOf(this.searchFilter.toLowerCase()) >
+          -1
+        )
       ) {
         return false;
       }
       if (
         this.searchFilterType === "name" &&
-        !(user.name.toLowerCase().indexOf(this.searchFilter) > -1)
+        !(user.name.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1)
       ) {
         return false;
       }
@@ -539,39 +545,6 @@ export default class LocationMapComponent extends Component {
   //       })
   //     )
   //   );
-  // }
-
-  //TOOD
-  // if (attrs.search) {
-  //   if (state.showSearch) {
-  //     let locations = state.locations;
-  //     let current = null;
-  //     if (attrs.category && attrs.category.location) {
-  //       current = attrs.category.location;
-  //     }
-  //     if (attrs.topic && attrs.topic.location) {
-  //       current = attrs.topic.location;
-  //     }
-  //     contents.push(
-  //       this.attach("map-search", {
-  //         locations,
-  //         current,
-  //       }),
-  //       this.attach("button", {
-  //         className: "btn btn-map hide-search",
-  //         action: "toggleSearch",
-  //         icon: "times",
-  //       })
-  //     );
-  //   } else {
-  //     contents.push(
-  //       this.attach("link", {
-  //         className: "btn btn-map search",
-  //         action: "toggleSearch",
-  //         icon: "search",
-  //       })
-  //     );
-  //   }
   // }
 
   //TODO
