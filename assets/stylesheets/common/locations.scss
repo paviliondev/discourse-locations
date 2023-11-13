@@ -351,11 +351,13 @@
 
   .search-filter-type {
     position: relative;
+    display: flex;
     left: 220px;
-    top: -20px;
+    top: -34px;
     span {
       display: inline-block;
-      position: absolute;
+      position: relative;
+      margin-left: 5px;
       top: 0px;
       width: 100px;
       label {

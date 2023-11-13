@@ -65,8 +65,12 @@ export default class LocationMapComponent extends Component {
     return this.args.mapType === "topicList";
   }
 
+  get isUserListType() {
+    return this.args.mapType === "userList";
+  }
+
   get isMultipleLocations() {
-    return (this.args.maptype === "topicList" || this.args.mapType === "userList")
+    return (this.args.mapType === "topicList" || this.args.mapType === "userList")
   }
 
   @action
@@ -103,12 +107,6 @@ export default class LocationMapComponent extends Component {
     if (this.args.mapType === "topicList") {
       if (category) {
         filter = `c/${category.slug}/${category.id}/l/map`;
-
-        // let filter = `tag/${settings.topic_list_featured_images_tag}`;
-        // let lastTopicList = findOrResetCachedTopicList (this.session, filter);
-        // list = await findOrResetCachedTopicList(this.session, filter) || this.store.findFiltered ('topicList', {filter} )
-        // const filter = "c/" + categoryId;
-        // this.category = Category.findById(categoryId);
 
         this.topicList =
           (await findOrResetCachedTopicList(this.session, filter)) ||
@@ -231,15 +229,24 @@ export default class LocationMapComponent extends Component {
     return true;
   }
 
-  addUserMarker(user, locations) {
+  addUserMarker(user) {
     if (
       !user ||
       !this.validGeoLocation(user.geo_location) ||
-      locations.find((l) => l["user_id"] === user.id) ||
-      (this.searchFilter !== "" && !(user.username.toLowerCase().indexOf(searchFilter) > -1))
+      this.locations.find((l) => l["user_id"] === user.id)
     ) {
       return false;
     }
+    if (this.searchFilter !== "") {
+      if (this.searchFilterType === "username" && !(user.username.toLowerCase().indexOf(this.searchFilter) > -1)) {
+        return false;
+      }
+      if (this.searchFilterType === "name" && !(user.name.toLowerCase().indexOf(this.searchFilter) > -1)) {
+        return false;
+      }
+    }
+
+    //confirmed
     return true;
   }
 

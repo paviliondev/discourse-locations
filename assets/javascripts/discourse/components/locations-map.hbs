@@ -4,7 +4,6 @@
   id="locations-map"
   class="locations-map {{if this.expanded 'expanded'}}"
 >
-  {{!-- {{html-safe this.mapHTML}} --}}
   {{#if this.showExpand}}
     <button
       class="widget-button btn btn-map map-expand"
@@ -29,40 +28,44 @@
       <input
         type="text"
         value={{this.searchFilter}}
-        {{!-- onkeyup={{action (mut this.filter) target="value"}} --}}
-                {{!-- value={{this.id}} --}}
-      {{on 'input' this.filterLocations}}
-        {{!-- onkeyup={{action (mut this.filter) target="value"}} --}}
-        {{!-- onkeyup={{action this.filterLocations @value}}  --}}
+        {{on 'input' this.filterLocations}}
       />
-      {{#if this.isTopicListType}}
         <span class="search-filter-type">
-          <span style="left: 0px;">
+          <span>
             <label for="name">
               <input type="radio" id="name" name="filter_type" value="name" {{on 'input' this.changeFilterType}} checked="checked">
-              Name
+              {{i18n "map.search.name"}}
             </label>
           </span>
-          <span style="left: 100px;">
+          {{#if this.isUserListType}}
+          <span>
+            <label for="username">
+              <input type="radio" id="username" name="filter_type" value="username" {{on 'input' this.changeFilterType}}>
+              {{i18n "map.search.username"}}
+            </label>
+          </span>
+          {{/if}}
+          {{#if this.isTopicListType}}
+          <span>
             <label for="address">
               <input type="radio" id="address" name="filter_type" value="address" {{on 'input' this.changeFilterType}}>
-              Address
+              {{i18n "map.search.address"}}
             </label>
           </span>
-          <span style="left: 200px;">
-            <label for="city">
+          <span>
+            <label for="street">
               <input type="radio" id="street" name="filter_type" value="street" {{on 'input' this.changeFilterType}}>
-              Street
+              {{i18n "map.search.street"}}
             </label>
           </span>
-          <span style="left: 300px;">
+          <span>
             <label for="city">
               <input type="radio" id="city" name="filter_type" value="city" {{on 'input' this.changeFilterType}}>
-              City
+              {{i18n "map.search.city"}}
             </label>
           </span>
+          {{/if}}
         </span>
-      {{/if}}
     {{/if}}
   </div>
 </div>
