@@ -59,7 +59,7 @@ export default class LocationMapComponent extends Component {
       //   this.scheduleRerender();
       // });
     });
-  };
+  }
 
   get isTopicListType() {
     return this.args.mapType === "topicList";
@@ -70,13 +70,15 @@ export default class LocationMapComponent extends Component {
   }
 
   get isMultipleLocations() {
-    return (this.args.mapType === "topicList" || this.args.mapType === "userList")
+    return (
+      this.args.mapType === "topicList" || this.args.mapType === "userList"
+    );
   }
 
   @action
   changeFilterType(event) {
     this.searchFilterType = event.target.value;
-  };
+  }
 
   @action
   filterLocations(event) {
@@ -98,7 +100,7 @@ export default class LocationMapComponent extends Component {
     //   state.showSearch = false;
     //   this.scheduleRerender();
     // });
-  };
+  }
 
   async getLocationData() {
     let filter = "";
@@ -188,8 +190,13 @@ export default class LocationMapComponent extends Component {
     if (this.isTopicListType) {
       if (this.searchFilter !== "") {
         if (this.searchFilterType === "name") {
-          if ( topic.location.name ) {
-            if (!(topic.location.name.toLowerCase().indexOf(this.searchFilter) > -1)) {
+          if (topic.location.name) {
+            if (
+              !(
+                topic.location.name.toLowerCase().indexOf(this.searchFilter) >
+                -1
+              )
+            ) {
               return false;
             }
           } else {
@@ -197,8 +204,14 @@ export default class LocationMapComponent extends Component {
           }
         }
         if (this.searchFilterType === "address") {
-          if ( topic.location.address ) {
-            if (!(topic.location.address.toLowerCase().indexOf(this.searchFilter) > -1)) {
+          if (topic.location.address) {
+            if (
+              !(
+                topic.location.address
+                  .toLowerCase()
+                  .indexOf(this.searchFilter) > -1
+              )
+            ) {
               return false;
             }
           } else {
@@ -206,8 +219,13 @@ export default class LocationMapComponent extends Component {
           }
         }
         if (this.searchFilterType === "city") {
-          if ( topic.location.city ) {
-            if (!(topic.location.city.toLowerCase().indexOf(this.searchFilter) > -1)) {
+          if (topic.location.city) {
+            if (
+              !(
+                topic.location.city.toLowerCase().indexOf(this.searchFilter) >
+                -1
+              )
+            ) {
               return false;
             }
           } else {
@@ -215,8 +233,13 @@ export default class LocationMapComponent extends Component {
           }
         }
         if (this.searchFilterType === "street") {
-          if ( topic.location.street ) {
-            if (!(topic.location.street.toLowerCase().indexOf(this.searchFilter) > -1)) {
+          if (topic.location.street) {
+            if (
+              !(
+                topic.location.street.toLowerCase().indexOf(this.searchFilter) >
+                -1
+              )
+            ) {
               return false;
             }
           } else {
@@ -238,10 +261,16 @@ export default class LocationMapComponent extends Component {
       return false;
     }
     if (this.searchFilter !== "") {
-      if (this.searchFilterType === "username" && !(user.username.toLowerCase().indexOf(this.searchFilter) > -1)) {
+      if (
+        this.searchFilterType === "username" &&
+        !(user.username.toLowerCase().indexOf(this.searchFilter) > -1)
+      ) {
         return false;
       }
-      if (this.searchFilterType === "name" && !(user.name.toLowerCase().indexOf(this.searchFilter) > -1)) {
+      if (
+        this.searchFilterType === "name" &&
+        !(user.name.toLowerCase().indexOf(this.searchFilter) > -1)
+      ) {
         return false;
       }
     }
