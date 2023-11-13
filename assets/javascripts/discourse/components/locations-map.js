@@ -21,7 +21,6 @@ export default class LocationMapComponent extends Component {
   @tracked showExpand = !this.args.disableExpand;
   @tracked showAttribution = false;
   @tracked runSetup = true;
-  @tracked showSearch = false;
   @tracked locations = this.args.locations || [];
   @tracked filteredLocations = [];
   @tracked mapType = "category";
@@ -53,11 +52,6 @@ export default class LocationMapComponent extends Component {
 
       // TODO handle sidebar
       // triggered in sidebar-container component in layouts plugin
-      // this.appEvents.on("sidebars:after-render", () => {
-      //   state.runSetup = true;
-      //   state.showSearch = false;
-      //   this.scheduleRerender();
-      // });
     });
   }
 
@@ -95,11 +89,6 @@ export default class LocationMapComponent extends Component {
 
     // TODO handle sidebar
     // triggered in sidebar-container component in layouts plugin
-    // this.appEvents.on("sidebars:after-render", () => {
-    //   state.runSetup = true;
-    //   state.showSearch = false;
-    //   this.scheduleRerender();
-    // });
   }
 
   async getLocationData() {
@@ -455,20 +444,6 @@ export default class LocationMapComponent extends Component {
     return false;
     // TODO
     //return this.args.category && this.args.category.can_edit;
-  }
-
-  @action
-  toggleSearch() {
-    // TODO
-    // scheduleOnce("afterRender", this, () => {
-    //   // resetinng the val puts the cursor at the end of the text on focus
-    //   const $input = $("#map-search-input");
-    //   const val = $input.val();
-    //   $input.focus();
-    //   $input.val("");
-    //   $input.val(val);
-    // });
-    this.showSearch = !this.showSearch;
   }
 
   @action
