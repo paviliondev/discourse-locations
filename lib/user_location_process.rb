@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Locations
-  class UserVectorProcess
+  class UserLocationProcess
 
     def self.upsert(user_id)
       user = User.find_by(id: user_id)
@@ -27,7 +27,7 @@ module Locations
       )
     end
 
-    def self.user_search_from_user(user_id)
+    def self.user_search_from_user_location(user_id)
       user = User.find_by(id: user_id)
 
       return [] if user.nil? || !user.custom_fields['geo_location'].present? ||

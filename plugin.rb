@@ -27,7 +27,9 @@ gem 'geocoder', '1.4.4'
 load File.expand_path('../app/models/location_country_default_site_setting.rb', __FILE__)
 load File.expand_path('../app/models/location_geocoding_language_site_setting.rb', __FILE__)
 load File.expand_path('../app/models/user_location.rb', __FILE__)
-load File.expand_path('../lib/user_vector_process.rb', __FILE__)
+load File.expand_path('../app/models/topic_location.rb', __FILE__)
+load File.expand_path('../lib/user_location_process.rb', __FILE__)
+load File.expand_path('../lib/topic_location_process.rb', __FILE__)
 
 if respond_to?(:register_svg_icon)
   register_svg_icon "far-map"
