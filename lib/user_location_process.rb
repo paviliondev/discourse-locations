@@ -27,7 +27,7 @@ module Locations
       )
     end
 
-    def self.user_search_from_user_location(user_id)
+    def self.search_from_user_location(user_id)
       user = User.find_by(id: user_id)
 
       return [] if user.nil? || !user.custom_fields['geo_location'].present? ||
@@ -61,7 +61,7 @@ module Locations
       search_result_users
     end
 
-    def self.user_search_from_location(lat, lon)
+    def self.search_from_location(lat, lon)
 
       return [] if lon.nil? || lat.nil?
 
