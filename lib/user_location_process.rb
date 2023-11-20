@@ -32,14 +32,14 @@ module Locations
 
       return [] if !user_location.geocoded?
 
-      user_location.nearbys(distance, select_distance: false, select_bearing: false).pluck(:user_id)
+      user_location.nearbys(distance, units: :km, select_distance: false, select_bearing: false).pluck(:user_id)
     end
 
-    def self.search_from_location(lat, lon)
+    def self.search_from_location(lat, lon, distance)
 
       return [] if lon.nil? || lat.nil?
 
-      UserLocation.near([lon.to_f, lat.to_f], 50).pluck(:user_id)
+      UserLocation.near([lon.to_f, lat.to_f], distance, units: :km).pluck(:user_id)
     end
   end
 end
