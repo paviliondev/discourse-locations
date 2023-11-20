@@ -22,7 +22,7 @@ Discourse.anonymous_top_menu_items.push(:map)
 Discourse.filters.push(:map)
 Discourse.anonymous_filters.push(:map)
 
-gem 'geocoder', '1.4.4'
+gem 'geocoder', '1.8.2'
 
 load File.expand_path('../app/models/location_country_default_site_setting.rb', __FILE__)
 load File.expand_path('../app/models/location_geocoding_language_site_setting.rb', __FILE__)
