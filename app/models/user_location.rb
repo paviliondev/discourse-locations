@@ -11,7 +11,7 @@ module ::Locations
     validates :latitude, presence: true
     geocoded_by :address
     after_validation :geocode
-    reverse_geocoded_by :latitude, :longitude
+    reverse_geocoded_by :longitude, :latitude
     after_validation :reverse_geocode
 
     def address
