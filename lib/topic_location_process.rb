@@ -12,16 +12,18 @@ module Locations
 
       ::Locations::TopicLocation.upsert({
           topic_id: topic_id,
-          longitude: user.custom_fields['location']['geo_location']['lon'],
-          latitude: user.custom_fields['location']['geo_location']['lat'],
+          longitude: topic.custom_fields['location']['geo_location']['lon'],
+          latitude: topic.custom_fields['location']['geo_location']['lat'],
           name: topic.custom_fields['location']['name'] || nil,
           address: topic.custom_fields['location']['address'] || nil,
           street: topic.custom_fields['location']['street'] || nil,
+          district: topic.custom_fields['location']['district'] || nil,
           city: topic.custom_fields['location']['city'] || nil,
           state: topic.custom_fields['location']['state'] || nil,
           postalcode: topic.custom_fields['location']['postalcode'] || nil,
           country: topic.custom_fields['location']['country'] || nil,
           countrycode: topic.custom_fields['location']['countrycode'] || nil,
+          international_code: topic.custom_fields['location']['international_code'] || nil,
           locationtype: topic.custom_fields['location']['type'] || nil,
           boundingbox: topic.custom_fields['location']['boundingbox'] || nil,
         },
@@ -34,14 +36,14 @@ module Locations
 
       return [] if !topic_location.geocoded?
 
-      topic_location.nearbys(distance, units: :km, select_distance: false, select_bearing: false).pluck(:topic_id)
+      topic_location.nearbys(distance, units: :km, select_distance: false, select_bearing: false).joins(:topic).pluck(:topic_id)
     end
 
     def self.topic_search_from_location(lat, lon, distance)
 
       return [] if lon.nil? || lat.nil?
 
-      TopicLocation.near([lon.to_f, lat.to_f], distance, units: :km).pluck(:topic_id)
+      TopicLocation.near([lon.to_f, lat.to_f], distance, units: :km).joins(:topic).pluck(:topic_id)
     end
   end
 end

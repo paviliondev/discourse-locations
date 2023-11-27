@@ -6,6 +6,7 @@ module ::Locations
     extend Geocoder::Model::ActiveRecord
     self.table_name = 'locations_user'
 
+    belongs_to :user
     validates :user_id, presence: true, uniqueness: true
     validates :longitude, presence: true
     validates :latitude, presence: true
@@ -15,7 +16,7 @@ module ::Locations
     after_validation :reverse_geocode
 
     def address
-      [street, city, state, country].compact.join(', ')
+      [street, city, state, postalcode, country].compact.join(', ')
     end
   end
 end

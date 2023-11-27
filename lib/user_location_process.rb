@@ -15,11 +15,13 @@ module Locations
           longitude: user.custom_fields['geo_location']['lon'],
           latitude: user.custom_fields['geo_location']['lat'],
           street: user.custom_fields['geo_location']['street'] || nil,
+          district: user.custom_fields['geo_location']['district'] || nil,
           city: user.custom_fields['geo_location']['city'] || nil,
           state: user.custom_fields['geo_location']['state'] || nil,
           postalcode: user.custom_fields['geo_location']['postalcode'] || nil,
           country: user.custom_fields['geo_location']['country'] || nil,
           countrycode: user.custom_fields['geo_location']['countrycode'] || nil,
+          international_code: user.custom_fields['geo_location']['international_code'] || nil,
           locationtype: user.custom_fields['geo_location']['type'] || nil,
           boundingbox: user.custom_fields['geo_location']['boundingbox'] || nil,
         },
@@ -32,14 +34,16 @@ module Locations
 
       return [] if !user_location.geocoded?
 
-      user_location.nearbys(distance, units: :km, select_distance: false, select_bearing: false).pluck(:user_id)
+      user_locations = user_location.nearbys(distance, units: :km, select_distance: false, select_bearing: false).joins(:user).pluck(:user_id)
+
+      user_locations
     end
 
     def self.search_from_location(lat, lon, distance)
 
       return [] if lon.nil? || lat.nil?
 
-      UserLocation.near([lon.to_f, lat.to_f], distance, units: :km).pluck(:user_id)
+      UserLocation.near([lon.to_f, lat.to_f], distance, units: :km).joins(:user).pluck(:user_id)
     end
   end
 end

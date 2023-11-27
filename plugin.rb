@@ -151,6 +151,7 @@ after_initialize do
       topic.custom_fields['location'] = location
       topic.custom_fields['has_geo_location'] = location['geo_location'].present?
       topic.save!
+      Locations::TopicLocationProcess.upsert(topic.id)
     end
   end
 
@@ -187,7 +188,7 @@ after_initialize do
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
   # check latitude and longitude are included when updating users location or raise and error
-  register_modifier(:users_controller_update_user_params) do |result, _, params|
+  register_modifier(:users_controller_update_user_params) do |result, current_user, params|
     if params &&
       params[:custom_fields] &&
       params[:custom_fields][:geo_location] &&
@@ -201,6 +202,8 @@ after_initialize do
       params[:custom_fields] &&
       params[:custom_fields][:geo_location]
       result[:custom_fields][:geo_location] = params[:custom_fields][:geo_location]
+
+      Locations::UserLocationProcess.upsert(current_user.id)
     end
 
     result
@@ -239,9 +242,8 @@ after_initialize do
     def list_map
       @options[:per_page] = SiteSetting.location_map_max_topics
       create_list(:map) do |topics|
-        topics = topics.joins("INNER JOIN topic_custom_fields
-                               ON topic_custom_fields.topic_id = topics.id
-                               AND topic_custom_fields.name = 'has_geo_location'")
+        topics = topics.joins("INNER JOIN locations_topic
+                               ON locations_topic.topic_id = topics.id")
 
         Locations::Map.sorted_list_filters.each do |filter|
           topics = filter[:block].call(topics, @options)
