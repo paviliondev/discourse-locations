@@ -4,8 +4,8 @@ class CreateLocationsTopicTable < ActiveRecord::Migration[7.0]
   def change
     create_table :locations_topic do |t|
       t.integer :topic_id, null: false, index: { unique: true }, foreign_key: true
-      t.float :longitude, null: false
       t.float :latitude, null: false
+      t.float :longitude, null: false
       t.string :name, null: true
       t.string :address, null: true
       t.string :street, null: true

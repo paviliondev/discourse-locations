@@ -148,10 +148,10 @@ class Locations::Geocode
 
   def self.return_coords(query)
     result = self.perform(query).first
-    "#{result.data['lon']}, #{result.data['lat']}"
+    "#{result.data['lat']}, #{result.data['lon']}"
   end
 
-  def self.return_distance(lon1, lat1, lon2, lat2)
+  def self.return_distance(lat1, lon1, lat2, lon2)
     Geocoder::Calculations.distance_between([lat1, lon1], [lat2, lon2], units: :km)
   end
 

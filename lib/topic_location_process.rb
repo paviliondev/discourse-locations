@@ -12,8 +12,8 @@ module Locations
 
       ::Locations::TopicLocation.upsert({
           topic_id: topic_id,
-          longitude: topic.custom_fields['location']['geo_location']['lon'],
           latitude: topic.custom_fields['location']['geo_location']['lat'],
+          longitude: topic.custom_fields['location']['geo_location']['lon'],
           name: topic.custom_fields['location']['name'] || nil,
           address: topic.custom_fields['location']['address'] || nil,
           street: topic.custom_fields['location']['street'] || nil,
@@ -41,17 +41,17 @@ module Locations
 
     def self.search_topics_from_location(lat, lon, distance)
 
-      return [] if lon.nil? || lat.nil?
+      return [] if lat.nil? || lon.nil?
 
-      TopicLocation.near([lon.to_f, lat.to_f], distance, units: :km).joins(:topic).pluck(:topic_id)
+      TopicLocation.near([lat.to_f, lon.to_f], distance, units: :km).joins(:topic).pluck(:topic_id)
     end
 
-    def self.get_topic_distance_from_location(topic_id, lon, lat)
+    def self.get_topic_distance_from_location(topic_id, lat, lon)
       topic_location = TopicLocation.find_by(topic_id: topic_id)
 
       return nil if !topic_location || !topic_location.geocoded?
 
-      topic_location.distance_to([lon, lat], units: :km)
+      topic_location.distance_to([lat, lon], units: :km)
     end
   end
 end
