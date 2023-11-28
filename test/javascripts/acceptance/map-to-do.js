@@ -23,7 +23,7 @@ acceptance("Topic Map - Show Correct Population", function (needs) {
   });
 
   test("Category map includes the right topics", async function (assert) {
-    await visit("c/general/announcements/24/l/map");
+    await visit("/c/general/announcements/24/l/map");
 
     assert.ok(
       exists(
