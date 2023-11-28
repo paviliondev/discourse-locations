@@ -11,8 +11,8 @@ class CreateLocationsUserTable < ActiveRecord::Migration[7.0]
       t.string :district, null: true
       t.string :city, null: true
       t.string :state, null: true
-      t.string :postalcode, null: true 
-      t.string :country, null: true 
+      t.string :postalcode, null: true
+      t.string :country, null: true
       t.string :countrycode, null: true
       t.string :international_code, null: true
       t.string :locationtype, null: true

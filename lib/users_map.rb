@@ -7,7 +7,7 @@ module DirectoryItemsControllerExtension
       limit = SiteSetting.location_users_map_limit.to_i
 
       result = DirectoryItem.joins("INNER JOIN locations_user ON directory_items.user_id = locations_user.user_id")
-                .where("period_type = 5").includes(:user).limit(limit)
+        .where("period_type = 5").includes(:user).limit(limit)
 
       serializer_opts = {}
       serializer_opts[:attributes] = []

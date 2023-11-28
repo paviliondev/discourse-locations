@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PopulateLocationsTables < ActiveRecord::Migration[7.0]
   def up
     Rake::Task['locations:refresh_user_location_table'].invoke
