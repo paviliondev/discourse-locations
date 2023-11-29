@@ -209,7 +209,7 @@ after_initialize do
 
   DiscourseEvent.on(:user_updated) do |*params|
     user_id = params[0].id
-    
+
     if SiteSetting.location_enabled
       Locations::UserLocationProcess.upsert(user_id)
     end
