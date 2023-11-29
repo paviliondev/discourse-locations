@@ -202,11 +202,17 @@ after_initialize do
       params[:custom_fields] &&
       params[:custom_fields][:geo_location]
       result[:custom_fields][:geo_location] = params[:custom_fields][:geo_location]
-
-      Locations::UserLocationProcess.upsert(current_user.id)
     end
 
     result
+  end
+
+  DiscourseEvent.on(:user_updated) do |*params|
+    user_id = params[0].id
+    
+    if SiteSetting.location_enabled
+      Locations::UserLocationProcess.upsert(user_id)
+    end
   end
 
   unless Rails.env.test?
