@@ -49,7 +49,7 @@ module Locations
 
       return nil if !user_location || !user_location.geocoded?
 
-      user_location.distance_to([lat, lon], units: :km)
+      user_location.distance_to([lat, lon], :km)
     end
 
     def self.search_topics_from_user_location(user_id, distance)
