@@ -6,7 +6,6 @@ module ::Locations
     self.table_name = 'locations_topic'
 
     belongs_to :topic
-    validates :topic_id, presence: true, uniqueness: true
     validates :longitude, presence: true
     validates :latitude, presence: true
     geocoded_by :address
