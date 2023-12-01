@@ -30,6 +30,11 @@ module Locations
       )
     end
 
+    def self.delete(topic_id)
+      location = ::Locations::TopicLocation.find_by(topic_id: topic_id)
+      location.delete if location
+    end
+
     def self.search_topics_from_topic_location(topic_id, distance)
       topic_location = TopicLocation.find_by(topic_id: topic_id)
 

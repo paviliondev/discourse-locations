@@ -29,6 +29,11 @@ module Locations
       )
     end
 
+    def self.delete(user_id)
+      location = ::Locations::UserLocation.find_by(user_id: user_id)
+      location.delete if location
+    end
+
     def self.search_users_from_user_location(user_id, distance)
       user_location = UserLocation.find_by(user_id: user_id)
 

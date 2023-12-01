@@ -136,6 +136,8 @@ after_initialize do
       tc.record_change('location', tc.topic.custom_fields['location'], location)
       tc.topic.custom_fields['location'] = location
       tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+
+      Locations::TopicLocationProcess.upsert(tc.topic.id)
     else
       tc.topic.custom_fields['location'] = {}
       tc.topic.custom_fields['has_geo_location'] = false
@@ -213,6 +215,22 @@ after_initialize do
     if SiteSetting.location_enabled
       Locations::UserLocationProcess.upsert(user_id)
     end
+  end
+
+  DiscourseEvent.on(:user_destroyed) do |*params|
+    user_id = params[0].id
+
+    Locations::UserLocationProcess.delete(user_id)
+  end
+
+  class ::Jobs::AnonymizeUser
+    module LocationsEdits
+      def make_anonymous
+        super
+        ::Locations::UserLocationProcess.delete(@user_id)
+      end
+    end
+    prepend LocationsEdits
   end
 
   unless Rails.env.test?
