@@ -15,7 +15,6 @@ module Locations
           latitude: topic.custom_fields['location']['geo_location']['lat'],
           longitude: topic.custom_fields['location']['geo_location']['lon'],
           name: topic.custom_fields['location']['name'] || nil,
-          address: topic.custom_fields['location']['address'] || nil,
           street: topic.custom_fields['location']['street'] || nil,
           district: topic.custom_fields['location']['district'] || nil,
           city: topic.custom_fields['location']['city'] || nil,
