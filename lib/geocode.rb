@@ -146,6 +146,15 @@ class Locations::Geocode
     end
   end
 
+  def self.return_coords(query)
+    result = self.perform(query).first
+    "#{result.data['lat']}, #{result.data['lon']}"
+  end
+
+  def self.return_distance(lat1, lon1, lat2, lon2)
+    Geocoder::Calculations.distance_between([lat1, lon1], [lat2, lon2], units: :km)
+  end
+
   def self.sorted_validators
     @sorted_validators ||= []
   end
