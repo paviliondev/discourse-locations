@@ -28,6 +28,8 @@ class PopulateLocationsTopicTable < ActiveRecord::Migration[7.0]
       FROM topic_custom_fields tc
       WHERE tc.name = 'location'
       AND tc.value NOT IN ('"{}"', '{}', '')
+      AND tc.value::json->'geo_location'->>'lat' IS NOT NULL
+      AND tc.value::json->'geo_location'->>'lon' IS NOT NULL
       )
       ON CONFLICT DO NOTHING
     SQL

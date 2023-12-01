@@ -27,6 +27,8 @@ class PopulateLocationsUserTable < ActiveRecord::Migration[7.0]
       FROM user_custom_fields uc
       WHERE uc.name = 'geo_location'
       AND uc.value NOT IN ('"{}"', '{}', '')
+      AND uc.value::json->>'lat' IS NOT NULL
+      AND uc.value::json->>'lon' IS NOT NULL
       )
       ON CONFLICT DO NOTHING
     SQL
