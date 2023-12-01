@@ -27,6 +27,7 @@ class PopulateLocationsTopicTable < ActiveRecord::Migration[7.0]
         tc.created_at
       FROM topic_custom_fields tc
       WHERE tc.name = 'location'
+      AND tc.value NOT IN ('"{}"', '{}', '')
       )
       ON CONFLICT DO NOTHING
     SQL

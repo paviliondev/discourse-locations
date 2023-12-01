@@ -26,6 +26,7 @@ class PopulateLocationsUserTable < ActiveRecord::Migration[7.0]
         uc.created_at
       FROM user_custom_fields uc
       WHERE uc.name = 'geo_location'
+      AND uc.value NOT IN ('"{}"', '{}', '')
       )
       ON CONFLICT DO NOTHING
     SQL
