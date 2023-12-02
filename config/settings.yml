@@ -81,6 +81,15 @@ plugins:
   location_map_marker_zoom:
     default: 16
     client: true
+  location_marker_map_padding_extent:
+    default: 0.1
+    client: true
+  location_alternative_marker_map_padding_strategy:
+    default: false
+    client: true
+  location_alternative_marker_map_padding_zoom_out_extent:
+    default: 0.5
+    client: true
   location_map_marker_cluster_multiplier:
     default: 6
     client: true
