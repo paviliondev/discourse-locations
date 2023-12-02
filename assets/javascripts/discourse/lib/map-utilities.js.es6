@@ -63,7 +63,7 @@ const setupMap = function (
   } else if (markers) {
     if (siteSettings.location_alternative_marker_map_padding_strategy) {
       let bounds = markers.getBounds();
-      var fitZoom = map.getBoundsZoom(bounds);
+      let fitZoom = map.getBoundsZoom(bounds);
 
       map.setView(
         bounds.getCenter(),
