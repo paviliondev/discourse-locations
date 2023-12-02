@@ -61,8 +61,25 @@ const setupMap = function (
       [b[1], b[3]],
     ]);
   } else if (markers) {
-    const maxZoom = siteSettings.location_map_marker_zoom;
-    map.fitBounds(markers.getBounds().pad(0.1), { maxZoom });
+    if (siteSettings.location_alternative_marker_map_padding_strategy) {
+      let bounds = markers.getBounds();
+      let fitZoom = map.getBoundsZoom(bounds);
+
+      map.setView(
+        bounds.getCenter(),
+        fitZoom -
+          siteSettings.location_alternative_marker_map_padding_zoom_out_extent
+      );
+    } else {
+      const maxZoom = siteSettings.location_map_marker_zoom;
+
+      map.fitBounds(
+        markers
+          .getBounds()
+          .pad(siteSettings.location_marker_map_padding_extent),
+        { maxZoom }
+      );
+    }
   } else {
     const defaultLat = Number(siteSettings.location_map_center_lat);
     const defaultLon = Number(siteSettings.location_map_center_lon);
