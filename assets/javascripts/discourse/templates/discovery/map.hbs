@@ -1,1 +1,17 @@
-{{map-component topicList=model}}
+<Discovery::Navigation
+  @category={{this.model.category}}
+  @tag={{this.model.tag}}
+  @additionalTags={{this.additionalTags}}
+  @filterType={{this.model.filterType}}
+  @noSubcategories={{this.model.noSubcategories}}
+  @canBulkSelect={{this.canBulkSelect}}
+  @bulkSelectHelper={{this.bulkSelectHelper}}
+  @createTopic={{this.createTopic}}
+  @createTopicDisabled={{this.createTopicDisabled}}
+  @canCreateTopicOnTag={{this.canCreateTopicOnTag}}
+  @toggleTagInfo={{this.toggleTagInfo}}
+  @tagNotification={{this.tagNotification}}
+/>
+<div class="map-component map-container">
+  <LocationsMap @mapType="topicList" />
+</div>

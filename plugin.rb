@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.3.6
+# version: 6.5.0
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
@@ -22,10 +22,14 @@ Discourse.anonymous_top_menu_items.push(:map)
 Discourse.filters.push(:map)
 Discourse.anonymous_filters.push(:map)
 
-gem 'geocoder', '1.4.4'
+gem 'geocoder', '1.8.2'
 
-load File.expand_path('../models/location_country_default_site_setting.rb', __FILE__)
-load File.expand_path('../models/location_geocoding_language_site_setting.rb', __FILE__)
+load File.expand_path('../app/models/location_country_default_site_setting.rb', __FILE__)
+load File.expand_path('../app/models/location_geocoding_language_site_setting.rb', __FILE__)
+load File.expand_path('../app/models/user_location.rb', __FILE__)
+load File.expand_path('../app/models/topic_location.rb', __FILE__)
+load File.expand_path('../lib/user_location_process.rb', __FILE__)
+load File.expand_path('../lib/topic_location_process.rb', __FILE__)
 
 if respond_to?(:register_svg_icon)
   register_svg_icon "far-map"
@@ -84,20 +88,28 @@ after_initialize do
   Topic.register_custom_field_type('has_geo_location', :boolean)
   add_to_class(:topic, :location) { self.custom_fields['location'] }
 
-  add_to_serializer(:topic_view, :location, false) { object.topic.location }
-  add_to_serializer(:topic_view, :include_location?) { object.topic.location.present? }
+  add_to_serializer(:topic_view, :location, include_condition: -> { object.topic.location.present? }) do
+    object.topic.location
+  end
 
   TopicList.preloaded_custom_fields << 'location' if TopicList.respond_to? :preloaded_custom_fields
-  add_to_serializer(:topic_list_item, :location, false) { object.location }
-  add_to_serializer(:topic_list_item, :include_location?) { object.location.present? }
+  add_to_serializer(:topic_list_item, :location, include_condition: -> { object.location.present? }) do
+    object.location
+  end
 
   User.register_custom_field_type('geo_location', :json)
   register_editable_user_custom_field [:geo_location,  geo_location: {}] if defined? register_editable_user_custom_field
-  add_to_serializer(:user, :geo_location, false) { object.custom_fields['geo_location'] }
-  add_to_serializer(:user_card, :geo_location, false) { object.custom_fields['geo_location'] }
-  add_to_serializer(:user_card, :include_geo_location?) do
-    object.custom_fields['geo_location'].present? &&
-    object.custom_fields['geo_location'] != "{}"
+  add_to_serializer(:user, :geo_location, respect_plugin_enabled: false) do
+    object.custom_fields['geo_location']
+  end
+  add_to_serializer(
+    :user_card,
+    :geo_location,
+    include_condition: -> do
+      object.custom_fields['geo_location'].present? && object.custom_fields['geo_location'] != "{}"
+    end,
+  ) do
+    object.custom_fields['geo_location']
   end
 
   require_dependency 'directory_item_serializer'
@@ -124,6 +136,8 @@ after_initialize do
       tc.record_change('location', tc.topic.custom_fields['location'], location)
       tc.topic.custom_fields['location'] = location
       tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+
+      Locations::TopicLocationProcess.upsert(tc.topic.id)
     else
       tc.topic.custom_fields['location'] = {}
       tc.topic.custom_fields['has_geo_location'] = false
@@ -139,6 +153,7 @@ after_initialize do
       topic.custom_fields['location'] = location
       topic.custom_fields['has_geo_location'] = location['geo_location'].present?
       topic.save!
+      Locations::TopicLocationProcess.upsert(topic.id)
     end
   end
 
@@ -163,7 +178,7 @@ after_initialize do
   Discourse::Application.routes.prepend do
     get 'u/user-map' => 'users#index'
     get 'users/user-map' => 'users#index'
-    get "c/*category_slug_path_with_id/l/map" => "list#category_default"
+    get '/map_feed' => 'list#map_feed'
   end
 
   load File.expand_path('../serializers/geo_location.rb', __FILE__)
@@ -173,6 +188,50 @@ after_initialize do
   load File.expand_path('../lib/map.rb', __FILE__)
   load File.expand_path('../lib/users_map.rb', __FILE__)
   load File.expand_path('../controllers/geocode.rb', __FILE__)
+
+  # check latitude and longitude are included when updating users location or raise and error
+  register_modifier(:users_controller_update_user_params) do |result, current_user, params|
+    if params &&
+      params[:custom_fields] &&
+      params[:custom_fields][:geo_location] &&
+      params[:custom_fields][:geo_location] != "{}" &&
+      (!params[:custom_fields][:geo_location]['lat'] ||
+       !params[:custom_fields][:geo_location]['lon'])
+      raise Discourse::InvalidParameters.new, I18n.t('location.errors.invalid')
+    end
+
+    if params &&
+      params[:custom_fields] &&
+      params[:custom_fields][:geo_location]
+      result[:custom_fields][:geo_location] = params[:custom_fields][:geo_location]
+    end
+
+    result
+  end
+
+  DiscourseEvent.on(:user_updated) do |*params|
+    user_id = params[0].id
+
+    if SiteSetting.location_enabled
+      Locations::UserLocationProcess.upsert(user_id)
+    end
+  end
+
+  DiscourseEvent.on(:user_destroyed) do |*params|
+    user_id = params[0].id
+
+    Locations::UserLocationProcess.delete(user_id)
+  end
+
+  class ::Jobs::AnonymizeUser
+    module LocationsEdits
+      def make_anonymous
+        super
+        ::Locations::UserLocationProcess.delete(@user_id)
+      end
+    end
+    prepend LocationsEdits
+  end
 
   unless Rails.env.test?
     begin
@@ -200,16 +259,15 @@ after_initialize do
     @country_codes ||= Locations::Country.codes
   end
 
-  add_to_serializer(:site, :country_codes, false) { object.country_codes }
+  add_to_serializer(:site, :country_codes, respect_plugin_enabled: false) { object.country_codes }
 
   require_dependency 'topic_query'
   class ::TopicQuery
     def list_map
       @options[:per_page] = SiteSetting.location_map_max_topics
       create_list(:map) do |topics|
-        topics = topics.joins("INNER JOIN topic_custom_fields
-                               ON topic_custom_fields.topic_id = topics.id
-                               AND topic_custom_fields.name = 'has_geo_location'")
+        topics = topics.joins("INNER JOIN locations_topic
+                               ON locations_topic.topic_id = topics.id")
 
         Locations::Map.sorted_list_filters.each do |filter|
           topics = filter[:block].call(topics, @options)

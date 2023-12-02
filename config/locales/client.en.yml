@@ -61,10 +61,16 @@ en:
     filters:
       map:
         title: "Map"
+        label: "Map"
         help: "Mark topics with locations in this category on a map."
     map:
       search_placeholder: "Search"
-
+      search:
+        name: "Name"
+        username: "Username"
+        city: "City"
+        address: "Address"
+        street: "Street"
     topic_statuses:
       location:
         help: "This topic has a location."

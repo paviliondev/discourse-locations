@@ -1,9 +1,11 @@
-import showModal from "discourse/lib/show-modal";
 import { locationFormat } from "../lib/location-utilities";
 import { default as computed } from "discourse-common/utils/decorators";
 import Component from "@ember/component";
+import { inject as service } from "@ember/service";
+import AddLocationComponent from "../components/modal/add-location";
 
 export default Component.extend({
+  modal: service(),
   classNames: ["location-label"],
 
   didInsertElement() {
@@ -46,7 +48,7 @@ export default Component.extend({
 
   actions: {
     showAddLocation() {
-      let controller = showModal("add-location", {
+      return this.modal.show(AddLocationComponent, {
         model: {
           location: this.get("location"),
           categoryId: this.get("category.id"),
@@ -57,8 +59,6 @@ export default Component.extend({
           },
         },
       });
-
-      controller.setup();
     },
 
     removeLocation() {

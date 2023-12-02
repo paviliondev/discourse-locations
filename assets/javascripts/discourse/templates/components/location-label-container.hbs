@@ -19,6 +19,8 @@
     </button>
   </div>
   {{#if this.showMap}}
-    <MapComponent @topic={{this.topic}} @size="small" />
+    <div class="map-component map-container small">
+      <LocationsMap @topic={{this.topic}} @mapType="topic" />
+    </div>
   {{/if}}
 {{/if}}

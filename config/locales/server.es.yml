@@ -1,7 +1,7 @@
 es:
   site_settings:
     location_enabled: "Enable the locations plugin."
-    location_hamburger_menu_map_link: "Activar menú de mapa en el hamburger menu"
+    location_sidebar_menu_map_link: "Activar menú de mapa en el hamburger menu"
     location_input_fields: "Campos de entrada de ubicación"
     location_input_fields_enabled: "Activar campos de entrada de ubicación"
     location_geocoding: "¿Geocodificar (mapear) las ubicaciones? Si no se activa, se guardarán como texto plano."

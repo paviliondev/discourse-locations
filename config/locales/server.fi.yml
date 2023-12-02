@@ -1,7 +1,7 @@
 fi:
   site_settings:
     location_enabled: "Ota käyttöön locations-lisäosa."
-    location_hamburger_menu_map_link: "Lisää hampurilaisvalikkoon linkki karttaan."
+    location_sidebar_menu_map_link: "Lisää hampurilaisvalikkoon linkki karttaan."
     location_input_fields: "Käytössä olevat sijaintitiedon syötekentät"
     location_input_fields_enabled: "Ota käyttöön sijaintitiedon syötekentät."
     location_geocoding: "Geokoodataanko sijainnit karttamerkeiksi? Jos poissa käytöstä, sijaintitiedot tallennetaan merkkijonoina."

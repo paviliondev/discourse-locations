@@ -13,7 +13,6 @@ import I18n from "I18n";
 export default {
   name: "location-edits",
   initialize(container) {
-    const currentUser = container.lookup("current-user:main");
     const siteSettings = container.lookup("site-settings:main");
     const site = container.lookup("site:main");
 
@@ -83,13 +82,24 @@ export default {
         @observes("draftKey")
         _setupDefaultLocation() {
           if (this.draftKey === "new_topic") {
-            const topicDefaultLocation = siteSettings.location_topic_default;
+            const topicDefaultLocation =
+              this.siteSettings.location_topic_default;
+            // NB: we can't use the siteSettings, nor currentUser values set in the initialiser here
+            // because in QUnit they will not be defined as the initialiser only runs once
+            // so this will break all tests, even if in runtime it may work.
+            // so solution is to use the values provided by the Composer model under 'this'.
             if (
               topicDefaultLocation === "user" &&
-              currentUser.custom_fields.geo_location
+              this.user.custom_fields.geo_location &&
+              ((typeof this.user.custom_fields.geo_location === "string" &&
+                this.user.custom_fields.geo_location.replaceAll(" ", "") !==
+                  "{}") ||
+                (typeof this.user.custom_fields.geo_location === "object" &&
+                  Object.keys(this.user.custom_fields.geo_location).length !==
+                    0))
             ) {
               this.set("location", {
-                geo_location: currentUser.custom_fields.geo_location,
+                geo_location: this.user.custom_fields.geo_location,
               });
             }
           }
@@ -160,7 +170,7 @@ export default {
             category.get("custom_fields.location_enabled") &&
             this.siteSettings.location_category_map_filter
           ) {
-            views.push({ name: I18n.t("filters.map.title"), value: "map" });
+            views.push({ name: I18n.t("filters.map.label"), value: "map" });
           }
 
           return views;
@@ -173,23 +183,10 @@ export default {
         api.modifyClass(`route:discovery.${route}`, {
           pluginId: "locations-plugin",
 
-          afterModel(model) {
-            if (!this.siteSettings.location_category_map_filter) {
-              this.replaceWith(`/c/${this.Category.slugFor(model.category)}`);
-            }
-            return this._super(...arguments);
-          },
+          afterModel() {
+            this.templateName = "discovery/map";
 
-          renderTemplate() {
-            let navTemplate =
-              this.routeName.indexOf("Category") > -1
-                ? "navigation/category"
-                : "navigation/default";
-            this.render(navTemplate, { outlet: "navigation-bar" });
-            this.render("discovery/map", {
-              outlet: "list-container",
-              controller: "discovery/topics",
-            });
+            return this._super(...arguments);
           },
         });
       });
@@ -253,14 +250,14 @@ export default {
       buildList(category, args) {
         let items = this._super(category, args);
 
-        if (category) {
-          items = items.reject((item) => item.name === "map"); // Don't show Site Level "/map"
-          if (
-            category.custom_fields.location_enabled &&
-            category.siteSettings.location_category_map_filter
-          ) {
-            items.push(NavItem.fromText("map", args)); // Show category level "/map" instead
-          }
+        // Don't show Site Level "/map"
+        if (
+          typeof category !== "undefined" &&
+          category &&
+          category.custom_fields.location_enabled &&
+          category.siteSettings.location_category_map_filter
+        ) {
+          items.push(NavItem.fromText("map", args)); // Show category level "/map" instead
         }
 
         return items;

@@ -2,7 +2,7 @@ plugins:
   location_enabled:
     client: true
     default: true
-  location_hamburger_menu_map_link:
+  location_sidebar_menu_map_link:
     client: true
     default: false
   location_input_fields_enabled:
@@ -148,7 +148,7 @@ plugins:
     client: false
   location_topic_default:
     type: enum
-    default: 'none'
+    default: none
     client: true
     choices:
       - none
