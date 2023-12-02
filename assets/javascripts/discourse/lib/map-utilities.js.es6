@@ -62,14 +62,23 @@ const setupMap = function (
     ]);
   } else if (markers) {
     if (siteSettings.location_alternative_marker_map_padding_strategy) {
-      let bounds = markers.getBounds()
+      let bounds = markers.getBounds();
       var fitZoom = map.getBoundsZoom(bounds);
 
-      map.setView(bounds.getCenter(), fitZoom - siteSettings.location_alternative_marker_map_padding_zoom_out_extent);
+      map.setView(
+        bounds.getCenter(),
+        fitZoom -
+          siteSettings.location_alternative_marker_map_padding_zoom_out_extent
+      );
     } else {
       const maxZoom = siteSettings.location_map_marker_zoom;
 
-      map.fitBounds(markers.getBounds().pad(siteSettings.location_marker_map_padding_extent), { maxZoom });
+      map.fitBounds(
+        markers
+          .getBounds()
+          .pad(siteSettings.location_marker_map_padding_extent),
+        { maxZoom }
+      );
     }
   } else {
     const defaultLat = Number(siteSettings.location_map_center_lat);
