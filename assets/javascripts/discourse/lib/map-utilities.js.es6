@@ -113,11 +113,13 @@ const buildMarker = function (
     const avatarSize = window.devicePixelRatio > 1 ? "60" : "30";
     const userAvatar = rawMarker.options.avatar.replace("{size}", avatarSize);
 
-    const href = rawMarker.options.routeTo ? getURL(rawMarker.options.routeTo) : null;
+    const href = rawMarker.options.routeTo
+      ? getURL(rawMarker.options.routeTo)
+      : null;
 
-    const html = href ?
-      `<a href="${href}" class="avatar-marker" data-user-card="${rawMarker.options.title}"><img src="${userAvatar}" class="avatar"></a>` :
-      `<span class="avatar-marker" data-user-card="${rawMarker.options.title}"><img src="${userAvatar}" class="avatar"></span>`;
+    const html = href
+      ? `<a href="${href}" class="avatar-marker" data-user-card="${rawMarker.options.title}"><img src="${userAvatar}" class="avatar"></a>`
+      : `<span class="avatar-marker" data-user-card="${rawMarker.options.title}"><img src="${userAvatar}" class="avatar"></span>`;
 
     rawMarker.options["icon"] = L.divIcon({
       className: "",
