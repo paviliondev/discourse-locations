@@ -22,10 +22,14 @@ Discourse.anonymous_top_menu_items.push(:map)
 Discourse.filters.push(:map)
 Discourse.anonymous_filters.push(:map)
 
-gem 'geocoder', '1.4.4'
+gem 'geocoder', '1.8.2'
 
-load File.expand_path('../models/location_country_default_site_setting.rb', __FILE__)
-load File.expand_path('../models/location_geocoding_language_site_setting.rb', __FILE__)
+load File.expand_path('../app/models/location_country_default_site_setting.rb', __FILE__)
+load File.expand_path('../app/models/location_geocoding_language_site_setting.rb', __FILE__)
+load File.expand_path('../app/models/user_location.rb', __FILE__)
+load File.expand_path('../app/models/topic_location.rb', __FILE__)
+load File.expand_path('../lib/user_location_process.rb', __FILE__)
+load File.expand_path('../lib/topic_location_process.rb', __FILE__)
 
 if respond_to?(:register_svg_icon)
   register_svg_icon "far-map"
@@ -132,6 +136,8 @@ after_initialize do
       tc.record_change('location', tc.topic.custom_fields['location'], location)
       tc.topic.custom_fields['location'] = location
       tc.topic.custom_fields['has_geo_location'] = location['geo_location'].present?
+
+      Locations::TopicLocationProcess.upsert(tc.topic.id)
     else
       tc.topic.custom_fields['location'] = {}
       tc.topic.custom_fields['has_geo_location'] = false
@@ -147,6 +153,7 @@ after_initialize do
       topic.custom_fields['location'] = location
       topic.custom_fields['has_geo_location'] = location['geo_location'].present?
       topic.save!
+      Locations::TopicLocationProcess.upsert(topic.id)
     end
   end
 
@@ -183,7 +190,7 @@ after_initialize do
   load File.expand_path('../controllers/geocode.rb', __FILE__)
 
   # check latitude and longitude are included when updating users location or raise and error
-  register_modifier(:users_controller_update_user_params) do |result, _, params|
+  register_modifier(:users_controller_update_user_params) do |result, current_user, params|
     if params &&
       params[:custom_fields] &&
       params[:custom_fields][:geo_location] &&
@@ -200,6 +207,30 @@ after_initialize do
     end
 
     result
+  end
+
+  DiscourseEvent.on(:user_updated) do |*params|
+    user_id = params[0].id
+
+    if SiteSetting.location_enabled
+      Locations::UserLocationProcess.upsert(user_id)
+    end
+  end
+
+  DiscourseEvent.on(:user_destroyed) do |*params|
+    user_id = params[0].id
+
+    Locations::UserLocationProcess.delete(user_id)
+  end
+
+  class ::Jobs::AnonymizeUser
+    module LocationsEdits
+      def make_anonymous
+        super
+        ::Locations::UserLocationProcess.delete(@user_id)
+      end
+    end
+    prepend LocationsEdits
   end
 
   unless Rails.env.test?
@@ -235,9 +266,8 @@ after_initialize do
     def list_map
       @options[:per_page] = SiteSetting.location_map_max_topics
       create_list(:map) do |topics|
-        topics = topics.joins("INNER JOIN topic_custom_fields
-                               ON topic_custom_fields.topic_id = topics.id
-                               AND topic_custom_fields.name = 'has_geo_location'")
+        topics = topics.joins("INNER JOIN locations_topic
+                               ON locations_topic.topic_id = topics.id")
 
         Locations::Map.sorted_list_filters.each do |filter|
           topics = filter[:block].call(topics, @options)
