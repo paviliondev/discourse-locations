@@ -2,6 +2,7 @@
 
 import { emojiUnescape } from "discourse/lib/text";
 import DiscourseURL from "discourse/lib/url";
+import getURL from "discourse-common/lib/get-url";
 
 const generateMap = function (siteSettings, opts) {
   const element = document.createElement("div");
@@ -33,7 +34,9 @@ const generateMap = function (siteSettings, opts) {
 
   L.tileLayer(siteSettings.location_map_tile_layer, tileOpts).addTo(map);
 
-  L.Icon.Default.imagePath = "/plugins/discourse-locations/leaflet/images/";
+  L.Icon.Default.imagePath = getURL(
+    "/plugins/discourse-locations/leaflet/images/"
+  );
 
   L.control.zoom({ position: "bottomleft" }).addTo(map);
 
