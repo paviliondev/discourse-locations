@@ -44,12 +44,12 @@ after_initialize do
     ../app/models/locations/topic_location.rb
     ../lib/locations/user_location_process.rb
     ../lib/locations/topic_location_process.rb
-    ../app/serializers/locations/geo_location_serializer.rb
     ../lib/locations/country.rb
     ../lib/locations/geocode.rb
     ../lib/locations/locations.rb
     ../lib/locations/map.rb
     ../lib/users_map.rb
+    ../app/serializers/locations/geo_location_serializer.rb
     ../app/controllers/locations/geocode_controller.rb
     ../app/controllers/locations/users_map_controller.rb
   ).each do |path|
