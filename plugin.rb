@@ -46,7 +46,7 @@ after_initialize do
     ../lib/locations/topic_location_process.rb
     ../lib/locations/country.rb
     ../lib/locations/geocode.rb
-    ../lib/locations/locations.rb
+    ../lib/locations/helper.rb
     ../lib/locations/map.rb
     ../lib/users_map.rb
     ../app/serializers/locations/geo_location_serializer.rb
