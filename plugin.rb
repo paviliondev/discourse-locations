@@ -40,11 +40,11 @@ after_initialize do
   %w(
     ../app/models/location_country_default_site_setting.rb
     ../app/models/location_geocoding_language_site_setting.rb
-    ../app/models/discourse_locations/user_location.rb
-    ../app/models/discourse_locations/topic_location.rb
+    ../app/models/locations/user_location.rb
+    ../app/models/locations/topic_location.rb
     ../lib/locations/user_location_process.rb
     ../lib/locations/topic_location_process.rb
-    ../app/serializers/discourse_locations/geo_location.rb
+    ../app/serializers/locations/geo_location.rb
     ../lib/locations/country.rb
     ../lib/locations/geocode.rb
     ../lib/locations/locations.rb
