@@ -50,8 +50,8 @@ after_initialize do
     ../lib/discourse_locations/locations.rb
     ../lib/discourse_locations/map.rb
     ../lib/users_map.rb
-    ../app/controllers/discourse_locations/geocode.rb
-    ../app/controllers/discourse_locations/users_map.rb
+    ../app/controllers/locations/geocode.rb
+    ../app/controllers/locations/users_map.rb
   ).each do |path|
     load File.expand_path(path, __FILE__)
   end
