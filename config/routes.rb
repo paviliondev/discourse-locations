@@ -7,6 +7,6 @@ DiscourseLocations::Engine.routes.draw do
   get 'map_feed' => 'list#map_feed'
 end
 
-Discourse::Application.routes.append do
+Discourse::Application.routes.draw do
   mount ::DiscourseLocations::Engine, at: 'discourse-locations'
 end
