@@ -3,21 +3,24 @@
   <div class="location-label">
     {{this.userLocation}}
   </div>
-  <div class="map-wrapper">
-    <button
-      class="widget-button btn btn-default btn-show-map btn-small btn-icon-text"
-      type="button"
-      {{on "click" this.toggleMap}}
-    >
-      {{d-icon "far-map"}}
-      {{#if this.showMapButtonLabel}}
-        {{this.mapButtonLabel}}
+  {{#if this.canShowMap}}
+    <div class="map-wrapper">
+      <button
+        class="widget-button btn btn-default btn-show-map btn-small btn-icon-text"
+        type="button"
+        {{on "click" this.toggleMap}}
+      >
+        {{d-icon "far-map"}}
+        {{#if this.showMapButtonLabel}}
+          {{this.mapButtonLabel}}
+        {{/if}}
+      </button>
+
+      {{#if this.showMap}}
+        <div class="map-container small">
+          <LocationsMap @mapType="user" @user={{@user}} />
+        </div>
       {{/if}}
-    </button>
-    {{#if this.showMap}}
-      <div class="map-container small">
-        <LocationsMap @mapType="user" @user={{@user}} />
-      </div>
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 </div>

@@ -38,6 +38,10 @@ export default class LocationMapComponent extends Component {
     return locationText;
   }
 
+  get canShowMap() {
+    return !document.querySelector(".leaflet-container");
+  }
+
   @action
   toggleMap() {
     this.showMap = !this.showMap;

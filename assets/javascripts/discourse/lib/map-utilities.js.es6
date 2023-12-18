@@ -132,30 +132,20 @@ const buildMarker = function (
     const avatarSize = window.devicePixelRatio > 1 ? "60" : "30";
     const userAvatar = rawMarker.options.avatar.replace("{size}", avatarSize);
 
-    const markerStyles = `
-      background-color: dimgrey;
-      width: 30px;
-      height: 30px;
-      display: block;
-      left: -18px;
-      top: -0px;
-      position: relative;
-      border-radius: 50% 50% 0;
-      transform: rotate(45deg);
-      border: 3px solid dimgrey;
-      z-index: 100;`;
+    const href = rawMarker.options.routeTo
+      ? getURL(rawMarker.options.routeTo)
+      : null;
 
-    const avatarStyles = `
-      width: 100%;
-      border-radius: 50%;
-      transform: rotate(-45deg);`;
+    const html = href
+      ? `<a href="${href}" class="avatar-marker" data-user-card="${rawMarker.options.title}"><img src="${userAvatar}" class="avatar"></a>`
+      : `<span class="avatar-marker" data-user-card="${rawMarker.options.title}"><img src="${userAvatar}" class="avatar"></span>`;
 
     rawMarker.options["icon"] = L.divIcon({
       className: "",
       iconAnchor: [0, 44],
       labelAnchor: [-25, 0],
       popupAnchor: [10, -36],
-      html: `<span style="${markerStyles}" class="avatar-marker"><img src="${userAvatar}" style="${avatarStyles}" class="avatar"></span>`,
+      html,
     });
   }
   const marker = L.marker(
@@ -167,7 +157,7 @@ const buildMarker = function (
   );
 
   if (rawMarker.options) {
-    if (rawMarker.options.routeTo) {
+    if (!avatarMarkerStyle && rawMarker.options.routeTo) {
       marker.on("click", () => {
         DiscourseURL.routeTo(rawMarker.options.routeTo);
       });

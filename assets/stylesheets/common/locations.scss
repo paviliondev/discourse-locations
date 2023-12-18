@@ -231,9 +231,26 @@
     }
 
     .leaflet-marker-icon {
-      .avatar-marker .avatar {
-        background-color: var(--secondary);
-        border: none !important;
+      .avatar-marker {
+        background-color: dimgrey;
+        width: 30px;
+        height: 30px;
+        display: block;
+        left: -18px;
+        top: -0px;
+        position: relative;
+        border-radius: 50% 50% 0;
+        transform: rotate(45deg);
+        border: 3px solid dimgrey;
+        z-index: 100;
+
+        .avatar {
+          width: 100%;
+          border-radius: 50%;
+          transform: rotate(-45deg);
+          background-color: var(--secondary);
+          border: none !important;
+        }
       }
     }
 
