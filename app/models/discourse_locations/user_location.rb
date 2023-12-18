@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "geocoder"
 
-module ::Locations
+module ::DiscourseLocations
   class UserLocation < ActiveRecord::Base
     extend Geocoder::Model::ActiveRecord
     self.table_name = 'locations_user'

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-Locations::Engine.routes.draw do
+DiscourseLocations::Engine.routes.draw do
   get 'search' => 'geocode#search'
   get 'validate' => 'geocode#validate'
   get 'countries' => 'geocode#countries'
@@ -8,5 +8,5 @@ Locations::Engine.routes.draw do
 end
 
 Discourse::Application.routes.append do
-  mount ::Locations::Engine, at: 'locations'
+  mount ::DiscourseLocations::Engine, at: 'discourse-locations'
 end

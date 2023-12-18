@@ -8,7 +8,7 @@ class LocationCountryDefaultSiteSetting < ::EnumSiteSetting
   end
 
   def self.values
-    @values ||= Locations::Country.codes.map do |c|
+    @values ||= ::DiscourseLocations::Country.codes.map do |c|
       {
         name: c[:name],
         value: c[:code]

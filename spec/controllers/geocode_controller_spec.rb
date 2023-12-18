@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-describe ::Locations::GeocodeController do
-  routes { ::Locations::Engine.routes }
+describe ::DiscourseLocations::GeocodeController do
+  routes { ::DiscourseLocations::Engine.routes }
 
   let!(:user) { log_in(:user) }
   let(:category) { Fabricate(:category, custom_fields: { location_enabled: true }) }

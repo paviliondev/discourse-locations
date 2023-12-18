@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ::Locations
+module ::DiscourseLocations
   class TopicLocation < ActiveRecord::Base
     extend Geocoder::Model::ActiveRecord
     self.table_name = 'locations_topic'

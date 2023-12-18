@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class GeocoderError < StandardError; end
 
-module ::Locations
+module ::DiscourseLocations
 
   # REQUEST_PARTS = [
   # 'street',

@@ -35,6 +35,6 @@ class PopulateLocationsUserTable < ActiveRecord::Migration[7.0]
   end
 
   def down
-    ::Locations::UserLocation.delete_all
+    ::DiscourseLocations::UserLocation.delete_all
   end
 end

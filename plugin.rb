@@ -8,11 +8,11 @@
 
 enabled_site_setting :location_enabled
 
-module ::Locations
+module ::DiscourseLocations
   PLUGIN_NAME = "discourse-locations"
 end
 
-require_relative "lib/locations/engine"
+require_relative "lib/discourse_locations/engine"
 
 register_asset 'stylesheets/common/locations.scss'
 register_asset 'stylesheets/desktop/locations.scss', :desktop
@@ -40,18 +40,18 @@ after_initialize do
   %w(
     ../app/models/location_country_default_site_setting.rb
     ../app/models/location_geocoding_language_site_setting.rb
-    ../app/models/locations/user_location.rb
-    ../app/models/locations/topic_location.rb
-    ../lib/locations/user_location_process.rb
-    ../lib/locations/topic_location_process.rb
-    ../lib/locations/country.rb
-    ../lib/locations/geocode.rb
-    ../lib/locations/locations.rb
-    ../lib/locations/map.rb
+    ../app/models/discourse_locations/user_location.rb
+    ../app/models/discourse_locations/topic_location.rb
+    ../lib/discourse_locations/user_location_process.rb
+    ../lib/discourse_locations/topic_location_process.rb
+    ../lib/discourse_locations/country.rb
+    ../lib/discourse_locations/geocode.rb
+    ../lib/discourse_locations/locations.rb
+    ../lib/discourse_locations/map.rb
     ../lib/users_map.rb
-    ../app/serializers/locations/geo_location_serializer.rb
-    ../app/controllers/locations/geocode_controller.rb
-    ../app/controllers/locations/users_map_controller.rb
+    ../app/serializers/discourse_locations/geo_location_serializer.rb
+    ../app/controllers/discourse_locations/geocode_controller.rb
+    ../app/controllers/discourse_locations/users_map_controller.rb
   ).each do |path|
     load File.expand_path(path, __FILE__)
   end
@@ -149,7 +149,7 @@ after_initialize do
 
   PostRevisor.track_topic_field(:location) do |tc, location|
     if location.present? &&
-       location = Locations::Helper.parse_location(location.to_unsafe_hash)
+       location = ::DiscourseLocations::Helper.parse_location(location.to_unsafe_hash)
 
       tc.record_change('location', tc.topic.custom_fields['location'], location)
       tc.topic.custom_fields['location'] = location
@@ -165,7 +165,7 @@ after_initialize do
   DiscourseEvent.on(:post_created) do |post, opts, user|
     if post.is_first_post? &&
        opts[:location].present? &&
-       location = Locations::Helper.parse_location(opts[:location])
+       location = ::DiscourseLocations::Helper.parse_location(opts[:location])
 
       topic = post.topic
       topic.custom_fields['location'] = location
@@ -213,7 +213,7 @@ after_initialize do
     module LocationsEdits
       def make_anonymous
         super
-        ::Locations::UserLocationProcess.delete(@user_id)
+        ::DiscourseLocations::UserLocationProcess.delete(@user_id)
       end
     end
     prepend LocationsEdits
@@ -221,28 +221,28 @@ after_initialize do
 
   unless Rails.env.test?
     begin
-      Locations::Geocode.set_config
+      ::DiscourseLocations::Geocode.set_config
     rescue
-      Locations::Geocode.revert_to_default_provider
+      ::DiscourseLocations::Geocode.revert_to_default_provider
     end
 
     # To be removed
     if SiteSetting.location_geocoding_provider == 'mapzen'
-      Locations::Geocode.revert_to_default_provider
+      ::DiscourseLocations::Geocode.revert_to_default_provider
     end
   end
 
   add_model_callback(SiteSetting, :before_save) do
     if name == 'location_geocoding_provider'
-      Locations::Geocode.set_config(provider: value)
+      ::DiscourseLocations::Geocode.set_config(provider: value)
     end
     if name == 'location_geocoding_timeout'
-      Locations::Geocode.set_config(timeout: value)
+      ::DiscourseLocations::Geocode.set_config(timeout: value)
     end
   end
 
   add_to_class(:site, :country_codes) do
-    @country_codes ||= Locations::Country.codes
+    @country_codes ||= ::DiscourseLocations::Country.codes
   end
 
   add_to_serializer(:site, :country_codes, respect_plugin_enabled: false) { object.country_codes }
@@ -255,7 +255,7 @@ after_initialize do
         topics = topics.joins("INNER JOIN locations_topic
                                ON locations_topic.topic_id = topics.id")
 
-        Locations::Map.sorted_list_filters.each do |filter|
+        ::DiscourseLocations::Map.sorted_list_filters.each do |filter|
           topics = filter[:block].call(topics, @options)
         end
 
@@ -264,7 +264,7 @@ after_initialize do
     end
   end
 
-  Locations::Map.add_list_filter do |topics, options|
+  ::DiscourseLocations::Map.add_list_filter do |topics, options|
     if options[:category_id]
       category = Category.find(options[:category_id])
     end
@@ -291,7 +291,7 @@ on(:custom_wizard_ready) do
         ).perform
 
         if location.present?
-          location = Locations::Helper.parse_location(location)
+          location = ::DiscourseLocations::Helper.parse_location(location)
 
           location_params = {}
           location_params['location'] = location

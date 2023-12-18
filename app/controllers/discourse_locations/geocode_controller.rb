@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module ::Locations
+module ::DiscourseLocations
   class GeocodeController < ::ApplicationController
     def search
       params.require(:request)
@@ -10,7 +10,7 @@ module ::Locations
       error = nil
 
       begin
-        result = Locations::Geocode.search(current_user, params[:request])
+        result = ::DiscourseLocations::Geocode.search(current_user, params[:request])
       rescue => error
         error = error
       end

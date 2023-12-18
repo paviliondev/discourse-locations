@@ -36,6 +36,6 @@ class PopulateLocationsTopicTable < ActiveRecord::Migration[7.0]
   end
 
   def down
-    ::Locations::TopicLocation.delete_all
+    ::DiscourseLocations::TopicLocation.delete_all
   end
 end

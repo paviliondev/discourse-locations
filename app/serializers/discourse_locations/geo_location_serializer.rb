@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module ::Locations
+module ::DiscourseLocations
   class GeoLocationSerializer < ::ApplicationSerializer
     attributes :lat,
               :lon,

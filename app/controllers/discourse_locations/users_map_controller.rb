@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module ::Locations
+module ::DiscourseLocations
   class UsersMapController < ::ApplicationController
     requires_plugin PLUGIN_NAME
     before_action :ensure_plugin_enabled

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ::Locations
+module ::DiscourseLocations
   class UserLocationProcess
 
     def self.upsert(user_id)
@@ -10,7 +10,7 @@ module ::Locations
         user.custom_fields['geo_location'].blank? || !user.custom_fields['geo_location']['lat'].present? ||
         !user.custom_fields['geo_location']['lon'].present?
 
-      ::Locations::UserLocation.upsert({
+      ::DiscourseLocations::UserLocation.upsert({
           user_id: user_id,
           latitude: user.custom_fields['geo_location']['lat'],
           longitude: user.custom_fields['geo_location']['lon'],
@@ -30,7 +30,7 @@ module ::Locations
     end
 
     def self.delete(user_id)
-      location = ::Locations::UserLocation.find_by(user_id: user_id)
+      location = ::DiscourseLocations::UserLocation.find_by(user_id: user_id)
       location.delete if location
     end
 

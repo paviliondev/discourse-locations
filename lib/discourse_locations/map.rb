@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ::Locations
+module ::DiscourseLocations
 
   class Map
     def self.sorted_list_filters

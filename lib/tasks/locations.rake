@@ -36,7 +36,7 @@ def refresh_user_location_table(args)
         .offset(i)
         .limit(batch)
         .each do |user|
-          if !missing_only.to_i.zero? && ::Locations::UserLocation.find_by(user_id: user.id).nil? || missing_only.to_i.zero?
+          if !missing_only.to_i.zero? && ::DiscourseLocations::UserLocation.find_by(user_id: user.id).nil? || missing_only.to_i.zero?
             Locations::UserLocationProcess.upsert(user.id)
             sleep(delay) if delay
           end
@@ -85,7 +85,7 @@ def refresh_topic_location_table(args)
         .offset(i)
         .limit(batch)
         .each do |topic|
-          if !missing_only.to_i.zero? && ::Locations::TopicLocation.find_by(topic_id: topic.id).nil? || missing_only.to_i.zero?
+          if !missing_only.to_i.zero? && ::DiscourseLocations::TopicLocation.find_by(topic_id: topic.id).nil? || missing_only.to_i.zero?
             Locations::TopicLocationProcess.upsert(topic.id)
             sleep(delay) if delay
           end
