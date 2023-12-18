@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.5.3
+# version: 6.6.0
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
@@ -174,30 +174,6 @@ after_initialize do
       Locations::TopicLocationProcess.upsert(topic.id)
     end
   end
-
-  # require_dependency 'application_controller'
-  # module ::Locations
-  #   class Engine < ::Rails::Engine
-  #     engine_name 'locations'
-  #     isolate_namespace Locations
-  #   end
-  # end
-
-  # Locations::Engine.routes.draw do
-  #   get 'search' => 'geo#search'
-  #   get 'validate' => 'geo#validate'
-  #   get 'countries' => 'geo#countries'
-  # end
-
-  # Discourse::Application.routes.append do
-  #   mount ::Locations::Engine, at: 'location'
-  # end
-
-  # Discourse::Application.routes.prepend do
-  #   get 'u/user-map' => 'users#index'
-  #   get 'users/user-map' => 'users#index'
-  #   get '/map_feed' => 'list#map_feed'
-  # end
 
   # check latitude and longitude are included when updating users location or raise and error
   register_modifier(:users_controller_update_user_params) do |result, current_user, params|
