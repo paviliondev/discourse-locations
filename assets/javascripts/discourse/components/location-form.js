@@ -83,7 +83,7 @@ export default class LocationForm extends Component {
       this.countrycodes = siteCodes;
     } else {
       ajax({
-        url: "/location/countries",
+        url: "/locations/countries",
         type: "GET",
       }).then((result) => {
         this.countrycodes = result.geo;

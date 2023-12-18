@@ -31,7 +31,7 @@ acceptance(
       const topicResponse = cloneJSON(topicFixtures["/t/51/1.json"]);
       server.get("/t/51/1.json", () => helper.response(topicResponse));
       const locationResponse = cloneJSON(locationFixtures["location.json"]);
-      server.get("/location/search", () => helper.response(locationResponse));
+      server.get("/locations/search", () => helper.response(locationResponse));
     });
 
     test("topic title location, post user & user card location - shows correct format", async function (assert) {

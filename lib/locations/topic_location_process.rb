@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Locations
+module ::Locations
   class TopicLocationProcess
 
     def self.upsert(topic_id)

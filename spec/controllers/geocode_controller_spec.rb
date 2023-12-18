@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-describe ::Locations::GeoController do
+describe ::Locations::GeocodeController do
   routes { ::Locations::Engine.routes }
 
   let!(:user) { log_in(:user) }
@@ -38,7 +38,8 @@ describe ::Locations::GeoController do
       get :countries, format: :json
       expect(response).to have_http_status(:successful)
       json = ::JSON.parse(response.body)
-      expect(json['geo'][0]['code']).to eq('af')
+
+      expect(json['geocode'][0]['code']).to eq('af')
     end
   end
 end
