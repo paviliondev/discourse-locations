@@ -3,13 +3,13 @@ class GeocoderError < StandardError; end
 
 module ::Locations
 
-  # REQUEST_PARTS = [
-  # 'street',
-  # 'neighbourhood',
-  # 'postalcode',
-  # 'city',
-  # 'state'
-  # ]
+  REQUEST_PARTS = [
+  'street',
+  'neighbourhood',
+  'postalcode',
+  'city',
+  'state'
+  ]
 
   class Geocode
     def self.set_config(opts = {})
