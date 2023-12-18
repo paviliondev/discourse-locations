@@ -8,6 +8,12 @@
 
 enabled_site_setting :location_enabled
 
+module ::Locations
+  PLUGIN_NAME = "discourse-locations"
+end
+
+require_relative "lib/discourse_locations/engine"
+
 register_asset 'stylesheets/common/locations.scss'
 register_asset 'stylesheets/desktop/locations.scss', :desktop
 register_asset 'stylesheets/mobile/locations.scss', :mobile
@@ -24,13 +30,6 @@ Discourse.anonymous_filters.push(:map)
 
 gem 'geocoder', '1.8.2'
 
-load File.expand_path('../app/models/location_country_default_site_setting.rb', __FILE__)
-load File.expand_path('../app/models/location_geocoding_language_site_setting.rb', __FILE__)
-load File.expand_path('../app/models/user_location.rb', __FILE__)
-load File.expand_path('../app/models/topic_location.rb', __FILE__)
-load File.expand_path('../lib/user_location_process.rb', __FILE__)
-load File.expand_path('../lib/topic_location_process.rb', __FILE__)
-
 if respond_to?(:register_svg_icon)
   register_svg_icon "far-map"
   register_svg_icon "info"
@@ -38,6 +37,25 @@ if respond_to?(:register_svg_icon)
 end
 
 after_initialize do
+  %w(
+    ../app/models/location_country_default_site_setting.rb
+    ../app/models/location_geocoding_language_site_setting.rb
+    ../app/models/discourse_locations/user_location.rb
+    ../app/models/discourse_locations/topic_location.rb
+    ../lib/discourse_locations/user_location_process.rb
+    ../lib/discourse_locations/topic_location_process.rb
+    ../app/serializers/discourse_locations/geo_location.rb
+    ../lib/discourse_locations/country.rb
+    ../lib/discourse_locations/geocode.rb
+    ../lib/discourse_locations/locations.rb
+    ../lib/discourse_locations/map.rb
+    ../lib/users_map.rb
+    ../app/controllers/discourse_locations/geocode.rb
+    ../app/controllers/discourse_locations/users_map.rb
+  ).each do |path|
+    load File.expand_path(path, __FILE__)
+  end
+
   Category.register_custom_field_type('location', :json)
   Category.register_custom_field_type('location_enabled', :boolean)
   Category.register_custom_field_type('location_topic_status', :boolean)
@@ -157,37 +175,29 @@ after_initialize do
     end
   end
 
-  require_dependency 'application_controller'
-  module ::Locations
-    class Engine < ::Rails::Engine
-      engine_name 'locations'
-      isolate_namespace Locations
-    end
-  end
+  # require_dependency 'application_controller'
+  # module ::Locations
+  #   class Engine < ::Rails::Engine
+  #     engine_name 'locations'
+  #     isolate_namespace Locations
+  #   end
+  # end
 
-  Locations::Engine.routes.draw do
-    get 'search' => 'geo#search'
-    get 'validate' => 'geo#validate'
-    get 'countries' => 'geo#countries'
-  end
+  # Locations::Engine.routes.draw do
+  #   get 'search' => 'geo#search'
+  #   get 'validate' => 'geo#validate'
+  #   get 'countries' => 'geo#countries'
+  # end
 
-  Discourse::Application.routes.append do
-    mount ::Locations::Engine, at: 'location'
-  end
+  # Discourse::Application.routes.append do
+  #   mount ::Locations::Engine, at: 'location'
+  # end
 
-  Discourse::Application.routes.prepend do
-    get 'u/user-map' => 'users#index'
-    get 'users/user-map' => 'users#index'
-    get '/map_feed' => 'list#map_feed'
-  end
-
-  load File.expand_path('../serializers/geo_location.rb', __FILE__)
-  load File.expand_path('../lib/country.rb', __FILE__)
-  load File.expand_path('../lib/geocode.rb', __FILE__)
-  load File.expand_path('../lib/locations.rb', __FILE__)
-  load File.expand_path('../lib/map.rb', __FILE__)
-  load File.expand_path('../lib/users_map.rb', __FILE__)
-  load File.expand_path('../controllers/geocode.rb', __FILE__)
+  # Discourse::Application.routes.prepend do
+  #   get 'u/user-map' => 'users#index'
+  #   get 'users/user-map' => 'users#index'
+  #   get '/map_feed' => 'list#map_feed'
+  # end
 
   # check latitude and longitude are included when updating users location or raise and error
   register_modifier(:users_controller_update_user_params) do |result, current_user, params|

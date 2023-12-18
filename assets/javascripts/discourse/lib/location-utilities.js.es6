@@ -5,7 +5,7 @@ import I18n from "I18n";
 
 function locationSearch(request, resultsFn) {
   ajax({
-    url: "/location/search",
+    url: "/locations/search",
     data: { request },
   })
     .then(function (r) {

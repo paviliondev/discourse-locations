@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-describe ::Locations::GeoController do
+describe ::Locations::GeocodeController do
   routes { ::Locations::Engine.routes }
 
   let!(:user) { log_in(:user) }

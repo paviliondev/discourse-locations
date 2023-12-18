@@ -2,14 +2,20 @@
   <div class="container users-nav">
     <ul class="nav nav-pills">
       <li>
-        {{#link-to "users.index"}}
+        <LinkTo @route="users">
           {{i18n "directory.list.title"}}
-        {{/link-to}}
+        </LinkTo>
       </li>
       <li>
-        {{#link-to "users.user-map"}}
+        <LinkTo @route="locations.users-map">
           {{i18n "directory.map.title"}}
-        {{/link-to}}
+        </LinkTo>
+      </li>
+       <li>
+        <a
+          href="/my/preferences/profile"
+          title={{i18n "directory.map.user_prefs_link.title"}}
+        >{{i18n "directory.map.user_prefs_link.text"}}</a>
       </li>
     </ul>
   </div>
