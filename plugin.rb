@@ -42,13 +42,13 @@ after_initialize do
     ../app/models/location_geocoding_language_site_setting.rb
     ../app/models/discourse_locations/user_location.rb
     ../app/models/discourse_locations/topic_location.rb
-    ../lib/discourse_locations/user_location_process.rb
-    ../lib/discourse_locations/topic_location_process.rb
+    ../lib/locations/user_location_process.rb
+    ../lib/locations/topic_location_process.rb
     ../app/serializers/discourse_locations/geo_location.rb
-    ../lib/discourse_locations/country.rb
-    ../lib/discourse_locations/geocode.rb
-    ../lib/discourse_locations/locations.rb
-    ../lib/discourse_locations/map.rb
+    ../lib/locations/country.rb
+    ../lib/locations/geocode.rb
+    ../lib/locations/locations.rb
+    ../lib/locations/map.rb
     ../lib/users_map.rb
     ../app/controllers/locations/geocode_controller.rb
     ../app/controllers/locations/users_map_controller.rb
