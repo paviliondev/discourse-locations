@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Locations::Engine.routes.draw do
   get 'search' => 'geocode#search'
   get 'validate' => 'geocode#validate'
