@@ -12,7 +12,7 @@ module ::Locations
   PLUGIN_NAME = "discourse-locations"
 end
 
-require_relative "lib/discourse_locations/engine"
+require_relative "lib/locations/engine"
 
 register_asset 'stylesheets/common/locations.scss'
 register_asset 'stylesheets/desktop/locations.scss', :desktop
