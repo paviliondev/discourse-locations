@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.6.1
+# version: 6.6.2
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
@@ -10,6 +10,14 @@ enabled_site_setting :location_enabled
 
 module ::Locations
   PLUGIN_NAME = "discourse-locations"
+
+  REQUEST_PARTS = [
+    'street',
+    'neighbourhood',
+    'postalcode',
+    'city',
+    'state'
+    ]
 end
 
 require_relative "lib/locations/engine"
