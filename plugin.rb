@@ -10,14 +10,6 @@ enabled_site_setting :location_enabled
 
 module ::Locations
   PLUGIN_NAME = "discourse-locations"
-
-  REQUEST_PARTS = [
-    'street',
-    'neighbourhood',
-    'postalcode',
-    'city',
-    'state'
-    ]
 end
 
 require_relative "lib/locations/engine"
@@ -45,21 +37,17 @@ if respond_to?(:register_svg_icon)
 end
 
 after_initialize do
+
+  # /lib/locations is autoloaded
   %w(
     ../app/models/location_country_default_site_setting.rb
     ../app/models/location_geocoding_language_site_setting.rb
     ../app/models/locations/user_location.rb
     ../app/models/locations/topic_location.rb
-    ../lib/locations/user_location_process.rb
-    ../lib/locations/topic_location_process.rb
-    ../lib/locations/country.rb
-    ../lib/locations/geocode.rb
-    ../lib/locations/helper.rb
-    ../lib/locations/map.rb
-    ../lib/users_map.rb
     ../app/serializers/locations/geo_location_serializer.rb
     ../app/controllers/locations/geocode_controller.rb
     ../app/controllers/locations/users_map_controller.rb
+    ../lib/users_map.rb
   ).each do |path|
     load File.expand_path(path, __FILE__)
   end

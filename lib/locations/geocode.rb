@@ -3,6 +3,15 @@ class GeocoderError < StandardError; end
 
 module ::Locations
   class Geocode
+
+    REQUEST_PARTS = [
+      'street',
+      'neighbourhood',
+      'postalcode',
+      'city',
+      'state'
+      ]
+
     def self.set_config(opts = {})
       provider = opts[:provider] || SiteSetting.location_geocoding_provider
       api_key = opts[:api_key] || SiteSetting.location_geocoding_api_key
