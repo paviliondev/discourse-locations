@@ -1,7 +1,7 @@
 import {
   acceptance,
-  simulateKeys,
   query,
+  simulateKeys,
   visible,
 } from "discourse/tests/helpers/qunit-helpers";
 import { click, fillIn, visit } from "@ember/test-helpers";
