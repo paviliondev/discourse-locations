@@ -1,7 +1,7 @@
 import {
   acceptance,
-  emulateAutocomplete,
   query,
+  simulateKeys,
   visible,
 } from "discourse/tests/helpers/qunit-helpers";
 import { click, fillIn, visit } from "@ember/test-helpers";
@@ -36,7 +36,7 @@ acceptance(
       await click("a.edit-topic");
       await click("button.add-location-btn");
       assert.ok(visible(".add-location-modal"), "add location modal is shown");
-      await emulateAutocomplete(".location-selector", "liver building");
+      await simulateKeys(query(".location-selector"), "liver building");
       await click("li.location-form-result:first-child label");
 
       assert.equal(
