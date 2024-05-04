@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-locations
 # about: Tools for handling locations in Discourse
-# version: 6.6.5
+# version: 6.6.7
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
 # url: https://github.com/angusmcleod/discourse-locations
@@ -113,6 +113,7 @@ after_initialize do
 
   User.register_custom_field_type('geo_location', :json)
   register_editable_user_custom_field [:geo_location,  geo_location: {}] if defined? register_editable_user_custom_field
+  User.preloaded_custom_fields << 'geo_location' if User.respond_to? :preloaded_custom_fields
   add_to_serializer(:user, :geo_location, respect_plugin_enabled: false) do
     object.custom_fields['geo_location']
   end
