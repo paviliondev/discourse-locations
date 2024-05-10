@@ -4,7 +4,7 @@
       <label class="control-label">{{i18n "user.map_location.title"}}</label>
       <div class="controls location-selector-container">
         {{location-selector
-          location=model.geo_location
+          location=model.custom_fields.geo_location
           class="input-xxlarge location-selector"
           searchError=(action "searchError")
           context=context
