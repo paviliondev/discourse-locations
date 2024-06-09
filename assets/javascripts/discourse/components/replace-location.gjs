@@ -27,7 +27,11 @@ export default class ReplaceLocationComponent extends Component {
 
   @action
   addClass() {
-    $(".user-main .location-and-website").addClass("map-location-enabled");
+    document
+      .querySelectorAll(".user-main .location-and-website")
+      .forEach(function (element) {
+        element.classList.add("map-location-enabled");
+      });
   }
 
   <template>
