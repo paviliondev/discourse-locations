@@ -11,7 +11,8 @@ export default {
 
       component.set(
         "showUserLocation",
-        !!args.model.custom_fields?.geo_location && args.model.custom_fields?.geo_location !== "{}"
+        !!args.model.custom_fields?.geo_location &&
+          args.model.custom_fields?.geo_location !== "{}"
       );
       component.set("linkWebsite", !args.model.isBasic);
     }
