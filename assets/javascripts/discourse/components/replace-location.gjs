@@ -9,8 +9,10 @@ export default class ReplaceLocationComponent extends Component {
   @service siteSettings;
 
   get showUserLocation() {
-    return !!this.args.model.custom_fields?.geo_location &&
-          this.args.model.custom_fields?.geo_location !== "{}"
+    return (
+      !!this.args.model.custom_fields?.geo_location &&
+      this.args.model.custom_fields?.geo_location !== "{}"
+    );
   }
 
   get linkWebsite() {
@@ -18,7 +20,9 @@ export default class ReplaceLocationComponent extends Component {
   }
 
   get removeNoFollow() {
-    return this.args.model.trust_level > 2 && !this.siteSettings.tl3_links_no_follow;
+    return (
+      this.args.model.trust_level > 2 && !this.siteSettings.tl3_links_no_follow
+    );
   }
 
   @action
