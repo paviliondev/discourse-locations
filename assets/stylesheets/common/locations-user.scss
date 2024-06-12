@@ -100,35 +100,56 @@
   }
 }
 
-.user-main
-  .about
-  .primary
-  .primary-textual
-  .location-and-website.map-location-enabled {
-  overflow: initial;
+body.map-location-enabled {
+  .user-main .about .primary .primary-textual .location-and-website {
+    overflow: initial;
+    display: flex;
+    flex-direction: row;
 
-  > span {
-    max-width: 80%;
-  }
+    > span {
+      max-width: 80%;
+      flex: 1;
+    }
 
-  .user-profile-location,
-  .user-profile-website {
-    display: none;
-  }
+    .user-profile-location,
+    .user-profile-website {
+      display: none;
+    }
 
-  .replace-location .user-profile-location,
-  .replace-location .user-profile-website {
-    display: block;
-    margin-right: 0;
-  }
+    .replace-location .user-profile-location,
+    .replace-location .user-profile-website {
+      display: block;
+      margin-right: 0;
+    }
 
-  .location-label {
-    max-width: 100%;
-    white-space: initial;
-  }
-
-  .map-wrapper {
-    min-width: 110px;
-    text-align: right;
+    .replace-location .user-profile-location {
+      .user-location-widget {
+        display: flex;
+        flex-direction: row;
+        .location-label {
+          max-width: 100%;
+          white-space: initial;
+        }
+        svg {
+          padding-top: 5px;
+        }
+        .map-wrapper {
+          min-width: 110px;
+          text-align: right;
+          .map-container.small {
+            z-index: 290;
+            width: 300px;
+            right: initial;
+            top: initial;
+            transform: translate(-190px, 0);
+            .avatar {
+              margin-right: 10px;
+              width: 30px;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
   }
 }

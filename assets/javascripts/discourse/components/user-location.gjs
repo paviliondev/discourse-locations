@@ -3,7 +3,10 @@ import Component from "@glimmer/component";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import I18n from "I18n";
+import DButton from "discourse/components/d-button";
+import icon from "discourse-common/helpers/d-icon";
 import { geoLocationFormat } from "../lib/location-utilities";
+import LocationsMap from "./locations-map";
 
 export default class LocationMapComponent extends Component {
   @service siteSettings;
@@ -11,7 +14,7 @@ export default class LocationMapComponent extends Component {
   @tracked showMap = false;
 
   get mapButtonLabel() {
-    return I18n.t(`location.geo.${this.showMap ? "hide" : "show"}_map`);
+    return `location.geo.${this.showMap ? "hide" : "show"}_map`
   }
 
   get showMapButtonLabel() {
@@ -46,4 +49,28 @@ export default class LocationMapComponent extends Component {
   toggleMap() {
     this.showMap = !this.showMap;
   }
+
+  <template>
+    <div class="user-location-widget">
+      {{icon "map-marker-alt"}}
+      <div class="location-label">
+        {{this.userLocation}}
+      </div>
+      {{#if this.canShowMap}}
+        <div class="map-wrapper">
+          <DButton
+            class="widget-button btn btn-default btn-show-map btn-small btn-icon-text"
+            @action={{this.toggleMap}}
+            @icon="far-map"
+            @label={{if this.showMapButtonLabel this.mapButtonLabel}}
+          />
+          {{#if this.showMap}}
+            <div class="map-container small">
+              <LocationsMap @mapType="user" @user={{@user}} />
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+  </template>
 }
