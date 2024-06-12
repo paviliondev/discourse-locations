@@ -2,6 +2,7 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import bodyClass from "discourse/helpers/body-class";
 import icon from "discourse-common/helpers/d-icon";
 import UserLocation from "./user-location";
 
@@ -25,18 +26,10 @@ export default class ReplaceLocationComponent extends Component {
     );
   }
 
-  @action
-  addClass() {
-    document
-      .querySelectorAll(".user-main .location-and-website")
-      .forEach(function (element) {
-        element.classList.add("map-location-enabled");
-      });
-  }
-
   <template>
+    {{bodyClass "map-location-enabled"}}
     {{#if this.showUserLocation}}
-      <div {{didInsert this.addClass}} class="user-profile-location">
+      <div class="user-profile-location">
         <UserLocation @user={{@model}} @formFactor="profile" />
       </div>
     {{/if}}
