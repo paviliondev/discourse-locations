@@ -18,3 +18,31 @@ module ::Locations
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: locations_topic
+#
+#  id                 :bigint           not null, primary key
+#  topic_id           :integer          not null
+#  latitude           :float            not null
+#  longitude          :float            not null
+#  name               :string
+#  street             :string
+#  district           :string
+#  city               :string
+#  state              :string
+#  postalcode         :string
+#  country            :string
+#  countrycode        :string
+#  international_code :string
+#  locationtype       :string
+#  boundingbox        :float            is an Array
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+# Indexes
+#
+#  composite_index_on_locations_topic  (latitude,longitude)
+#  index_locations_topic_on_topic_id   (topic_id) UNIQUE
+#
