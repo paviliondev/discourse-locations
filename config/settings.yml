@@ -38,7 +38,7 @@ plugins:
   location_geocoding_provider:
     default: 'nominatim'
     client: true
-    type: 'enum'
+    type: enum
     choices:
       - location_iq
       - mapbox
