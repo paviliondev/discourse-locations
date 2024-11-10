@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-require "geocoder"
 
 module ::Locations
   class TopicLocation < ActiveRecord::Base
-    extend ::Geocoder::Model::ActiveRecord
+    extend Geocoder::Model::ActiveRecord
     self.table_name = 'locations_topic'
 
     belongs_to :topic
