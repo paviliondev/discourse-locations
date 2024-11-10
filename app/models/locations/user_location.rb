@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "geocoder"
 
 module ::Locations
   class UserLocation < ActiveRecord::Base
@@ -44,6 +43,5 @@ end
 #
 # Indexes
 #
-#  composite_index_on_locations_user  (latitude,longitude)
-#  index_locations_user_on_user_id    (user_id) UNIQUE
+#  index_locations_user_on_user_id  (user_id) UNIQUE
 #

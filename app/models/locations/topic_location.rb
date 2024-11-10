@@ -43,6 +43,5 @@ end
 #
 # Indexes
 #
-#  composite_index_on_locations_topic  (latitude,longitude)
-#  index_locations_topic_on_topic_id   (topic_id) UNIQUE
+#  index_locations_topic_on_topic_id  (topic_id) UNIQUE
 #
