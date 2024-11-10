@@ -1,12 +1,12 @@
-import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
-import { ajax } from "discourse/lib/ajax";
-import { action, set } from "@ember/object";
-import { equal } from "@ember/object/computed";
-import { A } from "@ember/array";
-import { inject as service } from "@ember/service";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { A } from "@ember/array";
+import { action, set } from "@ember/object";
+import { equal } from "@ember/object/computed";
+import { inject as service } from "@ember/service";
+import { ajax } from "discourse/lib/ajax";
 import I18n from "I18n";
+import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
 
 export default class LocationForm extends Component {
   @service siteSettings;

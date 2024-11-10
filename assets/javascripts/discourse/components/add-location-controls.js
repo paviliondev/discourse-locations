@@ -1,14 +1,15 @@
-import { locationFormat } from "../lib/location-utilities";
-import { default as computed } from "discourse-common/utils/decorators";
 import Component from "@ember/component";
 import { inject as service } from "@ember/service";
+import { default as computed } from "discourse-common/utils/decorators";
 import AddLocationComponent from "../components/modal/add-location";
+import { locationFormat } from "../lib/location-utilities";
 
 export default Component.extend({
   modal: service(),
   classNames: ["location-label"],
 
   didInsertElement() {
+this._super(...arguments);
     $(".title-and-category").toggleClass(
       "location-add-no-text",
       this.get("iconOnly")
