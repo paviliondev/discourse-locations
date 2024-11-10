@@ -3,7 +3,7 @@ require "geocoder"
 
 module ::Locations
   class UserLocation < ActiveRecord::Base
-    extend Geocoder::Model::ActiveRecord
+    extend ::Geocoder::Model::ActiveRecord
     self.table_name = 'locations_user'
 
     belongs_to :user
