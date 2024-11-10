@@ -51,7 +51,8 @@
   }
 }
 
-.location-and-website.map-location-enabled {
+.location-and-website.map-location-enabled,
+.d-user-card__meta-data.map-location-enabled {
   .user-location-widget {
     display: flex;
 
@@ -82,21 +83,34 @@
   }
 }
 
-.user-card .location-and-website.map-location-enabled {
-  .location,
-  .website-name {
-    display: none;
-  }
+.user-card {
+  .location-and-website.map-location-enabled,
+  .d-user-card__meta-data.map-location-enabled {
+    .location,
+    .website-name {
+      display: none;
+    }
 
-  .replace-location .location,
-  .replace-location .website-name {
-    display: block;
-    overflow: visible;
-    margin-right: 0;
-  }
+    .replace-location .location,
+    .replace-location .website-name {
+      display: block;
+      overflow: visible;
+      margin-right: 0;
+    }
 
-  .locations-map .location .d-icon {
-    margin-right: 0;
+    .locations-map .location .d-icon {
+      margin-right: 0;
+    }
+  }
+}
+
+.d-user-card {
+  overflow: visible;
+  &:has(.d-user-card__meta-data.map-location-enabled) {
+    .d-user-card__location,
+    .d-user-card__website {
+      display: none;
+    }
   }
 }
 

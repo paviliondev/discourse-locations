@@ -54,7 +54,7 @@ acceptance(
       await click('a[data-user-card="merefield"]');
 
       assert.equal(
-        query(".user-card .location-label").innerText,
+        query(".d-user-card .location-label").innerText,
         "London, United Kingdom"
       );
     });
