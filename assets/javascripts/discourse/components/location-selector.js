@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from "jquery";
 import TextField from "discourse/components/text-field";
 import { findRawTemplate } from "discourse-common/lib/raw-templates";
 import { observes } from "discourse-common/utils/decorators";
@@ -91,12 +91,16 @@ export default TextField.extend({
             return geoLocationFormat(l, self.site.country_codes, { geoAttrs });
           } else {
             // hack to get around the split autocomplete performs on strings
-            document.querySelectorAll(".location-form .ac-wrap .item").forEach(element => {
-              element.remove();
-            });
-            document.querySelectorAll(".user-location-selector .ac-wrap .item").forEach(element => {
-              element.remove();
-            });
+            document
+              .querySelectorAll(".location-form .ac-wrap .item")
+              .forEach((element) => {
+                element.remove();
+              });
+            document
+              .querySelectorAll(".user-location-selector .ac-wrap .item")
+              .forEach((element) => {
+                element.remove();
+              });
             return self.element.value;
           }
         },

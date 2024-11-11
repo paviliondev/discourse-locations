@@ -1,6 +1,6 @@
 import Component from "@ember/component";
 import { inject as service } from "@ember/service";
-import $ from 'jquery';
+import $ from "jquery";
 import { default as computed } from "discourse-common/utils/decorators";
 import AddLocationComponent from "../components/modal/add-location";
 import { locationFormat } from "../lib/location-utilities";
@@ -10,7 +10,7 @@ export default Component.extend({
   classNames: ["location-label"],
 
   didInsertElement() {
-this._super(...arguments);
+    this._super(...arguments);
     $(".title-and-category").toggleClass(
       "location-add-no-text",
       this.get("iconOnly")
