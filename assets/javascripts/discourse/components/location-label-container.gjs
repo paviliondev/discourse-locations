@@ -74,7 +74,7 @@ export default class LocationLableContainerComponent extends Component {
       <div class="location-label" title={{i18n "location.label.title"}}>
         {{icon "map-marker-alt"}}
         <span class="location-text">
-          {{locationFormat this.args.topic.location this.opts}}
+          {{locationFormat @topic.location this.opts}}
         </span>
       </div>
 
@@ -89,7 +89,7 @@ export default class LocationLableContainerComponent extends Component {
         </div>
         {{#if this.showMap}}
           <div class="map-component map-container small">
-            <LocationsMap @topic={{this.args.topic}} @mapType="topic" />
+            <LocationsMap @topic={{@topic}} @mapType="topic" />
           </div>
         {{/if}}
       {{/if}}

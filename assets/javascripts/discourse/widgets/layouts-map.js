@@ -1,5 +1,5 @@
-import { createWidget } from "discourse/widgets/widget";
 import Category from "discourse/models/category";
+import { createWidget } from "discourse/widgets/widget";
 
 let layouts;
 let widgetName;

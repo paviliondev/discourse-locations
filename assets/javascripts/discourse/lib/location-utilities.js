@@ -1,6 +1,6 @@
-import { ajax } from "discourse/lib/ajax";
-import { Promise } from "rsvp";
 import { debounce } from "@ember/runloop";
+import { Promise } from "rsvp";
+import { ajax } from "discourse/lib/ajax";
 import I18n from "I18n";
 
 function locationSearch(request, resultsFn) {

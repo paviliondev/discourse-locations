@@ -1,3 +1,5 @@
+import { scheduleOnce } from "@ember/runloop";
+import { withPluginApi } from "discourse/lib/plugin-api";
 import Composer from "discourse/models/composer";
 import NavItem from "discourse/models/nav-item";
 import TopicStatus from "discourse/raw-views/topic-status";
@@ -5,10 +7,8 @@ import {
   default as discourseComputed,
   observes,
 } from "discourse-common/utils/decorators";
-import { withPluginApi } from "discourse/lib/plugin-api";
-import { geoLocationFormat } from "../lib/location-utilities";
-import { scheduleOnce } from "@ember/runloop";
 import I18n from "I18n";
+import { geoLocationFormat } from "../lib/location-utilities";
 
 export default {
   name: "location-edits",
