@@ -3,6 +3,7 @@ import { tracked } from "@glimmer/tracking";
 import { action, computed } from "@ember/object";
 import { inject as service } from "@ember/service";
 import I18n from "I18n";
+import LocationForm from "./location-form";
 
 export default class CustomWizardFieldLocationComponent extends Component {
   @service siteSettings;
@@ -125,4 +126,21 @@ export default class CustomWizardFieldLocationComponent extends Component {
   searchError(error) {
     this.flash = error;
   }
+
+  <template>
+    <LocationForm
+      @street={{this.street}}
+      @neighbourhood={{this.neighbourhood}}
+      @postalcode={{this.postalcode}}
+      @city={{this.city}}
+      @state={{this.state}}
+      @countrycode={{this.countrycode}}
+      @geoLocation={{this.geoLocation}}
+      @rawLocation={{this.rawLocation}}
+      @inputFields={{this.inputFields}}
+      @searchOnInit={{this.searchOnInit}}
+      @setGeoLocation={{this.setGeoLocation}}
+      @searchError={{this.searchError}}
+    />
+  </template>
 }

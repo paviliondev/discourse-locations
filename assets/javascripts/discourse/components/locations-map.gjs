@@ -1,9 +1,15 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { on } from "@ember/modifier";
 import { action, computed } from "@ember/object";
 import { inject as service } from "@ember/service";
+import $ from "jquery";
 import { ajax } from "discourse/lib/ajax";
 import { findOrResetCachedTopicList } from "discourse/lib/cached-topic-list";
+import icon from "discourse-common/helpers/d-icon";
+import i18n from "discourse-common/helpers/i18n";
+import didInsert from "discourse-common/render-modifiers/did-insert";
+import didUpdate from "discourse-common/render-modifiers/did-update";
 import {
   addCircleMarkersToMap,
   addMarkersToMap,
@@ -532,4 +538,109 @@ export default class LocationMapComponent extends Component {
   //   });
   //   contents.push(...extraWidgets);
   // }
+
+  <template>
+    <div
+      {{didInsert this.setup}}
+      {{didUpdate this.setup @category}}
+      id="locations-map"
+      class="locations-map {{if this.expanded 'expanded'}}"
+    >
+      {{#if this.showExpand}}
+        <button
+          class="widget-button btn btn-map map-expand"
+          type="button"
+          {{on "click" this.toggleExpand}}
+        >{{icon this.mapToggle}}</button>
+      {{/if}}
+      <button
+        class="widget-button btn btn-map map-attribution"
+        type="button"
+        {{on "click" this.toggleAttribution}}
+      >{{icon "info"}}</button>
+      {{#if this.showEditButton}}
+        <button
+          class="widget-button btn btn-map category-edit"
+          type="button"
+          {{on "click" this.editCategory}}
+        >{{icon "wrench"}}</button>
+      {{/if}}
+      <div class="map-search">
+        {{#if this.isMultipleLocations}}
+          <input
+            type="text"
+            value={{this.searchFilter}}
+            {{on "input" this.filterLocations}}
+          />
+          <span class="search-filter-type">
+            <span>
+              <label for="name">
+                <input
+                  type="radio"
+                  id="name"
+                  name="filter_type"
+                  value="name"
+                  {{on "input" this.changeFilterType}}
+                  checked="checked"
+                />
+                {{i18n "map.search.name"}}
+              </label>
+            </span>
+            {{#if this.isUserListType}}
+              <span>
+                <label for="username">
+                  <input
+                    type="radio"
+                    id="username"
+                    name="filter_type"
+                    value="username"
+                    {{on "input" this.changeFilterType}}
+                  />
+                  {{i18n "map.search.username"}}
+                </label>
+              </span>
+            {{/if}}
+            {{#if this.isTopicListType}}
+              <span>
+                <label for="address">
+                  <input
+                    type="radio"
+                    id="address"
+                    name="filter_type"
+                    value="address"
+                    {{on "input" this.changeFilterType}}
+                  />
+                  {{i18n "map.search.address"}}
+                </label>
+              </span>
+              <span>
+                <label for="street">
+                  <input
+                    type="radio"
+                    id="street"
+                    name="filter_type"
+                    value="street"
+                    {{on "input" this.changeFilterType}}
+                  />
+                  {{i18n "map.search.street"}}
+                </label>
+              </span>
+              <span>
+                <label for="city">
+                  <input
+                    type="radio"
+                    id="city"
+                    name="filter_type"
+                    value="city"
+                    {{on "input" this.changeFilterType}}
+                  />
+                  {{i18n "map.search.city"}}
+                </label>
+              </span>
+            {{/if}}
+          </span>
+        {{/if}}
+      </div>
+    </div>
+  </template>
 }

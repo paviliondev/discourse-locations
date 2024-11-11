@@ -1,5 +1,6 @@
 import Component from "@ember/component";
 import { inject as service } from "@ember/service";
+import $ from 'jquery';
 import { default as computed } from "discourse-common/utils/decorators";
 import AddLocationComponent from "../components/modal/add-location";
 import { locationFormat } from "../lib/location-utilities";
