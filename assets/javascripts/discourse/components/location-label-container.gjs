@@ -81,7 +81,6 @@ export default class LocationLableContainerComponent extends Component {
       <div class="location-label" title={{i18n "location.label.title"}}>
         {{icon "map-marker-alt"}}
         <span class="location-text">
-          {{log @topic.location}}
           {{locationFormat @topic.location this.opts}}
         </span>
       </div>

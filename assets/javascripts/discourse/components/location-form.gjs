@@ -368,7 +368,7 @@ export default class LocationForm extends Component {
                   />
                 {{else}}
                   <Input
-                    type="text"
+                    @type="text"
                     @value={{this.rawLocation}}
                     class="input-xxlarge input-location"
                   />
