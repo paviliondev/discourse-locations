@@ -77,21 +77,16 @@ export default class AddLocationComponent extends Component {
     let location = {};
 
     const geocodingEnabled = this.siteSettings.location_geocoding !== "none";
-    const inputFieldsEnabled = this.siteSettings.location_input_fields_enabled;
     const inputFields = this.inputFields;
     const hasCoordinates = inputFields.indexOf("coordinates") > -1;
 
-    if (!geocodingEnabled && !inputFieldsEnabled) {
-      location["raw"] = this.rawLocation;
-    }
+    location["raw"] = this.rawLocation;
 
-    if (inputFieldsEnabled) {
-      const nonGeoProps = inputFields.filter((f) => f !== "coordinates");
+    const nonGeoProps = inputFields.filter((f) => f !== "coordinates");
 
-      nonGeoProps.forEach((f) => {
-        location[f] = this[f];
-      });
-    }
+    nonGeoProps.forEach((f) => {
+      location[f] = this[f];
+    });
 
     if (geocodingEnabled || hasCoordinates) {
       const geoLocation = this.geoLocation;
@@ -104,6 +99,8 @@ export default class AddLocationComponent extends Component {
 
     if (name) {
       location["name"] = name;
+    } else if (location["raw"]) {
+      location["name"] = location["raw"];
     }
 
     Object.keys(location).forEach((k) => {

@@ -61,7 +61,7 @@ acceptance(
       await click("#save-location");
       assert.equal(
         query("button.add-location-btn span.d-button-label").innerText,
-        "Royal Liver Building, Water Street, Ropewalks, L3 1EG, Liverpool, United Kingdom"
+        "Royal Liver Building, Water Street, Ropewalks, Liverpool, Liverpool City Region, England, L3 1EG, United Kingdom, Royal Liver Building, Water Street, Ropewalks, L3 1EG, Liverpool, United Kingdom"
       );
     });
 
