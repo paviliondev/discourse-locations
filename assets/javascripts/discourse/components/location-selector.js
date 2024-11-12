@@ -46,6 +46,11 @@ export default TextField.extend({
             self.siteSettings.location_geocoding_debounce
           )
             .then((result) => {
+
+              if (result.error) {
+                throw new Error(result.error);
+              }
+
               const defaultProvider =
                 self.siteSettings.location_geocoding_provider;
               const geoAttrs = self.get("geoAttrs");
