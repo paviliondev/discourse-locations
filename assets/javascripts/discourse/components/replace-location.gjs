@@ -35,9 +35,10 @@ export default class ReplaceLocationComponent extends Component {
       <div class="user-profile-website">
         {{icon "globe"}}
         {{#if this.linkWebsite}}
+        {{! template-lint-disable link-rel-noopener }}
           <a
             href={{@model.website}}
-            rel={{unless this.removeNoFollow "nofollow ugc noopener noreferrer"}}
+            rel={{unless this.removeNoFollow "nofollow ugc noopener"}}
             target="_blank"
           >
             {{@model.website_name}}
