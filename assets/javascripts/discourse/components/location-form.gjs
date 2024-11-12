@@ -9,11 +9,11 @@ import { inject as service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
 import $ from "jquery";
 import { hash } from "rsvp";
-import ComboBox from "discourse/components/combo-box";
 import ConditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
 import { ajax } from "discourse/lib/ajax";
 import i18n from "discourse-common/helpers/i18n";
 import I18n from "I18n";
+import ComboBox from "select-kit/components/combo-box";
 import { geoLocationSearch, providerDetails } from "../lib/location-utilities";
 import GeoLocationResult from "./geo-location-result";
 import LocationSelector from "./location-selector";
@@ -334,8 +334,8 @@ export default class LocationForm extends Component {
                     @nameProperty="name"
                     @content={{this.countrycodes}}
                     @value={{this.formCountrycode}}
-                    @class="input-location country-code"
-                    @onChange={{action (mut this.formCountrycode)}}
+                    class="input-location country-code"
+                    @onChange={{fn (mut this.formCountrycode)}}
                     @options={{hash
                       filterable="true"
                       disabled=this.countryDisabled
@@ -374,7 +374,7 @@ export default class LocationForm extends Component {
             {{#if this.showInputFields}}
               <button
                 class="btn btn-default wizard-btn location-search"
-                onclick={{action "locationSearch"}}
+                onclick={{this.locationSearch}}
                 disabled={{this.searchDisabled}}
                 type="button"
               >
