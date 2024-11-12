@@ -1,13 +1,13 @@
+import { visit } from "@ember/test-helpers";
+import { test } from "qunit";
 import {
   acceptance,
   exists,
   query,
 } from "discourse/tests/helpers/qunit-helpers";
-import { visit } from "@ember/test-helpers";
-import { test } from "qunit";
-import topicListFixtures from "../fixtures/topic-list-with-location";
-import siteFixtures from "../fixtures/site-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
+import siteFixtures from "../fixtures/site-fixtures";
+import topicListFixtures from "../fixtures/topic-list-with-location";
 
 acceptance("Topic List- Show Correct Topic Location Format", function (needs) {
   needs.user();

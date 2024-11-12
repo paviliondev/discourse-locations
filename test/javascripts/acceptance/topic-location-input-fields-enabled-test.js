@@ -1,16 +1,16 @@
+import { click, fillIn, visit } from "@ember/test-helpers";
+import { test } from "qunit";
 import {
   acceptance,
   exists,
   query,
   visible,
 } from "discourse/tests/helpers/qunit-helpers";
-import { click, fillIn, visit } from "@ember/test-helpers";
-import { test } from "qunit";
-import topicFixtures from "../fixtures/topic-fixtures";
-import siteFixtures from "../fixtures/site-fixtures";
-import locationFixtures from "../fixtures/location-fixtures";
-import { cloneJSON } from "discourse-common/lib/object";
 import selectKit from "discourse/tests/helpers/select-kit-helper";
+import { cloneJSON } from "discourse-common/lib/object";
+import locationFixtures from "../fixtures/location-fixtures";
+import siteFixtures from "../fixtures/site-fixtures";
+import topicFixtures from "../fixtures/topic-fixtures";
 
 acceptance(
   "Topic - Show Correct Location after entering location with Input Fields Enabled",
