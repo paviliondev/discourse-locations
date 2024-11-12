@@ -37,7 +37,7 @@ export default class ReplaceLocationComponent extends Component {
         {{#if this.linkWebsite}}
           <a
             href={{@model.website}}
-            rel={{unless this.removeNoFollow "nofollow ugc noopener"}}
+            rel={{unless this.removeNoFollow "nofollow ugc noopener noreferrer"}}
             target="_blank"
           >
             {{@model.website_name}}

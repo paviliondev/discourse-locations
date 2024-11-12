@@ -397,7 +397,6 @@ export default class LocationForm extends Component {
                       <ConditionalLoadingSpinner
                         @condition={{this.loadingLocations}}
                       >
-                        {{log this.geoLocationOptions}}
                         {{#each this.geoLocationOptions as |l|}}
                           <GeoLocationResult
                             @updateGeoLocation={{this.updateGeoLocation}}
@@ -443,7 +442,7 @@ export default class LocationForm extends Component {
                   "onKepyUp"
                   (fn this.updateGeoLocation this.geoLocation true)
                 }}
-                @step="any"
+                step="any"
                 class="input-small input-location lat"
               />
               <div class="icon">
@@ -468,7 +467,7 @@ export default class LocationForm extends Component {
                   "onKepyUp"
                   (fn this.updateGeoLocation this.geoLocation true)
                 }}
-                @step="any"
+                step="any"
                 class="input-small input-location lon"
               />
               <div class="icon">

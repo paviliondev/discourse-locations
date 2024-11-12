@@ -7,7 +7,6 @@ export default class GeoLocationResultComponent extends Component {
   <template>
     <li class="location-form-result {{if @location.selected 'selected'}}">
       <label {{on "click" (fn @updateGeoLocation @location false)}}>
-        {{log @location}}
         {{geoLocationFormat @location @geoAttrs}}
         {{#if this.showType}}
           {{#if @location.type}}
