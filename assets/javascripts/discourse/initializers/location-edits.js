@@ -117,8 +117,12 @@ export default {
         @observes("composer.showLocationControls", "composer.composeState")
         applyLocationInlineClass() {
           const applyClasses = () => {
-            const showLocationControls = this.get("composer.showLocationControls");
-            const containerElement = document.querySelector(".composer-fields .title-and-category");
+            const showLocationControls = this.get(
+              "composer.showLocationControls"
+            );
+            const containerElement = document.querySelector(
+              ".composer-fields .title-and-category"
+            );
 
             // Toggle the "show-location-controls" class based on `showLocationControls`
             if (showLocationControls) {
@@ -133,7 +137,9 @@ export default {
                 : containerElement;
 
               // Move ".composer-controls-location" element to `anchorElement`
-              const locationControl = document.querySelector(".composer-controls-location");
+              const locationControl = document.querySelector(
+                ".composer-controls-location"
+              );
               if (locationControl && anchorElement) {
                 anchorElement.appendChild(locationControl);
               }
@@ -141,8 +147,6 @@ export default {
 
             this._triggerComposerResized();
           };
-
-
 
           scheduleOnce("afterRender", this, applyClasses);
         },

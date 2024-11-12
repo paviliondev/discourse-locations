@@ -34,7 +34,6 @@ let geoLocationSearch = (request, location_geocoding_debounce) => {
   }
 
   return new Promise(function (resolve, reject) {
-
     const handleResults = function (r) {
       if (r.error) {
         reject(r.message);

@@ -46,7 +46,6 @@ export default TextField.extend({
             self.siteSettings.location_geocoding_debounce
           )
             .then((result) => {
-
               if (result.error) {
                 throw new Error(result.error);
               }
