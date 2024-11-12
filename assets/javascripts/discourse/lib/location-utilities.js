@@ -41,7 +41,7 @@ let geoLocationSearch = (request, location_geocoding_debounce) => {
       } else {
         resolve(r);
       }
-    }
+    };
 
     debounce(
       this,
