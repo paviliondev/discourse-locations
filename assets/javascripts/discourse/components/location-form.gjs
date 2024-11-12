@@ -258,7 +258,7 @@ export default class LocationForm extends Component {
                     @type="text"
                     @value={{this.formStreet}}
                     class="input-large input-location"
-                    @disabled={{this.streetDisabled}}
+                    disabled={{this.streetDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.street.desc"}}</div>
@@ -273,7 +273,7 @@ export default class LocationForm extends Component {
                   <Input
                     @value={{this.formNeighbourhood}}
                     class="input-large input-location"
-                    @disabled={{this.neighbourhoodDisabled}}
+                    disabled={{this.neighbourhoodDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n
@@ -291,7 +291,7 @@ export default class LocationForm extends Component {
                     @type="text"
                     @value={{this.formPostalcode}}
                     class="input-small input-location"
-                    @disabled={{this.postalcodeDisabled}}
+                    disabled={{this.postalcodeDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.postalcode.desc"}}</div>
@@ -305,7 +305,7 @@ export default class LocationForm extends Component {
                     @type="text"
                     @value={{this.formCity}}
                     class="input-large input-location"
-                    @disabled={{this.cityDisabled}}
+                    disabled={{this.cityDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.city.desc"}}</div>
@@ -318,7 +318,7 @@ export default class LocationForm extends Component {
                   <Input
                     @value={{@state}}
                     class="input-large input-location"
-                    @disabled={{this.stateDisabled}}
+                    disabled={{this.stateDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.state.desc"}}</div>
