@@ -30,7 +30,6 @@ export default class LocationLableContainerComponent extends Component {
       this.showMap = false;
     }
   };
-
   get mapButtonLabel() {
     return `location.geo.${this.showMap ? "hide" : "show"}_map`;
   }

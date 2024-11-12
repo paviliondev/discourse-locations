@@ -1,6 +1,8 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import willDestroy from "@ember/render-modifiers/modifiers/will-destroy";
 import { inject as service } from "@ember/service";
 import DButton from "discourse/components/d-button";
 import icon from "discourse-common/helpers/d-icon";
@@ -12,6 +14,19 @@ export default class LocationMapComponent extends Component {
   @service site;
   @tracked showMap = false;
 
+  outsideClick = (e) => {
+    if (
+      !this.isDestroying &&
+      !(
+        e.target.closest(".map-expand") ||
+        e.target.closest(".map-attribution") ||
+        e.target.closest(".user-location-widget") ||
+        e.target.closest("#locations-map")
+      )
+    ) {
+      this.showMap = false;
+    }
+  };
   get mapButtonLabel() {
     return `location.geo.${this.showMap ? "hide" : "show"}_map`;
   }
@@ -45,12 +60,26 @@ export default class LocationMapComponent extends Component {
   }
 
   @action
+  bindClick() {
+    document.addEventListener("click", this.outsideClick);
+  }
+
+  @action
+  unbindClick() {
+    document.removeEventListener("click", this.outsideClick);
+  }
+
+  @action
   toggleMap() {
     this.showMap = !this.showMap;
   }
 
   <template>
-    <div class="user-location-widget">
+    <div
+      {{didInsert this.bindClick}}
+      {{willDestroy this.unbindClick}}
+      class="user-location-widget"
+    >
       {{icon "map-marker-alt"}}
       <div class="location-label">
         {{this.userLocation}}
