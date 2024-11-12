@@ -1,3 +1,5 @@
+import { scheduleOnce } from "@ember/runloop";
+import { withPluginApi } from "discourse/lib/plugin-api";
 import Composer from "discourse/models/composer";
 import NavItem from "discourse/models/nav-item";
 import TopicStatus from "discourse/raw-views/topic-status";
@@ -5,10 +7,8 @@ import {
   default as discourseComputed,
   observes,
 } from "discourse-common/utils/decorators";
-import { withPluginApi } from "discourse/lib/plugin-api";
-import { geoLocationFormat } from "../lib/location-utilities";
-import { scheduleOnce } from "@ember/runloop";
 import I18n from "I18n";
+import { geoLocationFormat } from "../lib/location-utilities";
 
 export default {
   name: "location-edits",
@@ -116,26 +116,39 @@ export default {
 
         @observes("composer.showLocationControls", "composer.composeState")
         applyLocationInlineClass() {
-          scheduleOnce("afterRender", this, () => {
+          const applyClasses = () => {
             const showLocationControls = this.get(
               "composer.showLocationControls"
             );
-            const $container = $(".composer-fields .title-and-category");
-
-            $container.toggleClass(
-              "show-location-controls",
-              showLocationControls
+            const containerElement = document.querySelector(
+              ".composer-fields .title-and-category"
             );
 
+            // Toggle the "show-location-controls" class based on `showLocationControls`
             if (showLocationControls) {
-              const $anchor = this.site.mobileView
-                ? $container.find(".title-input")
-                : $container;
-              $(".composer-controls-location").appendTo($anchor);
+              containerElement.classList.add("show-location-controls");
+            } else {
+              containerElement.classList.remove("show-location-controls");
+            }
+
+            if (showLocationControls) {
+              const anchorElement = this.site.mobileView
+                ? containerElement.querySelector(".title-input")
+                : containerElement;
+
+              // Move ".composer-controls-location" element to `anchorElement`
+              const locationControl = document.querySelector(
+                ".composer-controls-location"
+              );
+              if (locationControl && anchorElement) {
+                anchorElement.appendChild(locationControl);
+              }
             }
 
             this._triggerComposerResized();
-          });
+          };
+
+          scheduleOnce("afterRender", this, applyClasses);
         },
       });
 

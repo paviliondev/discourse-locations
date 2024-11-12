@@ -1,5 +1,6 @@
 /* global L */
 
+import $ from "jquery";
 import { emojiUnescape } from "discourse/lib/text";
 import DiscourseURL from "discourse/lib/url";
 import getURL from "discourse-common/lib/get-url";

@@ -1,15 +1,13 @@
-import { default as computed } from "discourse-common/utils/decorators";
 import Component from "@glimmer/component";
-import { action } from "@ember/object";
-import { bind } from "@ember/runloop";
-import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import DButton from "discourse/components/d-button";
-import icon from "discourse-common/helpers/d-icon";
-import locationFormat from "../helpers/location-format";
-import i18n from "discourse-common/helpers/i18n";
+import { action } from "@ember/object";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import willDestroy from "@ember/render-modifiers/modifiers/will-destroy";
+import { inject as service } from "@ember/service";
+import DButton from "discourse/components/d-button";
+import icon from "discourse-common/helpers/d-icon";
+import i18n from "discourse-common/helpers/i18n";
+import locationFormat from "../helpers/location-format";
 import LocationsMap from "./locations-map";
 
 export default class LocationLableContainerComponent extends Component {
@@ -19,8 +17,21 @@ export default class LocationLableContainerComponent extends Component {
   @tracked geoAttrs = [];
   @tracked showMap = false;
 
+  outsideClick = (e) => {
+    if (
+      !this.isDestroying &&
+      !(
+        e.target.closest(".map-expand") ||
+        e.target.closest(".map-attribution") ||
+        e.target.closest(".location-topic-map") ||
+        e.target.closest("#locations-map")
+      )
+    ) {
+      this.showMap = false;
+    }
+  };
   get mapButtonLabel() {
-    return `location.geo.${this.showMap ? "hide" : "show"}_map`
+    return `location.geo.${this.showMap ? "hide" : "show"}_map`;
   }
 
   get showMapButtonLabel() {
@@ -28,7 +39,10 @@ export default class LocationLableContainerComponent extends Component {
   }
 
   get showMapToggle() {
-    return this.args.topic.location.geo_location && this.siteSettings.location_topic_map;
+    return (
+      this.args.topic.location.geo_location &&
+      this.siteSettings.location_topic_map
+    );
   }
 
   get opts() {
@@ -44,39 +58,29 @@ export default class LocationLableContainerComponent extends Component {
 
   @action
   bindClick() {
-    $(document).on("click", bind(this, this.outsideClick));
+    document.addEventListener("click", this.outsideClick);
   }
 
   @action
   unbindClick() {
-    $(document).off("click", bind(this, this.outsideClick));
-  }
-
-  outsideClick = (e) => {
-    if (
-      !this.isDestroying &&
-      !(
-        $(e.target).closest(".map-expand").length ||
-        $(e.target).closest(".map-attribution").length ||
-        $(e.target).closest(".location-topic-map").length ||
-        $(e.target).closest("#locations-map").length
-      )
-    ) {
-      this.showMap = false;
-    }
+    document.removeEventListener("click", this.outsideClick);
   }
 
   @action
   toggleMap() {
     this.showMap = !this.showMap;
   }
-  
+
   <template>
-    <div {{didInsert this.bindClick}} {{willDestroy this.unbindClick}} class="location-label-container">
+    <div
+      {{didInsert this.bindClick}}
+      {{willDestroy this.unbindClick}}
+      class="location-label-container"
+    >
       <div class="location-label" title={{i18n "location.label.title"}}>
         {{icon "map-marker-alt"}}
         <span class="location-text">
-          {{locationFormat this.args.topic.location this.opts}}
+          {{locationFormat @topic.location this.opts}}
         </span>
       </div>
 
@@ -91,10 +95,10 @@ export default class LocationLableContainerComponent extends Component {
         </div>
         {{#if this.showMap}}
           <div class="map-component map-container small">
-            <LocationsMap @topic={{this.args.topic}} @mapType="topic" />
+            <LocationsMap @topic={{@topic}} @mapType="topic" />
           </div>
         {{/if}}
       {{/if}}
     </div>
   </template>
-};
+}

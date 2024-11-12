@@ -1,8 +1,8 @@
-import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
 import { click, visit } from "@ember/test-helpers";
 import { test } from "qunit";
-import siteFixtures from "../fixtures/site-fixtures";
+import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
 import { cloneJSON } from "discourse-common/lib/object";
+import siteFixtures from "../fixtures/site-fixtures";
 
 acceptance(
   "Composer (locations) | don't show default location as user location when behaviour set",

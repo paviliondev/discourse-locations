@@ -1,9 +1,9 @@
-import { acceptance, exists } from "discourse/tests/helpers/qunit-helpers";
 import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
-import mapFixtures from "../fixtures/map-fixtures";
-import altSiteFixtures from "../fixtures/alt-site-fixtures";
+import { acceptance, exists } from "discourse/tests/helpers/qunit-helpers";
 import { cloneJSON } from "discourse-common/lib/object";
+import altSiteFixtures from "../fixtures/alt-site-fixtures";
+import mapFixtures from "../fixtures/map-fixtures";
 
 // TODO This currently won't work because qunit does not currently see the L global variable for Leaflet.  Rename file once resolved.
 

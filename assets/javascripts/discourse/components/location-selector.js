@@ -1,11 +1,12 @@
+import $ from "jquery";
+import TextField from "discourse/components/text-field";
+import { findRawTemplate } from "discourse-common/lib/raw-templates";
+import { observes } from "discourse-common/utils/decorators";
 import {
   geoLocationFormat,
   geoLocationSearch,
   providerDetails,
 } from "../lib/location-utilities";
-import { observes } from "discourse-common/utils/decorators";
-import TextField from "discourse/components/text-field";
-import { findRawTemplate } from "discourse-common/lib/raw-templates";
 
 export default TextField.extend({
   autocorrect: false,
@@ -45,6 +46,10 @@ export default TextField.extend({
             self.siteSettings.location_geocoding_debounce
           )
             .then((result) => {
+              if (result.error) {
+                throw new Error(result.error);
+              }
+
               const defaultProvider =
                 self.siteSettings.location_geocoding_provider;
               const geoAttrs = self.get("geoAttrs");
@@ -90,9 +95,17 @@ export default TextField.extend({
             return geoLocationFormat(l, self.site.country_codes, { geoAttrs });
           } else {
             // hack to get around the split autocomplete performs on strings
-            $(".location-form .ac-wrap .item").remove();
-            $(".user-location-selector .ac-wrap .item").remove();
-            return $(self.element).val();
+            document
+              .querySelectorAll(".location-form .ac-wrap .item")
+              .forEach((element) => {
+                element.remove();
+              });
+            document
+              .querySelectorAll(".user-location-selector .ac-wrap .item")
+              .forEach((element) => {
+                element.remove();
+              });
+            return self.element.value;
           }
         },
 
@@ -107,14 +120,15 @@ export default TextField.extend({
   @observes("loading")
   showLoadingSpinner() {
     const loading = this.get("loading");
-    const $wrap = $(this.element).parent();
-    const $spinner = $(
-      "<span class='ac-loading'><div class='spinner small'/></span>"
-    );
+    const wrap = this.element.parentNode;
+    const spinner = document.createElement("span");
+    spinner.className = "ac-loading";
+    spinner.innerHTML = "<div class='spinner small'></div>";
     if (loading) {
-      $spinner.prependTo($wrap);
+      wrap.insertBefore(spinner, wrap.firstChild);
     } else {
-      $(".ac-loading").remove();
+      const existingSpinner = wrap.querySelectorAll(".ac-loading");
+      existingSpinner.forEach((el) => el.remove());
     }
   },
 
