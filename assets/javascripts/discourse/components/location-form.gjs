@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { A } from "@ember/array";
+import { Input } from "@ember/component";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
 import { action, set } from "@ember/object";
@@ -253,11 +254,11 @@ export default class LocationForm extends Component {
                     "location.street.title"
                   }}</label>
                 <div class="controls">
-                  <input
-                    type="text"
-                    value={{this.formStreet}}
+                  <Input
+                    @type="text"
+                    @value={{this.formStreet}}
                     class="input-large input-location"
-                    disabled={{this.streetDisabled}}
+                    @disabled={{this.streetDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.street.desc"}}</div>
@@ -269,10 +270,10 @@ export default class LocationForm extends Component {
                     "location.neighbourhood.title"
                   }}</label>
                 <div class="controls">
-                  <input
-                    value={{this.formNeighbourhood}}
+                  <Input
+                    @value={{this.formNeighbourhood}}
                     class="input-large input-location"
-                    disabled={{this.neighbourhoodDisabled}}
+                    @disabled={{this.neighbourhoodDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n
@@ -286,11 +287,11 @@ export default class LocationForm extends Component {
                     "location.postalcode.title"
                   }}</label>
                 <div class="controls">
-                  <input
-                    type="text"
-                    value={{this.formPostalcode}}
+                  <Input
+                    @type="text"
+                    @value={{this.formPostalcode}}
                     class="input-small input-location"
-                    disabled={{this.postalcodeDisabled}}
+                    @disabled={{this.postalcodeDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.postalcode.desc"}}</div>
@@ -300,11 +301,11 @@ export default class LocationForm extends Component {
               <div class="control-group">
                 <label class="control-label">{{i18n "location.city.title"}}</label>
                 <div class="controls">
-                  <input
-                    type="text"
-                    value={{this.formCity}}
+                  <Input
+                    @type="text"
+                    @value={{this.formCity}}
                     class="input-large input-location"
-                    disabled={{this.cityDisabled}}
+                    @disabled={{this.cityDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.city.desc"}}</div>
@@ -314,10 +315,10 @@ export default class LocationForm extends Component {
               <div class="control-group">
                 <label class="control-label">{{i18n "location.state.title"}}</label>
                 <div class="controls">
-                  <input
-                    value={{@state}}
+                  <Input
+                    @value={{@state}}
                     class="input-large input-location"
-                    disabled={{this.stateDisabled}}
+                    @disabled={{this.stateDisabled}}
                   />
                 </div>
                 <div class="instructions">{{i18n "location.state.desc"}}</div>
@@ -358,9 +359,9 @@ export default class LocationForm extends Component {
                     @context={{this.context}}
                   />
                 {{else}}
-                  <input
-                    type="text"
-                    value={{this.rawLocation}}
+                  <Input
+                    @type="text"
+                    @value={{this.rawLocation}}
                     class="input-xxlarge input-location"
                   />
                 {{/if}}
@@ -386,6 +387,7 @@ export default class LocationForm extends Component {
                   <ul>
                     {{#if this.hasSearched}}
                       <ConditionalLoadingSpinner @condition={{this.loadingLocations}}>
+                        {{log this.geoLocationOptions}}
                         {{#each this.geoLocationOptions as |l|}}
                           <GeoLocationResult
                             @updateGeoLocation={{this.updateGeoLocation}}
@@ -420,12 +422,12 @@ export default class LocationForm extends Component {
           <div class="control-group">
             <label class="control-label">{{i18n "location.lat.title"}}</label>
             <div class="controls">
-              <input
-                type="number"
-                value={{this.formLatitude}}
+              <Input
+                @type="number"
+                @value={{this.formLatitude}}
                 {{on "change" (fn this.updateGeoLocation this.geoLocation true)}}
                 {{on "onKepyUp" (fn this.updateGeoLocation this.geoLocation true)}}
-                step="any"
+                @step="any"
                 class="input-small input-location lat"
               />
               <div class="icon">
@@ -439,12 +441,12 @@ export default class LocationForm extends Component {
           <div class="control-group">
             <label class="control-label">{{i18n "location.lon.title"}}</label>
             <div class="controls">
-              <input
-                type="number"
-                value={{this.formLongitude}}
+              <Input
+                @type="number"
+                @value={{this.formLongitude}}
                 {{on "change" (fn this.updateGeoLocation this.geoLocation true)}}
                 {{on "onKepyUp" (fn this.updateGeoLocation this.geoLocation true)}}
-                step="any"
+                @step="any"
                 class="input-small input-location lon"
               />
               <div class="icon">
