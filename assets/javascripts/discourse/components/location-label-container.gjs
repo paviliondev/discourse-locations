@@ -40,7 +40,10 @@ export default class LocationLableContainerComponent extends Component {
   }
 
   get showMapToggle() {
-    return this.args.topic.location.geo_location && this.siteSettings.location_topic_map;
+    return (
+      this.args.topic.location.geo_location &&
+      this.siteSettings.location_topic_map
+    );
   }
 
   get opts() {
@@ -70,7 +73,11 @@ export default class LocationLableContainerComponent extends Component {
   }
 
   <template>
-    <div {{didInsert this.bindClick}} {{willDestroy this.unbindClick}} class="location-label-container">
+    <div
+      {{didInsert this.bindClick}}
+      {{willDestroy this.unbindClick}}
+      class="location-label-container"
+    >
       <div class="location-label" title={{i18n "location.label.title"}}>
         {{icon "map-marker-alt"}}
         <span class="location-text">

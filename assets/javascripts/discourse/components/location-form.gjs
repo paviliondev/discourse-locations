@@ -294,12 +294,16 @@ export default class LocationForm extends Component {
                     disabled={{this.postalcodeDisabled}}
                   />
                 </div>
-                <div class="instructions">{{i18n "location.postalcode.desc"}}</div>
+                <div class="instructions">{{i18n
+                    "location.postalcode.desc"
+                  }}</div>
               </div>
             {{/if}}
             {{#if this.showCity}}
               <div class="control-group">
-                <label class="control-label">{{i18n "location.city.title"}}</label>
+                <label class="control-label">{{i18n
+                    "location.city.title"
+                  }}</label>
                 <div class="controls">
                   <Input
                     @type="text"
@@ -313,7 +317,9 @@ export default class LocationForm extends Component {
             {{/if}}
             {{#if this.showState}}
               <div class="control-group">
-                <label class="control-label">{{i18n "location.state.title"}}</label>
+                <label class="control-label">{{i18n
+                    "location.state.title"
+                  }}</label>
                 <div class="controls">
                   <Input
                     @value={{@state}}
@@ -348,7 +354,9 @@ export default class LocationForm extends Component {
             {{/if}}
           {{else}}
             <div class="control-group">
-              <label class="control-label">{{i18n "location.query.title"}}</label>
+              <label class="control-label">{{i18n
+                  "location.query.title"
+                }}</label>
               <div class="controls location-selector-container">
                 {{#if this.showGeoLocation}}
                   <LocationSelector
@@ -386,7 +394,9 @@ export default class LocationForm extends Component {
                   <h4>{{i18n "location.geo.results"}}</h4>
                   <ul>
                     {{#if this.hasSearched}}
-                      <ConditionalLoadingSpinner @condition={{this.loadingLocations}}>
+                      <ConditionalLoadingSpinner
+                        @condition={{this.loadingLocations}}
+                      >
                         {{log this.geoLocationOptions}}
                         {{#each this.geoLocationOptions as |l|}}
                           <GeoLocationResult
@@ -425,8 +435,14 @@ export default class LocationForm extends Component {
               <Input
                 @type="number"
                 @value={{this.formLatitude}}
-                {{on "change" (fn this.updateGeoLocation this.geoLocation true)}}
-                {{on "onKepyUp" (fn this.updateGeoLocation this.geoLocation true)}}
+                {{on
+                  "change"
+                  (fn this.updateGeoLocation this.geoLocation true)
+                }}
+                {{on
+                  "onKepyUp"
+                  (fn this.updateGeoLocation this.geoLocation true)
+                }}
                 @step="any"
                 class="input-small input-location lat"
               />
@@ -444,8 +460,14 @@ export default class LocationForm extends Component {
               <Input
                 @type="number"
                 @value={{this.formLongitude}}
-                {{on "change" (fn this.updateGeoLocation this.geoLocation true)}}
-                {{on "onKepyUp" (fn this.updateGeoLocation this.geoLocation true)}}
+                {{on
+                  "change"
+                  (fn this.updateGeoLocation this.geoLocation true)
+                }}
+                {{on
+                  "onKepyUp"
+                  (fn this.updateGeoLocation this.geoLocation true)
+                }}
                 @step="any"
                 class="input-small input-location lon"
               />
