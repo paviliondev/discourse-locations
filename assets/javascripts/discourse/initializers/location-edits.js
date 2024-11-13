@@ -124,28 +124,30 @@ export default {
               ".composer-fields .title-and-category"
             );
 
-            // Toggle the "show-location-controls" class based on `showLocationControls`
-            if (showLocationControls) {
-              containerElement.classList.add("show-location-controls");
-            } else {
-              containerElement.classList.remove("show-location-controls");
-            }
-
-            if (showLocationControls) {
-              const anchorElement = this.site.mobileView
-                ? containerElement.querySelector(".title-input")
-                : containerElement;
-
-              // Move ".composer-controls-location" element to `anchorElement`
-              const locationControl = document.querySelector(
-                ".composer-controls-location"
-              );
-              if (locationControl && anchorElement) {
-                anchorElement.appendChild(locationControl);
+            if (containerElement) {
+              // Toggle the "show-location-controls" class based on `showLocationControls`
+              if (showLocationControls) {
+                containerElement.classList.add("show-location-controls");
+              } else {
+                containerElement.classList.remove("show-location-controls");
               }
-            }
 
-            this._triggerComposerResized();
+              if (showLocationControls) {
+                const anchorElement = this.site.mobileView
+                  ? containerElement.querySelector(".title-input")
+                  : containerElement;
+
+                // Move ".composer-controls-location" element to `anchorElement`
+                const locationControl = document.querySelector(
+                  ".composer-controls-location"
+                );
+                if (locationControl && anchorElement) {
+                  anchorElement.appendChild(locationControl);
+                }
+              }
+
+              this._triggerComposerResized();
+            }
           };
 
           scheduleOnce("afterRender", this, applyClasses);
