@@ -99,8 +99,6 @@ export default class AddLocationComponent extends Component {
 
     if (name) {
       location["name"] = name;
-    } else if (location["raw"]) {
-      location["name"] = location["raw"];
     }
 
     Object.keys(location).forEach((k) => {
