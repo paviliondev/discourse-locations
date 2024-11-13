@@ -228,9 +228,9 @@ export default class LocationForm extends Component {
 
         this.geoLocationOptions.setObjects(result.locations);
 
-        if (this.geoLocation) {
-          this.updateGeoLocation(this.geoLocation);
-        }
+        // if (this.geoLocation) {
+        //   this.updateGeoLocation(this.geoLocation);
+        // }
 
         this.loadingLocations = false;
       })

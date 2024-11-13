@@ -49,6 +49,7 @@ acceptance(
 
       await fillIn(".input-large:first-child", "liver building");
       await click("button.location-search");
+      assert.equal(query(".input-large:first-child").value, "liver building");
       await click("li.location-form-result:first-child label");
       assert.equal(
         query(
