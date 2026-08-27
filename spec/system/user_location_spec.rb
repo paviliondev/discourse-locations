@@ -12,6 +12,7 @@ RSpec.describe "User can manage their location" do
   let(:location_selector) do
     PageObjects::Components::LocationSelector.new ".location-selector-wrapper"
   end
+  let(:post_location) { PageObjects::Components::PostLocation.new(post) }
   fab!(:address_string) do
     "Hope Street, Canning / Georgian Quarter, Toxteth, Liverpool, Liverpool City Region, England, L1 9BW, United Kingdom"
   end
@@ -71,6 +72,21 @@ RSpec.describe "User can manage their location" do
       user_preferences_profile_page.save
       page.refresh
       expect(location_selector).to have_no_selected_locations
+    end
+
+    it "keeps the post location readable beside the avatar on narrow screens" do
+      SiteSetting.location_user_country_flag = true
+      SiteSetting.location_user_post_format = "countrycode"
+      page.current_window.resize_to(160, 800)
+
+      topic_page.visit_topic(topic)
+      expect(post_location).to have_location("United Kingdom")
+
+      bounds = post_location.bounds
+      expect(bounds[:location][:x]).to be >=
+        bounds[:avatar][:x] + bounds[:avatar][:width]
+      expect(bounds[:flag][:x] + bounds[:flag][:width]).to be <=
+        bounds[:summary][:x] + bounds[:summary][:width]
     end
   end
 end

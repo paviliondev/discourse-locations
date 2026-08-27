@@ -144,7 +144,9 @@
     align-items: center;
 
     .user-location {
+      min-width: 0;
       padding: 0 11px 0 11px;
+      overflow-wrap: anywhere;
     }
 
     .location-flag {
