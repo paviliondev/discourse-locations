@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-# rubocop:disable RSpec/DescribeClass
 RSpec.describe "User can manage their location" do
   fab!(:user)
   fab!(:topic) { Fabricate(:topic, user: user) }
@@ -91,4 +90,3 @@ RSpec.describe "User can manage their location" do
     end
   end
 end
-# rubocop:enable RSpec/DescribeClass
