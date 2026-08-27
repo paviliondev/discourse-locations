@@ -9,17 +9,21 @@ module PageObjects
 
       def bounds
         {
-          avatar: find("#{@post_selector} .topic-avatar").native.bounding_box,
-          summary:
-            find("#{@post_selector} .location-summary").native.bounding_box,
-          location:
-            find("#{@post_selector} .user-location").native.bounding_box,
-          flag: find("#{@post_selector} .location-flag").native.bounding_box
+          avatar: element_bounds(".topic-avatar"),
+          summary: element_bounds(".location-summary"),
+          location: element_bounds(".user-location"),
+          flag: element_bounds(".location-flag")
         }
       end
 
       def has_location?(text)
         has_css?("#{@post_selector} .user-location", text:)
+      end
+
+      private
+
+      def element_bounds(selector)
+        find("#{@post_selector} #{selector}").rect.transform_keys(&:to_sym)
       end
     end
   end

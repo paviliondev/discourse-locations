@@ -83,10 +83,10 @@ RSpec.describe "User can manage their location" do
       expect(post_location).to have_location("United Kingdom")
 
       bounds = post_location.bounds
-      expect(bounds[:location]["x"]).to be >=
-        bounds[:avatar]["x"] + bounds[:avatar]["width"]
-      expect(bounds[:flag]["x"] + bounds[:flag]["width"]).to be <=
-        bounds[:summary]["x"] + bounds[:summary]["width"]
+      expect(bounds[:location][:x]).to be >=
+        bounds[:avatar][:x] + bounds[:avatar][:width]
+      expect(bounds[:flag][:x] + bounds[:flag][:width]).to be <=
+        bounds[:summary][:x] + bounds[:summary][:width]
     end
   end
 end
